@@ -465,11 +465,11 @@ class Asset
 
 			case 'jqueryui' :
 
-				$this->load( 'jquery-ui/ui/minified/jquery-ui.min.js',								'NAILS-BOWER' );
-				$this->load( 'jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js',	'NAILS-BOWER' );
-				$this->load( 'jquery-ui/themes/base/minified/jquery-ui.min.css',					'NAILS-BOWER' );
-				$this->load( 'jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.css',		'NAILS-BOWER' );
+				$this->load( 'jquery-ui/jquery-ui.min.js',											'NAILS-BOWER' );
+				$this->load( 'jquery-ui/themes/smoothness/jquery-ui.min.css',						'NAILS-BOWER' );
 				$this->load( 'jquery.ui.extra.css',													'NAILS' );
+				$this->load( 'jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js',	'NAILS-BOWER' );
+				$this->load( 'jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.css',		'NAILS-BOWER' );
 
 			break;
 
