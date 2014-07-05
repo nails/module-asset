@@ -10,20 +10,11 @@
 class Asset
 {
 
-	private $CI;
-	private $unload_assets;
-
-	private $css				= array();
-	private $css_bower			= array();
-	private $css_nails			= array();
-	private $css_nails_bower	= array();
-	private $css_inline			= array();
-
-	private $js					= array();
-	private $js_bower			= array();
-	private $js_nails			= array();
-	private $js_nails_bower		= array();
-	private $js_inline			= array();
+	protected $CI;
+	protected $_css;
+	protected $_css_inline;
+	protected $_js;
+	protected $_js_inline;
 
 
 	// --------------------------------------------------------------------------
@@ -38,7 +29,11 @@ class Asset
 	 **/
 	public function __construct()
 	{
-		$this->CI =& get_instance();
+		$this->CI			=& get_instance();
+		$this->_css			= array();
+		$this->_css_inline	= array();
+		$this->_js			= array();
+		$this->_js_inline	= array();
 	}
 
 
@@ -54,83 +49,27 @@ class Asset
  	 * @param	boolean
 	 * @return	void
 	 **/
-	public function load( $assets, $nails_asset = FALSE, $force_type = FALSE )
+	public function load( $assets, $asset_type = 'APP', $force_type = NULL )
 	{
 		$assets = ! is_array( $assets ) && ! is_object( $assets ) ? array( $assets ) : $assets ;
 
 		// --------------------------------------------------------------------------
 
-		if ( $nails_asset === TRUE ) :
+		$asset_type = $asset_type === TRUE ? 'NAILS' : $asset_type;
 
-			$this->_load_nails( $assets );
+		// --------------------------------------------------------------------------
 
-		elseif ( strtoupper( $nails_asset ) === 'BOWER' ) :
+		switch ( strtoupper( $asset_type ) ) :
 
-			$this->_load_nails_bower( $assets );
+			case 'NAILS' :			$this->_load_nails( $assets, $force_type );				break;
+			case 'NAILS-BOWER' :
+			case 'BOWER' :			$this->_load_nails_bower( $assets, $force_type );		break;
+			case 'NAILS-PACKAGE' :	$this->_load_nails_package( $assets, $force_type );		break;
+			case 'APP-BOWER' :		$this->_load_app_bower( $assets, $force_type );			break;
+			case 'APP' :
+			default :				$this->_load_app( $assets, $force_type );				break;
 
-		elseif ( strtoupper( $nails_asset ) === 'APP-BOWER' ) :
-
-			$this->_load_app_bower( $assets );
-
-		else :
-
-			$this->_load_app( $assets );
-
-		endif;
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Load an app asset
-	 *
- 	 * @access	private
-	 * @param array $assets An array of assets to load
-	 * @return void
-	 **/
-	private function _load_app( $assets )
-	{
-		foreach ( $assets AS $asset ) :
-
-			$_type = $this->_determine_type( $asset );
-
-			switch ( $_type ) :
-
-				case 'CSS' :	$this->css[$asset]	= $asset;	break;
-				case 'JS' :		$this->js[$asset]	= $asset;	break;
-
-			endswitch;
-
-		endforeach;
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Load an App bower asset
-	 *
-	 * @access	private
-	 * @param array $assets An array of assets to load
-	 * @return void
-	 **/
-	private function _load_app_bower( $assets )
-	{
-		foreach ( $assets AS $asset ) :
-
-			$_type = $this->_determine_type( $asset );
-
-			switch ( $_type ) :
-
-				case 'CSS' :	$this->css_bower[$asset]	= $asset;	break;
-				case 'JS' :		$this->js_bower[$asset]		= $asset;	break;
-
-			endswitch;
-
-		endforeach;
+		endswitch;
 	}
 
 
@@ -140,20 +79,20 @@ class Asset
 	/**
 	 * Load a Nails asset
 	 *
- 	 * @access	private
+ 	 * @access	protected
 	 * @param array $assets An array of assets to load
 	 * @return void
 	 **/
-	private function _load_nails( $assets )
+	protected function _load_nails( $assets, $force_type = NULL )
 	{
 		foreach ( $assets AS $asset ) :
 
-			$_type = $this->_determine_type( $asset );
+			$_type = $this->_determine_type( $asset, $force_type );
 
 			switch ( $_type ) :
 
-				case 'CSS' :	$this->css_nails[$asset]	= $asset;	break;
-				case 'JS' :		$this->js_nails[$asset]		= $asset;	break;
+				case 'CSS' :	$this->_css['NAILS-' . $asset]	= NAILS_ASSETS_URL . 'css/' . $asset;	break;
+				case 'JS' :		$this->_js['NAILS-' . $asset]	= NAILS_ASSETS_URL . 'js/' . $asset;	break;
 
 			endswitch;
 
@@ -167,24 +106,337 @@ class Asset
 	/**
 	 * Load a Nails bower asset
 	 *
-	 * @access	private
+	 * @access	protected
 	 * @param array $assets An array of assets to load
 	 * @return void
 	 **/
-	private function _load_nails_bower( $assets )
+	protected function _load_nails_bower( $assets, $force_type = NULL )
 	{
 		foreach ( $assets AS $asset ) :
 
-			$_type = $this->_determine_type( $asset );
+			$_type = $this->_determine_type( $asset, $force_type );
 
 			switch ( $_type ) :
 
-				case 'CSS' :	$this->css_nails_bower[$asset]	= $asset;	break;
-				case 'JS' :		$this->js_nails_bower[$asset]	= $asset;	break;
+				case 'CSS' :	$this->_css['NAILS-BOWER-' . $asset]	= NAILS_ASSETS_URL . 'bower_components/' . $asset;	break;
+				case 'JS' :		$this->_js['NAILS-BOWER-' . $asset]		= NAILS_ASSETS_URL . 'bower_components/' . $asset;	break;
 
 			endswitch;
 
 		endforeach;
+	}
+
+
+	// --------------------------------------------------------------------------
+
+
+	/**
+	 * Load a Nails package asset
+	 *
+	 * @access	protected
+	 * @param array $assets An array of assets to load
+	 * @return void
+	 **/
+	protected function _load_nails_package( $assets, $force_type = NULL )
+	{
+		foreach ( $assets AS $asset ) :
+
+			$_type = $this->_determine_type( $asset, $force_type );
+
+			switch ( $_type ) :
+
+				case 'CSS' :	$this->_css['APP-' . $asset]	= NAILS_ASSETS_URL . 'packages/' . $asset;	break;
+				case 'JS' :		$this->_js['APP-' . $asset]		= NAILS_ASSETS_URL . 'packages/' . $asset;	break;
+
+			endswitch;
+
+		endforeach;
+	}
+
+
+	// --------------------------------------------------------------------------
+
+
+	/**
+	 * Load an App bower asset
+	 *
+	 * @access	protected
+	 * @param array $assets An array of assets to load
+	 * @return void
+	 **/
+	protected function _load_app_bower( $assets, $force_type = NULL )
+	{
+		foreach ( $assets AS $asset ) :
+
+			$_type = $this->_determine_type( $asset, $force_type );
+
+			switch ( $_type ) :
+
+				case 'CSS' :	$this->_css['APP-BOWER-' . $asset]	= 'assets/bower_components/' . $asset;	break;
+				case 'JS' :		$this->_js['APP-BOWER-' . $asset]	= 'assets/bower_components/' . $asset;	break;
+
+			endswitch;
+
+		endforeach;
+	}
+
+
+	// --------------------------------------------------------------------------
+
+
+	/**
+	 * Load an app asset
+	 *
+ 	 * @access	protected
+	 * @param array $assets An array of assets to load
+	 * @return void
+	 **/
+	protected function _load_app( $assets, $force_type = NULL )
+	{
+		foreach ( $assets AS $asset ) :
+
+			$_type = $this->_determine_type( $asset, $force_type );
+
+			switch ( $_type ) :
+
+				case 'CSS' :	$this->_css['APP-' . $asset]	= site_url( 'assets/css/' . $asset );	break;
+				case 'JS' :		$this->_js['APP-' . $asset]		= site_url( 'assets/js/' . $asset );	break;
+
+			endswitch;
+
+		endforeach;
+	}
+
+
+	// --------------------------------------------------------------------------
+
+
+	/**
+	 * Mark an asset for unloading
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	void
+	 **/
+	public function unload( $assets, $asset_type = 'APP', $force_type = NULL )
+	{
+		$assets = ! is_array( $assets ) && ! is_object( $assets ) ? array( $assets ) : $assets ;
+
+		// --------------------------------------------------------------------------
+
+		switch ( strtoupper( $asset_type ) ) :
+
+			case TRUE :
+			case 'NAILS' :			$this->_unload_nails( $assets, $force_type );			break;
+			case 'NAILS-BOWER' :
+			case 'BOWER' :			$this->_unload_nails_bower( $assets, $force_type );		break;
+			case 'NAILS-PACKAGE' :	$this->_unload_nails_package( $assets, $force_type );	break;
+			case 'APP-BOWER' :		$this->_unload_app_bower( $assets, $force_type );		break;
+			case 'APP' :
+			default :				$this->_unload_app( $assets, $force_type );				break;
+
+		endswitch;
+	}
+
+
+	// --------------------------------------------------------------------------
+
+
+	/**
+	 * Load a Nails asset
+	 *
+ 	 * @access	protected
+	 * @param array $assets An array of assets to load
+	 * @return void
+	 **/
+	protected function _unload_nails( $assets, $force_type = NULL )
+	{
+		foreach ( $assets AS $asset ) :
+
+			$_type = $this->_determine_type( $asset, $force_type );
+
+			switch ( $_type ) :
+
+				case 'CSS' :	unset( $this->_css['NAILS-' . $asset] );	break;
+				case 'JS' :		unset( $this->_js['NAILS-' . $asset] );	break;
+
+			endswitch;
+
+		endforeach;
+	}
+
+
+	// --------------------------------------------------------------------------
+
+
+	/**
+	 * Load a Nails bower asset
+	 *
+	 * @access	protected
+	 * @param array $assets An array of assets to load
+	 * @return void
+	 **/
+	protected function _unload_nails_bower( $assets, $force_type = NULL )
+	{
+		foreach ( $assets AS $asset ) :
+
+			$_type = $this->_determine_type( $asset, $force_type );
+
+			switch ( $_type ) :
+
+				case 'CSS' :	unset( $this->_css['NAILS-BOWER-' . $asset] );	break;
+				case 'JS' :		unset( $this->_js['NAILS-BOWER-' . $asset] );	break;
+
+			endswitch;
+
+		endforeach;
+	}
+
+
+	// --------------------------------------------------------------------------
+
+
+	/**
+	 * Load a Nails package asset
+	 *
+	 * @access	protected
+	 * @param array $assets An array of assets to load
+	 * @return void
+	 **/
+	protected function _unload_nails_package( $assets, $force_type = NULL )
+	{
+		foreach ( $assets AS $asset ) :
+
+			$_type = $this->_determine_type( $asset, $force_type );
+
+			switch ( $_type ) :
+
+				case 'CSS' :	unset( $this->_css['APP-' . $asset] );	break;
+				case 'JS' :		unset( $this->_js['APP-' . $asset] );	break;
+
+			endswitch;
+
+		endforeach;
+	}
+
+
+	// --------------------------------------------------------------------------
+
+
+	/**
+	 * Load an App bower asset
+	 *
+	 * @access	protected
+	 * @param array $assets An array of assets to load
+	 * @return void
+	 **/
+	protected function _unload_app_bower( $assets, $force_type = NULL )
+	{
+		foreach ( $assets AS $asset ) :
+
+			$_type = $this->_determine_type( $asset, $force_type );
+
+			switch ( $_type ) :
+
+				case 'CSS' :	unset( $this->_css['APP-BOWER-' . $asset] );	break;
+				case 'JS' :		unset( $this->_js['APP-BOWER-' . $asset] );		break;
+
+			endswitch;
+
+		endforeach;
+	}
+
+
+	// --------------------------------------------------------------------------
+
+
+	/**
+	 * Load an app asset
+	 *
+ 	 * @access	protected
+	 * @param array $assets An array of assets to load
+	 * @return void
+	 **/
+	protected function _unload_app( $assets, $force_type = NULL )
+	{
+		foreach ( $assets AS $asset ) :
+
+			$_type = $this->_determine_type( $asset, $force_type );
+
+			switch ( $_type ) :
+
+				case 'CSS' :	unset( $this->_css['APP-' . $asset] );	break;
+				case 'JS' :		unset( $this->_js['APP-' . $asset] );	break;
+
+			endswitch;
+
+		endforeach;
+	}
+
+
+	// --------------------------------------------------------------------------
+
+
+	/**
+	 * Load an inline asset
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	void
+	 **/
+	public function inline( $script = NULL, $force_type = NULL )
+	{
+		if ( empty( $script ) ) :
+
+			return;
+
+		endif;
+
+		// --------------------------------------------------------------------------
+
+		$_type = $this->_determine_type( $script, $force_type );
+
+		switch ( $_type ) :
+
+			case 'CSS' :
+			case 'CSS_INLINE' :	$this->_css_inline['INLINE-CSS-' . md5( $script )]	= $script;	break;
+			case 'JS' :
+			case 'JS_INLINE' :	$this->_js_inline['INLINE-JS-' . md5( $script )]	= $script;	break;
+
+		endswitch;
+	}
+
+
+	// --------------------------------------------------------------------------
+
+
+	/**
+	 * Unload an inline asset
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	void
+	 **/
+	public function unload_inline( $script = NULL, $force_type = NULL )
+	{
+		if ( empty( $script ) ) :
+
+			return;
+
+		endif;
+
+		// --------------------------------------------------------------------------
+
+		$_type = $this->_determine_type( $script, $force_type );
+
+		switch ( $_type ) :
+
+			case 'CSS' :
+			case 'CSS_INLINE' :	unset( $this->_css_inline['INLINE-CSS-' . md5( $script )] );	break;
+			case 'JS' :
+			case 'JS_INLINE' :	unset( $this->_js_inline['INLINE-JS-' . md5( $script )] );		break;
+
+		endswitch;
 	}
 
 
@@ -204,9 +456,8 @@ class Asset
 
 			case 'ckeditor' :
 
-				//	Load assets for CKEditor
-				$this->load( 'ckeditor/ckeditor.js',		'BOWER' );
-				$this->load( 'ckeditor/adapters/jquery.js',	'BOWER' );
+				$this->load( 'ckeditor/ckeditor.js',		'NAILS-BOWER' );
+				$this->load( 'ckeditor/adapters/jquery.js',	'NAILS-BOWER' );
 
 			break;
 
@@ -214,22 +465,11 @@ class Asset
 
 			case 'jqueryui' :
 
-				//	JS
-				$this->load( 'jquery-ui/ui/minified/jquery-ui.min.js',								'BOWER' );
-				$this->load( 'jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js',	'BOWER' );
-
-				//	CSS
-				$this->load( 'jquery-ui/themes/base/minified/jquery-ui.min.css',					'BOWER' );
-				$this->load( 'jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.css',		'BOWER' );
-				$this->load( 'jquery.ui.extra.css',													TRUE );
-
-			break;
-
-			// --------------------------------------------------------------------------
-
-			case 'ibutton' :
-
-				$this->load( 'libraries/jquery.ibutton/lib/jquery.ibutton.min.js', TRUE );
+				$this->load( 'jquery-ui/ui/minified/jquery-ui.min.js',								'NAILS-BOWER' );
+				$this->load( 'jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js',	'NAILS-BOWER' );
+				$this->load( 'jquery-ui/themes/base/minified/jquery-ui.min.css',					'NAILS-BOWER' );
+				$this->load( 'jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.css',		'NAILS-BOWER' );
+				$this->load( 'jquery.ui.extra.css',													'NAILS' );
 
 			break;
 
@@ -237,8 +477,8 @@ class Asset
 
 			case 'uploadify' :
 
-				$this->load( 'jquery.uploadify.css',	TRUE );
-				$this->load( 'jquery.uploadify.min.js',	TRUE );
+				$this->load( 'uploadify/uploadify.css',				'NAILS-PACKAGE' );
+				$this->load( 'uploadify/jquery.uploadify.min.js',	'NAILS-PACKAGE' );
 
 			break;
 
@@ -246,8 +486,8 @@ class Asset
 
 			case 'chosen' :
 
-				$this->load( 'jquery.chosen.css',	TRUE );
-				$this->load( 'jquery.chosen.min.js',	TRUE );
+				$this->load( 'jquery.chosen.css',		'NAILS' );
+				$this->load( 'jquery.chosen.min.js',	'NAILS' );
 
 			break;
 
@@ -255,63 +495,10 @@ class Asset
 
 			case 'select2' :
 
-				$this->load( 'select2/select2.css',		'BOWER' );
-				$this->load( 'select2/select2.min.js',	'BOWER' );
+				$this->load( 'select2/select2.css',		'NAILS-BOWER' );
+				$this->load( 'select2/select2.min.js',	'NAILS-BOWER' );
 
 			break;
-
-		endswitch;
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Mark an asset for unloading
-	 *
-	 * @access	public
-	 * @param	string
-	 * @return	void
-	 **/
-	public function unload( $assets )
-	{
-		$assets = ! is_array( $assets ) && ! is_object( $assets ) ? array( $assets ) : $assets ;
-
-		foreach ( $assets AS $asset ) :
-
-			$this->unload_assets[$asset] = $asset;
-
-		endforeach;
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Load an inline asset
-	 *
-	 * @access	public
-	 * @param	string
-	 * @return	void
-	 **/
-	public function inline( $script = NULL )
-	{
-		if ( NULL === $script ) :
-
-			return;
-
-		endif;
-
-		// --------------------------------------------------------------------------
-
-		$_type = $this->_determine_type( $script );
-
-		switch ( $_type ) :
-
-			case 'CSS_INLINE' :	$this->css_inline[]	= $script;	break;
-			case 'JS_INLINE' :	$this->js_inline[]	= $script;	break;
 
 		endswitch;
 	}
@@ -324,83 +511,14 @@ class Asset
 	 * Clear loaded assets
 	 *
 	 * @access	public
-	 * @param	boolean
-	 * @param	boolean
-	 * @param	boolean
-	 * @param	boolean
-	 * @param	boolean
-	 * @param	boolean
-	 * @param	boolean
-	 * @param	boolean
 	 * @return	void
 	 **/
-	public function clear( $css = FALSE, $css_nails = FALSE, $css_nails_bower = FALSE, $css_inline = TRUE, $js = FALSE, $js_nails = FALSE, $js_nails_bower = FALSE, $js_inline = TRUE )
+	public function clear()
 	{
-		//	CSS
-		if ( $css === TRUE ) :
-
-			$this->css = array();
-
-		endif;
-
-		if ( $css_nails === TRUE ) :
-
-			$this->css_nails = array();
-
-		endif;
-
-		if ( $css_nails_bower === TRUE ) :
-
-			$this->css_nails_bower = array();
-
-		endif;
-
-		if ( $css_inline === TRUE ) :
-
-			$this->css_inline = array();
-
-		endif;
-
-		//	JS
-		if ( $js === TRUE ) :
-
-			$this->js = array();
-
-		endif;
-
-		if ( $js_nails === TRUE ) :
-
-			$this->js_nails = array();
-
-		endif;
-
-		if ( $js_nails_bower === TRUE ) :
-
-			$this->js_nails_bower = array();
-
-		endif;
-
-		if ( $js_inline === TRUE ) :
-
-			$this->js_inline = array();
-
-		endif;
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Clears all loaded assets
-	 *
-	 * @access	public
-	 * @param	none
-	 * @return	void
-	 **/
-	public function clear_all()
-	{
-		$this->clear( TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE );
+		$this->_css			= array();
+		$this->_css_inline	= array();
+		$this->_js			= array();
+		$this->_js_inline	= array();
 	}
 
 
@@ -416,17 +534,11 @@ class Asset
 	public function get_loaded()
 	{
 		$_loaded					= new stdClass();
-		$_loaded->css				= $this->css;
-		$_loaded->css_bower			= $this->css_bower;
-		$_loaded->css_nails			= $this->css_nails;
-		$_loaded->css_nails_bower	= $this->css_nails_bower;
-		$_loaded->css_inline		= $this->css_inline;
+		$_loaded->css				= $this->_css;
+		$_loaded->css_inline		= $this->_css_inline;
 
-		$_loaded->js				= $this->js;
-		$_loaded->js_bower			= $this->js_bower;
-		$_loaded->js_nails			= $this->js_nails;
-		$_loaded->js_nails_bower	= $this->js_nails_bower;
-		$_loaded->js_inline			= $this->js_inline;
+		$_loaded->js				= $this->_js;
+		$_loaded->js_inline			= $this->_js_inline;
 
 		return $_loaded;
 	}
@@ -445,22 +557,15 @@ class Asset
 	 **/
 	public function output( $type = 'ALL', $return = FALSE )
 	{
-		//	Unload anything first
-		if ( count ( $this->unload_assets ) ) :
+		$_out	= '';
+		$_type	= strtoupper( $type );
 
-			foreach ( $this->unload_assets AS $asset) :
+		//	Linked Stylesheets
+		if ( $_type == 'CSS' | $_type == 'ALL' ) :
 
-				//	CSS
-				unset( $this->css[$asset] );
-				unset( $this->css_bower[$asset] );
-				unset( $this->css_nails[$asset] );
-				unset( $this->css_nails_bower[$asset] );
+			foreach ( $this->_css AS $asset ) :
 
-				//	JS
-				unset( $this->js[$asset] );
-				unset( $this->js_bower[$asset] );
-				unset( $this->js_nails[$asset] );
-				unset( $this->js_nails_bower[$asset] );
+				$_out .= link_tag( $asset ) . "\n";
 
 			endforeach;
 
@@ -468,54 +573,46 @@ class Asset
 
 		// --------------------------------------------------------------------------
 
-		//	Now output
-		$_out = '';
-		switch ( strtoupper( $type ) ) :
+		//	Linked JS
+		if ( $_type == 'JS' | $_type == 'ALL' ) :
 
-			case 'CSS' :
+			foreach ( $this->_js AS $asset ) :
 
-				$_out .= $this->_print_css_nails_bower();
-				$_out .= $this->_print_css_nails();
-				$_out .= $this->_print_css_bower();
-				$_out .= $this->_print_css();
+				$_out .= '<script type="text/javascript" src="' . $asset . '"></script>' . "\n";
 
-			break;
+			endforeach;
 
-			case 'CSS-INLINE' :
+		endif;
 
-				$_out  = $this->_print_css_inline();
+		// --------------------------------------------------------------------------
 
-			break;
+		//	Inline CSS
+		if ( $_type == 'CSS-INLINE' | $_type == 'ALL' ) :
 
-			case 'JS' :
+			$_out .= '<style type="text/css">';
+			foreach ( $this->_css_inline AS $asset ) :
 
-				$_out .= $this->_print_js_nails_bower();
-				$_out .= $this->_print_js_nails();
-				$_out .= $this->_print_js_bower();
-				$_out .= $this->_print_js();
+				$_out .= preg_replace( '/<\/?style.*?>/si', '', $asset ) . "\n";
 
-			break;
+			endforeach;
+			$_out .= '</style>';
 
-			case 'JS-INLINE' :
+		endif;
 
-				$_out .= $this->_print_js_inline();
+		// --------------------------------------------------------------------------
 
-			break;
+		//	Inline JS
+		if ( $_type == 'JS-INLINE' | $_type == 'ALL' ) :
 
-			case 'ALL' :
+			$_out .= '<script type="text/javascript">';
+			foreach ( $this->_js_inline AS $asset ) :
 
-				$_out .= $this->_print_css_nails_bower();
-				$_out .= $this->_print_css_nails();
-				$_out .= $this->_print_css_bower();
-				$_out .= $this->_print_css();
-				$_out .= $this->_print_js_nails_bower();
-				$_out .= $this->_print_js_nails();
-				$_out .= $this->_print_js_bower();
-				$_out .= $this->_print_js();
+				$_out .= preg_replace( '/<\/?script.*?>/si', '', $asset );
 
-			break;
+			endforeach;
+			$_out .= '</script>';
 
-		endswitch;
+		endif;
 
 		// --------------------------------------------------------------------------
 
@@ -546,19 +643,21 @@ class Asset
 	/**
 	 * Determine the type of asset being loaded
 	 *
-	 * @access	private
+	 * @access	protected
 	 * @param	string
 	 * @param	string
 	 * @return	string
 	 **/
-	private function _determine_type( $input, $force_type = FALSE )
+	protected function _determine_type( $input, $force_type = NULL )
 	{
 		//	Override if nessecary
-		if ( $force_type ) :
+		if ( ! empty( $force_type ) ) :
 
 			return $force_type;
 
 		endif;
+
+		// --------------------------------------------------------------------------
 
 		//	Look for <style></style>
 		if ( preg_match( '/\<style.*\<\/style\>/si', $input ) ) :
@@ -567,12 +666,16 @@ class Asset
 
 		endif;
 
+		// --------------------------------------------------------------------------
+
 		//	Look for <script></script>
 		if ( preg_match( '/\<script.*\<\/script\>/si', $input ) ) :
 
 			return 'JS_INLINE';
 
 		endif;
+
+		// --------------------------------------------------------------------------
 
 		//	Look for .css
 		if ( substr( $input, strrpos( $input, '.' ) ) == '.css' ) :
@@ -581,288 +684,14 @@ class Asset
 
 		endif;
 
+		// --------------------------------------------------------------------------
+
 		//	Look for .js
 		if ( substr( $input, strrpos( $input, '.' ) ) == '.js' ) :
 
 			return 'JS';
 
 		endif;
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Output the referenced CSS files
-	 *
-	 * @access	private
-	 * @param	none
-	 * @return	string
-	 **/
-	private function _print_css()
-	{
-		$_out = '';
-
-		$this->css = array_filter( $this->css );
-		$this->css = array_unique( $this->css );
-
-		foreach ( $this->css AS $asset ) :
-
-			$_url  = preg_match( '/[http|https|ftp]:\/\/.*/si', $asset ) ? $asset : 'assets/css/' . $asset ;
-			$_out .= link_tag( $_url ) . "\n";
-
-		endforeach;
-
-		return $_out;
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Output the referenced App bower CSS files
-	 *
-	 * @access	private
-	 * @param	none
-	 * @return	string
-	 **/
-	private function _print_css_bower()
-	{
-		$_out = '';
-
-		$this->css_bower = array_filter( $this->css_bower );
-		$this->css_bower = array_unique( $this->css_bower );
-
-		foreach ( $this->css_bower AS $asset ) :
-
-			$_out .= link_tag( 'assets/bower_components/' . $asset ) . "\n";
-
-		endforeach;
-
-		return $_out;
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Output the referenced Nails CSS files
-	 *
-	 * @access	private
-	 * @param	none
-	 * @return	string
-	 **/
-	private function _print_css_nails()
-	{
-		$_out = '';
-
-		$this->css_nails = array_filter( $this->css_nails );
-		$this->css_nails = array_unique( $this->css_nails );
-
-		foreach ( $this->css_nails AS $asset ) :
-
-			$_out .= link_tag( NAILS_ASSETS_URL . 'css/' . $asset ) . "\n";
-
-		endforeach;
-
-		return $_out;
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Output the referenced Nails bower CSS files
-	 *
-	 * @access	private
-	 * @param	none
-	 * @return	string
-	 **/
-	private function _print_css_nails_bower()
-	{
-		$_out = '';
-
-		$this->css_nails_bower = array_filter( $this->css_nails_bower );
-		$this->css_nails_bower = array_unique( $this->css_nails_bower );
-
-		foreach ( $this->css_nails_bower AS $asset ) :
-
-			$_out .= link_tag( NAILS_ASSETS_URL . 'bower_components/' . $asset ) . "\n";
-
-		endforeach;
-
-		return $_out;
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Output the inline CSS
-	 *
-	 * @access	private
-	 * @param	none
-	 * @return	string
-	 **/
-	private function _print_css_inline()
-	{
-		$_out = '';
-
-		$this->css_inline = array_filter( $this->css_inline );
-		$this->css_inline = array_unique( $this->css_inline );
-
-		foreach ( $this->css_inline AS $asset ) :
-
-			$_out .= $asset . "\n";
-
-		endforeach;
-
-		$_out = preg_replace( '/<\/?style.*?>/si', '', $_out );
-
-		return '<style type="text/css">' . $_out . '</style>';
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Output the referenced JS files
-	 *
-	 * @access	private
-	 * @param	none
-	 * @return	string
-	 **/
-	private function _print_js()
-	{
-		$_out = '';
-
-		$this->js = array_filter( $this->js );
-		$this->js = array_unique( $this->js );
-
-		foreach ( $this->js AS $asset ) :
-
-			$_url  = preg_match( '/[http|https|ftp]:\/\/.*/si', $asset ) ? $asset : site_url( 'assets/js/' . $asset ) ;
-			$_out .= '<script type="text/javascript" src="' . $_url . '"></script>' . "\n";
-
-		endforeach;
-
-		return $_out;
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Output the referenced App Bower JS files
-	 *
-	 * @access	private
-	 * @param	none
-	 * @return	string
-	 **/
-	private function _print_js_bower()
-	{
-		$_out = '';
-
-		$this->js_bower = array_filter( $this->js_bower );
-		$this->js_bower = array_unique( $this->js_bower );
-
-		foreach ( $this->js_bower AS $asset ) :
-
-			$_out .= '<script type="text/javascript" src="' . site_url( 'assets/bower_components/' . $asset ) . '"></script>' . "\n";
-
-		endforeach;
-
-		return $_out;
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Output the referenced Nails JS files
-	 *
-	 * @access	private
-	 * @param	none
-	 * @return	string
-	 **/
-	private function _print_js_nails()
-	{
-		$_out = '';
-
-		$this->js_nails = array_filter( $this->js_nails );
-		$this->js_nails = array_unique( $this->js_nails );
-
-		foreach ( $this->js_nails AS $asset ) :
-
-			$_out .= '<script type="text/javascript" src="' . NAILS_ASSETS_URL . 'js/' . $asset . '"></script>' . "\n";
-
-		endforeach;
-
-		return $_out;
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Output the referenced Nails Bower JS files
-	 *
-	 * @access	private
-	 * @param	none
-	 * @return	string
-	 **/
-	private function _print_js_nails_bower()
-	{
-		$_out = '';
-
-		$this->js_nails_bower = array_filter( $this->js_nails_bower );
-		$this->js_nails_bower = array_unique( $this->js_nails_bower );
-
-		foreach ( $this->js_nails_bower AS $asset ) :
-
-			$_out .= '<script type="text/javascript" src="' . NAILS_ASSETS_URL . 'bower_components/' . $asset . '"></script>' . "\n";
-
-		endforeach;
-
-		return $_out;
-	}
-
-
-	// --------------------------------------------------------------------------
-
-
-	/**
-	 * Output the inline JS files
-	 *
-	 * @access	private
-	 * @param	none
-	 * @return	string
-	 **/
-	private function _print_js_inline()
-	{
-		$_out = '';
-
-		$this->js_inline = array_filter( $this->js_inline );
-		$this->js_inline = array_unique( $this->js_inline );
-
-		foreach ( $this->js_inline AS $asset ) :
-
-			$_out .= $asset . "\n";
-
-		endforeach;
-
-		$_out = preg_replace( '/<\/?script.*?>/si', '', $_out );
-
-		return '<script type="text/javascript">' . $_out . '</script>';
 	}
 }
 

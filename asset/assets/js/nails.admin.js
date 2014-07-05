@@ -43,8 +43,8 @@ NAILS_Admin = function()
 		var _this = this;
 
 		//	Bind click events
-		$('.box .toggle').on('click', function(e) {
-
+		$('.box .toggle').on('click', function()
+		{
 			if ($(this).parents('.box').hasClass('open'))
 			{
 				_this._open_box(this, true);
@@ -61,7 +61,6 @@ NAILS_Admin = function()
 
 			// --------------------------------------------------------------------------
 
-			e.preventDefault();
 			return false;
 		});
 
@@ -137,6 +136,7 @@ NAILS_Admin = function()
 		{
 			controller : 'admin',
 			method: 'nav/save',
+			action: 'POST',
 			data :
 			{
 				preferences : _data
@@ -150,7 +150,8 @@ NAILS_Admin = function()
 	// --------------------------------------------------------------------------
 
 
-	this._open_box = function(toggle, animate) {
+	this._open_box = function(toggle, animate)
+	{
 		var _id, _height;
 
 		_id = $(toggle).parents('.box').attr('id');
@@ -163,7 +164,8 @@ NAILS_Admin = function()
 		//	Set the height (so it animates)
 		_height = $(toggle).attr('data-height');
 
-		if (animate) {
+		if (animate)
+		{
 			$(toggle).parents('.box').find('.box-container').stop().animate({
 				'height': _height
 			});
@@ -176,7 +178,8 @@ NAILS_Admin = function()
 	// --------------------------------------------------------------------------
 
 
-	this._close_box = function(toggle, animate) {
+	this._close_box = function(toggle, animate)
+	{
 		var _id;
 
 		_id = $(toggle).parents('.box').attr('id');
@@ -187,7 +190,8 @@ NAILS_Admin = function()
 		$(toggle).parents('.box').addClass('open');
 
 		//	Set the height (so it animates)
-		if (animate) {
+		if (animate)
+		{
 			$(toggle).parents('.box').find('.box-container').stop().animate({
 				'height': 0
 			});
@@ -443,7 +447,7 @@ NAILS_Admin = function()
 		{
 			$( '.wysiwyg' ).ckeditor(
 			{
-				customConfig: window.NAILS.URL + 'js/libraries/ckeditor/ckeditor.config.min.js'
+				customConfig: window.NAILS.URL + 'js/ckeditor.config.min.js'
 			});
 		}
 		else

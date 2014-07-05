@@ -37,6 +37,7 @@
 		"select2": "~3.5.0",
 		"social-likes": "~3.0.4",
 		"sprockets-modernizr": "~2.6.2",
-		"tipsy": "~0.1.7"
+		"tipsy": "~0.1.7",
+		"chosen": "https://github.com/harvesthq/chosen/releases/download/v1.1.0/chosen_v1.1.0.zip"
 	}
 }

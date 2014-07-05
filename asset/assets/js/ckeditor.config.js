@@ -3,8 +3,8 @@
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
 
-CKEDITOR.plugins.addExternal( 'codemirror',	window.NAILS.URL + 'js/libraries/ckeditor/plugins/codemirror/' );
-CKEDITOR.plugins.addExternal( 'mediaembed',	window.NAILS.URL + 'js/libraries/ckeditor/plugins/mediaembed/' );
+CKEDITOR.plugins.addExternal( 'codemirror',	window.NAILS.URL + 'js/ckeditor.plugins/codemirror/' );
+CKEDITOR.plugins.addExternal( 'mediaembed',	window.NAILS.URL + 'js/ckeditor.plugins/mediaembed/' );
 
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here.
