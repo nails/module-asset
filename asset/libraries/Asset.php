@@ -486,8 +486,8 @@ class Asset
 
 			case 'chosen' :
 
-				$this->load( 'jquery.chosen.css',		'NAILS' );
-				$this->load( 'jquery.chosen.min.js',	'NAILS' );
+				$this->load( 'chosen/chosen.min.css',		'NAILS-BOWER' );
+				$this->load( 'chosen/chosen.jquery.min.js',	'NAILS-BOWER' );
 
 			break;
 
