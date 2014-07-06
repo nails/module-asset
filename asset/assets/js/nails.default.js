@@ -577,7 +577,7 @@ NAILS_JS = function()
 
 	this.log = function( output )
 	{
-		if ( window.console && window.ENVIRONMENT !== 'production' )
+		if ( window.console && window.ENVIRONMENT !== 'PRODUCTION' )
 		{
 			console.log( output );
 		}
@@ -589,7 +589,7 @@ NAILS_JS = function()
 
 	this.error = function( output )
 	{
-		if ( window.console && window.ENVIRONMENT !== 'production' )
+		if ( window.console && window.ENVIRONMENT !== 'PRODUCTION' )
 		{
 			console.error( output );
 		}
@@ -601,7 +601,7 @@ NAILS_JS = function()
 
 	this.warn = function( output )
 	{
-		if ( window.console && window.ENVIRONMENT !== 'production' )
+		if ( window.console && window.ENVIRONMENT !== 'PRODUCTION' )
 		{
 			console.warn( output );
 		}
