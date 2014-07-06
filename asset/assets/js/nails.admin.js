@@ -243,7 +243,8 @@ NAILS_Admin = function()
 		$('.nav-search input').on('keyup', function() {
 			var _search = $(this).val();
 
-			if (_search.length) {
+			if (_search.length)
+			{
 				$('.box .toggle').hide();
 
 				//	Loop through each menu item and hide items which don't apply to the search term
@@ -272,7 +273,9 @@ NAILS_Admin = function()
 						});
 					}
 				});
-			} else {
+			}
+			else
+			{
 				//	Reset search
 				$('.box').stop().animate({
 					'opacity': 1
@@ -288,12 +291,15 @@ NAILS_Admin = function()
 
 					$(this).show();
 
-					var _state = _this._get('adminbox-' + $(this).parents('.box').attr('id'));
+					var _open = $(this).closest( '.box' ).hasClass( 'closed' );
 
-					if (_state === 'closed') {
-						_this._close_box(this, false);
-					} else {
+					if (_open)
+					{
 						_this._open_box(this, false);
+					}
+					else
+					{
+						_this._close_box(this, false);
 					}
 
 				});

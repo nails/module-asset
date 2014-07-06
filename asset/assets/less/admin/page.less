@@ -4,29 +4,34 @@
 
 body
 {
-	background: #eee url(../img/admin/bg.jpg);
+	background: #FFF;
 	font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
 	font-weight: 300;
 	font-size:13px;
 	line-height:1.6em;
 	color: #333;
+
+	&.blank
+	{
+		background:#F9F9F9;
+	}
+
+	&.noscroll
+	{
+		overflow:hidden;
+	}
 }
-body.blank
-{
-	background:#F9F9F9;
-}
-body.noscroll
-{
-	overflow:hidden;
-}
+
 .right
 {
 	float: right;
 }
+
 .left
 {
 	float: left;
 }
+
 ul
 {
 	list-style: none;
@@ -36,5 +41,14 @@ ul
 	li
 	{
 		margin-bottom: 10px;
+	}
+}
+
+a
+{
+	&:link,
+	&:visited
+	{
+		color:inherit;
 	}
 }
