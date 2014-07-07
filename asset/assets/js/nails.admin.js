@@ -336,7 +336,7 @@ NAILS_Admin = function()
 	this.init_mobile_menu = function() {
 		$('#mobile-menu-main').on('change', function() {
 
-			var _url = $(this).find('option:selected').attr('data-url');
+			var _url = $(this).find('option:selected').val();
 
 			if (_url.length) {
 				window.location.href = window.SITE_URL + _url;
