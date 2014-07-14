@@ -11,13 +11,13 @@ CKEDITOR.editorConfig = function( config ) {
 	// For the complete reference:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
-	config.extraPlugins = 'justify,autogrow,mediaembed,codemirror,colorbutton,colordialog';
+	config.extraPlugins = 'justify,autogrow,mediaembed,codemirror,colorbutton,colordialog,font';
 	config.removePlugins = 'resize,elementspath';
 
 	// The toolbar groups arrangement, optimized for a single toolbar row.
 	config.toolbarGroups = [
 		{ name: 'document',    groups: [ 'mode' ] },
-		{ name: 'styles' },
+		{ name: 'styles',      groups: [ '' ] },
 		{ name: 'basicstyles', groups: [ 'basicstyles' ] },
 		{ name: 'colors' },
 		{ name: 'paragraph',   groups: [ 'align', 'list', 'indent', 'blocks' ] },
@@ -27,9 +27,7 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'others' }
 	];
 
-	// The default plugins included in the basic setup define some buttons that
-	// we don't want too have in a basic editor. We remove them here.
-	config.removeButtons = 'Save,NewPage,Preview,Print,Anchor,Strike,Subscript,Superscript,CreateDiv,Flash,Smiley,HorizontalRule,PageBreak,SpecialChar,Styles,Font,FontSize';
+	config.removeButtons = 'Font';
 
 	//	Only allow certain formatting
 	config.format_small = { element : 'small', name : 'Small' };
