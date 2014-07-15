@@ -172,8 +172,8 @@ class Asset
 
 			switch ( $_type ) :
 
-				case 'CSS' :	$this->_css['APP-BOWER-' . $asset]	= 'assets/bower_components/' . $asset;	break;
-				case 'JS' :		$this->_js['APP-BOWER-' . $asset]	= 'assets/bower_components/' . $asset;	break;
+				case 'CSS' :	$this->_css['APP-BOWER-' . $asset]	= site_url( 'assets/bower_components/' . $asset );	break;
+				case 'JS' :		$this->_js['APP-BOWER-' . $asset]	= site_url( 'assets/bower_components/' . $asset );	break;
 
 			endswitch;
 
