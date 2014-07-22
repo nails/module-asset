@@ -3,7 +3,7 @@
  * @copyright 2014, macek <paulmacek@gmail.com>
  * @link https://github.com/macek/jquery-serialize-object
  * @license BSD
- * @version 2.2.0
+ * @version 2.3.0
  */
 (function(root, factory) {
 
@@ -27,7 +27,15 @@
 
 }(this, function(root, exports, $) {
 
-  var FormSerializer = exports.FormSerializer = function FormSerializer(helper) {
+  var patterns = {
+    validate: /^[a-z][a-z0-9_]*(?:\[(?:\d*|[a-z0-9_]+)\])*$/i,
+    key:      /[a-z0-9_]+|(?=\[\])/gi,
+    push:     /^$/,
+    fixed:    /^\d+$/,
+    named:    /^[a-z0-9_]+$/i
+  };
+
+  function FormSerializer(helper) {
 
     // private variables
     var data     = {},
@@ -41,23 +49,23 @@
 
     function makeObject(root, value) {
 
-      var keys = root.match(FormSerializer.patterns.key), k;
+      var keys = root.match(patterns.key), k;
 
       // nest, nest, ..., nest
       while ((k = keys.pop()) !== undefined) {
         // foo[]
-        if (FormSerializer.patterns.push.test(k)) {
+        if (patterns.push.test(k)) {
           var idx = incrementPush(root.replace(/\[\]$/, ''));
           value = build([], idx, value);
         }
 
         // foo[n]
-        else if (FormSerializer.patterns.fixed.test(k)) {
+        else if (patterns.fixed.test(k)) {
           value = build([], k, value);
         }
 
         // foo; foo[bar]
-        else if (FormSerializer.patterns.named.test(k)) {
+        else if (patterns.named.test(k)) {
           value = build({}, k, value);
         }
       }
@@ -73,7 +81,7 @@
     }
 
     function addPair(pair) {
-      if (!FormSerializer.patterns.validate.test(pair.name)) return this;
+      if (!patterns.validate.test(pair.name)) return this;
       var obj = makeObject(pair.name, pair.value);
       data = helper.extend(true, data, obj);
       return this;
@@ -102,15 +110,9 @@
     this.addPairs = addPairs;
     this.serialize = serialize;
     this.serializeJSON = serializeJSON;
-  };
+  }
 
-  FormSerializer.patterns = {
-    validate: /^[a-z][a-z0-9_]*(?:\[(?:\d*|[a-z0-9_]+)\])*$/i,
-    key:      /[a-z0-9_]+|(?=\[\])/gi,
-    push:     /^$/,
-    fixed:    /^\d+$/,
-    named:    /^[a-z0-9_]+$/i
-  };
+  FormSerializer.patterns = patterns;
 
   FormSerializer.serializeObject = function serializeObject() {
     if (this.length > 1) {
@@ -134,6 +136,8 @@
     $.fn.serializeObject = FormSerializer.serializeObject;
     $.fn.serializeJSON   = FormSerializer.serializeJSON;
   }
+
+  exports.FormSerializer = FormSerializer;
 
   return FormSerializer;
 }));

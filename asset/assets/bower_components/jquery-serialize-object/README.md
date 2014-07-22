@@ -54,7 +54,7 @@ Given a basic HTML form
   <input name="user[email]" value="jsmith@example.com">
   <input name="user[pets][]" type="checkbox" value="cat" checked>
   <input name="user[pets][]" type="checkbox" value="dog" checked>
-  <input name="user[pets][]" type="checkbox" value="bird" checked>
+  <input name="user[pets][]" type="checkbox" value="bird">
   <input type="submit">
 </form>
 ```
@@ -79,12 +79,21 @@ names
 Many of you have requested to allow `-` in field names or use `.` to nest keys.
 You can now configure these to your heart's content.
 
+[Hyphen][dash-notation] example
+
 ```js
-// example: allow hyphen in keys
 $.extend(FormSerializer.patterns, {
   validate: /^[a-z][a-z0-9_-]*(?:\[(?:\d*|[a-z0-9_]+)\])*$/i,
   key:      /[a-z0-9_-]+|(?=\[\])/gi,
   named:    /^[a-z0-9_-]+$/i
+});
+```
+
+[Dot-notation][dot-notation] example
+
+```js
+$.extend(FormSerializer.patterns, {
+  validate: /^[a-z][a-z0-9_]*(?:\.[a-z0-9_]+)*(?:\[\])?$/i
 });
 ```
 
@@ -179,3 +188,5 @@ $ npm run-script build
 [json]: http://json.org
 [node]: http://nodejs.org
 [legacy]: https://github.com/macek/jquery-serialize-object/releases/tag/1.0.0
+[dash-notation]: https://github.com/macek/jquery-serialize-object/issues/6
+[dot-notation]: https://github.com/macek/jquery-serialize-object/issues/4
