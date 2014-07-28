@@ -503,7 +503,7 @@ NAILS_JS = function()
 					changeMonth	: true,
 					changeYear	: true,
 					yearRange	: _yearrange
-				}).prop( 'readonly', true );
+				});
 			});
 		}
 		else
@@ -528,7 +528,7 @@ NAILS_JS = function()
 					changeMonth	: true,
 					changeYear	: true,
 					yearRange	: _yearrange
-				}).prop( 'readonly', true );
+				});
 
 			});
 		}
