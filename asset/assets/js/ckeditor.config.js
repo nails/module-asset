@@ -34,7 +34,13 @@ CKEDITOR.editorConfig = function( config ) {
 	config.format_tags = 'p;small;h1;h2;h3;h4;h5';
 
 	//	Allow the editor to define whatever classes the user wants on elements
-	config.extraAllowedContent = { '*' : { classes: '*' } };
+	//	Same deal for data-* attributes
+	config.extraAllowedContent = {
+		'*' : {
+			classes: '*',
+			attributes: 'data-*'
+		}
+	};
 
 	// Considering that the basic setup doesn't provide pasting cleanup features,
 	// it's recommended to force everything to be plain text.
