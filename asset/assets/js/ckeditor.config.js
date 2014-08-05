@@ -42,6 +42,9 @@ CKEDITOR.editorConfig = function( config ) {
 		}
 	};
 
+	//	Limit height of autoGrow plugin
+	config.autoGrow_maxHeight = 500;
+
 	// Considering that the basic setup doesn't provide pasting cleanup features,
 	// it's recommended to force everything to be plain text.
 	config.forcePasteAsPlainText = true;
