@@ -1,3 +1,5 @@
+@input_margin: 5px;
+
 .group-notification
 {
 	&.overview
@@ -9,16 +11,35 @@
 			{
 				&.event-label
 				{
-					width:200px;
+					width:125px;
 				}
 
 				&.value
 				{
-					input
+					position:relative;
+
+					.input-wrapper
 					{
-						width:100%;
+						left:@input_margin;
+						right:@input_margin;
+						bottom:@input_margin;
+						top:@input_margin;
 						margin:0;
-						box-sizing:border-box;
+						position:absolute;
+
+						input
+						{
+							width:100%;
+							box-sizing:border-box;
+						}
+					}
+
+					&.has-tip
+					{
+						.input-wrapper
+						{
+							right:@input_margin + 35px;
+						}
 					}
 				}
 			}
