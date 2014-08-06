@@ -27,7 +27,7 @@
 		display:none;
 		padding:0.3em 0.7em;
 
-		.ion-looping
+		.fa.fa-refresh.fa-spin
 		{
 			position:absolute;
 			right:4px;
@@ -40,7 +40,7 @@
 		{
 			padding:0.3em 2em 0.3em 0.7em;
 
-			.ion-looping
+			.fa.fa-refresh.fa-spin
 			{
 				display:inline-block;
 			}
@@ -543,6 +543,11 @@
 			-webkit-text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.75);
 			text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.75);
 
+			.icon
+			{
+				line-height:0.75em;
+			}
+
 			.toggle-open,
 			.toggle-closed
 			{
@@ -714,7 +719,7 @@
 			position:relative;
 			border-color: #888;
 			padding:0;
-			height:90px;
+			height:110px;
 
 			.header-bar
 			{
@@ -726,8 +731,8 @@
 				.sorter
 				{
 					display: inline-block;
-					width: 16px;
-					height: 16px;
+					width: 20px;
+					height: 20px;
 					background: #D4D3D4;
 					vertical-align: middle;
 					position: relative;
@@ -737,6 +742,7 @@
 					padding-right: 1px;
 					.rounded(2px);
 					cursor: url(https://mail.google.com/mail/images/2/openhand.cur), none !important;
+					line-height:1.6em;
 				}
 
 				.label
