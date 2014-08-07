@@ -145,159 +145,171 @@ div.field
 		display:block;
 		width:100%;
 	}
-	span.label
-	{
-		display:block;
-		float:left;
-		width:200px;
-		font-weight:bold;
-		margin-right:20px;
-		text-align:right;
-		margin-top:5px;
-		padding-right:15px;
-		vertical-align:top;
 
-		small
-		{
-			display:block;
-			font-weight:normal;
-		}
+	//	So tips are always the same colour - badly designed form helper
+	.tip
+	{
+		color:#747A90;
 	}
 
-	span.input
+	span
 	{
-		border:1px dashed transparent;	//	Don't ask me why this is required, but it is. - Pablo.
-		display:block;
-		margin-left: 235px;
-		position:relative;
-
-		input[type=text],
-		input[type=password],
-		input[type=email],
-		input[type=file],
-		textarea,
-		select
+		&.label
 		{
-			float:none;
 			display:block;
-			box-sizing:border-box;
-			width:100%;
-			margin:0;
-		}
-		.chosen-container
-		{
-			input[type=text]
+			float:left;
+			width:200px;
+			font-weight:bold;
+			margin-right:20px;
+			text-align:right;
+			margin-top:5px;
+			padding-right:15px;
+			vertical-align:top;
+
+			small
 			{
-				box-sizing:content-box;
-			}
-		}
-		.chosen-container-single
-		{
-			input[type=text]
-			{
-				box-sizing:border-box;
+				display:block;
+				font-weight:normal;
 			}
 		}
 
-		small.info2
+		&.input
 		{
-			display: block;
-			margin-top: 1em;
-			border-left: 2px solid #A9C5DB;
-			padding: 0.1em 0.5em;
-			background: #E4EDF5;
-			.rounded(3px);
-			color:#50606F;
-
-			strong
-			{
-				color:inherit
-			}
-		}
-
-		small.info
-		{
-			margin-top: 1em;
-			position: relative;
-			display: block;
-			float: left;
-			width: 100%;
-			font-size: 0.85em;
-
-			strong
-			{
-				color:inherit
-			}
-
-		}
-
-		&:after
-		{
-			float:none;
-			clear:both;
-			content: ' ';
+			border:1px dashed transparent;	//	Don't ask me why this is required, but it is. - Pablo.
+			display:block;
+			margin-left: 235px;
 			position:relative;
-			display:block;
-		}
 
-		&.with-tip
-		{
-			padding-right:25px;
-
-			img.tip
+			input[type=text],
+			input[type=password],
+			input[type=email],
+			input[type=file],
+			textarea,
+			select
 			{
-				position:absolute;
-				right:0px;
-				top:4px;
+				float:none;
+				display:block;
+				box-sizing:border-box;
+				width:100%;
+				margin:0;
+			}
+			.chosen-container
+			{
+				input[type=text]
+				{
+					box-sizing:content-box;
+				}
+			}
+			.chosen-container-single
+			{
+				input[type=text]
+				{
+					box-sizing:border-box;
+				}
+			}
+
+			small
+			{
+				&.info2
+				{
+					display: block;
+					margin-top: 1em;
+					border-left: 2px solid #A9C5DB;
+					padding: 0.1em 0.5em;
+					background: #E4EDF5;
+					.rounded(3px);
+					color:#50606F;
+
+					strong
+					{
+						color:inherit
+					}
+				}
+
+				&.info
+				{
+					margin-top: 1em;
+					position: relative;
+					display: block;
+					float: left;
+					width: 100%;
+					font-size: 0.85em;
+
+					strong
+					{
+						color:inherit
+					}
+				}
+			}
+
+			&:after
+			{
+				float:none;
+				clear:both;
+				content: ' ';
+				position:relative;
+				display:block;
+			}
+
+			&.with-tip
+			{
+				padding-right:25px;
+
+				.tip
+				{
+					position:absolute;
+					right:0px;
+					top:9px;
+				}
 			}
 		}
-	}
 
-	span.text
-	{
-		margin-left:5px;
-		position:relative;
-		top:5px;
-		display:block;
-		float:left;
-		width:343px;
-	}
-
-	span.file-download
-	{
-		display:block;
-		clear:left;
-		margin-left:25%;
-		padding:5px 20px;
-
-		img
+		&.text
 		{
-			border:1px solid #CCC;
-			padding:2px;
-			background: #FFF;
-			.rounded(2px);
-			vertical-align: middle;
 			margin-left:5px;
+			position:relative;
+			top:5px;
+			display:block;
+			float:left;
+			width:343px;
 		}
-	}
 
-	span.error
-	{
-		display:none;
-		border:1px solid #CCCCCC;
-		padding:2px 7px;
-		position:relative;
-		top:1px;
-		.rounded(3px);
-		background:#B52130;
-		color:#FFF;
-		border-color:#B52130;
-		margin:0;
-		margin-top:3px;
-
-		a
+		&.file-download
 		{
-			color:inherit;
+			display:block;
+			clear:left;
+			margin-left:25%;
+			padding:5px 20px;
+
+			img
+			{
+				border:1px solid #CCC;
+				padding:2px;
+				background: #FFF;
+				.rounded(2px);
+				vertical-align: middle;
+				margin-left:5px;
+			}
+		}
+
+		&.error
+		{
+			display:none;
+			border:1px solid #CCCCCC;
+			padding:2px 7px;
+			position:relative;
+			top:1px;
+			.rounded(3px);
+			background:#B52130;
+			color:#FFF;
+			border-color:#B52130;
+			margin:0;
+			margin-top:3px;
+
+			a
+			{
+				color:inherit;
+			}
 		}
 	}
 
@@ -320,9 +332,11 @@ div.field
 		top:7px;
 	}
 
-	.mm-file-container
+	.mm-file-container,
+	.mm-image-container
 	{
 		float:left;
+		margin-left:0 !important;
 
 		.mm-file-download,
 		.mm-file-remove
@@ -351,348 +365,358 @@ div.field
 		margin-top:10px;
 		display:none;
 	}
-}
-div.field:after
-{
-	position:relative;
-	display:block;
-	content: '';
-	float:none;
-	clear:both;
-}
-div.field:hover
-{
-	background:#F5F5F5;
 
-	span.label
+	&:after
 	{
-		border-color:#CCC;
-	}
-}
-div.field.even
-{
-	background:#FAFAFA;
-
-	span.label
-	{
-		border-color:#CCCCCC;
-	}
-}
-div.field.even:hover
-{
-	background:#F5F5F5;
-}
-div.field:last-of-type
-{
-	border-bottom:none;
-}
-div.field.date-picker
-{
-	select
-	{
-		width:116px;
-		box-sizing: border-box;
-	}
-}
-div.field.datetime-picker
-{
-	select
-	{
-		width:68px;
-		box-sizing: border-box;
-	}
-}
-div.field.boolean
-{
-	.toggle
-	{
-		//	width and height set via JS, so that if plugin isnt loaded
-		//	or otherwise unavailable, it falls back to a normal checkbox
-
-		text-align:center;
-		display:inline-block;
-	}
-
-	span.input
-	{
-		img.tip
-		{
-			top: -0.4em;
-			left: 0.5em;
-			position: relative;
-		}
-
-		small.info
-		{
-			margin-top:0;
-		}
-	}
-}
-div.field.readonly
-{
-	input[type=text],
-	input[type=password],
-	input[type=email],
-	textarea
-	{
-		padding-left:30px;
-		width:325px;
-		box-sizing: border-box;
-		background:#fff url('../img/admin/form/readonly.png') 5px center no-repeat;
-	}
-
-	.toggle
-	{
-		.opacity(0.5);
-
-		*
-		{
-			cursor:not-allowed;
-		}
-	}
-}
-div.field.radio,
-div.field.mm-image
-{
-	label:after
-	{
-		clear: left;
-		display: block;
+		position:relative;
+		display:block;
 		content: '';
+		float:none;
+		clear:both;
 	}
-}
-div.field.multiimage
-{
-	ul.filelist
+	&:hover
 	{
-		border:1px solid #CECECE;
-		.rounded(3px);
-		background:#FFF;
-		margin-bottom:5px;
-		line-height:100%;
+		background:#F5F5F5;
 
-		li
+		span.label
 		{
-			&.item
+			border-color:#CCC;
+		}
+	}
+
+	&.even
+	{
+		background:#FAFAFA;
+
+		span.label
+		{
+			border-color:#CCCCCC;
+		}
+
+		&:hover
+		{
+			background:#F5F5F5;
+		}
+	}
+
+
+	&:last-of-type
+	{
+		border-bottom:none;
+	}
+
+	&.date-picker
+	{
+		select
+		{
+			width:116px;
+			box-sizing: border-box;
+		}
+	}
+
+	&.datetime-picker
+	{
+		select
+		{
+			width:68px;
+			box-sizing: border-box;
+		}
+	}
+
+	&.boolean
+	{
+		.toggle
+		{
+			//	width and height set via JS, so that if plugin isnt loaded
+			//	or otherwise unavailable, it falls back to a normal checkbox
+
+			text-align:center;
+			display:inline-block;
+		}
+
+		span.input
+		{
+			.tip
 			{
-				width:100px;
-				height:100px;
-				padding:3px;
-				margin:5px;
-				border:1px solid #CCC;
-				.rounded(2px);
-				display:inline-block;
+				top: -9px;
+				left: 10px;
 				position: relative;
-				background:#EFEFEF url(../img/form/upload-icon.png) center no-repeat;
-				overflow:hidden;
-				box-sizing:border-box;
-
-				img
-				{
-					width:92px;
-					height:92px;
-					.rounded(3px);
-				}
-
-				a.remove,
-				a.delete
-				{
-					display:block;
-					position:absolute;
-					width:20px;
-					height:20px;
-					right:2px;
-					top:2px;
-					background: rgba(219, 218, 220,0.8);
-					z-index:1;
-					.rounded(2px);
-					cursor:pointer;
-
-					&:hover
-					{
-						background:rgba(219, 218, 220,0.8) url(../img/form/stop-icon2.png) center no-repeat;
-					}
-				}
-
-				div.progress
-				{
-					background:#888;
-					position:absolute;
-					bottom:0px;
-					left:0px;
-					right:0px;
-					z-index:0;
-					height:0%;
-					.drop-shadow(0, 0, 5px, 0.5);
-					.transition(0.5s);
-
-					background-size: 30px 30px;
-					background-image: linear-gradient(
-						45deg,
-						rgba(0,0,0,0.1) 25%,
-						transparent     25%,
-						transparent     50%,
-						rgba(0,0,0,0.1) 50%,
-						rgba(0,0,0,0.1) 75%,
-						transparent     75%,
-						transparent
-					);
-					-webkit-animation: barberpole 0.5s linear infinite;
-					-moz-animation: barberpole 0.5s linear infinite;
-					animation: barberpole 0.5s linear infinite;
-				}
-
-				.data-cancel
-				{
-					position: absolute;
-					top: 0px;
-					bottom: 0px;
-					left: 0px;
-					right: 0px;
-					text-align: center;
-					line-height: 102px;
-					background: #EEE;
-					font-weight: bold;
-					color: #777;
-					z-index: 1;
-					.opacity(0.9);
-					display:none;
-					text-transform: uppercase;
-				}
-
-				.crunching
-				{
-					position: absolute;
-					top: 0px;
-					bottom: 0px;
-					left: 0px;
-					right: 0px;
-					background: rgba(255, 255, 255, 0.9) url(../img/loader/60PX-TRANS.gif) center no-repeat;
-					display:none;
-				}
-
-				&.placeholder
-				{
-					border:1px dashed #ccc;
-					background:#FEFEFE;
-				}
-
-				&.crunching
-				{
-					.crunching
-					{
-						display:block;
-					}
-				}
-
-				&.error
-				{
-					background:#FFEBE8;
-					border-color:#CA0300;
-
-					p
-					{
-						text-align:center;
-						margin:5px;
-						color:#CA0300;
-						font-size:0.9em;
-
-						&.filename
-						{
-							font-weight: bold;
-							text-overflow: ellipsis;
-							white-space: nowrap;
-							width: 90px;
-							overflow: hidden;
-						}
-					}
-				}
 			}
 
-			&.empty
+			small.info
 			{
-				color:#808080;
-				padding:5px;
-				margin:0;
-				display:none;
-			}
-		}
-
-		&.has-tip
-		{
-			margin-right:25px;
-		}
-
-		&.empty
-		{
-			li.empty
-			{
-				display:block;
-			}
-		}
-
-		&.ui-sortable
-		{
-			li.item
-			{
-				cursor:move;
+				margin-top:0;
 			}
 		}
 	}
 
-	img.tip
-	{
-		float:right;
-	}
-
-	.uploadify-button
-	{
-		background:#555;
-
-		.uploadify-button-text
-		{
-			color:#FFF;
-			font-size:1.2em;
-		}
-	}
-}
-
-div.field.error
-{
-	span.input
+	&.readonly
 	{
 		input[type=text],
 		input[type=password],
 		input[type=email],
 		textarea
 		{
-			border:1px solid #B52130;
 			padding-left:30px;
-			background:#fff url('../img/admin/form/error.png') 5px center no-repeat;
+			width:325px;
+			box-sizing: border-box;
+			background:#fff url('../img/admin/form/readonly.png') 5px center no-repeat;
 		}
-		select
+
+		.toggle
 		{
-			border:1px solid #B52130;
+			.opacity(0.5);
+
+			*
+			{
+				cursor:not-allowed;
+			}
 		}
 	}
-	span.error
+
+	&.radio,
+	&.mm-image
 	{
-		display:inline-block;
-	}
-	.mm-image-preview
-	{
-		border-color: #B52130;
+		label:after
+		{
+			clear: left;
+			display: block;
+			content: '';
+		}
 	}
 
-}
-div.field.submit
-{
-	.label
+	&.multiimage
 	{
-		border:none;
+		ul.filelist
+		{
+			border:1px solid #CECECE;
+			.rounded(3px);
+			background:#FFF;
+			margin-bottom:5px;
+			line-height:100%;
+
+			li
+			{
+				&.item
+				{
+					width:100px;
+					height:100px;
+					padding:3px;
+					margin:5px;
+					border:1px solid #CCC;
+					.rounded(2px);
+					display:inline-block;
+					position: relative;
+					background:#EFEFEF url(../img/form/upload-icon.png) center no-repeat;
+					overflow:hidden;
+					box-sizing:border-box;
+
+					img
+					{
+						width:92px;
+						height:92px;
+						.rounded(3px);
+					}
+
+					a.remove,
+					a.delete
+					{
+						display:block;
+						position:absolute;
+						width:20px;
+						height:20px;
+						right:2px;
+						top:2px;
+						background: rgba(219, 218, 220,0.8);
+						z-index:1;
+						.rounded(2px);
+						cursor:pointer;
+
+						&:hover
+						{
+							background:rgba(219, 218, 220,0.8) url(../img/form/stop-icon2.png) center no-repeat;
+						}
+					}
+
+					div.progress
+					{
+						background:#888;
+						position:absolute;
+						bottom:0px;
+						left:0px;
+						right:0px;
+						z-index:0;
+						height:0%;
+						.drop-shadow(0, 0, 5px, 0.5);
+						.transition(0.5s);
+
+						background-size: 30px 30px;
+						background-image: linear-gradient(
+							45deg,
+							rgba(0,0,0,0.1) 25%,
+							transparent     25%,
+							transparent     50%,
+							rgba(0,0,0,0.1) 50%,
+							rgba(0,0,0,0.1) 75%,
+							transparent     75%,
+							transparent
+						);
+						-webkit-animation: barberpole 0.5s linear infinite;
+						-moz-animation: barberpole 0.5s linear infinite;
+						animation: barberpole 0.5s linear infinite;
+					}
+
+					.data-cancel
+					{
+						position: absolute;
+						top: 0px;
+						bottom: 0px;
+						left: 0px;
+						right: 0px;
+						text-align: center;
+						line-height: 102px;
+						background: #EEE;
+						font-weight: bold;
+						color: #777;
+						z-index: 1;
+						.opacity(0.9);
+						display:none;
+						text-transform: uppercase;
+					}
+
+					.crunching
+					{
+						position: absolute;
+						top: 0px;
+						bottom: 0px;
+						left: 0px;
+						right: 0px;
+						background: rgba(255, 255, 255, 0.9) url(../img/loader/60PX-TRANS.gif) center no-repeat;
+						display:none;
+					}
+
+					&.placeholder
+					{
+						border:1px dashed #ccc;
+						background:#FEFEFE;
+					}
+
+					&.crunching
+					{
+						.crunching
+						{
+							display:block;
+						}
+					}
+
+					&.error
+					{
+						background:#FFEBE8;
+						border-color:#CA0300;
+
+						p
+						{
+							text-align:center;
+							margin:5px;
+							color:#CA0300;
+							font-size:0.9em;
+
+							&.filename
+							{
+								font-weight: bold;
+								text-overflow: ellipsis;
+								white-space: nowrap;
+								width: 90px;
+								overflow: hidden;
+							}
+						}
+					}
+				}
+
+				&.empty
+				{
+					color:#808080;
+					padding:5px;
+					margin:0;
+					display:none;
+				}
+			}
+
+			&.has-tip
+			{
+				margin-right:25px;
+			}
+
+			&.empty
+			{
+				li.empty
+				{
+					display:block;
+				}
+			}
+
+			&.ui-sortable
+			{
+				li.item
+				{
+					cursor:move;
+				}
+			}
+		}
+
+		.uploadify
+		{
+			margin-top:1em;
+
+			.uploadify-button
+			{
+				background:#555;
+
+				.uploadify-button-text
+				{
+					color:#FFF;
+					font-size:1.2em;
+				}
+			}
+		}
+	}
+
+	&.error
+	{
+		span.input
+		{
+			input[type=text],
+			input[type=password],
+			input[type=email],
+			textarea
+			{
+				border:1px solid #B52130;
+				padding-left:30px;
+				background:#fff url('../img/admin/form/error.png') 5px center no-repeat;
+			}
+			select
+			{
+				border:1px solid #B52130;
+			}
+		}
+		span.error
+		{
+			display:inline-block;
+		}
+		.mm-image-preview
+		{
+			border-color: #B52130;
+		}
+
+	}
+	&.submit
+	{
+		.label
+		{
+			border:none;
+		}
 	}
 }
-
 
 //	Style basic form elements
 input[type="text"],
@@ -714,23 +738,20 @@ textarea
 	display: block;
 	margin-bottom: 20px;
 	background: #fff;
+
+	&:focus
+	{
+		border: 1px solid #aaa;
+		color: #444;
+		-moz-box-shadow: 0 0 3px rgba(0,0,0,.2);
+		-webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
+		box-shadow:  0 0 3px rgba(0,0,0,.2);
+	}
 }
 
 select
 {
 	padding: 0;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="email"]:focus,
-textarea:focus
-{
-	border: 1px solid #aaa;
-	color: #444;
-	-moz-box-shadow: 0 0 3px rgba(0,0,0,.2);
-	-webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
-	box-shadow:  0 0 3px rgba(0,0,0,.2);
 }
 
 // --------------------------------------------------------------------------
@@ -746,6 +767,7 @@ textarea:focus
 			width:100% !important;
 			float:none;
 		}
+
 		input[type=file],
 		select
 		{
@@ -756,16 +778,19 @@ textarea:focus
 		{
 			width:234px;
 		}
-	}
 
-	div.field.error.datetime-picker,
-	div.field.error.checkbox
-	{
-		span.error
+		&.error
 		{
-			margin-bottom:20px;
-			position:relative;
-			top:15px;
+			&.datetime-picker,
+			&.checkbox
+			{
+				span.error
+				{
+					margin-bottom:20px;
+					position:relative;
+					top:15px;
+				}
+			}
 		}
 	}
 }
@@ -775,24 +800,30 @@ textarea:focus
 {
 	div.field
 	{
-		span.label
+		span
 		{
-			width:100px;
+			&.label
+			{
+				width:100px;
+			}
+			&.input
+			{
+				margin-left:135px;
+			}
 		}
-		span.input
-		{
-			margin-left:135px;
-		}
-	}
 
-	div.field.error.datetime-picker,
-	div.field.error.checkbox
-	{
-		span.error
+		&.error
 		{
-			margin-bottom:20px;
-			position:relative;
-			top:15px;
+			&.datetime-picker,
+			&.checkbox
+			{
+				span.error
+				{
+					margin-bottom:20px;
+					position:relative;
+					top:15px;
+				}
+			}
 		}
 	}
 }
@@ -802,73 +833,102 @@ textarea:focus
 {
 	div.field
 	{
-		span.label
+		span
 		{
-			display:block;
-			width:100%;
-			text-align:left;
-			border:none;
-			border-bottom:1px solid #EFEFEF;
-			margin:0;
-			margin-bottom:10px;
-			padding:0;
-			padding-bottom:5px;
+			&.label
+			{
+				display:block;
+				width:100%;
+				text-align:left;
+				border:none;
+				border-bottom:1px solid #EFEFEF;
+				margin:0;
+				margin-bottom:10px;
+				padding:0;
+				padding-bottom:5px;
+			}
+
+			&.input
+			{
+				margin-left:0px;
+
+				&.with-tip
+				{
+					.tip
+					{
+						top:46px;
+					}
+				}
+			}
 		}
 
-		span.input
+		&.mm-file,
+		&.mm-image
 		{
-			margin-left:0px;
-
-			img.tip
+			span
 			{
-				top:0px;
+				&.input
+				{
+					&.with-tip
+					{
+						.tip
+						{
+							top:8px;
+						}
+					}
+				}
+			}
+		}
+
+		&.date-picker
+		{
+			padding-bottom:20px;
+
+			select
+			{
+				width:64px;
+			}
+		}
+
+		&.multiimage
+		{
+			ul.filelist
+			{
+				clear:left;
+			}
+		}
+
+		&.error
+		{
+			span
+			{
+				&.input.with-tip
+				{
+					padding-right:0px;
+				}
+
+				&.error
+				{
+					width:100%;
+					box-sizing:border-box;
+				}
+			}
+
+			&.datetime-picker,
+			&.checkbox
+			{
+				span.error
+				{
+					margin-bottom:20px;
+					position:relative;
+					top:15px;
+				}
 			}
 		}
 	}
-
-	div.field.date-picker
-	{
-		padding-bottom:20px;
-
-		select
-		{
-			width:64px;
-		}
-	}
-
-	div.field.multiimage
-	{
-		ul.filelist
-		{
-			clear:left;
-		}
-	}
-
-	div.field.error
-	{
-		span.input.with-tip
-		{
-			padding-right:0px;
-		}
-
-		span.error
-		{
-			width:100%;
-			box-sizing:border-box;
-		}
-	}
-
-	div.field.error.datetime-picker,
-	div.field.error.checkbox
-	{
-		span.error
-		{
-			margin-bottom:20px;
-			position:relative;
-			top:15px;
-		}
-	}
 }
+
+// --------------------------------------------------------------------------
 
 //	Prefixed inputs
 div.nails-prefixed
@@ -896,12 +956,13 @@ div.nails-prefixed
 		box-sizing:border-box !important;
 		padding-left:35px;
 	}
-}
-div.nails-prefixed.error
-{
-	.nails-prefixed
+
+	&.error
 	{
-		border-color:#B52130;
+		.nails-prefixed
+		{
+			border-color:#B52130;
+		}
 	}
 }
 
