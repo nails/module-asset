@@ -210,6 +210,14 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
 		// --------------------------------------------------------------------------
 
+		//	Out of Stock behaviour
+		$('#product-variations').on('change', 'select.out-of-stock-behaviour', function()
+		{
+			_this._variation_out_of_stock_behaviour_change( $(this) );
+		});
+
+		// --------------------------------------------------------------------------
+
 		//	Toggle gallery associations
 		$('#product-variations').on('click', 'ul.gallery-associations li:not(.actions)', function(e)
 		{
@@ -432,6 +440,46 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
 		//	Show the ones we're interested in
 		_parent.find( 'div.stock-status-field.' + obj.val() ).show();
+
+		if ( obj.val() === 'OUT_OF_STOCK' && _parent.find( 'select.out-of-stock-behaviour' ).val() === 'TO_ORDER' )
+		{
+			var _message;
+			_message  = '<p>You have set the stock status to "Out of Stock" however the behaviour of this item when out of stock is set to "Behave as: To Order".</p>';
+			_message += '<p>This alert is to bring this to your attention to avoid unexpected behaviour.</p>';
+
+			$('<div>').html( _message ).dialog(
+			{
+				title: 'Out of Stock Behaviour',
+				resizable: false,
+				draggable: false,
+				modal: true,
+				dialogClass: "no-close",
+				buttons:
+				{
+					OK: function()
+					{
+						//	Close dialog
+						$(this).dialog("close");
+					}
+				}
+			});
+		}
+	};
+
+
+	// --------------------------------------------------------------------------
+
+
+	this._variation_out_of_stock_behaviour_change = function( obj )
+	{
+		//	Get parent
+		var _parent = obj.closest( '.variation' );
+
+		//	Hide all fields
+		_parent.find( 'div.out-of-stock-behaviour-field' ).hide();
+
+		//	Show the ones we're interested in
+		_parent.find( 'div.out-of-stock-behaviour-field.' + obj.val() ).show();
 	};
 
 
