@@ -332,17 +332,6 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/img\/form\/tip.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 1165,
-		"inputAbbreviatedPath": "\/img\/form\/tip.png",
-		"outputAbbreviatedPath": "\/img\/form\/tip.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
 	"\/img\/form\/upload-icon.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -504,116 +493,6 @@
 		"initialSize": 1115,
 		"inputAbbreviatedPath": "\/img\/modules\/cdn\/manager\/sprite-view-swap.png",
 		"outputAbbreviatedPath": "\/img\/modules\/cdn\/manager\/sprite-view-swap.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/img\/modules\/shop\/basket\/ribbon-gift-card.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 1824,
-		"inputAbbreviatedPath": "\/img\/modules\/shop\/basket\/ribbon-gift-card.png",
-		"outputAbbreviatedPath": "\/img\/modules\/shop\/basket\/ribbon-gift-card.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/img\/modules\/shop\/basket\/ribbon-on-sale.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 1641,
-		"inputAbbreviatedPath": "\/img\/modules\/shop\/basket\/ribbon-on-sale.png",
-		"outputAbbreviatedPath": "\/img\/modules\/shop\/basket\/ribbon-on-sale.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/img\/modules\/shop\/basket\/ribbon-voucher.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 2385,
-		"inputAbbreviatedPath": "\/img\/modules\/shop\/basket\/ribbon-voucher.png",
-		"outputAbbreviatedPath": "\/img\/modules\/shop\/basket\/ribbon-voucher.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/img\/modules\/shop\/email\/post-mark.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 6738,
-		"inputAbbreviatedPath": "\/img\/modules\/shop\/email\/post-mark.png",
-		"outputAbbreviatedPath": "\/img\/modules\/shop\/email\/post-mark.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/img\/modules\/shop\/payment-gateway\/lock-locked-icon.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 2786,
-		"inputAbbreviatedPath": "\/img\/modules\/shop\/payment-gateway\/lock-locked-icon.png",
-		"outputAbbreviatedPath": "\/img\/modules\/shop\/payment-gateway\/lock-locked-icon.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/img\/modules\/shop\/payment-gateway\/shedpay.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 4130,
-		"inputAbbreviatedPath": "\/img\/modules\/shop\/payment-gateway\/shedpay.png",
-		"outputAbbreviatedPath": "\/img\/modules\/shop\/payment-gateway\/shedpay.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/img\/modules\/shop\/product_type\/audio.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 1247,
-		"inputAbbreviatedPath": "\/img\/modules\/shop\/product_type\/audio.png",
-		"outputAbbreviatedPath": "\/img\/modules\/shop\/product_type\/audio.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/img\/modules\/shop\/product_type\/book.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 1174,
-		"inputAbbreviatedPath": "\/img\/modules\/shop\/product_type\/book.png",
-		"outputAbbreviatedPath": "\/img\/modules\/shop\/product_type\/book.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/img\/modules\/shop\/product_type\/download.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 1167,
-		"inputAbbreviatedPath": "\/img\/modules\/shop\/product_type\/download.png",
-		"outputAbbreviatedPath": "\/img\/modules\/shop\/product_type\/download.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/img\/modules\/shop\/product_type\/video.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 1014,
-		"inputAbbreviatedPath": "\/img\/modules\/shop\/product_type\/video.png",
-		"outputAbbreviatedPath": "\/img\/modules\/shop\/product_type\/video.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -1805,6 +1684,28 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/js\/nails.admin.cdn.upload.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/nails.admin.cdn.upload.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.cdn.upload.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 1,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/nails.admin.cdn.upload.min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/nails.admin.cdn.upload.min.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.cdn.upload.min.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/js\/nails.admin.cms.blocks.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -2240,28 +2141,6 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/nails.forms.min.js",
 		"outputAbbreviatedPath": "\/js\/nails.forms.min.min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/js\/nails.shop.basket.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.shop.basket.js",
-		"outputAbbreviatedPath": "\/js\/nails.shop.basket.min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/js\/nails.shop.basket.min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.shop.basket.min.js",
-		"outputAbbreviatedPath": "\/js\/nails.shop.basket.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -3375,7 +3254,7 @@
 	"jadeCompileDebug": 1,
 	"jadeOutputStyle": 0,
 	"javascriptAutoOutputPathEnabled": 1,
-	"javascriptAutoOutputPathFilenamePattern": "*-min.js",
+	"javascriptAutoOutputPathFilenamePattern": "*.min.js",
 	"javascriptAutoOutputPathRelativePath": "\/min",
 	"javascriptAutoOutputPathReplace1": "",
 	"javascriptAutoOutputPathReplace2": "",
@@ -3383,7 +3262,7 @@
 	"javascriptCreateSourceMap": 1,
 	"javascriptOutputStyle": 1,
 	"javascriptSyntaxCheckerStyle": 1,
-	"jsCheckerReservedNamesString": "_nails,_nails_admin,_nails_api,Mustache,CKEDITOR",
+	"jsCheckerReservedNamesString": "_nails,_nails_admin,_nails_api,Mustache,CKEDITOR,Dropzone",
 	"jsHintFlags2": {
 		"asi": {
 			"active": 0,
