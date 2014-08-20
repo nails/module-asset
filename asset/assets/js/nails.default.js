@@ -67,7 +67,7 @@ NAILS_JS = function()
 			if ( _scroll.length )
 			{
 				//	Giving the browser a slight chance to work out sizes etc
-				setTimeout( function() { $.scrollTo( _scroll, 'fast', { axis: 'y', offset : { top: -25 } } ); }, 750 );
+				setTimeout( function() { $.scrollTo( _scroll, 'fast', { axis: 'y', offset : { top: -60 } } ); }, 750 );
 			}
 		}
 		else
