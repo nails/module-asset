@@ -165,37 +165,56 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 		{
 			var _variation = this;
 
-			$('#dialog-confirm-delete').dialog({
-				resizable: false,
-				draggable: false,
-				modal: true,
-				dialogClass: "no-close",
-				buttons:
-				{
-					"Delete Variation": function()
-				{
-						//	Remove the variation
-						$(_variation).closest('.variation').remove();
-
-						//	Check the max variations
-						_this._variations_checkmax();
-
-						//	If there's only one variation left then hide the price syncher
-						if ( $( 'product-variations .variation' ).length <= 1 )
-						{
-							$( '#variation-sync-prices' ).hide();
-							$( '#variation-sync-shipping' ).hide();
-						}
-
-						//	Close dialog
-						$(this).dialog("close");
-					},
-					Cancel: function()
+			if ( $( '#product-variations .variation' ).length === 1 )
+			{
+				$('#dialog-no-delete-one-variation').dialog({
+					resizable: false,
+					draggable: false,
+					modal: true,
+					dialogClass: "no-close",
+					buttons:
 					{
-						$(this).dialog("close");
+						OK: function()
+						{
+							$(this).dialog("close");
+						}
 					}
-				}
-			});
+				});
+			}
+			else
+			{
+				$('#dialog-confirm-delete').dialog({
+					resizable: false,
+					draggable: false,
+					modal: true,
+					dialogClass: "no-close",
+					buttons:
+					{
+						"Delete Variation": function()
+						{
+							//	Remove the variation
+							$(_variation).closest('.variation').remove();
+
+							//	Check the max variations
+							_this._variations_checkmax();
+
+							//	If there's only one variation left then hide the price syncher
+							if ( $( '#product-variations .variation' ).length <= 1 )
+							{
+								$( '#variation-sync-prices' ).hide();
+								$( '#variation-sync-shipping' ).hide();
+							}
+
+							//	Close dialog
+							$(this).dialog("close");
+						},
+						Cancel: function()
+						{
+							$(this).dialog("close");
+						}
+					}
+				});
+			}
 
 			return false;
 		});
