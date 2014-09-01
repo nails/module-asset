@@ -664,10 +664,11 @@
 					text-align:center;
 				}
 
-				th.id,
-				td.id
+				th.checkbox,
+				td.checkbox
 				{
-					width:60px;
+					width:10px;
+					text-align:center;
 				}
 
 				th.ref,
@@ -682,49 +683,6 @@
 					width:60px;
 				}
 
-				td.customer
-				{
-					position:relative;
-					min-height:45px;
-
-					img
-					{
-						&.profile-img
-						{
-							position:absolute;
-							left:9px;
-							top:7px;
-							width:35px;
-							height:35px;
-							background:#CCC url(../img/loader-CCCCCC.gif) center no-repeat;
-							.nifty-drop-shadow();
-							border:1px solid #ccc;
-							.rounded(3px);
-							margin-top:2px;
-						}
-
-						&.verified
-						{
-							margin-left:5px;
-							width:10px;
-							height:10px;
-							position:relative;
-							top:2px;
-							.drop-shadow( 0, 0, 0, 0 );
-						}
-					}
-
-					div
-					{
-						margin-left:45px;
-
-						small
-						{
-							display:block;
-						}
-					}
-				}
-
 				th.value,
 				td.value,
 				th.status,
@@ -735,46 +693,19 @@
 					width:60px;
 				}
 
-				td.status
-				{
-					color:#BBB;
-
-					&.PAID
-					{
-						font-weight:bold;
-						color:green;
-					}
-
-					&.UNPAID
-					{
-						font-weight:bold;
-						color:red;
-					}
-				}
-
-				td.fulfilment
-				{
-					color:#ccc;
-					font-weight:bold;
-
-					&.yes
-					{
-						color:green;
-					}
-
-					&.no
-					{
-						color:red;
-						background-image:url(../img/admin/icons/warning.png) !important;
-						background-repeat:no-repeat !important;
-						background-position: 10px center !important;
-					}
-				}
-
 				th.actions,
 				td.actions
 				{
-					width:50px;
+					width:150px;
+				}
+			}
+
+			#batch-actions
+			{
+				select
+				{
+					display:inline-block;
+					margin:0 10px;
 				}
 			}
 		}
