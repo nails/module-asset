@@ -1,20 +1,20 @@
 {
   "name": "jquery-serialize-object",
-  "version": "2.3.0",
+  "version": "2.3.2",
   "main": "./jquery.serialize-object.js",
   "dependencies": {},
-  "_id": "jquery-serialize-object@2.3.0",
+  "_id": "jquery-serialize-object@2.3.2",
   "description": "Converts an HTML form into a JavaScript object",
   "repository": {
     "type": "git",
     "url": "git://github.com/macek/jquery-serialize-object.git"
   },
   "homepage": "https://github.com/macek/jquery-serialize-object",
-  "_release": "2.3.0",
+  "_release": "2.3.2",
   "_resolution": {
     "type": "version",
-    "tag": "2.3.0",
-    "commit": "edbd4ff33c7fa22ed5b0abc6fc6f0a12554ec8d1"
+    "tag": "2.3.2",
+    "commit": "e6588562662ae4f24faea18d883a1e184dcdf67f"
   },
   "_source": "git://github.com/macek/jquery-serialize-object.git",
   "_target": "~2.3.0",
