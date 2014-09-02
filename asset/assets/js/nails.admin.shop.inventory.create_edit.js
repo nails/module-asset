@@ -153,7 +153,6 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
 			//	Show the price syncher
 			$( '#variation-sync-prices' ).show();
-			$( '#variation-sync-shipping' ).show();
 
 			return false;
 		});
@@ -202,7 +201,6 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 							if ( $( '#product-variations .variation' ).length <= 1 )
 							{
 								$( '#variation-sync-prices' ).hide();
-								$( '#variation-sync-shipping' ).hide();
 							}
 
 							//	Close dialog
@@ -345,63 +343,6 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
 							$( '#product-variations .variation-price-sale.' + _code ).val( $(this).val() );
 						});
-
-						//	Close dialog
-						$(this).dialog("close");
-					},
-					Cancel: function()
-					{
-						$(this).dialog("close");
-					}
-				}
-			});
-
-			return false;
-		});
-
-
-		// --------------------------------------------------------------------------
-
-		//	Sync shipping options
-		$( '#variation-sync-shipping a' ).on( 'click', function()
-		{
-			$('<div>').html( 'This action will take the values form the first variation and <strong>overwrite</strong> the corresponding values in each other variation.' ).dialog(
-			{
-				title: 'Confirm Sync',
-				resizable: false,
-				draggable: false,
-				modal: true,
-				dialogClass: "no-close",
-				buttons:
-				{
-					OK: function()
-					{
-						//	Measurement unit
-						var _measurement_unit = $( '#tab-variation-0-shipping select.measurement-unit' ).val();
-						$( '#product-variations select.measurement-unit' ).val( _measurement_unit ).trigger( 'change' );
-
-						//	Length
-						var _length = $( '#tab-variation-0-shipping input.length' ).val();
-						$( '#product-variations input.length' ).val( _length );
-
-						//	Width
-						var _width = $( '#tab-variation-0-shipping input.width' ).val();
-						$( '#product-variations input.width' ).val( _width );
-
-						//	Height
-						var _height = $( '#tab-variation-0-shipping input.height' ).val();
-						$( '#product-variations input.height' ).val( _height );
-
-						//	Weight unit
-						var _weight_unit = $( '#tab-variation-0-shipping select.weight-unit' ).val();
-						$( '#product-variations .weight-unit' ).val( _weight_unit ).trigger( 'change' );
-
-						//	Weight
-						var _weight = $( '#tab-variation-0-shipping input.weight' ).val();
-						$( '#product-variations input.weight' ).val( _weight );
-
-						//	Collection
-						//	TODO
 
 						//	Close dialog
 						$(this).dialog("close");
@@ -1039,6 +980,20 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 				}
 			});
 			return false;
+		});
+
+		$(document).on('toggle', '.shipping-collection-only .toggle', function(e, active) {
+
+			if ( active === false )
+			{
+				$(this).closest( '.fieldset' ).find( '.shipping-driver-options' ).slideDown();
+				$(this).closest( '.fieldset' ).find( '.shipping-driver-options-hidden' ).slideUp();
+			}
+			else
+			{
+				$(this).closest( '.fieldset' ).find( '.shipping-driver-options' ).slideUp();
+				$(this).closest( '.fieldset' ).find( '.shipping-driver-options-hidden' ).slideDown();
+			}
 		});
 
 		// --------------------------------------------------------------------------
