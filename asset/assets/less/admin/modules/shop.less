@@ -936,7 +936,7 @@
 			th.modified,
 			td.datetime
 			{
-				width:100px;
+				width:110px;
 			}
 
 			th.actions,
@@ -951,22 +951,35 @@
 		{
 			ul
 			{
+				width:100%;
+
 				li
 				{
 					display:inline-block;
-					margin-right:10px;
-					margin-bottom:10px;
+					width:20%;
+					min-width:180px;
+					box-sizing:border-box;
+					margin:0;
+					padding-right:1em;
+					padding-bottom:1em;
 
 					a
 					{
 						.nifty-drop-shadow();
-						width:100px;
+						width:100%;
 						text-align:center;
-						.rounded(3px);
 						display:block;
 						border:1px solid #CCC;
 						background:#EFEFEF;
 						padding:25px 25px;
+						text-decoration:none;
+						box-sizing:border-box;
+
+						&:active
+						{
+							top:1px;
+							position: relative;
+						}
 					}
 				}
 			}

@@ -310,7 +310,7 @@ NAILS_JS = function()
 			if ( _diff >= 0 && _diff < 10 )
 			{
 				//	Has just happened so for a few seconds show plain ol' English
-				_relative = 'just now';
+				_relative = 'a moment ago';
 			}
 			else if ( _diff >= 10 )
 			{
@@ -322,9 +322,24 @@ NAILS_JS = function()
 				//	Target time is in the future
 				_relative = _this._nice_time_calc( _diff ) + ' from now';
 			}
+
 			// --------------------------------------------------------------------------
 
 			//	Set the new relative time
+			if ( _relative === '1 day ago' )
+			{
+				_relative = 'yesterday';
+			}
+			else if( _relative === '1 day from now' )
+			{
+				_relative = 'tomorrow';
+			}
+
+			if ( $(this).data( 'capitalise' ) === true )
+			{
+				_relative = _relative.charAt(0).toUpperCase() + _relative.slice(1);
+			}
+
 			$(this).text( _relative );
 		});
 	};

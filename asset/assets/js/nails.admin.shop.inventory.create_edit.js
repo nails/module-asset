@@ -25,6 +25,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
 		//	Init everything!
 		this._init_info();
+		this._init_meta();
 		this._init_variations();
 		this._init_gallery();
 		this._init_attributes();
@@ -122,6 +123,26 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
 		//	Finally, replace the content of the template
 		$('#template-variation').html($(_template).html());
+	};
+
+
+	// --------------------------------------------------------------------------
+
+
+	this._init_meta = function()
+	{
+		$('#is-external .toggle').on( 'toggle', function(e,active)
+		{
+			if(active === true)
+			{
+				$('#is-external-fields').slideDown();
+				_nails.add_stripes();
+			}
+			else
+			{
+				$('#is-external-fields').slideUp();
+			}
+		});
 	};
 
 
@@ -994,6 +1015,8 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 				$(this).closest( '.fieldset' ).find( '.shipping-driver-options' ).slideUp();
 				$(this).closest( '.fieldset' ).find( '.shipping-driver-options-hidden' ).slideDown();
 			}
+
+			_nails.add_stripes();
 		});
 
 		// --------------------------------------------------------------------------
