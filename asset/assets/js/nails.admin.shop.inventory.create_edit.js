@@ -171,6 +171,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 			_nails_admin.init_toggles();
 			_nails_admin.init_select2();
 			_this._variations_checkmax();
+			_this._variation_meta_multiple();
 
 			//	Show the price syncher
 			$( '#variation-sync-prices' ).show();
@@ -377,6 +378,11 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
 			return false;
 		});
+
+		// --------------------------------------------------------------------------
+
+		//	Init any meta fields
+		this._variation_meta_multiple();
 	};
 
 
@@ -405,6 +411,19 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 			//	Remove any variations which were previously disabled
 			$('#product-variations .variation.not-applicable').removeClass('not-applicable');
 		}
+	};
+
+
+	// --------------------------------------------------------------------------
+
+
+	this._variation_meta_multiple = function()
+	{
+		$( '#product-variations input.allow-multiple:not(.select2-offscreen)' ).select2(
+		{
+			tags: [],
+			tokenSeparators: [","]
+		});
 	};
 
 
