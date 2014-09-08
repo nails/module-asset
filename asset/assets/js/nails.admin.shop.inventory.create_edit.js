@@ -444,7 +444,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 		if ( obj.val() === 'OUT_OF_STOCK' && _parent.find( 'select.out-of-stock-behaviour' ).val() === 'TO_ORDER' )
 		{
 			var _message;
-			_message  = '<p>You have set the stock status to "Out of Stock" however the behaviour of this item when out of stock is set to "Behave as: To Order".</p>';
+			_message  = '<p>You have set the stock status to "Out of Stock" however the behaviour of this item when out of stock is set to "Behave as if: To Order".</p>';
 			_message += '<p>This alert is to bring this to your attention to avoid unexpected behaviour.</p>';
 
 			$('<div>').html( _message ).dialog(
