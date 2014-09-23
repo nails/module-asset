@@ -1,16 +1,18 @@
 var NAILS_Admin_Blog_Create_Edit;
 NAILS_Admin_Blog_Create_Edit = function()
 {
+	this.blog_id		= null;
 	this.upload_token	= null;
 	this._api			= null;
 
 	// --------------------------------------------------------------------------
 
 
-	this.init = function( upload_token )
+	this.init = function( blog_id, upload_token )
 	{
 		//	Set vars
-		this.upload_token = upload_token;
+		this.blog_id		= blog_id;
+		this.upload_token	= upload_token;
 
 		// --------------------------------------------------------------------------
 
@@ -124,10 +126,10 @@ NAILS_Admin_Blog_Create_Edit = function()
 		var _url = {};
 
 		_target.categories	= '#tab-categories select.categories';
-		_url.categories		= window.SITE_URL + 'admin/blog/manage/category?is_fancybox=1';
+		_url.categories		= window.SITE_URL + 'admin/blog/' + this.blog_id + '/manage/category?is_fancybox=1';
 
 		_target.tags	= '#tab-tags select.tags';
-		_url.tags		= window.SITE_URL + 'admin/blog/manage/tag?is_fancybox=1';
+		_url.tags		= window.SITE_URL + 'admin/blog/' + this.blog_id + '/manage/tag?is_fancybox=1';
 
 		// --------------------------------------------------------------------------
 

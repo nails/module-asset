@@ -47,11 +47,11 @@ NAILS_Admin = function()
 		{
 			if ($(this).parents('.box').hasClass('open'))
 			{
-				_this._open_box(this, true);
+				_this._close_box(this, true);
 			}
 			else
 			{
-				_this._close_box(this, true);
+				_this._open_box(this, true);
 			}
 
 			// --------------------------------------------------------------------------
@@ -126,7 +126,7 @@ NAILS_Admin = function()
 
 		$( 'ul.modules li.module' ).each(function()
 		{
-			_open = $( '.box', this ).hasClass( 'closed' );
+			_open = $( '.box', this ).hasClass( 'open' );
 			_data[$(this).data( 'module' )] = {
 				open : _open
 			};
@@ -136,7 +136,7 @@ NAILS_Admin = function()
 		{
 			controller : 'admin',
 			method: 'nav/save',
-			action: 'POST',
+			action: 'GET',
 			data :
 			{
 				preferences : _data
@@ -158,8 +158,8 @@ NAILS_Admin = function()
 
 		// --------------------------------------------------------------------------
 
-		$(toggle).parents('.box').removeClass('open');
-		$(toggle).parents('.box').addClass('closed');
+		$(toggle).parents('.box').removeClass('closed');
+		$(toggle).parents('.box').addClass('open');
 
 		//	Set the height (so it animates)
 		_height = $(toggle).attr('data-height');
@@ -186,8 +186,8 @@ NAILS_Admin = function()
 
 		// --------------------------------------------------------------------------
 
-		$(toggle).parents('.box').removeClass('closed');
-		$(toggle).parents('.box').addClass('open');
+		$(toggle).parents('.box').removeClass('open');
+		$(toggle).parents('.box').addClass('closed');
 
 		//	Set the height (so it animates)
 		if (animate)

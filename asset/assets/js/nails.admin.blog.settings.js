@@ -3,6 +3,7 @@ NAILS_Admin_Blog_Settings = function()
 {
 	this.__construct = function()
 	{
+		this._init_chooser();
 		this._init_comments();
 		this._init_social();
 		this._init_skins();
@@ -11,6 +12,50 @@ NAILS_Admin_Blog_Settings = function()
 
 		//	Set up shop
 		this._comment_engine_change();
+	};
+
+
+	// --------------------------------------------------------------------------
+
+
+	this._init_chooser = function()
+	{
+		$( '#blog-id' ).on( 'change', function()
+		{
+			if ( parseInt( $(this).val() ) > 0 )
+			{
+				if ( $('#alert-choose-blog').length )
+				{
+					$('#blog-id').closest( 'form' ).submit();
+				}
+				else
+				{
+					$('<div>')
+					.html( '<p>Any unsaved changes will be lost.</p>' )
+					.dialog(
+					{
+						title: 'Are you sure?',
+						resizable: false,
+						draggable: false,
+						modal: true,
+						dialogClass: "no-close",
+						buttons:
+						{
+							OK: function()
+							{
+								$('#blog-id').closest( 'form' ).submit();
+								$(this).dialog("close");
+							},
+							Cancel: function()
+							{
+								$(this).dialog("close");
+							}
+						}
+					})
+					.show();
+				}
+			}
+		});
 	};
 
 
