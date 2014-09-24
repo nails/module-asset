@@ -5,7 +5,7 @@
 	{
 		table
 		{
-			margin-bottom:1em;
+			margin-bottom: 1em;
 
 			th,
 			td
@@ -13,13 +13,14 @@
 				&.id,
 				&.group
 				{
-					width:50px;
-					text-align:center;
+					width: 50px;
+					text-align: center;
 				}
 
 				&.actions
 				{
-					width:225px;
+					width: 225px;
+					text-align: center;
 				}
 			}
 
@@ -57,13 +58,13 @@
 				&.id,
 				&.group
 				{
-					vertical-align:middle;
-					color:#666;
+					vertical-align: middle;
+					color: #666;
 				}
 
 				&.profile.zero
 				{
-					color:#ccc;
+					color: #ccc;
 				}
 
 				&.actions
@@ -221,6 +222,25 @@
 						font-size: 1.5em;
 					}
 				}
+			}
+		}
+
+		&.edit
+		{
+			.mask
+			{
+				position:absolute;
+				height:28px;
+				background:rgba(255,255,255,0.5);
+				z-index:100;
+				top:0;
+				left:0;
+				display:none;
+				line-height: 28px;
+				padding-left: 110px;
+				padding-right: 10px;
+				font-size: 0.8em;
+				border: 1px solid #EFEFEF;
 			}
 		}
 	}
