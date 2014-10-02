@@ -177,10 +177,11 @@ NAILS_CDN_Manager =  function() {
 			var _file		= $(this).attr( 'data-file' );
 			var _id			= $(this).attr( 'data-id' );
 			var _fieldid	= $(this).attr( 'data-fieldid' );
+			var _bucket		= $(this).attr( 'data-bucket' );
 
 			if ( _this.handler === 'ckeditor' )
 			{
-				_this._insert_ckeditor( _file, _id, _fieldid );
+				_this._insert_ckeditor( _bucket, _file, _id );
 			}
 			else
 			{

@@ -5,13 +5,14 @@
 
 CKEDITOR.plugins.addExternal( 'codemirror',	window.NAILS.URL + 'js/ckeditor.plugins/codemirror/' );
 CKEDITOR.plugins.addExternal( 'mediaembed',	window.NAILS.URL + 'js/ckeditor.plugins/mediaembed/' );
+CKEDITOR.plugins.addExternal( 'image2',	window.NAILS.URL + 'js/ckeditor.plugins/image2/' );
 
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here.
 	// For the complete reference:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
-	config.extraPlugins = 'justify,autogrow,mediaembed,codemirror,colorbutton,colordialog,font';
+	config.extraPlugins = 'justify,autogrow,mediaembed,codemirror,colorbutton,colordialog,font,image2';
 	config.removePlugins = 'resize,elementspath';
 
 	// The toolbar groups arrangement, optimized for a single toolbar row.
@@ -36,9 +37,14 @@ CKEDITOR.editorConfig = function( config ) {
 	//	Allow the editor to define whatever classes the user wants on elements
 	//	Same deal for data-* attributes
 	config.extraAllowedContent = {
-		'*' : {
+		'*':
+		{
 			classes: '*',
 			attributes: 'data-*'
+		},
+		'img':
+		{
+			attributes: '!width,!height'
 		}
 	};
 
