@@ -355,6 +355,11 @@ NAILS_Admin = function()
 
 		$('fieldset:not(.collapsable)').each(function() {
 
+			if ( $(this).hasClass( 'no-collapse' ) )
+			{
+				return;
+			}
+
 			_toggle = $('<a>').attr({
 				href: '#',
 				'class': 'fieldset-toggle'

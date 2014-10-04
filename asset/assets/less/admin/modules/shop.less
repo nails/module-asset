@@ -710,59 +710,115 @@
 			}
 		}
 
-		&.view
+		&.single
 		{
-			table
+			.col-3-container
 			{
-				td.details
+				&:after
 				{
-					position:relative;
+					display: block;
+					content: '';
+					clear: both;
+				}
 
-					img.ribbon
+				.col-3
+				{
+					float: left;
+					width: 33.333%;
+				}
+
+				td.label
+				{
+					font-weight:bold;
+					vertical-align: top;
+				}
+
+				.order-status-container
+				{
+					height: 50%;
+					box-sizing:border-box;
+					padding-bottom: 0.5em;
+
+					&:last-of-type
 					{
-						position:absolute;
-						left:-4px;
-						top:-2px;
-						width:35px;
-						height:35px;
-					}
-				}
-
-				th.quantity,
-				td.quantity,
-				th.price,
-				td.price,
-				th.processed,
-				td.processed,
-				th.actions,
-				td.actions
-				{
-					text-align:center;
-				}
-
-				th.quantity,
-				td.quantity,
-				th.processed,
-				td.processed
-				{
-					width:50px;
-				}
-
-				td.processed
-				{
-					&.yes
-					{
-						font-weight:bold;
-						color:green;
+						padding-bottom: 0;
 					}
 
-					&.no
+					.order-status
 					{
-						font-weight:bold;
-						color:red;
-						background-image:url(../img/admin/icons/warning.png) !important;
-						background-repeat:no-repeat !important;
-						background-position: 10px center !important;
+						border: 1px solid #CCC;
+						background-color: #EFEFEF;
+						.rounded(3px);
+						padding: 1em;
+						text-align: center;
+						height:100%;
+						box-sizing: border-box;
+
+						h1
+						{
+							padding:0.5em;
+							margin:0;
+							margin-bottom:0.5em;
+							text-transform: uppercase;
+							background: #888;
+							color: #FFF;
+						}
+
+						&.unpaid,
+						&.abandoned,
+						&.cancelled,
+						&.failed
+						{
+							border-color: #ebccd1;
+							color: #a94442;
+							background: #f2dede;
+
+							h1
+							{
+								background: #a94442;
+								color: #FFF;
+							}
+						}
+
+						&.paid,
+						&.fulfilled
+						{
+							border-color: #d6e9c6;
+							color: #3c763d;
+							background: #dff0d8;
+
+							h1
+							{
+								background: #3c763d;
+								color: #FFF;
+							}
+						}
+
+						&.pending
+						{
+							border-color: #bce8f1;
+							color: #31708f;
+							background: #d9edf7;
+
+							h1
+							{
+								background: #31708f;
+								color: #FFF;
+							}
+						}
+
+						&.unfulfilled
+						{
+							border-color: #faebcc;
+							color: #8a6d3b;
+							background: #fcf8e3;
+
+							h1
+							{
+								background: #faebcc;
+								color: #8a6d3b;
+							}
+						}
 					}
 				}
 			}
