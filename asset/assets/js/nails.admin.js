@@ -27,6 +27,7 @@ NAILS_Admin = function()
 	this.init = function() {
 		this.init_boxes();
 		this.init_navsearch();
+		this.init_nav_reset();
 		this.init_search_boxes();
 		this.init_mobile_menu();
 		this.init_fieldsets();
@@ -304,6 +305,46 @@ NAILS_Admin = function()
 
 				});
 			}
+		});
+	};
+
+
+	// --------------------------------------------------------------------------
+
+
+	this.init_nav_reset = function()
+	{
+		$( '#admin-nav-reset' ).on( 'click', function()
+		{
+			var _call =
+			{
+				controller : 'admin',
+				method: 'nav/reset',
+				action: 'POST'
+			};
+
+			_nails_api.call(_call);
+
+			// --------------------------------------------------------------------------
+
+			$('<div>')
+			.html( '<p>Your navigation has been reset, changes will take hold on the next page load.</p>' )
+			.dialog(
+			{
+				title: 'Reset Complete',
+				resizable: false,
+				draggable: false,
+				modal: true,
+				dialogClass: "no-close",
+				buttons:
+				{
+					OK: function()
+					{
+						$(this).dialog("close");
+					}
+				}
+			})
+			.show();
 		});
 	};
 

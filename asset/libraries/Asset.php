@@ -481,8 +481,10 @@ class Asset
 		switch ( $_type ) :
 
 			case 'CSS' :
+			case 'CSS-INLINE' :
 			case 'CSS_INLINE' :	$this->_css_inline['INLINE-CSS-' . md5( $script )]	= $script;	break;
 			case 'JS' :
+			case 'JS-INLINE' :
 			case 'JS_INLINE' :	$this->_js_inline['INLINE-JS-' . md5( $script )]	= $script;	break;
 
 		endswitch;
