@@ -285,9 +285,16 @@ NAILS_Admin_Shop_Settings = function()
 
 	this._init_skins = function()
 	{
-		$( 'ul.skins li.skin' ).on( 'click', function()
+		$( '#tab-skin-foh ul.skins li.skin' ).on( 'click', function()
 		{
-			$( 'ul.skins li.skin' ).removeClass( 'selected' );
+			$( '#tab-skin-foh ul.skins li.skin' ).removeClass( 'selected' );
+			$(this).addClass( 'selected' );
+			$(this).find( 'input[type=radio]' ).prop( 'checked', true );
+		});
+
+		$( '#tab-skin-checkout ul.skins li.skin' ).on( 'click', function()
+		{
+			$( '#tab-skin-checkout ul.skins li.skin' ).removeClass( 'selected' );
 			$(this).addClass( 'selected' );
 			$(this).find( 'input[type=radio]' ).prop( 'checked', true );
 		});
