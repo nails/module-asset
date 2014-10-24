@@ -1,10 +1,10 @@
 {
   "name": "form-serializer",
-  "version": "2.3.2",
+  "version": "2.3.4",
   "description": "serialize form fields into an object or JSON",
   "main": "./jquery.serialize-object.js",
   "scripts": {
-    "test": "open ./test/test.html",
+    "test": "npm run-script build && open ./test/test.html",
     "build": "npm run-script minify",
     "minify": "uglifyjs jquery.serialize-object.js -m -c --comments > jquery.serialize-object.min.js"
   },
