@@ -809,7 +809,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function()
 						//	Instantiate the editor
 						_script += '	$(this).ckeditor(';
 						_script += '	{';
-						_script += '		customConfig: window.NAILS.URL + \'js/ckeditor.config.min.js\'';
+						_script += '		customConfig: window.NAILS.URL + \'js/ckeditor.config.default.min.js\'';
 						_script += '	},';
 						_script += '	function()';
 						_script += '	{';
@@ -905,7 +905,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function()
 						//	Instantiate the editor
 						_script += '	$(this).ckeditor(';
 						_script += '	{';
-						_script += '		customConfig: window.NAILS.URL + \'js/ckeditor.config.min.js\'';
+						_script += '		customConfig: window.NAILS.URL + \'js/ckeditor.config.default.min.js\'';
 						_script += '	},';
 						_script += '	function()';
 						_script += '	{';

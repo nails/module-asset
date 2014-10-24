@@ -1,6 +1,6 @@
 {
 "CodeKitInfo": "This is a CodeKit 2.x project configuration file. It is designed to sync project settings across multiple machines. MODIFYING THE CONTENTS OF THIS FILE IS A POOR LIFE DECISION. If you do so, you will likely cause CodeKit to crash. This file is not useful unless accompanied by the project that created it in CodeKit 2. This file is not backwards-compatible with CodeKit 1.x. For more information, see: http:\/\/incident57.com\/codekit",
-"creatorBuild": "17945",
+"creatorBuild": "18027",
 "files": {
 	"\/css\/bootstrap.12.css": {
 		"fileType": 16,
@@ -508,26 +508,48 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/js\/ckeditor.config.js": {
+	"\/js\/ckeditor.config.basic.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/ckeditor.config.js",
-		"outputAbbreviatedPath": "\/js\/ckeditor.config.min.js",
+		"inputAbbreviatedPath": "\/js\/ckeditor.config.basic.js",
+		"outputAbbreviatedPath": "\/js\/ckeditor.config.basic.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/ckeditor.config.min.js": {
+	"\/js\/ckeditor.config.basic.min.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/ckeditor.config.min.js",
-		"outputAbbreviatedPath": "\/js\/ckeditor.config.min.min.js",
+		"inputAbbreviatedPath": "\/js\/ckeditor.config.basic.min.js",
+		"outputAbbreviatedPath": "\/js\/ckeditor.config.basic.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/ckeditor.config.default.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/ckeditor.config.default.js",
+		"outputAbbreviatedPath": "\/js\/ckeditor.config.default.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 2,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/ckeditor.config.default.min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/ckeditor.config.default.min.js",
+		"outputAbbreviatedPath": "\/js\/ckeditor.config.default.min.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/css\/codemirror.min.css": {
@@ -602,7 +624,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/js\/beautify.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/js\/codemirror.addons.min.js": {
@@ -613,7 +635,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/js\/codemirror.addons.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/js\/codemirror.addons.search.min.js": {
@@ -624,7 +646,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/js\/codemirror.addons.search.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/js\/codemirror.min.js": {
@@ -635,7 +657,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/js\/codemirror.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/js\/codemirror.mode.htmlmixed.min.js": {
@@ -646,7 +668,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/js\/codemirror.mode.htmlmixed.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/js\/codemirror.mode.javascript.min.js": {
@@ -657,7 +679,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/js\/codemirror.mode.javascript.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/js\/codemirror.mode.php.min.js": {
@@ -668,7 +690,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/js\/codemirror.mode.php.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/af.js": {
@@ -679,7 +701,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/af.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/ar.js": {
@@ -690,7 +712,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/ar.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/bg.js": {
@@ -701,7 +723,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/bg.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/bn.js": {
@@ -712,7 +734,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/bn.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/bs.js": {
@@ -723,7 +745,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/bs.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/ca.js": {
@@ -734,7 +756,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/ca.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/cs.js": {
@@ -745,7 +767,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/cs.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/cy.js": {
@@ -756,7 +778,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/cy.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/da.js": {
@@ -767,7 +789,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/da.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/de.js": {
@@ -778,7 +800,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/de.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/el.js": {
@@ -789,7 +811,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/el.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/en-au.js": {
@@ -800,7 +822,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/en-au.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/en-ca.js": {
@@ -811,7 +833,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/en-ca.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/en-gb.js": {
@@ -822,7 +844,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/en-gb.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/en.js": {
@@ -833,7 +855,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/en.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/eo.js": {
@@ -844,7 +866,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/eo.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/es.js": {
@@ -855,7 +877,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/es.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/et.js": {
@@ -866,7 +888,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/et.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/eu.js": {
@@ -877,7 +899,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/eu.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/fa.js": {
@@ -888,7 +910,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/fa.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/fi.js": {
@@ -899,7 +921,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/fi.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/fo.js": {
@@ -910,7 +932,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/fo.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/fr-ca.js": {
@@ -921,7 +943,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/fr-ca.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/fr.js": {
@@ -932,7 +954,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/fr.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/gl.js": {
@@ -943,7 +965,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/gl.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/gu.js": {
@@ -954,7 +976,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/gu.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/he.js": {
@@ -965,7 +987,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/he.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/hi.js": {
@@ -976,7 +998,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/hi.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/hr.js": {
@@ -987,7 +1009,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/hr.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/hu.js": {
@@ -998,7 +1020,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/hu.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/is.js": {
@@ -1009,7 +1031,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/is.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/it.js": {
@@ -1020,7 +1042,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/it.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/ja.js": {
@@ -1031,7 +1053,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/ja.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/ka.js": {
@@ -1042,7 +1064,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/ka.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/km.js": {
@@ -1053,7 +1075,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/km.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/ko.js": {
@@ -1064,7 +1086,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/ko.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/ku.js": {
@@ -1075,7 +1097,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/ku.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/lt.js": {
@@ -1086,7 +1108,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/lt.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/lv.js": {
@@ -1097,7 +1119,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/lv.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/mk.js": {
@@ -1108,7 +1130,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/mk.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/mn.js": {
@@ -1119,7 +1141,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/mn.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/ms.js": {
@@ -1130,7 +1152,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/ms.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/nb.js": {
@@ -1141,7 +1163,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/nb.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/nl.js": {
@@ -1152,7 +1174,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/nl.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/no.js": {
@@ -1163,7 +1185,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/no.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/pl.js": {
@@ -1174,7 +1196,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/pl.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/pt-br.js": {
@@ -1185,7 +1207,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/pt-br.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/pt.js": {
@@ -1196,7 +1218,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/pt.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/ro.js": {
@@ -1207,7 +1229,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/ro.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/ru.js": {
@@ -1218,7 +1240,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/ru.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/sk.js": {
@@ -1229,7 +1251,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/sk.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/sl.js": {
@@ -1240,7 +1262,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/sl.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/sr-latn.js": {
@@ -1251,7 +1273,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/sr-latn.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/sr.js": {
@@ -1262,7 +1284,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/sr.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/sv.js": {
@@ -1273,7 +1295,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/sv.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/th.js": {
@@ -1284,7 +1306,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/th.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/tr.js": {
@@ -1295,7 +1317,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/tr.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/ug.js": {
@@ -1306,7 +1328,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/ug.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/uk.js": {
@@ -1317,7 +1339,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/uk.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/vi.js": {
@@ -1328,7 +1350,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/vi.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/zh-cn.js": {
@@ -1339,7 +1361,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/zh-cn.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/lang\/zh.js": {
@@ -1350,7 +1372,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/lang\/zh.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/plugin.js": {
@@ -1361,7 +1383,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/codemirror\/plugin.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/codemirror\/theme\/3024-day.css": {
@@ -1655,7 +1677,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/dialogs\/image2.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/icons\/hidpi\/image.png": {
@@ -1688,7 +1710,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/af.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/ar.js": {
@@ -1699,7 +1721,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/ar.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/bg.js": {
@@ -1710,7 +1732,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/bg.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/bn.js": {
@@ -1721,7 +1743,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/bn.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/bs.js": {
@@ -1732,7 +1754,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/bs.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/ca.js": {
@@ -1743,7 +1765,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/ca.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/cs.js": {
@@ -1754,7 +1776,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/cs.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/cy.js": {
@@ -1765,7 +1787,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/cy.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/da.js": {
@@ -1776,7 +1798,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/da.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/de.js": {
@@ -1787,7 +1809,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/de.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/el.js": {
@@ -1798,7 +1820,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/el.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/en-au.js": {
@@ -1809,7 +1831,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/en-au.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/en-ca.js": {
@@ -1820,7 +1842,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/en-ca.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/en-gb.js": {
@@ -1831,7 +1853,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/en-gb.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/en.js": {
@@ -1842,7 +1864,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/en.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/eo.js": {
@@ -1853,7 +1875,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/eo.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/es.js": {
@@ -1864,7 +1886,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/es.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/et.js": {
@@ -1875,7 +1897,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/et.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/eu.js": {
@@ -1886,7 +1908,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/eu.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/fa.js": {
@@ -1897,7 +1919,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/fa.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/fi.js": {
@@ -1908,7 +1930,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/fi.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/fo.js": {
@@ -1919,7 +1941,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/fo.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/fr-ca.js": {
@@ -1930,7 +1952,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/fr-ca.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/fr.js": {
@@ -1941,7 +1963,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/fr.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/gl.js": {
@@ -1952,7 +1974,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/gl.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/gu.js": {
@@ -1963,7 +1985,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/gu.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/he.js": {
@@ -1974,7 +1996,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/he.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/hi.js": {
@@ -1985,7 +2007,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/hi.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/hr.js": {
@@ -1996,7 +2018,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/hr.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/hu.js": {
@@ -2007,7 +2029,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/hu.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/id.js": {
@@ -2018,7 +2040,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/id.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/is.js": {
@@ -2029,7 +2051,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/is.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/it.js": {
@@ -2040,7 +2062,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/it.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/ja.js": {
@@ -2051,7 +2073,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/ja.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/ka.js": {
@@ -2062,7 +2084,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/ka.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/km.js": {
@@ -2073,7 +2095,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/km.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/ko.js": {
@@ -2084,7 +2106,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/ko.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/ku.js": {
@@ -2095,7 +2117,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/ku.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/lt.js": {
@@ -2106,7 +2128,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/lt.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/lv.js": {
@@ -2117,7 +2139,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/lv.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/mk.js": {
@@ -2128,7 +2150,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/mk.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/mn.js": {
@@ -2139,7 +2161,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/mn.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/ms.js": {
@@ -2150,7 +2172,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/ms.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/nb.js": {
@@ -2161,7 +2183,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/nb.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/nl.js": {
@@ -2172,7 +2194,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/nl.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/no.js": {
@@ -2183,7 +2205,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/no.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/pl.js": {
@@ -2194,7 +2216,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/pl.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/pt-br.js": {
@@ -2205,7 +2227,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/pt-br.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/pt.js": {
@@ -2216,7 +2238,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/pt.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/ro.js": {
@@ -2227,7 +2249,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/ro.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/ru.js": {
@@ -2238,7 +2260,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/ru.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/si.js": {
@@ -2249,7 +2271,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/si.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/sk.js": {
@@ -2260,7 +2282,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/sk.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/sl.js": {
@@ -2271,7 +2293,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/sl.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/sq.js": {
@@ -2282,7 +2304,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/sq.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/sr-latn.js": {
@@ -2293,7 +2315,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/sr-latn.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/sr.js": {
@@ -2304,7 +2326,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/sr.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/sv.js": {
@@ -2315,7 +2337,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/sv.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/th.js": {
@@ -2326,7 +2348,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/th.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/tr.js": {
@@ -2337,7 +2359,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/tr.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/tt.js": {
@@ -2348,7 +2370,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/tt.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/ug.js": {
@@ -2359,7 +2381,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/ug.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/uk.js": {
@@ -2370,7 +2392,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/uk.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/vi.js": {
@@ -2381,7 +2403,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/vi.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/zh-cn.js": {
@@ -2392,7 +2414,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/zh-cn.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/lang\/zh.js": {
@@ -2403,7 +2425,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/lang\/zh.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/plugin.js": {
@@ -2414,7 +2436,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/image2\/plugin.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/ckeditor.plugins\/image2\/samples\/assets\/image1.jpg": {
@@ -2478,7 +2500,7 @@
 		"outputAbbreviatedPath": "\/js\/ckeditor.plugins\/mediaembed\/plugin.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.blog.create_edit.js": {
@@ -2500,7 +2522,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.blog.create_edit.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.blog.settings.js": {
@@ -2522,7 +2544,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.blog.settings.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.cdn.upload.js": {
@@ -2544,7 +2566,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.cdn.upload.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.cms.blocks.js": {
@@ -2566,7 +2588,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.cms.menus.create_edit.js": {
@@ -2588,7 +2610,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.cms.menus.create_edit.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.cms.menus.js": {
@@ -2610,7 +2632,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.cms.menus.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.cms.pages.create_edit.js": {
@@ -2632,7 +2654,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.cms.pages.create_edit.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.cms.pages.js": {
@@ -2654,7 +2676,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.cms.pages.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.cms.sliders.create_edit.js": {
@@ -2676,7 +2698,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.cms.sliders.create_edit.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.cms.sliders.js": {
@@ -2698,7 +2720,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.cms.sliders.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.dashboard.js": {
@@ -2720,7 +2742,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.dashboard.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.email.settings.js": {
@@ -2742,7 +2764,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.email.settings.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.js": {
@@ -2764,7 +2786,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.shop.inventory.create_edit.js": {
@@ -2786,7 +2808,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.shop.inventory.create_edit.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.shop.order.browse.js": {
@@ -2808,7 +2830,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.shop.order.browse.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.shop.order.view.js": {
@@ -2830,7 +2852,29 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.shop.order.view.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/nails.admin.shop.productavailabilitynotification.browse.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/nails.admin.shop.productavailabilitynotification.browse.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.shop.productavailabilitynotification.browse.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 2,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/nails.admin.shop.productavailabilitynotification.browse.min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/nails.admin.shop.productavailabilitynotification.browse.min.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.shop.productavailabilitynotification.browse.min.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.shop.settings.js": {
@@ -2852,7 +2896,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.shop.settings.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.shop.settings.paymentgateway.worldpay.js": {
@@ -2874,7 +2918,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.shop.settings.paymentgateway.worldpay.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.shop.vouchers.js": {
@@ -2896,7 +2940,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.shop.vouchers.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.site.settings.js": {
@@ -2918,7 +2962,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.site.settings.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.admin.utilities.cdn.orphans.js": {
@@ -2940,7 +2984,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.admin.utilities.cdn.orphans.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.api.js": {
@@ -2962,7 +3006,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.api.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.cdn.manager.js": {
@@ -2984,7 +3028,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.cdn.manager.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.configure.js": {
@@ -3006,7 +3050,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.configure.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.default.js": {
@@ -3028,7 +3072,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.default.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/js\/nails.forms.js": {
@@ -3050,7 +3094,7 @@
 		"outputAbbreviatedPath": "\/js\/nails.forms.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/less\/admin\/layout.less": {
@@ -3939,7 +3983,7 @@
 		"outputAbbreviatedPath": "\/packages\/uploadify\/jquery.uploadify.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/packages\/uploadify\/jquery.uploadify.min.js": {
@@ -3950,7 +3994,7 @@
 		"outputAbbreviatedPath": "\/packages\/uploadify\/jquery.uploadify.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/packages\/uploadify\/uploadify-cancel.png": {
@@ -4171,7 +4215,7 @@
 	"javascriptAutoOutputPathReplace2": "",
 	"javascriptAutoOutputPathStyle": 0,
 	"javascriptCreateSourceMap": 1,
-	"javascriptOutputStyle": 1,
+	"javascriptOutputStyle": 2,
 	"javascriptSyntaxCheckerStyle": 1,
 	"jsCheckerReservedNamesString": "_nails,_nails_admin,_nails_api,Mustache,CKEDITOR,Dropzone",
 	"jsHintFlags2": {

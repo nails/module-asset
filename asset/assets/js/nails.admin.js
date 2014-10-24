@@ -497,9 +497,16 @@ NAILS_Admin = function()
 	{
 		if ( $.fn.ckeditor )
 		{
-			$( '.wysiwyg' ).ckeditor(
+			//	Basic editors
+			$( '.wysiwyg.wysiwyg-basic' ).ckeditor(
 			{
-				customConfig: window.NAILS.URL + 'js/ckeditor.config.min.js'
+				customConfig: window.NAILS.URL + 'js/ckeditor.config.basic.min.js'
+			});
+
+			//	Default editors
+			$( '.wysiwyg:not(.wysiwyg-basic)' ).ckeditor(
+			{
+				customConfig: window.NAILS.URL + 'js/ckeditor.config.default.min.js'
 			});
 		}
 		else
