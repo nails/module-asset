@@ -22,6 +22,6 @@
     "commit": "68cc6ad041e5268fd0d1445802a7d6a6ce6e1802"
   },
   "_source": "git://github.com/ckeditor/ckeditor-releases.git",
-  "_target": "~4.4.1",
+  "_target": "~4.4.0",
   "_originalSource": "ckeditor"
 }
