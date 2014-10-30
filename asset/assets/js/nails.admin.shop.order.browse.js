@@ -27,51 +27,87 @@ NAILS_Admin_Shop_Order_Browse = function()
 
 	this._batch_action = function()
 	{
-		var _action = $( '#batch-action select' ).val();
+		var _action,_orders,_title,_body;
 
-		var _body,_title;
+		_action = $( '#batch-action select' ).val();
+		_orders = [];
 
-		switch( _action )
-		{
-			case 'mark-fulfilled' :
+		$('input.batch-checkbox:checked').each(function(){
+			_orders.push($(this).val());
+		});
 
-				_title = 'Coming Soon!';
-				_body = 'Batch marking orders as fulfilled is in the pipeline and will be available soon.';
+		if (_orders.length) {
 
-			break;
+			switch( _action )
+			{
+				case 'mark-fulfilled' :
 
-			case 'mark-unfulfilled' :
+					this._batch_action_fulfil(_orders);
 
-				_title = 'Coming Soon!';
-				_body = 'Batch marking orders as unfulfilled is in the pipeline and will be available soon.';
+				break;
 
-			break;
+				case 'mark-unfulfilled' :
 
-			case 'download' :
+					this._batch_action_unfulfil(_orders);
 
-				_title = 'Coming Soon!';
-				_body = 'Downloading multiple order invoices is in the pipeline and will be available soon.';
+				break;
 
-			break;
+				case 'download' :
+
+					_title = 'Coming Soon!';
+					_body = 'Downloading multiple order invoices is in the pipeline and will be available soon.';
+
+					this._show_dialog(_title, _body);
+
+				break;
+			}
+
+		} else {
+
+			//	Nothing selected, complain
+			_title = 'Please select some orders';
+			_body  = 'you have not selected any orders. Use the checkboxes to the left ';
+			_body += 'of the row and repeat the action.';
+
+			this._show_dialog(_title, _body);
+
 		}
+	};
 
-		if ( _title && _body )
-		{
-			$('<div>').html(_body).dialog({
-				title: _title,
-				resizable: false,
-				draggable: false,
-				modal: true,
-				dialogClass: "no-close",
-				buttons:
+	// --------------------------------------------------------------------------
+
+	this._batch_action_fulfil = function(orders) {
+		//	Mark these orders as fulfilled!
+		var _url = window.SITE_URL + 'admin/shop/orders/fulfil_batch?' + $.param({ids:orders});
+		window.location = _url;
+	};
+
+	// --------------------------------------------------------------------------
+
+	this._batch_action_unfulfil = function(orders) {
+		//	Mark these orders as unfulfilled!
+		var _url = window.SITE_URL + 'admin/shop/orders/unfulfil_batch?' + $.param({ids:orders});
+		window.location = _url;
+	};
+
+	// --------------------------------------------------------------------------
+
+	this._show_dialog = function(title, body) {
+
+		$('<div>').html(body).dialog({
+			title: title,
+			resizable: false,
+			draggable: false,
+			modal: true,
+			dialogClass: 'no-close',
+			buttons:
+			{
+				OK: function()
 				{
-					OK: function()
-					{
-						$(this).dialog("close");
-					}
+					$(this).dialog('close');
 				}
-			});
-		}
+			}
+		});
 	};
 
 
