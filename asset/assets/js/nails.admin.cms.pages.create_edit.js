@@ -1226,10 +1226,13 @@ NAILS_Admin_CMS_pages_Create_Edit = function()
 			helper : function(e)
 			{
 				var _src = $(e.currentTarget);
-				return $( '<div>' ).addClass( 'dragging-widget' ).text( _src.data( 'title' ) );
+				return $( '<li>' )
+							.addClass( 'dragging-widget' )
+							.text( _src.data( 'title' ) )
+							.attr('data-slug', _src.data( 'slug' ));
 			},
 			appendTo: '#' + this.editor_id,
-			zIndex:3,
+			zIndex: 3,
 			connectToSortable: this._editor.dropzone,
 			start: function()
 			{
@@ -1419,7 +1422,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function()
 	{
 		//	Define vars
 		var _slug,_widget,_data,_html,_item;
-
+console.log(ui);
 		//	What type of widget are we dealing with? Get more info.
 		_slug	= $(ui).data( 'slug' );
 		_widget	= this._get_widget( _slug );
@@ -1564,6 +1567,9 @@ NAILS_Admin_CMS_pages_Create_Edit = function()
 			{
 				console.warn( 'CMS PAGES: Could not find widget "' + _slug + '"; ignored.' );
 			}
+
+			//	Remove the dud element
+			$(ui).remove();
 
 			//	Feedback
 			var _message = '';
