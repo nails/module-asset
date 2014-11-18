@@ -39,6 +39,7 @@
     "social-likes": "~3.0.4",
     "sprockets-modernizr": "~2.6.2",
     "tipsy": "~0.1.7",
+    "retina.js": "~1.3.0",
     "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.2.0/chosen_v1.2.0.zip"
   }
 }
