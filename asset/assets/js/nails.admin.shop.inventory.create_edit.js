@@ -525,7 +525,10 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 				});
 
 				//	Destroy CKEditor instance
-				CKEDITOR.instances.productDescription.destroy();
+				if (typeof(CKEDITOR.instances.productDescription) !== 'undefined'){
+
+					CKEDITOR.instances.productDescription.destroy();
+				}
 
 				var _uploading_string = 'Uploading...';
 				var _button_val = $('#product-form input[type=submit]').val();
@@ -556,10 +559,13 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 				$('#upload-message').hide();
 
 				//	Reinit description wysiwyg's
-				$('#productDescription').ckeditor(
-				{
-					customConfig: window.NAILS.URL + 'js/ckeditor.config.default.min.js'
-				});
+				if (typeof(CKEDITOR.instances.productDescription) === 'undefined'){
+
+					$('#productDescription').ckeditor(
+					{
+						customConfig: window.NAILS.URL + 'js/ckeditor.config.default.min.js'
+					});
+				}
 			},
 			'onUploadProgress': function(file, bytesUploaded, bytesTotal) {
 				var _percent = bytesUploaded / bytesTotal * 100;
