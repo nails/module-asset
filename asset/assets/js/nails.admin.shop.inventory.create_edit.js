@@ -517,10 +517,15 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 				}
 			},
 			'onUploadStart': function() {
+
+				//	Prevent submits
 				$('#product-form').off('submit');
 				$('#product-form').on('submit', function() {
 					return false;
 				});
+
+				//	Destroy CKEditor instance
+				CKEDITOR.instances.productDescription.destroy();
 
 				var _uploading_string = 'Uploading...';
 				var _button_val = $('#product-form input[type=submit]').val();
@@ -549,6 +554,12 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 				//	Enable tabs - SWFUpload aborts uploads if it is hidden.
 				$('ul.tabs li a').removeClass('disabled');
 				$('#upload-message').hide();
+
+				//	Reinit description wysiwyg's
+				$('#productDescription').ckeditor(
+				{
+					customConfig: window.NAILS.URL + 'js/ckeditor.config.default.min.js'
+				});
 			},
 			'onUploadProgress': function(file, bytesUploaded, bytesTotal) {
 				var _percent = bytesUploaded / bytesTotal * 100;
