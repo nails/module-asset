@@ -5,6 +5,9 @@
 
 Beautiful share buttons with counters for popular social networks: Facebook, Twitter, Google+, Pinterest, Vkontakte, etc. Uses jQuery.
 
+[![](http://wow.sapegin.me/image/1f1U2S130d3R/social-likes.png)](http://sapegin.github.io/social-likes/)
+
+[See demo](http://sapegin.github.io/social-likes/)
 
 ## Features
 
@@ -226,7 +229,12 @@ Triggers after popup window closed.
 
 ```javascript
 $('.social-likes').on('popup_closed.social-likes', function(event, service) {
-	$(event.currentTarget).socialLikes({forceUpdate: true});  // Update counters
+	// Request new counters
+	$(event.currentTarget).socialLikes({forceUpdate: true});
+
+	// Or just increase the number
+	var counter = $(event.currentTarget).find('.social-likes__counter_' + service);
+	counter.text(+(counter.text()||0)+1).removeClass('social-likes__counter_empty');
 });
 ```
 
@@ -247,13 +255,14 @@ var socialLikesButtons = {
 };
 ```
 
-If you know the social network search page's URL, you can make a link to results of searching in this network. There are search URLs for Twitter and VKontakte by default.
+Or with a custom click handler:
 
 ```javascript
 var socialLikesButtons = {
-	twitter: {
-		...
-		searchUrl: 'https://twitter.com/search?src=typd&q={url}'
+	livejournal: {
+		click: function(e) {
+			// this.widget.data('something')
+		}
 	}
 };
 ```
@@ -312,8 +321,49 @@ If you’re experiencing any problems with meta data try [Open Graph Debugger](h
 
 See [wiki](https://github.com/sapegin/social-likes/wiki/How-to-use-Social-Likes-with-Wordpress,-etc.).
 
+### How to track activity with Google Analytics
+
+You can track how many people click on each social button on your site with Google Analytics (or other analytics service). Note that you can track clicks only, not real shares.
+
+```javascript
+$(document).on('popup_opened.social-likes', function(event, service) {
+    ga('send', 'social', service, 'share', location.href);
+});
+```
 
 ## Troubleshooting
+
+### The buttons don’t work, displayed without design or don’t displayed at all
+
+First look at your [browser’s console](http://wickedlysmart.com/hfjsconsole/). If you see an error “Uncaught ReferenceError: jQuery is not defined”:
+
+![](http://wow.sapegin.me/image/1f1h1d0z2d1j/Image%202014-11-19%20at%205.45.14%20PM.png)
+
+Then you need to include jQuery into your page. Make sure you use version at least 1.7 (and lower than 2.0 if you need to support IE8) and you include jQuery before `social-likes.js`. The easiest way to do it is to use Google CDN:
+
+```html
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+```
+
+If you don’t see any error check the following:
+
+1. `social-likes.js` is included after jQuery and the path is correct.
+
+2. `social-likes_flat.css` or `social-likes_classic.css` or `social-likes_birman.css` is included in <head> of your page and the path is correct.
+
+So you need your page to look like this:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Welcome to my site!</title>
+	<link href="social-likes_birman.css" rel="stylesheet">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="social-likes.js"></script>
+	...
+```
 
 ### Counters don’t work
 
@@ -322,6 +372,10 @@ In most cases if you don’t see counters it’s because social networks APIs re
 ![](http://cl.ly/image/013x2M01021N/Image%202014-03-06%20at%205.33.14%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%20%D0%BF%D0%BE%D0%BB%D1%83%D0%B4%D0%BD%D1%8F.png)
 
 Double check that you use canonical URLs (without extra parameters such as `utm_source`). You can change URL via [`data-url` option](#options).
+
+If you have more than one Social Likes blocks on a page with different URLs, Google+ counter will work only for the first block. Google+ counter also won’t work when you refresh counters with `forceUpdate` option or change URL dynamically.
+
+If your site have internationalized domain name (e.g. `президент.рф`) make sure you convert it to [Punycode](http://en.wikipedia.org/wiki/Punycode) (e.g. `xn--d1abbgf6aiiy.xn--p1ai`).
 
 If you’re sure that it’s a bug please file an issue **and provide a link** to a page with non-working counter.
 

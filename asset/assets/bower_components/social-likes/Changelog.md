@@ -1,3 +1,17 @@
+### 2014-11-20 v3.0.9
+
+* Do not request Odnoklassniki counter via HTTPS.
+* Fix counters after reinitialization of the plugin with the same URL.
+
+### 2014-11-20 v3.0.8
+
+* Revert older Odnoklassniki counter API (doesn’t work via HTTPS but at least works via HTTP).
+
+### 2014-11-06 v3.0.7
+
+* Odnoklassniki counter works via HTTPS (by [@zipp3r](https://github.com/zipp3r)).
+* Fix bug when counters don’t show up on HTTPS pages.
+
 ### 2014-05-13 v3.0.4
 
 * Tweak single button popup fade animation.

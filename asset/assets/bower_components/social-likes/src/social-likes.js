@@ -94,11 +94,24 @@
 			popupHeight: 330
 		},
 		odnoklassniki: {
-			counterUrl: protocol + '//www.odnoklassniki.ru/dk?st.cmd=shareData&ref={url}&cb=?',
-			convertNumber: function(data) {
-				return data.count;
+			// HTTPS not supported yet: http://apiok.ru/wiki/pages/viewpage.action?pageId=42476656
+			counterUrl: protocol === 'http:' ? 'http://www.odnoklassniki.ru/dk?st.cmd=extLike&ref={url}&uid={index}': undefined,
+			counter: function(jsonUrl, deferred) {
+				var options = services.odnoklassniki;
+				if (!options._) {
+					options._ = [];
+					if (!window.ODKL) window.ODKL = {};
+					window.ODKL.updateCount = function(idx, number) {
+						options._[idx].resolve(number);
+					};
+				}
+
+				var index = options._.length;
+				options._.push(deferred);
+				$.getScript(makeUrl(jsonUrl, {index: index}))
+					.fail(deferred.reject);
 			},
-			popupUrl: protocol + '//www.odnoklassniki.ru/dk?st.cmd=addShare&st._surl={url}',
+			popupUrl: 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st._surl={url}',
 			popupWidth: 550,
 			popupHeight: 360
 		},
@@ -108,6 +121,7 @@
 			counter: function(jsonUrl, deferred) {
 				var options = services.plusone;
 				if (options._) {
+					// Reject all counters except the first because Yandex Share counter doesn’t return URL
 					deferred.reject();
 					return;
 				}
@@ -230,17 +244,19 @@
 
 			this.initUserButtons();
 
+			this.countersLeft = 0;
 			this.number = 0;
 			this.container.on('counter.' + prefix, $.proxy(this.updateCounter, this));
 
 			var buttons = this.container.children();
-			this.countersLeft = buttons.length;
 
 			this.makeSingleButton();
 
 			this.buttons = [];
 			buttons.each($.proxy(function(idx, elem) {
-				this.buttons.push(new Button($(elem), this.options));
+				var button = new Button($(elem), this.options);
+				this.buttons.push(button);
+				if (button.options.counterUrl) this.countersLeft++;
 			}, this));
 
 			if (this.options.counters) {
@@ -359,7 +375,7 @@
 		init: function() {
 			this.detectParams();
 			this.initHtml();
-			this.initCounter();
+			setTimeout($.proxy(this.initCounter, this), 0);
 		},
 
 		update: function(options) {
