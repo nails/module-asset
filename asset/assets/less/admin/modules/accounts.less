@@ -1,5 +1,5 @@
 //	Generic
-.group-members
+.group-accounts
 {
 	&.all
 	{
@@ -189,6 +189,45 @@
 					&.no-data
 					{
 						color:#777;
+					}
+				}
+			}
+		}
+
+		.emails
+		{
+			table
+			{
+				th,
+				td
+				{
+					&.email
+					{
+						input
+						{
+							width: 100%;
+							box-sizing: border-box;
+						}
+					}
+
+					&.isPrimary,
+					&.isVerified
+					{
+						width: 50px;
+						text-align: center;
+					}
+
+					&.dateAdded,
+					&.dateVerified
+					{
+						width: 120px;
+						text-align: center;
+					}
+
+					&.actions
+					{
+						width: 191px;
+						text-align: center;
 					}
 				}
 			}
