@@ -24,7 +24,7 @@ NAILS_Admin_Accounts_Edit = function()
     {
         //  Bind all the things
         var _this = this;
-        $('#addEmailForm button').on('click', function()
+        $('#addEmailForm a.submit').on('click', function()
         {
             _this.addEmail();
             return false;
