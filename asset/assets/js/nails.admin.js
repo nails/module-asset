@@ -30,7 +30,6 @@ NAILS_Admin = function()
 		this.init_nav_reset();
 		this.init_search_boxes();
 		this.init_mobile_menu();
-		this.init_fieldsets();
 		this.init_toggles();
 		this.init_ckeditor();
 		this.init_select2();
@@ -381,43 +380,6 @@ NAILS_Admin = function()
 
 			if (_url.length) {
 				window.location.href = window.SITE_URL + _url;
-			}
-
-		});
-	};
-
-
-	// --------------------------------------------------------------------------
-
-
-	this.init_fieldsets = function() {
-		var _this = this; /*	Ugly Scope Hack	*/
-		var _toggle;
-
-		$('fieldset:not(.collapsable)').each(function() {
-
-			if ( $(this).hasClass( 'no-collapse' ) )
-			{
-				return;
-			}
-
-			_toggle = $('<a>').attr({
-				href: '#',
-				'class': 'fieldset-toggle'
-			}).html('<span class="show">Show</span><span class="hide">Hide</span>');
-			_toggle.on('click', function() {
-				_this._fieldset_toggle($(this));
-				return false;
-			});
-			$(this).prepend(_toggle).addClass('collapsable');
-
-			// --------------------------------------------------------------------------
-
-			//	Attempt to set the initial state of the fieldset
-			if ($(this).attr('id')) {
-				if (_this._get('fieldset-' + $(this).attr('id')) === 'closed') {
-					$(this).addClass('closed');
-				}
 			}
 
 		});
