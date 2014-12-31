@@ -1,6 +1,6 @@
 //	Catch undefined console
 /* jshint ignore:start */
-if ( typeof( console ) === "undefined" )
+if (typeof(console) === "undefined")
 {
 	var console;
 	console = {
@@ -18,13 +18,14 @@ if ( typeof( console ) === "undefined" )
 var NAILS_Admin;
 NAILS_Admin = function()
 {
-	this.error_delay = 6000; //	Amount of time the error message will stay on screen.
+	this.errorDelay = 6000; //	Amount of time the error message will stay on screen.
 
 
 	// --------------------------------------------------------------------------
 
 
-	this.init = function() {
+	this.init = function()
+	{
 		this.init_boxes();
 		this.init_navsearch();
 		this.init_nav_reset();
@@ -33,13 +34,15 @@ NAILS_Admin = function()
 		this.init_toggles();
 		this.init_ckeditor();
 		this.init_select2();
+		this.init_nicetime();
 	};
 
 
 	// --------------------------------------------------------------------------
 
 
-	this.init_boxes = function() {
+	this.init_boxes = function()
+	{
 		var _this = this;
 
 		//	Bind click events
@@ -204,7 +207,8 @@ NAILS_Admin = function()
 	// --------------------------------------------------------------------------
 
 
-	this._save = function(key, value) {
+	this._save = function(key, value)
+	{
 		if (typeof(localStorage) === 'undefined') {
 			this._show_error(window.NAILS.LANG.non_html5);
 		} else {
@@ -221,7 +225,8 @@ NAILS_Admin = function()
 	// --------------------------------------------------------------------------
 
 
-	this._get = function(key) {
+	this._get = function(key)
+	{
 		if (typeof(localStorage) === 'undefined') {
 			this._show_error(window.NAILS.LANG.non_html5);
 		} else {
@@ -237,7 +242,8 @@ NAILS_Admin = function()
 	// --------------------------------------------------------------------------
 
 
-	this.init_navsearch = function() {
+	this.init_navsearch = function()
+	{
 		var _this = this;
 
 		$('.nav-search input').on('keyup', function() {
@@ -351,7 +357,8 @@ NAILS_Admin = function()
 	// --------------------------------------------------------------------------
 
 
-	this.init_search_boxes = function() {
+	this.init_search_boxes = function()
+	{
 		//	Bind submit to select changes
 		$('div.search select, div.search input[type=checkbox]').on('change', function() {
 
@@ -373,7 +380,8 @@ NAILS_Admin = function()
 	// --------------------------------------------------------------------------
 
 
-	this.init_mobile_menu = function() {
+	this.init_mobile_menu = function()
+	{
 		$('#mobile-menu-main').on('change', function() {
 
 			var _url = $(this).find('option:selected').val();
@@ -498,12 +506,222 @@ NAILS_Admin = function()
 		}
 	};
 
+
 	// --------------------------------------------------------------------------
 
 
-	this._show_error = function(msg) {
+	/**
+	 *
+	 * Initialise any nice-time DOM elements
+	 *
+	 **/
+	this.init_nicetime = function()
+	{
+		var _this  = this;
+		var _elems = $('.nice-time:not(.nice-timed)'); // Fetch just new objects
+
+		//	Fetch objects which can be nice-timed
+		_elems.each(function()
+		{
+			//	Setup variables
+			var _src = $(this).text();
+
+			//	Check format
+			var _regex = /^\d\d\d\d-\d\d?-\d\d?( \d\d?\:\d\d?\:\d\d?)?$/;
+
+			if (_regex.test(_src))
+			{
+				//	Parse into various bits
+				var _basic = _src.split(' ');
+
+				if (!_basic[1])
+				{
+					_basic[1] = '00:00:00';
+				}
+
+				if (_basic[0])
+				{
+					var _date = _basic[0].split('-');
+					var _time = _basic[1].split(':');
+
+					var _Y = _date[0];
+					var _M = _date[1];
+					var _D = _date[2];
+					var _h = _time[0];
+					var _m = _time[1];
+					var _s = _time[2];
+
+					//	Attempt to parse the time
+					var _date_obj = new Date(_Y, _M, _D, _h, _m, _s);
+
+					if (!isNaN(_date_obj.getTime()))
+					{
+						/**
+						 * Date was parsed successfully, stick it as the attribute.
+						 * Add .nice-timed to it so it's not picked up as a new object
+						 */
+
+						$(this).addClass('nice-timed');
+						$(this).attr('data-time', _src);
+						$(this).attr('data-year', _Y);
+						$(this).attr('data-month', _M);
+						$(this).attr('data-day', _D);
+						$(this).attr('data-hour', _h);
+						$(this).attr('data-minute', _m);
+						$(this).attr('data-second', _s);
+						$(this).attr('title', _src);
+					}
+				}
+			}
+		});
+
+		// --------------------------------------------------------------------------
+
+		//	Nice time-ify everything
+		$('.nice-timed').each(function()
+		{
+			//	Pick up date form object
+			var _Y = $(this).attr('data-year');
+			var _M = $(this).attr('data-month') - 1;	//	Because the date object does months from 0
+			var _D = $(this).attr('data-day');
+			var _h = $(this).attr('data-hour');
+			var _m = $(this).attr('data-minute');
+			var _s = $(this).attr('data-second');
+
+			var _date     = new Date(_Y, _M, _D, _h, _m, _s);
+			var _now      = new Date();
+			var _relative = '';
+
+			// --------------------------------------------------------------------------
+
+			//	Do whatever it is we need to do to get relative time
+			var _diff = Math.ceil((_now.getTime() - _date.getTime()) / 1000);
+			console.log(_diff);
+
+			if (_diff >= 0 && _diff < 10)
+			{
+				//	Has just happened so for a few seconds show plain ol' English
+				_relative = 'a moment ago';
+			}
+			else if (_diff >= 10)
+			{
+				//	Target time is in the past
+				_relative = _this._nice_time_calc(_diff) + ' ago';
+			}
+			else if (_diff < 0)
+			{
+				//	Target time is in the future
+				_relative = _this._nice_time_calc(_diff) + ' from now';
+			}
+
+			// --------------------------------------------------------------------------
+
+			//	Set the new relative time
+			if (_relative === '1 day ago')
+			{
+				_relative = 'yesterday';
+			}
+			else if (_relative === '1 day from now')
+			{
+				_relative = 'tomorrow';
+			}
+
+			if ($(this).data('capitalise') === true)
+			{
+				_relative = _relative.charAt(0).toUpperCase() + _relative.slice(1);
+			}
+
+			$(this).text(_relative);
+		});
+	};
+
+
+	// --------------------------------------------------------------------------
+
+
+	this._nice_time_calc = function( diff )
+	{
+		var _value = 0;
+		var _term  = '';
+
+		//	Constants
+		var _second = 1;
+		var _minute = _second * 60;
+		var _hour   = _minute * 60;
+		var _day    = _hour * 24;
+		var _week   = _day * 7;
+		var _month  = _day * 30;
+		var _year   = _day * 365;
+
+		//	Always dealing with positive values
+		if (diff < 0)
+		{
+			diff = diff * -1;
+		}
+
+		//	Seconds
+		if (diff < _minute)
+		{
+			_value = diff;
+			_term  = 'second';
+		}
+
+		//	Minutes
+		else if (diff < _hour)
+		{
+			_value = Math.floor(diff / 60);
+			_term  = 'minute';
+		}
+
+		//	Hours
+		else if (diff < _day)
+		{
+			_value = Math.floor(diff / 60 / 60);
+			_term  = 'hour';
+		}
+
+		//	Days
+		else if (diff < _week)
+		{
+			_value = Math.floor(diff / 60 / 60 / 24);
+			_term  = 'day';
+		}
+
+		//	Weeks
+		else if (diff < _month)
+		{
+			_value = Math.floor(diff / 60 / 60 / 24 / 7);
+			_term  = 'week';
+		}
+
+		//	Months
+		else if (diff < _year)
+		{
+			_value = Math.floor(diff / 60 / 60 / 24 / 30);
+			_term  = 'month';
+		}
+
+		//	Years
+		else
+		{
+			_value = Math.floor(diff / 60 / 60 / 24 / 365);
+			_term  = 'year';
+		}
+
+		// --------------------------------------------------------------------------
+
+		var _suffix = _value === 1 ? '' : 's';
+
+		return _value + ' ' + _term + _suffix;
+	};
+
+	// --------------------------------------------------------------------------
+
+
+	this._show_error = function(msg)
+	{
 		$('.js_error span.message').text(msg);
-		$('.js_error').slideDown().delay(this.error_delay).slideUp();
+		$('.js_error').slideDown().delay(this.errorDelay).slideUp();
 		return true;
 	};
 
@@ -511,7 +729,8 @@ NAILS_Admin = function()
 	// --------------------------------------------------------------------------
 
 
-	this.error = function(output) {
+	this.error = function(output)
+	{
 		if (window.console && window.ENVIRONMENT !== 'PRODUCTION') {
 			console.error(output);
 		}
