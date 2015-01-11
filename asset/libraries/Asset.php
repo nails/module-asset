@@ -1,12 +1,14 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 /**
-* Name:			Asset
-*
-* Description:	A Library to make the loading (and unloading) of CSS and JS assets a breeze
-*
-*/
-
+ * The class provides asset loading facilities
+ *
+ * @package     Nails
+ * @subpackage  module-asset
+ * @category    Library
+ * @author      Nails Dev Team
+ * @link
+ */
 class Asset
 {
 
@@ -766,6 +768,3 @@ class Asset
 		endif;
 	}
 }
-
-/* End of file asset.php */
-/* Location: ./application/libraries/asset.php */
