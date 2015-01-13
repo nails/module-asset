@@ -693,7 +693,7 @@ class Asset
 		// --------------------------------------------------------------------------
 
 		//	Force SSL for assets if running on non-standard port
-		if ( page_is_secure() ) :
+		if ( isPageSecure() ) :
 
 			$_out = str_replace( BASE_URL, SECURE_BASE_URL, $_out );
 
