@@ -76,7 +76,7 @@ class Asset
 
 		// --------------------------------------------------------------------------
 
-		foreach ( $assets AS $asset ) :
+		foreach ( $assets as $asset ) :
 
 			if  ( preg_match( '#^https?://#', $asset ) ) :
 
@@ -285,7 +285,7 @@ class Asset
 
 		// --------------------------------------------------------------------------
 
-		foreach ( $assets AS $asset ) :
+		foreach ( $assets as $asset ) :
 
 			if  ( preg_match( '#^https?://#', $asset ) ) :
 
@@ -639,7 +639,7 @@ class Asset
 		//	Linked Stylesheets
 		if ( $_type == 'CSS' | $_type == 'ALL' ) :
 
-			foreach ( $this->_css AS $asset ) :
+			foreach ( $this->_css as $asset ) :
 
 				$_out .= link_tag( $asset ) . "\n";
 
@@ -652,7 +652,7 @@ class Asset
 		//	Linked JS
 		if ( $_type == 'JS' | $_type == 'ALL' ) :
 
-			foreach ( $this->_js AS $asset ) :
+			foreach ( $this->_js as $asset ) :
 
 				$_out .= '<script type="text/javascript" src="' . $asset . '"></script>' . "\n";
 
@@ -666,7 +666,7 @@ class Asset
 		if ( $_type == 'CSS-INLINE' | $_type == 'ALL' ) :
 
 			$_out .= '<style type="text/css">';
-			foreach ( $this->_css_inline AS $asset ) :
+			foreach ( $this->_css_inline as $asset ) :
 
 				$_out .= preg_replace( '/<\/?style.*?>/si', '', $asset ) . "\n";
 
@@ -681,7 +681,7 @@ class Asset
 		if ( $_type == 'JS-INLINE' | $_type == 'ALL' ) :
 
 			$_out .= '<script type="text/javascript">';
-			foreach ( $this->_js_inline AS $asset ) :
+			foreach ( $this->_js_inline as $asset ) :
 
 				$_out .= preg_replace( '/<\/?script.*?>/si', '', $asset );
 
