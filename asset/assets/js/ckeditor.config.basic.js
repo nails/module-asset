@@ -1,58 +1,130 @@
+/* global CKEDITOR */
+
+/**
+ * Define changes to default configuration here.
+ * For the complete reference: http://docs.ckeditor.com/#!/api/CKEDITOR.config
+ */
+
 /**
  * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
 
-CKEDITOR.plugins.addExternal( 'codemirror',	window.NAILS.URL + 'js/ckeditor.plugins/codemirror/' );
+/**
+ * Load any external plugins (i.e, plugins not bundled with CKEditor)
+ */
 
-CKEDITOR.editorConfig = function( config ) {
-	// Define changes to default configuration here.
-	// For the complete reference:
-	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
+CKEDITOR.plugins.addExternal('codemirror', window.NAILS.URL + 'js/ckeditor.plugins/codemirror/');
 
-	config.extraPlugins = 'autogrow,codemirror';
-	config.removePlugins = 'resize,elementspath';
+/**
+ * Define the CKEditor config object
+ */
 
-	// The toolbar groups arrangement, optimized for a single toolbar row.
-	config.toolbarGroups = [
-		{ name: 'document',    groups: [ 'mode' ] },
-		{ name: 'basicstyles', groups: [ 'basicstyles' ] },
-		{ name: 'links' }
-	];
+CKEDITOR.editorConfig = function(config)
+{
+    /**
+     * Additional plugins to enable
+     * @type {String}
+     */
 
-	config.removeButtons = 'Anchor,Search Source';
+    config.extraPlugins = 'autogrow,codemirror,colorbutton,colordialog';
 
-	//	Only allow certain formatting
-	config.format_small = { element : 'small', name : 'Small' };
-	config.format_tags = 'p;small;h1;h2;h3;h4;h5';
+    /**
+     * Plugins to remove
+     * @type {String}
+     */
 
-	//	Allow the editor to define whatever classes the user wants on elements
-	//	Same deal for data-* attributes
-	config.extraAllowedContent = {
-		'*':
-		{
-			classes: '*',
-			attributes: 'data-*'
-		}
-	};
+    config.removePlugins = 'resize,elementspath';
 
-	//	Limit height of autoGrow plugin
-	config.autoGrow_maxHeight = 500;
+    /**
+     * The toolbar groups arrangement, optimized for a single toolbar row.
+     * @type {Array}
+     */
 
-	// Considering that the basic setup doesn't provide pasting cleanup features,
-	// it's recommended to force everything to be plain text.
-	config.forcePasteAsPlainText = true;
+    config.toolbarGroups = [
+        {
+            name: 'document',
+            groups: ['mode']
+        },
+        {
+            name: 'basicstyles',
+            groups: ['basicstyles']
+        },
+        {
+            name: 'links'
+        }
+    ];
 
-	//	Dialog colour; tie it in with the rest of admin
-	config.dialog_backgroundCoverColor		= 'rgb(0,0,0)';
-	config.dialog_backgroundCoverOpacity	= 0.75;
+    /**
+     * Any specific, individual, buttons to remove
+     * @type {String}
+     */
 
-	//	Don't show codemirror buttons
-	config.codemirror = {
-		showSearchButton: false,
-		showCommentButton: false,
-		showFormatButton: false,
-		showUncommentButton: false,
-		showAutoCompleteButton: false
-	};
+    config.removeButtons = 'Anchor,Search Source';
+
+    /**
+     * Only allow certain formatting
+     * @type {Object}
+     */
+
+    config.format_small = {
+        element: 'small',
+        name: 'Small'
+    };
+
+    /**
+     * Only allow formatting on specific tags
+     * @type {String}
+     */
+
+    config.format_tags = 'p;small;h1;h2;h3;h4;h5';
+
+    /**
+     * Allow the editor to define whatever classes the user wants on elements.
+     * Same deal for data-* attributes
+     * @type {Object}
+     */
+
+    config.extraAllowedContent = {
+        '*': {
+            classes: '*',
+            attributes: 'data-*'
+        }
+    };
+
+    /**
+     * Limit height of autoGrow plugin
+     * @type {Number}
+     */
+
+    config.autoGrow_maxHeight = 500;
+
+    /**
+     * Considering that the basic setup doesn't provide pasting cleanup features,
+     * it's recommended to force everything to be plain text.
+     * @type {Boolean}
+     */
+
+    config.forcePasteAsPlainText = true;
+
+    /**
+     * Dialog colour; tie it in with the rest of admin
+     * @type {String}
+     */
+
+    config.dialog_backgroundCoverColor   = 'rgb(0,0,0)';
+    config.dialog_backgroundCoverOpacity = 0.75;
+
+    /**
+     * Don't show codemirror buttons
+     * @type {Object}
+     */
+
+    config.codemirror = {
+        showSearchButton: false,
+        showCommentButton: false,
+        showFormatButton: false,
+        showUncommentButton: false,
+        showAutoCompleteButton: false
+    };
 };
