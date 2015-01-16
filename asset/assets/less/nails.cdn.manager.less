@@ -5,6 +5,15 @@
 @import "/common/variables.less";
 @import "/common/elements.less";
 
+//	Reset & Normalize
+@import "/common/reset.less";
+@import "/common/normalize.less";
+@import "/common/buttons.less";
+@import "/common/system-alerts.less";
+
+// --------------------------------------------------------------------------
+
+//	Manager Variables
 @sidebar-width	: 200px;
 @toolbar-height	: 30px;
 @padding		: 10px;
@@ -12,6 +21,73 @@
 @thumb-width	: 150px;
 @thumb-height	: 175px;
 
+// --------------------------------------------------------------------------
+
+html,
+body
+{
+	font-family: Helvetica,Arial,"Lucida Grande",sans-serif;
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 1.6em;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+	background: #fff;
+	color: #444;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: 100%;
+}
+
+a,
+a:visited
+{
+	color: #333;
+	text-decoration: underline;
+	outline: 0;
+}
+
+ul
+{
+	list-style: none outside;
+
+	li
+	{
+		line-height: 18px;
+		margin-bottom: 12px;
+	}
+
+	ul
+	{
+		font-size: 90%;
+
+		li
+		{
+			margin-bottom: 6px;
+		}
+	}
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+textarea
+{
+	border: 1px solid #ccc;
+	padding: 6px 4px;
+	outline: 0;
+	border-radius: 2px;
+	font: 13px Helvetica,Arial,sans-serif;
+	color: #777;
+	margin: 0;
+	max-width: 100%;
+	display: block;
+	margin-bottom: 20px;
+	background: #fff;
+}
+
+// --------------------------------------------------------------------------
 
 .group-cdn.manager
 {
