@@ -1266,17 +1266,36 @@ NAILS_Admin_CMS_pages_Create_Edit = function()
 		{
 			var _text = $.trim( $(this).val() );
 
-			//	TODO: consider adding fuzzy search
-			//	http://glench.github.io/fuzzyset.js/
-			//	or
-			//	http://listjs.com/examples/fuzzy-search
+			/**
+			 * @TODO: consider adding fuzzy search
+			 * http://glench.github.io/fuzzyset.js/
+			 * or
+			 * http://listjs.com/examples/fuzzy-search
+			 */
 
 			if ( _text.length > 0 )
 			{
 				_this._editor.widgets.find( 'li.widget' ).each( function()
 				{
+					var _title      = $.trim($(this).find('.label').text());
 					var _keywords	= $(this).data( 'keywords' ).split( ',' );
-					var _regex		= new RegExp( _text, 'gi' );
+
+					//	Add te widget title as a keyword
+					_keywords.push(_title);
+
+					//	Clean the keywords list
+					_keywords = _keywords.filter(function(value) {
+
+						value = $.trim(value);
+						if (value.length === 0) {
+
+							return false;
+						}
+						return true;
+					});
+
+					//	Do the test
+					var _regex = new RegExp( _text, 'gi' );
 
 					if ( _regex.test( _keywords ) )
 					{
