@@ -17,20 +17,22 @@ class Asset
     protected $cssInline;
     protected $js;
     protected $jsInline;
+    protected $cacheBuster;
 
     // --------------------------------------------------------------------------
 
     /**
-     * Constructor the library
+     * Construct the library
      * @return  void
      **/
     public function __construct()
     {
-        $this->CI        =& get_instance();
-        $this->css       = array();
-        $this->cssInline = array();
-        $this->js        = array();
-        $this->jsInline  = array();
+        $this->CI          =& get_instance();
+        $this->css         = array();
+        $this->cssInline   = array();
+        $this->js          = array();
+        $this->jsInline    = array();
+        $this->cacheBuster = defined('DEPLOY_REVISION') ? DEPLOY_REVISION : 'cocks';
     }
 
     // --------------------------------------------------------------------------
@@ -113,7 +115,7 @@ class Asset
      */
     protected function loadUrl($asset, $forceType)
     {
-        $type = $this->_determine_type($asset, $forceType);
+        $type = $this->determineType($asset, $forceType);
 
         switch ($type) {
 
@@ -139,7 +141,7 @@ class Asset
      */
     protected function loadAbsolute($asset, $forceType)
     {
-        $type = $this->_determine_type($asset, $forceType);
+        $type = $this->determineType($asset, $forceType);
 
         switch ($type) {
 
@@ -165,7 +167,7 @@ class Asset
      */
     protected function loadNails($asset, $forceType = null)
     {
-        $type = $this->_determine_type($asset, $forceType);
+        $type = $this->determineType($asset, $forceType);
 
         switch ($type) {
 
@@ -191,7 +193,7 @@ class Asset
      */
     protected function loadNailsBower($asset, $forceType = null)
     {
-        $type = $this->_determine_type($asset, $forceType);
+        $type = $this->determineType($asset, $forceType);
 
         switch ($type) {
 
@@ -217,7 +219,7 @@ class Asset
      */
     protected function loadNailsPackage($asset, $forceType = null)
     {
-        $type = $this->_determine_type($asset, $forceType);
+        $type = $this->determineType($asset, $forceType);
 
         switch ($type) {
 
@@ -243,7 +245,7 @@ class Asset
      */
     protected function loadAppBower($asset, $forceType = null)
     {
-        $type = $this->_determine_type($asset, $forceType);
+        $type = $this->determineType($asset, $forceType);
 
         switch ($type) {
 
@@ -269,7 +271,7 @@ class Asset
      */
     protected function loadApp($asset, $forceType = null)
     {
-        $type = $this->_determine_type($asset, $forceType);
+        $type = $this->determineType($asset, $forceType);
 
         switch ($type) {
 
@@ -340,7 +342,7 @@ class Asset
 
         foreach ($assets as $asset) {
 
-            if  (preg_match('#^https?://#', $asset)) {
+            if (preg_match('#^https?://#', $asset)) {
 
                 $this->unloadUrl($asset, $forceType);
 
@@ -365,7 +367,7 @@ class Asset
      */
     protected function unloadUrl($asset, $forceType = null)
     {
-        $type = $this->_determine_type($asset, $forceType);
+        $type = $this->determineType($asset, $forceType);
 
         switch ($type) {
 
@@ -376,8 +378,8 @@ class Asset
 
             case 'JS':
 
-                 unset($this->js['URL-' . $asset]);
-                 break;
+                unset($this->js['URL-' . $asset]);
+                break;
         }
     }
 
@@ -391,7 +393,7 @@ class Asset
      */
     protected function unloadAbsolute($asset, $forceType = null)
     {
-        $type = $this->_determine_type($asset, $forceType);
+        $type = $this->determineType($asset, $forceType);
 
         switch ($type) {
 
@@ -402,8 +404,8 @@ class Asset
 
             case 'JS':
 
-                 unset($this->js['ABSOLUTE-' . $asset]);
-                 break;
+                unset($this->js['ABSOLUTE-' . $asset]);
+                break;
         }
     }
 
@@ -417,7 +419,7 @@ class Asset
      */
     protected function unloadNails($asset, $forceType = null)
     {
-        $type = $this->_determine_type($asset, $forceType);
+        $type = $this->determineType($asset, $forceType);
 
         switch ($type) {
 
@@ -428,8 +430,8 @@ class Asset
 
             case 'JS':
 
-                 unset($this->js['NAILS-' . $asset]);
-                 break;
+                unset($this->js['NAILS-' . $asset]);
+                break;
         }
     }
 
@@ -443,7 +445,7 @@ class Asset
      */
     protected function unloadNailsBower($asset, $forceType = null)
     {
-        $type = $this->_determine_type($asset, $forceType);
+        $type = $this->determineType($asset, $forceType);
 
         switch ($type) {
 
@@ -454,8 +456,8 @@ class Asset
 
             case 'JS':
 
-                 unset($this->js['NAILS-BOWER-' . $asset]);
-                 break;
+                unset($this->js['NAILS-BOWER-' . $asset]);
+                break;
         }
     }
 
@@ -469,7 +471,7 @@ class Asset
      */
     protected function unloadNailsPackage($asset, $forceType = null)
     {
-        $type = $this->_determine_type($asset, $forceType);
+        $type = $this->determineType($asset, $forceType);
 
         switch ($type) {
 
@@ -480,8 +482,8 @@ class Asset
 
             case 'JS':
 
-                 unset($this->js['APP-' . $asset]);
-                 break;
+                unset($this->js['APP-' . $asset]);
+                break;
         }
     }
 
@@ -495,7 +497,7 @@ class Asset
      */
     protected function unloadAppBower($asset, $forceType = null)
     {
-        $type = $this->_determine_type($asset, $forceType);
+        $type = $this->determineType($asset, $forceType);
 
         switch ($type) {
 
@@ -506,8 +508,8 @@ class Asset
 
             case 'JS':
 
-                 unset($this->js['APP-BOWER-' . $asset]);
-                 break;
+                unset($this->js['APP-BOWER-' . $asset]);
+                break;
         }
     }
 
@@ -521,7 +523,7 @@ class Asset
      */
     protected function unloadApp($asset, $forceType = null)
     {
-        $type = $this->_determine_type($asset, $forceType);
+        $type = $this->determineType($asset, $forceType);
 
         switch ($type) {
 
@@ -532,8 +534,8 @@ class Asset
 
             case 'JS':
 
-                 unset($this->js['APP-' . $asset]);
-                 break;
+                unset($this->js['APP-' . $asset]);
+                break;
         }
     }
 
@@ -554,7 +556,7 @@ class Asset
 
         // --------------------------------------------------------------------------
 
-        $type = $this->_determine_type($script, $forceType);
+        $type = $this->determineType($script, $forceType);
 
         switch ($type) {
 
@@ -587,7 +589,7 @@ class Asset
 
         // --------------------------------------------------------------------------
 
-        $type = $this->_determine_type($script, $forceType);
+        $type = $this->determineType($script, $forceType);
 
         switch ($type) {
 
@@ -698,6 +700,7 @@ class Asset
 
             foreach ($this->css as $asset) {
 
+                $asset = $this->addCacheBuster($asset);
                 $out .= link_tag($asset) . "\n";
             }
         }
@@ -709,6 +712,7 @@ class Asset
 
             foreach ($this->js as $asset) {
 
+                $asset = $this->addCacheBuster($asset);
                 $out .= '<script type="text/javascript" src="' . $asset . '"></script>' . "\n";
             }
         }
@@ -762,12 +766,39 @@ class Asset
     // --------------------------------------------------------------------------
 
     /**
+     * Appends the cacheBuster string to the asset name, accounts for existing query strings
+     * @param string $asset The asset's url to append
+     */
+    protected function addCacheBuster($asset)
+    {
+        if ($this->cacheBuster) {
+
+            $parsedUrl = parse_url($asset);
+
+            if (empty($parsedUrl['query'])) {
+
+                $asset .= '?';
+
+            } else {
+
+                $asset .= '&';
+            }
+
+            $asset .= 'revision=' . $this->cacheBuster;
+        }
+
+        return $asset;
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
      * Determines the type of asset being loaded
      * @param  string $asset     The asset being loaded
      * @param  string $forceType Forces a particular type (accepts values CSS, JS, CSS-INLINE or JS-INLINE)
      * @return string
      */
-    protected function _determine_type($asset, $forceType = null)
+    protected function determineType($asset, $forceType = null)
     {
         //  Override if nessecary
         if (!empty($forceType)) {
