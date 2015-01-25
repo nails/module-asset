@@ -544,7 +544,7 @@ class Asset
     /**
      * Loads an inline asset
      * @param  string $script    The inline asset to load, wrap in <script> tags for JS, or <style> tags for CSS
-     * @param  string $forceType Force a particular type of asset (i.e. JS or CSS)
+     * @param  string $forceType Force a particular type of asset (i.e. JS-INLINE or CSS-INLINE)
      * @return void
      */
     public function inline($script = null, $forceType = null)
@@ -560,11 +560,13 @@ class Asset
 
         switch ($type) {
 
+            case 'CSS-INLINE':
             case 'CSS':
 
                 $this->cssInline['INLINE-CSS-' . md5($script)] = $script;
                 break;
 
+            case 'JS-INLINE':
             case 'JS':
 
                 $this->jsInline['INLINE-JS-' . md5($script)] = $script;
@@ -577,7 +579,7 @@ class Asset
     /**
      * Unloads an inline asset
      * @param  string $script    The inline asset to load, wrap in <script> tags for JS, or <style> tags for CSS
-     * @param  string $forceType Force a particular type of asset (i.e. JS or CSS)
+     * @param  string $forceType Force a particular type of asset (i.e. JS-INLINE or CSS-INLINE)
      * @return void
      */
     public function unloadInline($script = null, $forceType = null)
@@ -593,11 +595,13 @@ class Asset
 
         switch ($type) {
 
+            case 'CSS-INLINE':
             case 'CSS':
 
                 unset($this->cssInline['INLINE-CSS-' . md5($script)]);
                 break;
 
+            case 'JS-INLINE':
             case 'JS':
 
                 unset($this->jsInline['INLINE-JS-' . md5($script)]);
@@ -809,7 +813,7 @@ class Asset
         // --------------------------------------------------------------------------
 
         //  Look for <style></style>
-        if (preg_match('/\<style.*?\<\/style\>/si', $asset)) {
+        if (preg_match('/^<style.*?>.*?<\/style>$/si', $asset)) {
 
             return 'CSS-INLINE';
         }
@@ -817,7 +821,7 @@ class Asset
         // --------------------------------------------------------------------------
 
         //  Look for <script></script>
-        if (preg_match('/\<script.*?\<\/script\>/si', $asset)) {
+        if (preg_match('/^<script.*?>.*?<\/script>$/si', $asset)) {
 
             return 'JS-INLINE';
         }
