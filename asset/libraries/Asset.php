@@ -32,7 +32,7 @@ class Asset
         $this->cssInline   = array();
         $this->js          = array();
         $this->jsInline    = array();
-        $this->cacheBuster = defined('DEPLOY_REVISION') ? DEPLOY_REVISION : 'cocks';
+        $this->cacheBuster = defined('DEPLOY_REVISION') ? DEPLOY_REVISION : '';
     }
 
     // --------------------------------------------------------------------------
