@@ -789,8 +789,107 @@ NAILS_Admin_CMS_pages_Create_Edit = function()
 
 				// --------------------------------------------------------------------------
 
+					//	Init CKEditors
+					_script += "this.findCkeditor = function(ui)";
+					_script += "{";
+						/**
+						 * Should the app want to override the default behaviour of the editors
+						 * then it must provide complete config files. If these are found they
+						 * will be loaded *instead* of the default config files.
+						 */
+
+						//	Scoping
+						_script += "var _this = this;";
+
+						//  Nails Config files
+						_script += "var configBasic   = window.NAILS.URL + 'js/ckeditor.config.basic.min.js';";
+						_script += "var configDefault = window.NAILS.URL + 'js/ckeditor.config.default.min.js';";
+
+						//  App Config files
+						_script += "var appConfigBasic   = window.SITE_URL + 'assets/js/nails.admin.ckeditor.config.basic.min.js';";
+						_script += "var appConfigDefault = window.SITE_URL + 'assets/js/nails.admin.ckeditor.config.default.min.js';";
+
+						_script += 'console.log(appConfigBasic, appConfigDefault);';
+						/**
+						 * Check for the presence of the app config files, if found use them as
+						 * the customConfig; if not found fall back to the Nails config files.
+						 */
+
+						_script += "$.ajax({";
+						_script += "	url: appConfigBasic,";
+						_script += "	type:'HEAD',";
+						_script += "	success: function()";
+						_script += "	{";
+						_script += "		ui.find('textarea.wysiwyg-basic').each(function(index) {";
+						_script += "			_this.initCkeditor(ui, $(this), appConfigBasic, index);";
+						_script += "		});";
+						_script += "	},";
+						_script += "	error: function()";
+						_script += "	{";
+						_script += "		ui.find('textarea.wysiwyg-basic').each(function(index) {";
+						_script += "			_this.initCkeditor(ui, $(this), configBasic, index);";
+						_script += "		});";
+						_script += "	}";
+						_script += "});";
+
+						//  Instantiate default editors
+						_script += "$.ajax({";
+						_script += "	url: appConfigDefault,";
+						_script += "	type:'HEAD',";
+						_script += "	success: function()";
+						_script += "	{";
+						_script += "		ui.find('textarea.wysiwyg').each(function(index) {";
+						_script += "			_this.initCkeditor(ui, $(this), appConfigDefault, index);";
+						_script += "		});";
+						_script += "	},";
+						_script += "	error: function()";
+						_script += "	{";
+						_script += "		ui.find('textarea.wysiwyg').each(function(index) {";
+						_script += "			_this.initCkeditor(ui, $(this), configDefault, index);";
+						_script += "		});";
+						_script += "	}";
+						_script += "});";
+					_script += "};";
+
+					_script += "this.initCkeditor = function(ui, el, config, index)";
+					_script += "{";
+						_script += "var id = ui.attr('id') + '-wysiwyg-' + index;";
+						_script += "el.attr('id', id);";
+						_script += "console.log(config);";
+						//	Instantiate the editor
+						_script += "el.ckeditor(";
+						_script += "{";
+						_script += "	customConfig: config";
+
+						_script += "}, function() {";
+
+							// Increase the height of the container
+						_script += "	var headerHeight = ui.find('.header-bar').outerHeight();";
+						_script += "	var editorHeight = ui.find('.editor').outerHeight();";
+						_script += "	var height       = headerHeight + editorHeight;";
+
+							//	Take into account the border if there is one
+						_script += "	if (ui.css('box-sizing') === 'border-box') {";
+
+						_script += "		height = height + (2 * parseInt(ui.css('border-width'), 10));";
+						_script += "	}";
+
+						_script += "	ui.stop().animate({height: height}, 250);";
+						_script += "});";
+
+						//	Bind to autogrow so heights are calculated correctly
+						_script += "CKEDITOR.instances[id].on('autoGrow', function(e) {";
+
+						_script += "	var difference   = e.data.newHeight - e.data.currentHeight;";
+						_script += "	var headerHeight = ui.find('.header-bar').outerHeight();";
+						_script += "	var editorHeight = ui.find('.editor').outerHeight();";
+						_script += "	var height       = headerHeight + editorHeight + difference;";
+						_script += "	ui.css({height:height});";
+						_script += "});";
+					_script += "};";
+
 					//	Dropped
-					_script += 'this.dropped = function( ui ){';
+					_script += 'this.dropped = function(ui) {';
 
 						if ( this.widgets[_key].widgets[_key2].callbacks.dropped.length > 0 )
 						{
@@ -798,44 +897,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function()
 						}
 
 						//	Automatically interpret any textareas with the class `wysiwyg` as CKEditors
-						//	NOTE: Ensure any changes here are reflected below in the sort_stop callback
-
-						_script += 'var _textarea	= ui.find( \'textarea.wysiwyg\' );';
-						_script += '$.each( _textarea, function( index )';
-						_script += '{';
-						_script += '	var _id = ui.attr( \'id\' ) + \'-wysiwyg-\' + index;';
-						_script += '	$(this).attr( \'id\', _id );';
-
-						//	Instantiate the editor
-						_script += '	$(this).ckeditor(';
-						_script += '	{';
-						_script += '		customConfig: window.NAILS.URL + \'js/ckeditor.config.default.min.js\'';
-						_script += '	},';
-						_script += '	function()';
-						_script += '	{';
-
-						// Increase the height of the container
-						_script += '		var _header_height	= ui.find( \'.header-bar\' ).outerHeight();';
-						_script += '		var _editor_height	= ui.find( \'.editor\' ).outerHeight();';
-						_script += '		var _height			= _header_height + _editor_height;';
-
-						//	Take into account the border if there is one
-						_script += '		if ( ui.css( \'box-sizing\' ) === \'border-box\' )';
-						_script += '		{';
-						_script += '			_height = _height + ( 2 * parseInt( ui.css( \'border-width\' ), 10 ) );';
-						_script += '		}';
-
-						_script += '		ui.stop().animate( { height: _height }, 250 );';
-						_script += '	});';
-						_script += '	CKEDITOR.instances[_id].on( \'autoGrow\', function( e )';
-						_script += '	{';
-						_script += '		var _difference		= e.data.newHeight - e.data.currentHeight;';
-						_script += '		var _header_height	= ui.find(\'.header-bar\').outerHeight();';
-						_script += '		var _editor_height	= ui.find(\'.editor\').outerHeight();';
-						_script += '		var _height			= _header_height + _editor_height + _difference;';
-						_script += '		ui.css({height:_height});';
-						_script += '	});';
-						_script += '});';
+						_script += ' this.findCkeditor(ui);';
 
 						// --------------------------------------------------------------------------
 
@@ -864,7 +926,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function()
 						_script += '	{';
 
 						//	Destroy the instance
-						_script += '		var _id = ui.attr( \'id\' ) + \'-wysiwyg-\' + index;console.log(_id);';
+						_script += '		var _id = ui.attr( \'id\' ) + \'-wysiwyg-\' + index;';
 						_script += '		CKEDITOR.instances[_id].destroy();';
 						_script += '	});';
 
@@ -894,44 +956,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function()
 						// --------------------------------------------------------------------------
 
 						//	Automatically interpret any textareas with the class `wysiwyg` as CKEditors
-						//	NOTE: Ensure any changes here are reflected below in the dropped callback
-
-						_script += 'var _textarea	= ui.find( \'textarea.wysiwyg\' );';
-						_script += '$.each( _textarea, function( index )';
-						_script += '{';
-						_script += '	var _id = ui.attr( \'id\' ) + \'-wysiwyg-\' + index;';
-						_script += '	$(this).attr( \'id\', _id );';
-
-						//	Instantiate the editor
-						_script += '	$(this).ckeditor(';
-						_script += '	{';
-						_script += '		customConfig: window.NAILS.URL + \'js/ckeditor.config.default.min.js\'';
-						_script += '	},';
-						_script += '	function()';
-						_script += '	{';
-
-						// Increase the height of the container
-						_script += '		var _header_height	= ui.find( \'.header-bar\' ).outerHeight();';
-						_script += '		var _editor_height	= ui.find( \'.editor\' ).outerHeight();';
-						_script += '		var _height			= _header_height + _editor_height;';
-
-						//	Take into account the border if there is one
-						_script += '		if ( ui.css( \'box-sizing\' ) === \'border-box\' )';
-						_script += '		{';
-						_script += '			_height = _height + ( 2 * parseInt( ui.css( \'border-width\' ), 10 ) );';
-						_script += '		}';
-
-						_script += '		ui.stop().animate( { height: _height }, 250 );';
-						_script += '	});';
-						_script += '	CKEDITOR.instances[_id].on( \'autoGrow\', function( e )';
-						_script += '	{';
-						_script += '		var _difference		= e.data.newHeight - e.data.currentHeight;';
-						_script += '		var _header_height	= ui.find(\'.header-bar\').outerHeight();';
-						_script += '		var _editor_height	= ui.find(\'.editor\').outerHeight();';
-						_script += '		var _height			= _header_height + _editor_height + _difference;';
-						_script += '		ui.css({height:_height});';
-						_script += '	});';
-						_script += '});';
+						_script += ' this.findCkeditor(ui);';
 
 						//	Unhide the mask
 						_script += 'ui.find( \'.mask\' ).animate( { opacity: 0 }, 150, function()';
@@ -1441,7 +1466,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function()
 	{
 		//	Define vars
 		var _slug,_widget,_data,_html,_item;
-console.log(ui);
+
 		//	What type of widget are we dealing with? Get more info.
 		_slug	= $(ui).data( 'slug' );
 		_widget	= this._get_widget( _slug );
