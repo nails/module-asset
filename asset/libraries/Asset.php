@@ -96,7 +96,7 @@ class Asset
 
         foreach ($assets as $asset) {
 
-            if (preg_match('#^https?{//#', $asset)) {
+            if (preg_match('#^https?://#', $asset)) {
 
                 $this->loadUrl($asset, $forceType);
 
