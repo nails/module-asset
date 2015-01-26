@@ -58,13 +58,7 @@ class Asset
 
         switch (strtoupper($assetType)) {
 
-            case 'NAILS':
-
-                $assetTypeMethod = 'loadNails';
-                break;
-
             case 'NAILS-BOWER':
-            case 'BOWER':
 
                 $assetTypeMethod = 'loadNailsBower';
                 break;
@@ -74,9 +68,21 @@ class Asset
                 $assetTypeMethod = 'loadNailsPackage';
                 break;
 
+            case 'NAILS':
+
+                $assetTypeMethod = 'loadNails';
+                break;
+
             case 'APP-BOWER':
+            case 'BOWER':
 
                 $assetTypeMethod = 'loadAppBower';
+                break;
+
+            case 'APP-PACKAGE':
+            case 'PACKAGE':
+
+                $assetTypeMethod = 'loadAppPackage';
                 break;
 
             case 'APP':
@@ -225,12 +231,12 @@ class Asset
 
             case 'CSS':
 
-                $this->css['APP-' . $asset] = NAILS_ASSETS_URL . 'packages/' . $asset;
+                $this->css['NAILS-PACKAGE-' . $asset] = NAILS_ASSETS_URL . 'packages/' . $asset;
                 break;
 
             case 'JS':
 
-                $this->js['APP-' . $asset] = NAILS_ASSETS_URL . 'packages/' . $asset;
+                $this->js['NAILS-PACKAGE-' . $asset] = NAILS_ASSETS_URL . 'packages/' . $asset;
                 break;
         }
     }
@@ -257,6 +263,32 @@ class Asset
             case 'JS':
 
                 $this->js['APP-BOWER-' . $asset] = site_url('assets/bower_components/' . $asset);
+                break;
+        }
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Loads an App package asset (as a relative url from 'assets/packages/')
+     * @param  string $asset     The asset to load
+     * @param  string $forceType Force a particular type of asset (i.e. JS or CSS)
+     * @return void
+     */
+    protected function loadAppPackage($asset, $forceType = null)
+    {
+        $type = $this->determineType($asset, $forceType);
+
+        switch ($type) {
+
+            case 'CSS':
+
+                $this->css['APP-PACKAGE-' . $asset] = site_url('assets/packages/' . $asset);
+                break;
+
+            case 'JS':
+
+                $this->js['APP-PACKAGE-' . $asset] = site_url('assets/packages/' . $asset);
                 break;
         }
     }
@@ -310,13 +342,7 @@ class Asset
 
         switch (strtoupper($assetType)) {
 
-            case 'NAILS':
-
-                $assetTypeMethod = 'unloadNails';
-                break;
-
             case 'NAILS-BOWER':
-            case 'BOWER':
 
                 $assetTypeMethod = 'unloadNailsBower';
                 break;
@@ -326,9 +352,21 @@ class Asset
                 $assetTypeMethod = 'unloadNailsPackage';
                 break;
 
+            case 'NAILS':
+
+                $assetTypeMethod = 'unloadNails';
+                break;
+
             case 'APP-BOWER':
+            case 'BOWER':
 
                 $assetTypeMethod = 'unloadAppBower';
+                break;
+
+            case 'APP-PACKAGE':
+            case 'PACKAGE':
+
+                $assetTypeMethod = 'unloadAppPackage';
                 break;
 
             case 'APP':
@@ -438,7 +476,7 @@ class Asset
     // --------------------------------------------------------------------------
 
     /**
-     * Loads a Bower asset from the NAils asset module's bower_components directory
+     * Loads a Bower asset from the Nails asset module's bower_components directory
      * @param  string $asset     The asset to unload
      * @param  string $forceType Force a particular type of asset (i.e. JS or CSS)
      * @return void
@@ -477,12 +515,12 @@ class Asset
 
             case 'CSS':
 
-                unset($this->css['APP-' . $asset]);
+                unset($this->css['NAILS-PACKAGE-' . $asset]);
                 break;
 
             case 'JS':
 
-                unset($this->js['APP-' . $asset]);
+                unset($this->js['NAILS-PACKAGE-' . $asset]);
                 break;
         }
     }
@@ -509,6 +547,32 @@ class Asset
             case 'JS':
 
                 unset($this->js['APP-BOWER-' . $asset]);
+                break;
+        }
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Unloads an App package asset (as a relative url from 'assets/packages/')
+     * @param  string $asset     The asset to load
+     * @param  string $forceType Force a particular type of asset (i.e. JS or CSS)
+     * @return void
+     */
+    protected function unloadAppPackage($asset, $forceType = null)
+    {
+        $type = $this->determineType($asset, $forceType);
+
+        switch ($type) {
+
+            case 'CSS':
+
+                unset($this->css['APP-PACKAGE-' . $asset]);
+                break;
+
+            case 'JS':
+
+                unset($this->js['APP-PACKAGE-' . $asset]);
                 break;
         }
     }
