@@ -9,9 +9,9 @@
  * @author      Nails Dev Team
  * @link
  */
+
 class Asset
 {
-
     protected $CI;
     protected $css;
     protected $cssInline;
