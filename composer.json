@@ -35,6 +35,7 @@
     {
         "nails" :
         {
+            "moduleName": "asset",
             "type": "module"
         }
     }
