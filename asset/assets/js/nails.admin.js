@@ -130,7 +130,7 @@ NAILS_Admin = function()
         $('ul.modules li.module').each(function()
         {
             _open = $('.box', this).hasClass('open');
-            _data[$(this).data('module')] = {
+            _data[$(this).data('grouping')] = {
                 open : _open
             };
         });
@@ -354,6 +354,8 @@ NAILS_Admin = function()
                 }
             })
             .show();
+
+            return false;
         });
     };
 
