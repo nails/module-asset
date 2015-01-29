@@ -104,7 +104,7 @@ NAILS_Admin = function()
         $('ul.modules').sortable({
             axis:'y',
             placeholder: 'sort-placeholder',
-            items: 'li.module:not(.no-sort)',
+            items: 'li.module.sortable',
             handle: '.handle',
             start: function(e, ui)
             {
@@ -346,6 +346,10 @@ NAILS_Admin = function()
                     OK: function()
                     {
                         $(this).dialog("close");
+                    },
+                    "Reload": function()
+                    {
+                        window.location.reload();
                     }
                 }
             })
