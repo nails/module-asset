@@ -30,9 +30,16 @@ input[type="button"].awesome
 	border:0;
 	text-shadow:none;
 
+	&:hover,
+	&:focus
+	{
+		text-decoration: none;
+	}
+
 	&:active
 	{
 		top:1px;
+		text-decoration: none;
 	}
 
 	&.disabled
