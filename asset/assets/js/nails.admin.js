@@ -24,7 +24,7 @@ NAILS_Admin = function()
     // --------------------------------------------------------------------------
 
 
-    this.init = function()
+    this.__construct = function()
     {
         this.init_boxes();
         this.init_navsearch();
@@ -368,7 +368,7 @@ NAILS_Admin = function()
         //  Bind submit to select changes
         $('div.search select, div.search input[type=checkbox]').on('change', function() {
 
-            $(this).closest('form').find('input[type=submit]').click();
+            $(this).closest('form').submit();
 
         });
 
@@ -789,4 +789,8 @@ NAILS_Admin = function()
             console.error(output);
         }
     };
+
+    // --------------------------------------------------------------------------
+
+    return this.__construct();
 };

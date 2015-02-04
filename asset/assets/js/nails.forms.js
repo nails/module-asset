@@ -18,7 +18,7 @@ NAILS_Forms = function()
 			var _href,_w,_h;
 
 			_href = $(this).attr( 'href' );
-			_href += _href.indexOf( '?' ) >= 0 ? '&is_fancybox=1' : '?is_fancybox=1';
+			_href += _href.indexOf( '?' ) >= 0 ? '&isFancybox=1' : '?isFancybox=1';
 
 			if ( $.fancybox.isOpen && $.fancybox.opts.type !== 'iframe' )
 			{
@@ -109,7 +109,7 @@ NAILS_Forms = function()
 			var _href,_w,_h;
 
 			_href = $(this).attr( 'href' );
-			_href += _href.indexOf( '?' ) >= 0 ? '&is_fancybox=1' : '?is_fancybox=1';
+			_href += _href.indexOf( '?' ) >= 0 ? '&isFancybox=1' : '?isFancybox=1';
 
 			if ( $.fancybox.isOpen && $.fancybox.opts.type !== 'iframe' )
 			{
@@ -200,4 +200,4 @@ NAILS_Forms = function()
 	// --------------------------------------------------------------------------
 
 	return this.__construct();
-};
+}();

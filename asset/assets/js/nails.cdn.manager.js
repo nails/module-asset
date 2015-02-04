@@ -4,18 +4,18 @@ NAILS_CDN_Manager =  function() {
 	this.handler			= '';
 	this.callback			= '';
 	this.url_schemes		= {};
-	this.is_fancybox		= '';
+	this.isFancybox		= '';
 	this.reopen_fancybox	= '';
 	this._api				= null;
 
 	// --------------------------------------------------------------------------
 
-	this.init = function( handler, callback, url_schemes, is_fancybox, reopen_fancybox )
+	this.init = function( handler, callback, url_schemes, isFancybox, reopen_fancybox )
 	{
 		this.handler			= handler;
 		this.callback			= callback;
 		this.url_schemes		= url_schemes;
-		this.is_fancybox		= is_fancybox;
+		this.isFancybox		= isFancybox;
 		this.reopen_fancybox	= reopen_fancybox;
 
 		// --------------------------------------------------------------------------
@@ -45,7 +45,7 @@ NAILS_CDN_Manager =  function() {
 		}
 		else
 		{
-			if ( this.is_fancybox )
+			if ( this.isFancybox )
 			{
 				_callable = typeof( window.parent._nails_forms[this.callback] ) === 'function' ? true : false;
 			}
@@ -189,7 +189,7 @@ NAILS_CDN_Manager =  function() {
 			}
 
 			//	Close window
-			if ( _this.is_fancybox )
+			if ( _this.isFancybox )
 			{
 				parent.$.fancybox.close();
 			}
@@ -243,7 +243,7 @@ NAILS_CDN_Manager =  function() {
 
 	this._insert_native = function( file, id, fieldid )
 	{
-		if ( this.is_fancybox )
+		if ( this.isFancybox )
 		{
 			window.parent._nails_forms[this.callback].call( null, file, id, this.reopen_fancybox, fieldid );
 		}

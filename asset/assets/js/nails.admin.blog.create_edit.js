@@ -126,10 +126,10 @@ NAILS_Admin_Blog_Create_Edit = function()
 		var _url = {};
 
 		_target.categories	= '#tab-categories select.categories';
-		_url.categories		= window.SITE_URL + 'admin/blog/' + this.blog_id + '/manage/category?is_fancybox=1';
+		_url.categories		= window.SITE_URL + 'admin/blog/' + this.blog_id + '/manage/category?isFancybox=1';
 
 		_target.tags	= '#tab-tags select.tags';
-		_url.tags		= window.SITE_URL + 'admin/blog/' + this.blog_id + '/manage/tag?is_fancybox=1';
+		_url.tags		= window.SITE_URL + 'admin/blog/' + this.blog_id + '/manage/tag?isFancybox=1';
 
 		// --------------------------------------------------------------------------
 

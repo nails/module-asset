@@ -25,7 +25,7 @@ if ( typeof( console ) === "undefined" )
 var NAILS_JS;
 NAILS_JS = function()
 {
-	this.init = function()
+	this.__construct = function()
 	{
 		this._init_system_alerts();
 		this._init_tipsy();
@@ -137,7 +137,7 @@ NAILS_JS = function()
 						_href += '&';
 					}
 
-					_href += 'is_fancybox=true';
+					_href += 'isFancybox=true';
 				}
 
 				//	Interpret width and height
@@ -414,4 +414,8 @@ NAILS_JS = function()
 			console.warn( output );
 		}
 	};
+
+	// --------------------------------------------------------------------------
+
+	return this.__construct();
 };
