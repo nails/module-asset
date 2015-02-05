@@ -1,7 +1,6 @@
 form
 {
 	width:100%;
-
 }
 
 fieldset
@@ -17,8 +16,10 @@ fieldset
 	margin-top: 50px;
 	box-sizing: border-box;
 
-	//	The last fieldset within a fieldset shouldn't have a
-	//	margin bottom, looks waaay nicer!
+	/**
+	 * The last fieldset within a fieldset shouldn't have a margin
+	 * bottom, looks waaay nicer!
+	 */
 
 	fieldset
 	{
@@ -99,37 +100,38 @@ fieldset
 			text-align:right;
 		}
 	}
-}
-fieldset.closed
-{
-	height:0px;
-	overflow:hidden;
 
-	*
+	&.closed
 	{
-		.opacity(0);
-	}
+		height: 0px;
+		overflow: hidden;
 
-	legend
-	{
-		top:2px;
-		.opacity(1);
-		border:0;
-		.drop-shadow(0, 0, 0, 0);
-	}
-	.fieldset-toggle
-	{
-		top:6px;
-		.opacity(1);
-
-		.show
+		*
 		{
-			display:block;
-			.opacity(1);
+			.opacity(0);
 		}
-		.hide
+
+		legend
 		{
-			display:none;
+			top: 2px;
+			.opacity(1);
+			border: 0;
+			.drop-shadow(0, 0, 0, 0);
+		}
+		.fieldset-toggle
+		{
+			top: 6px;
+			.opacity(1);
+
+			.show
+			{
+				display: block;
+				.opacity(1);
+			}
+			.hide
+			{
+				display: none;
+			}
 		}
 	}
 }
@@ -748,6 +750,12 @@ textarea
 		-moz-box-shadow: 0 0 3px rgba(0,0,0,.2);
 		-webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
 		box-shadow:  0 0 3px rgba(0,0,0,.2);
+	}
+
+	&.select2-input
+	{
+		width:100%;
+		margin: 0;
 	}
 }
 
