@@ -4,18 +4,18 @@ NAILS_CDN_Manager =  function() {
 	this.handler			= '';
 	this.callback			= '';
 	this.url_schemes		= {};
-	this.isFancybox		= '';
+	this.isFancybox			= '';
 	this.reopen_fancybox	= '';
 	this._api				= null;
 
 	// --------------------------------------------------------------------------
 
-	this.init = function( handler, callback, url_schemes, isFancybox, reopen_fancybox )
+	this.init = function(handler, callback, url_schemes, isFancybox, reopen_fancybox)
 	{
 		this.handler			= handler;
 		this.callback			= callback;
 		this.url_schemes		= url_schemes;
-		this.isFancybox		= isFancybox;
+		this.isFancybox			= isFancybox;
 		this.reopen_fancybox	= reopen_fancybox;
 
 		// --------------------------------------------------------------------------
@@ -38,22 +38,22 @@ NAILS_CDN_Manager =  function() {
 
 		//	Is the callback callable?
 		var _callable = false;
-		if ( this.handler === 'ckeditor' )
+		if (this.handler === 'ckeditor')
 		{
 			//	Assume callable - CKEditor should handle this.
 			_callable = true;
 		}
 		else
 		{
-			if ( this.isFancybox )
+			if (this.isFancybox)
 			{
-				_callable = typeof( window.parent._nails_forms[this.callback] ) === 'function' ? true : false;
+				_callable = typeof(window.parent._nails_forms[this.callback]) === 'function' ? true : false;
 			}
 			else
 			{
-				if ( window.opener )
+				if (window.opener)
 				{
-					_callable = typeof( window.opener._nails_forms[this.callback] ) === 'function' ? true : false;
+					_callable = typeof(window.opener._nails_forms[this.callback]) === 'function' ? true : false;
 				}
 				else
 				{
@@ -62,15 +62,15 @@ NAILS_CDN_Manager =  function() {
 			}
 		}
 
-		if ( ! _callable )
+		if (! _callable)
 		{
-			$( 'a.insert' ).remove();
+			$('a.insert').remove();
 		}
 
 		// --------------------------------------------------------------------------
 
 		//	Initiate the fancyboxes, doing so here so we can style it slightly differently
-		$( 'a.cdn-fancybox' ).fancybox(
+		$('a.cdn-fancybox').fancybox(
 		{
 			padding:0,
 			wrapCSS: 'cdn-fancybox',
@@ -91,7 +91,7 @@ NAILS_CDN_Manager =  function() {
 	this._init_submit = function()
 	{
 		var _this = this;	/*	Ugly Scope Hack	*/
-		$( 'form' ).on( 'submit', function() { _this._show_mask(); } );
+		$('form').on('submit', function() { _this._show_mask(); });
 	};
 
 
@@ -101,23 +101,23 @@ NAILS_CDN_Manager =  function() {
 	this._init_alerts = function()
 	{
 		var _this = this;	/*	Ugly Scope Hack	*/
-		$( '.system-alert .awesome' ).on( 'click', function() { _this._hide_alert(); return false; } );
+		$('.system-alert .awesome').on('click', function() { _this._hide_alert(); return false; });
 
 		// --------------------------------------------------------------------------
 
 		//	If alert is open and enter is pressed then trigger the first button
-		$(document).on( 'keydown', function(e)
+		$(document).on('keydown', function(e)
 		{
 			//	Enter key
-			if ( e.keyCode === 13 && $( '#alert:visible' ).length > 0)
+			if (e.keyCode === 13 && $('#alert:visible').length > 0)
 			{
-				$( '#alert .awesome.ok' ).first().click();
+				$('#alert .awesome.ok').first().click();
 			}
 
 			//	Escape
-			if ( e.keyCode === 27 && $( '#alert:visible' ).length > 0)
+			if (e.keyCode === 27 && $('#alert:visible').length > 0)
 			{
-				$( '#alert .awesome.cancel' ).first().click();
+				$('#alert .awesome.cancel').first().click();
 			}
 		});
 	};
@@ -137,11 +137,11 @@ NAILS_CDN_Manager =  function() {
 
 	this._init_delete = function()
 	{
-		$( 'a.delete' ).on( 'click', function()
+		$('a.delete').on('click', function()
 		{
 			var _a = $(this);
 
-			$('<div>').html( '<p>Any resources which are using this object will have the reference removed.</p><p>Continue?</p>' ).dialog({
+			$('<div>').html('<p>Any resources which are using this object will have the reference removed.</p><p>Continue?</p>').dialog({
 				title: 'Are you sure?',
 				resizable: false,
 				draggable: false,
@@ -151,7 +151,7 @@ NAILS_CDN_Manager =  function() {
 				{
 					"Delete": function()
 					{
-						window.location.href = _a.attr( 'href' );
+						window.location.href = _a.attr('href');
 					},
 					Cancel: function()
 					{
@@ -172,24 +172,24 @@ NAILS_CDN_Manager =  function() {
 	{
 		var _this = this;	/*	Ugly Scope Hack	*/
 
-		$( 'a.insert' ).on( 'click', function()
+		$('a.insert').on('click', function()
 		{
-			var _file		= $(this).attr( 'data-file' );
-			var _id			= $(this).attr( 'data-id' );
-			var _fieldid	= $(this).attr( 'data-fieldid' );
-			var _bucket		= $(this).attr( 'data-bucket' );
+			var _file		= $(this).attr('data-file');
+			var _id			= $(this).attr('data-id');
+			var _fieldid	= $(this).attr('data-fieldid');
+			var _bucket		= $(this).attr('data-bucket');
 
-			if ( _this.handler === 'ckeditor' )
+			if (_this.handler === 'ckeditor')
 			{
-				_this._insert_ckeditor( _bucket, _file, _id );
+				_this._insert_ckeditor(_bucket, _file, _id);
 			}
 			else
 			{
-				_this._insert_native( _file, _id, _fieldid );
+				_this._insert_native(_file, _id, _fieldid);
 			}
 
 			//	Close window
-			if ( _this.isFancybox )
+			if (_this.isFancybox)
 			{
 				parent.$.fancybox.close();
 			}
@@ -208,7 +208,7 @@ NAILS_CDN_Manager =  function() {
 	// --------------------------------------------------------------------------
 
 
-	this._insert_ckeditor = function( bucket, file, id )
+	this._insert_ckeditor = function(bucket, file, id)
 	{
 		//	TODO Render a modal asking for customisations to the URL
 
@@ -216,7 +216,7 @@ NAILS_CDN_Manager =  function() {
 		var _scheme = this.url_schemes.serve;
 
 		//	Break into filename and extensions
-		var _file = file.split( '.' );
+		var _file = file.split('.');
 
 		//	Define the data object
 		var _data = {
@@ -231,25 +231,25 @@ NAILS_CDN_Manager =  function() {
 		};
 
 		//	Apply the scheme
-		var _url = Mustache.render( _scheme, _data );
+		var _url = Mustache.render(_scheme, _data);
 
 		//	Call back to the CKEditor instance
-		window.opener.CKEDITOR.tools.callFunction( this.callback, _url );
+		window.opener.CKEDITOR.tools.callFunction(this.callback, _url);
 	};
 
 
 	// --------------------------------------------------------------------------
 
 
-	this._insert_native = function( file, id, fieldid )
+	this._insert_native = function(file, id, fieldid)
 	{
-		if ( this.isFancybox )
+		if (this.isFancybox)
 		{
-			window.parent._nails_forms[this.callback].call( null, file, id, this.reopen_fancybox, fieldid );
+			window.parent._nails_forms[this.callback].call(null, file, id, this.reopen_fancybox, fieldid);
 		}
 		else
 		{
-			window.opener._nails_forms[this.callback].call( null, file, id, this.reopen_fancybox, fieldid );
+			window.opener._nails_forms[this.callback].call(null, file, id, this.reopen_fancybox, fieldid);
 		}
 	};
 
@@ -261,14 +261,14 @@ NAILS_CDN_Manager =  function() {
 	{
 		var _this = this;	/*	Ugly Scope Hack	*/
 
-		$( 'li.tag.droppable' ).droppable({
+		$('li.tag.droppable').droppable({
 			accept: '.file',
 			hoverClass: 'can-drop',
 			tolerance: 'pointer',
 			drop: function(e,ui)
 			{
-				var _object_id	= $(ui.draggable).data( 'id' );
-				var _tag_id		= $(this).data( 'id' );
+				var _object_id	= $(ui.draggable).data('id');
+				var _tag_id		= $(this).data('id');
 
 				//	Send off API request
 				var _droppable = $(this);
@@ -280,12 +280,12 @@ NAILS_CDN_Manager =  function() {
 					method		: 'add_object_tag',
 					action		: 'GET',
 					data		: { object_id:_object_id,tag_id:_tag_id},
-					success		: function( data ) { _this._add_tag_ok( _droppable, _draggable, data ); },
-					error		: function( data ) { _this._add_tag_fail( _droppable, _draggable, data ); }
+					success		: function(data) { _this._add_tag_ok(_droppable, _draggable, data); },
+					error		: function(data) { _this._add_tag_fail(_droppable, _draggable, data); }
 				});
 
 				//	Set the counter to updating
-				$(this).find( '.count' ).addClass( 'saving' );
+				$(this).find('.count').addClass('saving');
 
 			}
 		});
@@ -294,14 +294,14 @@ NAILS_CDN_Manager =  function() {
 		// --------------------------------------------------------------------------
 
 
-		$( 'div.remove-object-tag' ).droppable({
+		$('div.remove-object-tag').droppable({
 			accept: '.file',
 			hoverClass: 'can-drop',
 			tolerance: 'pointer',
 			drop: function(e,ui)
 			{
-				var _object_id	= $(ui.draggable).data( 'id' );
-				var _tag_id		= $(this).data( 'id' );
+				var _object_id	= $(ui.draggable).data('id');
+				var _tag_id		= $(this).data('id');
 
 				//	Send off API request
 				var _droppable = $(this);
@@ -313,12 +313,12 @@ NAILS_CDN_Manager =  function() {
 					method		: 'delete_object_tag',
 					action		: 'GET',
 					data		: { object_id:_object_id,tag_id:_tag_id},
-					success		: function( data ) { _this._remove_tag_ok( _droppable, _draggable, data ); },
-					error		: function( data ) { _this._remove_tag_fail( _droppable, _draggable, data ); }
+					success		: function(data) { _this._remove_tag_ok(_droppable, _draggable, data); },
+					error		: function(data) { _this._remove_tag_fail(_droppable, _draggable, data); }
 				});
 
 				//	Set the counter to updating
-				$(this).find( '.count' ).addClass( 'saving' );
+				$(this).find('.count').addClass('saving');
 			}
 		});
 	};
@@ -327,58 +327,58 @@ NAILS_CDN_Manager =  function() {
 	// --------------------------------------------------------------------------
 
 
-	this._add_tag_ok = function( dropabble, draggable, data )
+	this._add_tag_ok = function(dropabble, draggable, data)
 	{
-		dropabble.find( '.count' ).text( data.new_total ).removeClass( 'saving' );
+		dropabble.find('.count').text(data.new_total).removeClass('saving');
 	};
 
 
 	// --------------------------------------------------------------------------
 
 
-	this._add_tag_fail = function( dropabble, draggable, data )
+	this._add_tag_fail = function(dropabble, draggable, data)
 	{
 		var _data;
 		try
 		{
-			_data = JSON.parse( data.responseText );
+			_data = JSON.parse(data.responseText);
 		}
-		catch( err )
+		catch(err)
 		{
 			_data = { 'error' : 'An unknown error occurred' };
 		}
-		alert( _data.error );
-		dropabble.find( '.count' ).removeClass( 'saving' );
+		alert(_data.error);
+		dropabble.find('.count').removeClass('saving');
 	};
 
 
 	// --------------------------------------------------------------------------
 
 
-	this._remove_tag_ok = function( dropabble, draggable, data )
+	this._remove_tag_ok = function(dropabble, draggable, data)
 	{
 		draggable.remove();
-		dropabble.removeClass( 'saving' );
-		$( 'li.tag.selected .count' ).text( data.new_total );
+		dropabble.removeClass('saving');
+		$('li.tag.selected .count').text(data.new_total);
 	};
 
 
 	// --------------------------------------------------------------------------
 
 
-	this._remove_tag_fail = function( dropabble, draggable, data )
+	this._remove_tag_fail = function(dropabble, draggable, data)
 	{
 		var _data;
 		try
 		{
-			_data = JSON.parse( data.responseText );
+			_data = JSON.parse(data.responseText);
 		}
-		catch( err )
+		catch(err)
 		{
 			_data = { 'error' : 'An unknown error occurred' };
 		}
-		alert( _data.error );
-		dropabble.removeClass( 'saving' );
+		alert(_data.error);
+		dropabble.removeClass('saving');
 	};
 
 
@@ -387,11 +387,11 @@ NAILS_CDN_Manager =  function() {
 
 	this._init_thumbs = function()
 	{
-		$( '.file' ).draggable({
+		$('.file').draggable({
 			helper: "clone",
 			start: function(e, ui)
 			{
-				$(ui.helper).addClass( 'clone' );
+				$(ui.helper).addClass('clone');
 			}
 		});
 	};
@@ -403,20 +403,20 @@ NAILS_CDN_Manager =  function() {
 	this._init_search = function()
 	{
 		var _this = this;	/*	Ugly Scope Hack	*/
-		$( '#search-text' ).on( 'keyup', function() { _this._do_search( $(this).val() ); return false; } );
+		$('#search-text').on('keyup', function() { _this._do_search($(this).val()); return false; });
 	};
 
 
 	// --------------------------------------------------------------------------
 
 
-	this._do_search = function( term )
+	this._do_search = function(term)
 	{
-		$( 'li.file,tr.file:not(.head)' ).each(function()
+		$('li.file,tr.file:not(.head)').each(function()
 		{
-			var regex = new RegExp( term, 'gi' );
+			var regex = new RegExp(term, 'gi');
 
-			if ( regex.test( $(this).attr( 'data-title' ) ) )
+			if (regex.test($(this).attr('data-title')))
 			{
 				$(this).show();
 			}
@@ -433,7 +433,7 @@ NAILS_CDN_Manager =  function() {
 
 	this._show_mask = function()
 	{
-		$( '#mask' ).show();
+		$('#mask').show();
 	};
 
 
@@ -442,7 +442,7 @@ NAILS_CDN_Manager =  function() {
 
 	this._hide_mask = function()
 	{
-		$( '#mask' ).hide();
+		$('#mask').hide();
 	};
 
 
@@ -451,7 +451,7 @@ NAILS_CDN_Manager =  function() {
 
 	this._show_alert = function()
 	{
-		$( '#alert' ).show();
+		$('#alert').show();
 	};
 
 
@@ -460,6 +460,6 @@ NAILS_CDN_Manager =  function() {
 
 	this._hide_alert = function()
 	{
-		$( '#alert' ).hide();
+		$('#alert').hide();
 	};
 };

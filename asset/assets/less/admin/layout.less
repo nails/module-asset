@@ -328,6 +328,7 @@ body
 					top:0;
 					right:0;
 					bottom:0;
+					border-bottom: 0;
 
 					span.toggler
 					{
@@ -368,7 +369,7 @@ body
 				{
 					margin: 0;
 					list-style: none;
-					border-bottom: 1px dotted #ccc;
+					border-bottom: 1px dotted #EFEFEF;
 					position:relative;
 
 					a
@@ -376,6 +377,7 @@ body
 						display:block;
 						padding:7px;
 						margin-right:10px;
+						border-bottom: 0;
 
 						&:link,
 						&:visited
@@ -399,6 +401,11 @@ body
 					{
 						border-bottom: none;
 						padding-bottom: 5px;
+					}
+
+					&:hover
+					{
+						background:#FAFAFA;
 					}
 				}
 			}
@@ -528,6 +535,8 @@ body
 					font-size: 15px;
 					font-weight: bold;
 					line-height:15px;
+					margin: 0;
+					padding: 0.67em 0;
 				}
 			}
 
@@ -587,6 +596,22 @@ body
 			.no-modules
 			{
 				display:block;
+			}
+		}
+	}
+
+	&.blank
+	{
+		.page-title
+		{
+			h1
+			{
+				font-size: 1.5em;
+				font-weight: bold;
+				margin: 0;
+				margin-bottom: 1em;
+				border-bottom: 1px solid #F5EBEB;
+				padding-bottom: 0.7em;
 			}
 		}
 	}
