@@ -14,7 +14,7 @@
 // --------------------------------------------------------------------------
 
 //	Manager Variables
-@sidebar-width	: 200px;
+@sidebar-width	: 0px;
 @toolbar-height	: 30px;
 @padding		: 10px;
 
@@ -26,6 +26,7 @@
 html,
 body
 {
+	height:100%;
 	font-family: Helvetica,Arial,"Lucida Grande",sans-serif;
 	font-weight: 300;
 	font-size: 14px;
@@ -96,6 +97,30 @@ textarea
 	width:100%;
 	padding:0px;
 	margin:0px;
+
+	#dropToUpload
+	{
+		position: absolute;
+		left:@padding;
+		top:@padding;
+		right:@padding;
+		bottom:@padding;
+		background-color: rgba(255,255,255,0.75);
+		background-image:url(../img/modules/cdn/manager/dropToUpload.png);
+		background-repeat: no-repeat;
+		background-position: center;
+		z-index: 5;
+		border: 2px dashed #CCC;
+		box-shadow: 0 0 30px rgba(132, 167, 53, 0.46);
+		display:none;
+
+		#dropzone1
+		{
+			width:100%;
+			height:100%;
+			// background:pink;
+		}
+	}
 
 	#mask,
 	#alert
@@ -175,7 +200,8 @@ textarea
 
 			.files
 			{
-				top:@toolbar-height+30+(2*@padding) + @toolbar-height/2;
+				top: @toolbar-height+30+(2*@padding) + @toolbar-height/2;
+				transition: top 0.5s;
 			}
 		}
 
@@ -449,7 +475,7 @@ textarea
 				position:absolute;
 				right:15px;
 				left:67px;
-				top:9px;
+				top:7px;
 				bottom:8px;
 				border:1px solid #ECECEC;
 
@@ -468,15 +494,12 @@ textarea
 			margin:0;
 			padding:@padding;
 			position:absolute;
-			top:@toolbar-height+25+(2*@padding);
+			top:@toolbar-height+23+(2*@padding);
 			bottom:0px;
 			right:0px;
 			left:@sidebar-width+1;
 
-			.file
-			{
-				cursor:move;
-			}
+			transition: top 0.5s;
 
 			.no-files
 			{
@@ -716,6 +739,12 @@ textarea
 					border-bottom:0;
 				}
 			}
+
+			&.list
+			{
+				padding: 0;
+				left: 0;
+			}
 		}
 	}
 
@@ -755,7 +784,7 @@ textarea
 	}
 }
 
-.group-cdn.manager.is-fancybox
+.group-cdn.manager.isFancybox
 {
 	#mask
 	{
