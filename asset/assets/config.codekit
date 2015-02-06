@@ -432,6 +432,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/img\/modules\/cdn\/manager\/dropToUpload.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 3280,
+		"inputAbbreviatedPath": "\/img\/modules\/cdn\/manager\/dropToUpload.png",
+		"outputAbbreviatedPath": "\/img\/modules\/cdn\/manager\/dropToUpload.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/img\/modules\/cdn\/manager\/sprite-view-swap.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -2504,23 +2515,23 @@
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/nails.admin.blog.create_edit.js": {
+	"\/js\/nails.admin.blog.createEdit.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.blog.create_edit.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.blog.create_edit.min.js",
+		"inputAbbreviatedPath": "\/js\/nails.admin.blog.createEdit.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.blog.createEdit.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/nails.admin.blog.create_edit.min.js": {
+	"\/js\/nails.admin.blog.createEdit.min.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.blog.create_edit.min.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.blog.create_edit.min.min.js",
+		"inputAbbreviatedPath": "\/js\/nails.admin.blog.createEdit.min.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.blog.createEdit.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
@@ -2570,45 +2581,67 @@
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/nails.admin.cms.blocks.js": {
+	"\/js\/nails.admin.cms.blocks.create.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.min.js",
+		"inputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.create.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.create.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/nails.admin.cms.blocks.min.js": {
+	"\/js\/nails.admin.cms.blocks.create.min.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.min.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.min.min.js",
+		"inputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.create.min.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.create.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/nails.admin.cms.menus.create_edit.js": {
+	"\/js\/nails.admin.cms.blocks.edit.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.cms.menus.create_edit.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.cms.menus.create_edit.min.js",
+		"inputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.edit.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.edit.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/nails.admin.cms.menus.create_edit.min.js": {
+	"\/js\/nails.admin.cms.blocks.edit.min.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.cms.menus.create_edit.min.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.cms.menus.create_edit.min.min.js",
+		"inputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.edit.min.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.edit.min.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 2,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/nails.admin.cms.menus.createEdit.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/nails.admin.cms.menus.createEdit.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.cms.menus.createEdit.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 2,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/nails.admin.cms.menus.createEdit.min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/nails.admin.cms.menus.createEdit.min.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.cms.menus.createEdit.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
@@ -2636,23 +2669,23 @@
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/nails.admin.cms.pages.create_edit.js": {
+	"\/js\/nails.admin.cms.pages.createEdit.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.cms.pages.create_edit.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.cms.pages.create_edit.min.js",
+		"inputAbbreviatedPath": "\/js\/nails.admin.cms.pages.createEdit.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.cms.pages.createEdit.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/nails.admin.cms.pages.create_edit.min.js": {
+	"\/js\/nails.admin.cms.pages.createEdit.min.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.cms.pages.create_edit.min.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.cms.pages.create_edit.min.min.js",
+		"inputAbbreviatedPath": "\/js\/nails.admin.cms.pages.createEdit.min.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.cms.pages.createEdit.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
@@ -2680,23 +2713,23 @@
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/nails.admin.cms.sliders.create_edit.js": {
+	"\/js\/nails.admin.cms.sliders.createEdit.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.cms.sliders.create_edit.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.cms.sliders.create_edit.min.js",
+		"inputAbbreviatedPath": "\/js\/nails.admin.cms.sliders.createEdit.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.cms.sliders.createEdit.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/nails.admin.cms.sliders.create_edit.min.js": {
+	"\/js\/nails.admin.cms.sliders.createEdit.min.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.cms.sliders.create_edit.min.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.cms.sliders.create_edit.min.min.js",
+		"inputAbbreviatedPath": "\/js\/nails.admin.cms.sliders.createEdit.min.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.cms.sliders.createEdit.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
@@ -2790,23 +2823,23 @@
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/nails.admin.shop.inventory.create_edit.js": {
+	"\/js\/nails.admin.shop.inventory.createEdit.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.shop.inventory.create_edit.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.shop.inventory.create_edit.min.js",
+		"inputAbbreviatedPath": "\/js\/nails.admin.shop.inventory.createEdit.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.shop.inventory.createEdit.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/nails.admin.shop.inventory.create_edit.min.js": {
+	"\/js\/nails.admin.shop.inventory.createEdit.min.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.shop.inventory.create_edit.min.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.shop.inventory.create_edit.min.min.js",
+		"inputAbbreviatedPath": "\/js\/nails.admin.shop.inventory.createEdit.min.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.shop.inventory.createEdit.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
@@ -4336,6 +4369,10 @@
 			"flagValue": -1
 			},
 		"shelljs": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"singleGroups": {
 			"active": 0,
 			"flagValue": -1
 			},

@@ -50,15 +50,20 @@ table
 					}
 				}
 
+				&.user,
+				&.datetime,
+				&.actions
+				{
+					text-align: center;
+				}
+
 				&.user
 				{
-					text-align:center;
 					width:200px;
 				}
 
 				&.datetime
 				{
-					text-align:center;
 					width:150px;
 				}
 			}
@@ -92,6 +97,7 @@ table
 				small
 				{
 					display:block;
+					line-height: 1.75em;
 				}
 
 				a
@@ -247,6 +253,8 @@ table
 
 				&.actions
 				{
+					text-align: center;
+
 					a.awesome
 					{
 						&:last-of-type
