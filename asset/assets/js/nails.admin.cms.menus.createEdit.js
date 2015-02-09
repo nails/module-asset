@@ -1,167 +1,192 @@
 var NAILS_Admin_CMS_Menus_Create_Edit;
-NAILS_Admin_CMS_Menus_Create_Edit = function()
+NAILS_Admin_CMS_Menus_Create_Edit = function(items)
 {
-	this._item_template	= '';
-	this._id_length		= 32;
+    var base = this;
 
+    // --------------------------------------------------------------------------
 
-	// --------------------------------------------------------------------------
+    base.itemTemplate = '';
+    base.idLength     = 32;
 
+    // --------------------------------------------------------------------------
 
-	this.init = function( items )
-	{
-		var _this = this;
-		this._item_template = $( '#template-item' ).html();
+    /**
+     * Constructs the edit page
+     * @param  {array} items The menu items
+     * @return {void}
+     */
+    base.__construct = function(items)
+    {
+        base.itemTemplate = $('#template-item').html();
 
+        //  Init NestedSortable
+        $('div.nested-sortable').each(function()
+        {
+            var sortable,container,html,target;
 
-		//	Init NestedSortable
-		$( 'div.nested-sortable' ).each(function()
-		{
-			var _container,_html;
-			_container = $(this).children( 'ol.nested-sortable' ).first();
+            //  Get the sortable item
+            sortable = $(this);
 
-			//	Build initial menu items
-			for ( var _key in items )
-			{
-				items[_key].counter = $( 'li.target' ).length;
+            //  Get the container
+            container = sortable.children('ol.nested-sortable').first();
 
-				_html = Mustache.render( _this._item_template, items[_key] );
+            //  Build initial menu items
+            for (var key in items) { console.log(items[key]);
 
-				//	Does this have a parent? If so then we need to append it there
-				var _target;
+                items[key].counter = $('li.target').length;
+                html = Mustache.render(base.itemTemplate, items[key]);
 
-				if ( items[_key].parent_id !== null && items[_key].parent_id !== '' )
-				{
-					//	Find the parent and append to it's <ol class="nested-sortable-sub">
-					_target = $( 'li.target-' + items[_key].parent_id + ' ol.nested-sortable-sub' ).first();
-				}
-				else
-				{
-					_target = _container;
-				}
+                //  Does this have a parent? If so then we need to append it there
+                if (items[key].parent_id !== null && items[key].parent_id !== '') {
 
-				_target.append(_html);
-			}
+                    //  Find the parent and append to it's <ol class="nested-sortable-sub">
+                    target = $('li.target-' + items[key].parent_id + ' ol.nested-sortable-sub').first();
 
-			// --------------------------------------------------------------------------
+                } else {
 
-			//	Sortitize!
-			_container.nestedSortable({
-				handle: 'div.handle',
-				items: 'li',
-				toleranceElement: '> div',
-				stop: function()
-				{
-					//	Update orders
-					_this._update_orders( _container );
+                    target = container;
+                }
 
-					//	Update parents
-					_this._update_parent_ids( _container );
-				}
-			});
+                target.append(html);
 
-			// --------------------------------------------------------------------------
+                //  If the page_id is set, then make sure it's selected in the dropdown
+                if (parseInt(items[key].page_id, 10) > 0) {
 
-			//	Bind to add button
-			$(this).find( 'a.add-item' ).on( 'click', function()
-			{
-				var _data =
-				{
-					id: _this._generate_id(),
-					counter: $( 'li.target' ).length
-				};
+                    target.find('li:last option[value=' + items[key].page_id + ']').prop('selected', true);
+                }
+            }
 
-				var _html = Mustache.render( _this._item_template, _data );
+            // --------------------------------------------------------------------------
 
-				_container.append( _html );
+            //  Sortitize!
+            container.nestedSortable({
+                'handle': 'div.handle',
+                'items': 'li',
+                'toleranceElement': '> div',
+                'stop': function()
+                {
+                    //  Update orders
+                    base.updateOrders(container);
 
-				_this._update_orders();
+                    //  Update parents
+                    base.updateParentIds(container);
+                }
+            });
 
-				return false;
-			});
-		});
+            // --------------------------------------------------------------------------
 
-		// --------------------------------------------------------------------------
+            //  Bind to add button
+            sortable.find('a.add-item').on('click', function()
+            {
+                var _data = {
+                    id: base.generateId(),
+                    counter: $('li.target').length
+                };
 
-		//	Bind to remove buttons
-		$(document).on( 'click', 'a.item-remove', function()
-		{
-			var _obj = $(this);
+                var html = Mustache.render(base.itemTemplate, _data);
 
-			$('<div>')
-			.html( '<p>This will remove this menu item (and any children) from the interface.</p><p>You will still need to "Save Changes" to commit the removal</p>' )
-			.dialog(
-			{
-				title: 'Are you sure?',
-				resizable: false,
-				draggable: false,
-				modal: true,
-				dialogClass: "no-close",
-				buttons:
-				{
-					OK: function()
-					{
-						_obj.closest( 'li.target' ).remove();
-						$(this).dialog("close");
-					},
-					Cancel: function()
-					{
-						$(this).dialog("close");
-					}
-				}
-			})
-			.show();
+                container.append(html);
+                base.updateOrders();
 
-			return false;
-		});
-	};
+                return false;
+            });
+        });
 
+        // --------------------------------------------------------------------------
 
-	// --------------------------------------------------------------------------
+        //  Bind to remove buttons
+        $(document).on('click', 'a.item-remove', function()
+        {
+            var _obj = $(this);
 
+            $('<div>')
+            .html('<p>This will remove this menu item (and any children) from the interface.</p><p>You will still need to "Save Changes" to commit the removal</p>')
+            .dialog(
+            {
+                title: 'Are you sure?',
+                resizable: false,
+                draggable: false,
+                modal: true,
+                dialogClass: "no-close",
+                buttons:
+                {
+                    OK: function()
+                    {
+                        _obj.closest('li.target').remove();
+                        $(this).dialog("close");
+                    },
+                    Cancel: function()
+                    {
+                        $(this).dialog("close");
+                    }
+                }
+            })
+            .show();
 
-	this._update_orders = function( container )
-	{
-		var _counter = 0;
-		$( 'input.input-order', container ).each( function()
-		{
-			$(this).val( _counter );
-			_counter++;
-		});
-	};
+            return false;
+        });
+    };
 
+    // --------------------------------------------------------------------------
 
-	// --------------------------------------------------------------------------
+    /**
+     * Updates each menu item's order field
+     * @param  {Object} container The container object to restrict to
+     * @return {void}
+     */
+    base.updateOrders = function(container)
+    {
+        var counter = 0;
+        $('input.input-order', container).each(function()
+        {
+            $(this).val(counter);
+            counter++;
+        });
+    };
 
+    // --------------------------------------------------------------------------
 
-	this._update_parent_ids = function( container )
-	{
-		$( 'input.input-parent_id', container ).each(function()
-		{
-			var _parent_id = $(this).closest( 'ol' ).closest( 'li' ).data( 'id' );
-			$(this).val( _parent_id );
-		});
-	};
+    /**
+     * Updates each menu item's parent ID field
+     * @param  {Object} container The container object to restrict to
+     * @return {void}
+     */
+    base.updateParentIds = function(container)
+    {
+        $('input.input-parent_id', container).each(function()
+        {
+            var parentId = $(this).closest('ol').closest('li').data('id');
+            $(this).val(parentId);
+        });
+    };
 
+    // --------------------------------------------------------------------------
 
-	// --------------------------------------------------------------------------
+    /**
+     * Generates a unique ID for the page
+     * @return {String}
+     */
+    base.generateId = function()
+    {
+        var chars, idStr;
 
+        chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
-	this._generate_id = function( )
-	{
-		var chars	= 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-		var _result;
-		do
-		{
-			_result	= 'newid-';
+        do {
 
-			for ( var i = this._id_length; i > 0; --i )
-			{
-				_result += chars[Math.round(Math.random() * (chars.length - 1))];
-			}
-		}
-		while( $( 'li.target-' + _result ).length > 0 );
+            idStr = 'newid-';
 
-		return _result;
-	};
+            for (var i = base.idLength; i > 0; --i) {
+
+                idStr += chars[Math.round(Math.random() * (chars.length - 1))];
+            }
+
+        } while ($('li.target-' + idStr).length > 0);
+
+        return idStr;
+    };
+
+    // --------------------------------------------------------------------------
+
+    return base.__construct(items);
 };

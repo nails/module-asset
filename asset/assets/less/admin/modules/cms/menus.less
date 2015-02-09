@@ -1,126 +1,167 @@
 /**
  * --------------------------------------------------------------------------
- *	CMS MENUS
+ *  CMS MENUS
  * --------------------------------------------------------------------------
  **/
 
 .group-cms.menus.overview
 {
-	table
-	{
-		th.actions,
-		td.actions
-		{
-			width:145px;
-		}
-	}
+    table
+    {
+        th.actions,
+        td.actions
+        {
+            width:145px;
+        }
+    }
 }
 
 .group-cms.menus.edit
 {
-	ol.nested-sortable
-	{
-		margin:0;
-		margin-bottom:1em;
-		padding:0;
-		list-style:none;
-		font-size:100%;
+    ol.nested-sortable
+    {
+        margin:0;
+        margin-bottom:1em;
+        padding:0;
+        list-style:none;
+        font-size:100%;
 
-		@background: #CCC;
-		@handle_width: 32px;
-		@actions_width: 70px;
-		@content_padding: 5px;
+        @background: #CCC;
+        @handle_width: 30px;
+        @actions_width: 70px;
+        @content_padding: 5px;
 
-		li
-		{
-			border:1px solid rgba(159,159,159,1);
-			margin:0;
-			margin-bottom:0.5em;
-			list-style:none;
-			position:relative;
-			background:rgba(179,179,179,0.35);
-			font-size:1em;
+        li
+        {
+            border:1px solid rgba(159,159,159,1);
+            margin:0;
+            margin-bottom:0.5em;
+            list-style:none;
+            position:relative;
+            background:rgba(179,179,179,0.35);
+            font-size:1em;
 
-			&.ui-sortable-placeholder
-			{
-				border:1px dashed rgba(159,159,159,1);
-				visibility:visible !important;
-			}
+            li
+            {
+                margin-bottom: 0;
+            }
 
-			div.handle
-			{
-				position:absolute;
-				left:0px;
-				top:0px;
-				bottom:0px;
-				width:@handle_width - @content_padding*2;
-				text-align:center;
-				background:rgba(179,179,179,1);
-				cursor: url(../img/admin/cursors/openhand.cur), none !important;
-				padding:@content_padding;
-			}
+            &.ui-sortable-placeholder
+            {
+                border:1px dashed rgba(159,159,159,1);
+                visibility:visible !important;
+            }
 
-			div.actions
-			{
-				position:absolute;
-				right:0px;
-				top:0px;
-				bottom:0px;
-				width:@actions_width - @content_padding*2;
-				padding:@content_padding;
-				text-align:center;
-				background:rgba(179,179,179,1);
+            div.handle,
+            div.actions
+            {
+                line-height: 37px;
+                position:absolute;
+                top:0px;
+                text-align:center;
+                bottom:0px;
+                background:rgba(179,179,179,1);
+            }
 
-				a
-				{
-					display:block;
-					margin:0;
-				}
-			}
+            div.handle
+            {
+                left:0px;
+                bottom:0px;
+                width:@handle_width;
+                cursor: url(../img/admin/cursors/openhand.cur), none !important;
+            }
 
-			div.content
-			{
-				padding:@content_padding;
-				margin:0;
-				margin-left:@handle_width;
-				margin-right:@actions_width;
+            div.content
+            {
+                padding:0;
+                margin:0;
+                margin-left:@handle_width;
+                margin-right:@actions_width;
 
-				input
-				{
-					margin:0;
-					display:inline-block;
-					box-sizing:border-box;
-					width:50%;
-				}
-			}
+                .containerLabel,
+                .containerUrl
+                {
+                    display: inline-block;
+                    width: 50%;
+                    padding: 0;
+                    margin: 0;
+                    padding: @content_padding;
 
-			ol
-			{
-				font-size:100%;
-				margin:0;
-				margin-left:@handle_width;
-				padding:0;
+                    input
+                    {
+                        margin:0;
+                    }
+                }
 
-				li
-				{
-					border-right:0;
-				}
+                .containerLabel
+                {
+                    padding-right: @content_padding/2;
 
-				li:last-child
-				{
-					border-bottom:0;
-				}
-			}
-		}
+                    input
+                    {
+                        width: 100%;
+                    }
+                }
 
-		li:last-child
-		{
-			margin-bottom:0;
-		}
-	}
+                .containerUrl
+                {
+                    padding-left: @content_padding/2;
 
-	a.add-item
-	{
-		margin-bottom:1em;
-	}
+                    input,
+                    select
+                    {
+                        width: 45%;
+                        display: inline-block;
+                    }
+
+                    div.or
+                    {
+                        display: inline-block;
+                        width: 10%;
+                        text-align: center;
+                        font-size: 0.8em;
+                    }
+                }
+            }
+
+            div.actions
+            {
+                right:0px;
+                width:@actions_width;
+
+                a
+                {
+                    margin:0;
+                }
+            }
+
+            ol
+            {
+                font-size:100%;
+                margin:0;
+                margin-left:@handle_width;
+                padding:0;
+
+                li
+                {
+                    border-right:0;
+                }
+
+                li:last-child
+                {
+                    border-bottom:0;
+                }
+            }
+        }
+
+        li:last-child
+        {
+            margin-bottom:0;
+        }
+    }
+
+    a.add-item
+    {
+        margin-bottom: 1em;
+    }
 }
