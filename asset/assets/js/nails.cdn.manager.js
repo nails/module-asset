@@ -333,12 +333,12 @@ NAILS_CDN_Manager =  function(handler, callback, passback, urlSchemes, isFancybo
         {
             var regex = new RegExp(term, 'gi');
 
-            if (regex.test($(this).attr('data-title')))
-            {
+            if (regex.test($(this).attr('data-title'))) {
+
                 $(this).show();
-            }
-            else
-            {
+
+            } else {
+
                 $(this).hide();
             }
         });
