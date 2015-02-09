@@ -319,7 +319,7 @@ NAILS_Admin = function()
 
     this.init_nav_reset = function()
     {
-        $('#admin-nav-reset').on('click', function()
+        $('#admin-nav-reset a').on('click', function()
         {
             var _call =
             {
@@ -388,14 +388,20 @@ NAILS_Admin = function()
 
     this.init_mobile_menu = function()
     {
-        $('#mobile-menu-main').on('change', function() {
+        $('#mobileMenuBurger').on('click', function() {
 
-            var _url = $(this).find('option:selected').val();
+            var maxHeight = $(window).height() - 150px;
 
-            if (_url.length) {
-                window.location.href = window.SITE_URL + _url;
+            $('#mobileMenu').toggleClass('open');
+
+            if ($('#mobileMenu').hasClass('open')) {
+
+                $('#mobileMenu').css('max-height', maxHeight + 'px');
+            } else {
+
+                $('#mobileMenu').css('max-height', '0px');
             }
-
+            return false;
         });
     };
 

@@ -80,39 +80,6 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/img\/admin\/form\/error.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 1199,
-		"inputAbbreviatedPath": "\/img\/admin\/form\/error.png",
-		"outputAbbreviatedPath": "\/img\/admin\/form\/error.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/img\/admin\/form\/help.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 1165,
-		"inputAbbreviatedPath": "\/img\/admin\/form\/help.png",
-		"outputAbbreviatedPath": "\/img\/admin\/form\/help.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/img\/admin\/form\/readonly.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 1020,
-		"inputAbbreviatedPath": "\/img\/admin\/form\/readonly.png",
-		"outputAbbreviatedPath": "\/img\/admin\/form\/readonly.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
 	"\/img\/admin\/icons\/warning.png": {
 		"fileType": 32768,
 		"ignore": 0,

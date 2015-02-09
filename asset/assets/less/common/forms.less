@@ -303,10 +303,10 @@ div.field
 			padding:2px 7px;
 			position:relative;
 			top:1px;
-			.rounded(3px);
-			background:rgba(181, 33, 48, 0.5);
-			color:#FFF;
-			border-color:transparent;
+			.rounded(2px);
+			background: #ffebe8;
+			color:#B52130;
+			border-color: #B52130;
 			margin:0;
 			margin-top:3px;
 
@@ -470,7 +470,20 @@ div.field
 			padding-left:30px;
 			width:325px;
 			box-sizing: border-box;
-			background:#fff url('../img/admin/form/readonly.png') 5px center no-repeat;
+		}
+
+		.input
+		{
+			&:before
+			{
+				font-family: FontAwesome;
+				content: "\f023";
+				display: block;
+				position: absolute;
+				font-size: 1.4em;
+				left: 9px;
+				top: 3px;
+			}
 		}
 
 		.toggle
@@ -702,11 +715,21 @@ div.field
 			{
 				border:1px solid #B52130;
 				padding-left:30px;
-				background:#fff url('../img/admin/form/error.png') 5px center no-repeat;
 			}
 			select
 			{
 				border:1px solid #B52130;
+			}
+			&:before
+			{
+				font-family: FontAwesome;
+				content: "\f06a";
+				display: block;
+				position: absolute;
+				font-size: 1.4em;
+				left: 5px;
+				top: 3px;
+				color: #B52130;
 			}
 		}
 		span.error
