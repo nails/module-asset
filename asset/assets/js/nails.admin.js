@@ -18,49 +18,52 @@ if (typeof(console) === "undefined")
 var NAILS_Admin;
 NAILS_Admin = function()
 {
-    this.errorDelay = 6000; //  Amount of time the error message will stay on screen.
-
+    var base = this;
 
     // --------------------------------------------------------------------------
 
-
-    this.__construct = function()
+    /**
+     * Construct the class
+     * @return {void}
+     */
+    base.__construct = function()
     {
-        this.init_boxes();
-        this.init_navsearch();
-        this.init_nav_reset();
-        this.init_search_boxes();
-        this.init_mobile_menu();
-        this.init_toggles();
-        this.init_ckeditor();
-        this.init_select2();
-        this.init_nicetime();
+        base.initBoxes();
+        base.initNavSearch();
+        base.initNavReset();
+        base.initSearchBoxes();
+        base.initMobileMenu();
+        base.initToggles();
+        base.initCkeditor();
+        base.initSelect2();
+        base.initNiceTime();
+        base.initSystemAlerts();
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this.init_boxes = function()
+    /**
+     * Initialise the nav boxes
+     * @return {void}
+     */
+    base.initBoxes = function()
     {
-        var _this = this;
-
         //  Bind click events
         $('.box .toggle').on('click', function()
         {
-            if ($(this).parents('.box').hasClass('open'))
-            {
-                _this._close_box(this, true);
-            }
-            else
-            {
-                _this._open_box(this, true);
+            if ($(this).parents('.box').hasClass('open')) {
+
+                base.closeBox(this, true);
+
+            } else {
+
+                base.openBox(this, true);
             }
 
             // --------------------------------------------------------------------------
 
             //  Save user's preference
-            _this._save_nav();
+            base.saveNav();
 
             // --------------------------------------------------------------------------
 
@@ -79,9 +82,9 @@ NAILS_Admin = function()
             // --------------------------------------------------------------------------
 
             //  Determine height of each box and set it
-            _toggle     = $(this).find('.toggle');
-            _container  = $(this).find('.box-container');
-            _height     = _container.outerHeight();
+            _toggle    = $(this).find('.toggle');
+            _container = $(this).find('.box-container');
+            _height    = _container.outerHeight();
 
             _toggle.attr('data-height', _height);
 
@@ -89,11 +92,11 @@ NAILS_Admin = function()
 
             if (_state === 'open')
             {
-                _this._open_box(_toggle, false);
+                base.openBox(_toggle, false);
             }
             else
             {
-                _this._close_box(_toggle, false);
+                base.closeBox(_toggle, false);
             }
 
         });
@@ -112,16 +115,18 @@ NAILS_Admin = function()
             },
             stop: function()
             {
-                _this._save_nav();
+                base.saveNav();
             }
         });
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._save_nav = function()
+    /**
+     * Save the nav layout
+     * @return {void}
+     */
+    base.saveNav = function()
     {
         var _data, _call, _open;
 
@@ -131,29 +136,32 @@ NAILS_Admin = function()
         {
             _open = $('.box', this).hasClass('open');
             _data[$(this).data('grouping')] = {
-                open : _open
+                'open': _open
             };
         });
 
-        _call =
-        {
-            controller : 'admin',
-            method: 'nav/save',
-            action: 'GET',
-            data :
+        _call = {
+            'controller': 'admin',
+            'method': 'nav/save',
+            'action': 'GET',
+            'data':
             {
-                preferences : _data
+                'preferences': _data
             }
         };
 
         _nails_api.call(_call);
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._open_box = function(toggle, animate)
+    /**
+     * Open a nav box
+     * @param  {Object}  toggle  The box which was toggled
+     * @param  {Boolean} animate Whether to animate the movement
+     * @return {void}
+     */
+    base.openBox = function(toggle, animate)
     {
         var _id, _height;
 
@@ -167,21 +175,27 @@ NAILS_Admin = function()
         //  Set the height (so it animates)
         _height = $(toggle).attr('data-height');
 
-        if (animate)
-        {
+        if (animate) {
+
             $(toggle).parents('.box').find('.box-container').stop().animate({
                 'height': _height
             });
+
         } else {
+
             $(toggle).parents('.box').find('.box-container').height(_height);
         }
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._close_box = function(toggle, animate)
+    /**
+     * Close a nav box
+     * @param  {Object}  toggle  The box which was toggled
+     * @param  {Boolean} animate Whether to animate the movement
+     * @return {void}
+     */
+    base.closeBox = function(toggle, animate)
     {
         var _id;
 
@@ -203,49 +217,14 @@ NAILS_Admin = function()
         }
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._save = function(key, value)
+    /**
+     * Initialise the nav searchbox
+     * @return {Void}
+     */
+    base.initNavSearch = function()
     {
-        if (typeof(localStorage) === 'undefined') {
-            this._show_error(window.NAILS.LANG.non_html5);
-        } else {
-            try {
-                localStorage.setItem(key, value);
-
-            } catch (e) {
-                this._show_error(window.NAILS.LANG.no_save);
-            }
-        }
-    };
-
-
-    // --------------------------------------------------------------------------
-
-
-    this._get = function(key)
-    {
-        if (typeof(localStorage) === 'undefined') {
-            this._show_error(window.NAILS.LANG.non_html5);
-        } else {
-            try {
-                return localStorage.getItem(key);
-            } catch (e) {
-                this._show_error(window.NAILS_LANG.no_save);
-            }
-        }
-    };
-
-
-    // --------------------------------------------------------------------------
-
-
-    this.init_navsearch = function()
-    {
-        var _this = this;
-
         $('.nav-search input').on('keyup', function() {
             var _search = $(this).val();
 
@@ -259,8 +238,11 @@ NAILS_Admin = function()
                     var regex = new RegExp(_search, 'gi');
 
                     if (regex.test($(this).text())) {
+
                         $(this).show();
+
                     } else {
+
                         $(this).hide();
                     }
 
@@ -301,11 +283,11 @@ NAILS_Admin = function()
 
                     if (_open)
                     {
-                        _this._open_box(this, false);
+                        base.openBox(this, false);
                     }
                     else
                     {
-                        _this._close_box(this, false);
+                        base.closeBox(this, false);
                     }
 
                 });
@@ -313,19 +295,20 @@ NAILS_Admin = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this.init_nav_reset = function()
+    /**
+     * Reset the nav layout
+     * @return {void}
+     */
+    base.initNavReset = function()
     {
         $('#admin-nav-reset a').on('click', function()
         {
-            var _call =
-            {
-                controller : 'admin',
-                method: 'nav/reset',
-                action: 'POST'
+            var _call = {
+                'controller': 'admin',
+                'method': 'nav/reset',
+                'action': 'POST'
             };
 
             _nails_api.call(_call);
@@ -336,18 +319,18 @@ NAILS_Admin = function()
             .html('<p>Your navigation has been reset, changes will take hold on the next page load.</p>')
             .dialog(
             {
-                title: 'Reset Complete',
-                resizable: false,
-                draggable: false,
-                modal: true,
-                dialogClass: "no-close",
-                buttons:
+                'title': 'Reset Complete',
+                'resizable': false,
+                'draggable': false,
+                'modal': true,
+                'dialogClass': "no-close",
+                'buttons':
                 {
-                    OK: function()
+                    'OK': function()
                     {
-                        $(this).dialog("close");
+                        $(this).dialog('close');
                     },
-                    "Reload": function()
+                    'Reload': function()
                     {
                         window.location.reload();
                     }
@@ -359,118 +342,98 @@ NAILS_Admin = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this.init_search_boxes = function()
+    /**
+     * Initialise the admin search & sort boxes
+     * @return {void}
+     */
+    base.initSearchBoxes = function()
     {
         //  Bind submit to select changes
         $('div.search select, div.search input[type=checkbox]').on('change', function() {
 
             $(this).closest('form').submit();
-
         });
 
         // --------------------------------------------------------------------------
 
-        //  Show amsk when submitting form
+        //  Show mask when submitting form
         $('div.search form').on('submit', function() {
 
             $(this).closest('div.search').find('div.mask').show();
-
         });
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this.init_mobile_menu = function()
+    /**
+     * Initialise the mobile menu
+     * @return {void}
+     */
+    base.initMobileMenu = function()
     {
         $('#mobileMenuBurger').on('click', function() {
 
-            var maxHeight = $(window).height() - 150px;
+            var maxHeight = $(window).height() - 150;
 
             $('#mobileMenu').toggleClass('open');
 
             if ($('#mobileMenu').hasClass('open')) {
 
                 $('#mobileMenu').css('max-height', maxHeight + 'px');
+
             } else {
 
                 $('#mobileMenu').css('max-height', '0px');
             }
+
             return false;
         });
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._fieldset_toggle = function(obj)
+    /**
+     * Initialise jQuery toggles
+     * @return {void}
+     */
+    base.initToggles = function()
     {
-        var _fieldset = obj.closest('fieldset');
+        if ($.fn.toggles) {
 
-        if (_fieldset.hasClass('closed')) {
-            _fieldset.removeClass('closed');
+            $('.field.boolean:not(.toggled)').each(function() {
 
-            if (_fieldset.attr('id')) {
-                this._save('fieldset-' + _fieldset.attr('id'), 'open');
-            }
-        } else {
-            _fieldset.addClass('closed');
-
-            if (_fieldset.attr('id')) {
-                this._save('fieldset-' + _fieldset.attr('id'), 'closed');
-            }
-        }
-    };
-
-
-    // --------------------------------------------------------------------------
-
-
-    this.init_toggles = function()
-    {
-        if ($.fn.toggles)
-        {
-            $('.field.boolean:not(.toggled)').each(function()
-            {
-                var _checkbox   = $(this).find('input[type=checkbox]');
-                var _readonly   = $(this).hasClass('readonly');
-                var _on         = $(this).data('text-on')   ? $(this).data('text-on')   : 'ON';
-                var _off        = $(this).data('text-off')  ? $(this).data('text-off')  : 'OFF';
+                var _checkbox = $(this).find('input[type=checkbox]');
+                var _readonly = $(this).hasClass('readonly');
+                var _on       = $(this).data('text-on') ? $(this).data('text-on') : 'ON';
+                var _off      = $(this).data('text-off') ? $(this).data('text-off') : 'OFF';
 
                 $(this).find('.toggle').css({
-                    width:  '100px',
-                    height: '30px'
+                    'width': '100px',
+                    'height': '30px'
                 }).toggles({
-                    checkbox:   _checkbox,
-                    click:      !_readonly,
-                    drag:       !_readonly,
-                    clicker:    _checkbox,
-                    on:         _checkbox.is(':checked'),
-                    text:
-                    {
-                        on:     _on,
-                        off:    _off
+                    'checkbox': _checkbox,
+                    'click': !_readonly,
+                    'drag': !_readonly,
+                    'clicker': _checkbox,
+                    'on': _checkbox.is(':checked'),
+                    'text': {
+                        'on': _on,
+                        'off': _off
                     }
                 });
 
                 $(this).addClass('toggled');
 
                 _checkbox.hide();
-
             });
-        }
-        else
-        {
-            this.error('NAILS_ADMIN_JS: jQuery Toggles not available.');
+
+        } else {
+
+            base.error('NAILS_ADMIN_JS: jQuery Toggles not available.');
         }
     };
-
 
     // --------------------------------------------------------------------------
 
@@ -478,10 +441,10 @@ NAILS_Admin = function()
      * Instantiates CKEditor instances
      * @return {void}
      */
-    this.init_ckeditor = function()
+    base.initCkeditor = function()
     {
-        if ($.fn.ckeditor)
-        {
+        if ($.fn.ckeditor) {
+
             /**
              * Should the app want to override the default behaviour of the editors
              * then it must provide complete config files. If these are found they
@@ -502,16 +465,16 @@ NAILS_Admin = function()
              */
 
             $.ajax({
-                url: appConfigBasic,
-                type:'HEAD',
-                success: function()
+                'url': appConfigBasic,
+                'type':'HEAD',
+                'success': function()
                 {
                     $('.wysiwyg.wysiwyg-basic').ckeditor(
                     {
                         customConfig: appConfigBasic
                     });
                 },
-                error: function()
+                'error': function()
                 {
                     $('.wysiwyg.wysiwyg-basic').ckeditor(
                     {
@@ -522,16 +485,16 @@ NAILS_Admin = function()
 
             //  Instantiate default editors
             $.ajax({
-                url: appConfigDefault,
-                type:'HEAD',
-                success: function()
+                'url': appConfigDefault,
+                'type':'HEAD',
+                'success': function()
                 {
                     $('.wysiwyg:not(.wysiwyg-basic)').ckeditor(
                     {
                         customConfig: appConfigDefault
                     });
                 },
-                error: function()
+                'error': function()
                 {
                     $('.wysiwyg:not(.wysiwyg-basic)').ckeditor(
                     {
@@ -542,65 +505,59 @@ NAILS_Admin = function()
         }
         else
         {
-            this.error('NAILS_ADMIN_JS: CKEditor not available.');
+            base.error('NAILS_ADMIN_JS: CKEditor not available.');
         }
     };
 
     // --------------------------------------------------------------------------
 
-
     /**
-     *
-     * Initialise any select2 elements on the page
-     *
-     **/
-    this.init_select2 = function()
+     * Initialsie select2 elements
+     * @return {void}
+     */
+    base.initSelect2 = function()
     {
-        if ($.fn.select2)
-        {
+        if ($.fn.select2) {
+
             $('select.select2:not(.select2-offscreen)').select2();
-        }
-        else
-        {
+
+        } else {
+
             this.error('NAILS_JS: Select2 not available.');
         }
     };
 
-
     // --------------------------------------------------------------------------
 
-
     /**
-     *
-     * Initialise any nice-time DOM elements
-     *
-     **/
-    this.init_nicetime = function()
+     * Initialise nicetime elements
+     * @return {void}
+     */
+    base.initNiceTime = function()
     {
-        var _this  = this;
         var _elems = $('.nice-time:not(.nice-timed)'); // Fetch just new objects
 
         //  Fetch objects which can be nice-timed
-        _elems.each(function()
-        {
+        _elems.each(function() {
+
             //  Setup variables
             var _src = $(this).text();
 
             //  Check format
             var _regex = /^\d\d\d\d-\d\d?-\d\d?(\d\d?\:\d\d?\:\d\d?)?$/;
 
-            if (_regex.test(_src))
-            {
+            if (_regex.test(_src)) {
+
                 //  Parse into various bits
                 var _basic = _src.split(' ');
 
-                if (!_basic[1])
-                {
+                if (!_basic[1]) {
+
                     _basic[1] = '00:00:00';
                 }
 
-                if (_basic[0])
-                {
+                if (_basic[0]) {
+
                     var _date = _basic[0].split('-');
                     var _time = _basic[1].split(':');
 
@@ -614,8 +571,8 @@ NAILS_Admin = function()
                     //  Attempt to parse the time
                     var _date_obj = new Date(_Y, _M, _D, _h, _m, _s);
 
-                    if (!isNaN(_date_obj.getTime()))
-                    {
+                    if (!isNaN(_date_obj.getTime())) {
+
                         /**
                          * Date was parsed successfully, stick it as the attribute.
                          * Add .nice-timed to it so it's not picked up as a new object
@@ -642,7 +599,7 @@ NAILS_Admin = function()
         {
             //  Pick up date form object
             var _Y = $(this).attr('data-year');
-            var _M = $(this).attr('data-month') - 1;    //  Because the date object does months from 0
+            var _M = $(this).attr('data-month') - 1; //  Because the date object does months from 0
             var _D = $(this).attr('data-day');
             var _h = $(this).attr('data-hour');
             var _m = $(this).attr('data-minute');
@@ -656,38 +613,37 @@ NAILS_Admin = function()
 
             //  Do whatever it is we need to do to get relative time
             var _diff = Math.ceil((_now.getTime() - _date.getTime()) / 1000);
-            console.log(_diff);
 
-            if (_diff >= 0 && _diff < 10)
-            {
+            if (_diff >= 0 && _diff < 10) {
+
                 //  Has just happened so for a few seconds show plain ol' English
                 _relative = 'a moment ago';
-            }
-            else if (_diff >= 10)
-            {
+
+            } else if (_diff >= 10) {
+
                 //  Target time is in the past
-                _relative = _this._nice_time_calc(_diff) + ' ago';
-            }
-            else if (_diff < 0)
-            {
+                _relative = base.initNiceTimeCalc(_diff) + ' ago';
+
+            } else if (_diff < 0) {
+
                 //  Target time is in the future
-                _relative = _this._nice_time_calc(_diff) + ' from now';
+                _relative = base.initNiceTimeCalc(_diff) + ' from now';
             }
 
             // --------------------------------------------------------------------------
 
             //  Set the new relative time
-            if (_relative === '1 day ago')
-            {
+            if (_relative === '1 day ago') {
+
                 _relative = 'yesterday';
-            }
-            else if (_relative === '1 day from now')
-            {
+
+            } else if (_relative === '1 day from now') {
+
                 _relative = 'tomorrow';
             }
 
-            if ($(this).data('capitalise') === true)
-            {
+            if ($(this).data('capitalise') === true) {
+
                 _relative = _relative.charAt(0).toUpperCase() + _relative.slice(1);
             }
 
@@ -695,11 +651,14 @@ NAILS_Admin = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._nice_time_calc = function(diff)
+    /**
+     * Perform the niceTime calculation
+     * @param  {Number} diff The difference between then and now
+     * @return {String}
+     */
+    base.initNiceTimeCalc = function(diff)
     {
         var _value = 0;
         var _term  = '';
@@ -714,56 +673,51 @@ NAILS_Admin = function()
         var _year   = _day * 365;
 
         //  Always dealing with positive values
-        if (diff < 0)
-        {
+        if (diff < 0) {
+
             diff = diff * -1;
         }
 
         //  Seconds
-        if (diff < _minute)
-        {
+        if (diff < _minute) {
+
+            //  Seconds
             _value = diff;
             _term  = 'second';
-        }
 
-        //  Minutes
-        else if (diff < _hour)
-        {
+        } else if (diff < _hour) {
+
+            //  Minutes
             _value = Math.floor(diff / 60);
             _term  = 'minute';
-        }
 
-        //  Hours
-        else if (diff < _day)
-        {
+        } else if (diff < _day) {
+
+            //  Hours
             _value = Math.floor(diff / 60 / 60);
             _term  = 'hour';
-        }
 
-        //  Days
-        else if (diff < _week)
-        {
+        } else if (diff < _week) {
+
+            //  Days
             _value = Math.floor(diff / 60 / 60 / 24);
             _term  = 'day';
-        }
 
-        //  Weeks
-        else if (diff < _month)
-        {
+        } else if (diff < _month) {
+
+            //  Weeks
             _value = Math.floor(diff / 60 / 60 / 24 / 7);
             _term  = 'week';
-        }
 
-        //  Months
-        else if (diff < _year)
-        {
+        } else if (diff < _year) {
+
+            //  Months
             _value = Math.floor(diff / 60 / 60 / 24 / 30);
             _term  = 'month';
-        }
 
-        //  Years
-        else
-        {
+        } else {
+
+            //  Years
             _value = Math.floor(diff / 60 / 60 / 24 / 365);
             _term  = 'year';
         }
@@ -777,26 +731,31 @@ NAILS_Admin = function()
 
     // --------------------------------------------------------------------------
 
-
-    this._show_error = function(msg)
+    /**
+     * Initialise system-alerts
+     * @return {void}
+     */
+    base.initSystemAlerts = function()
     {
-        $('.js_error span.message').text(msg);
-        $('.js_error').slideDown().delay(this.errorDelay).slideUp();
-        return true;
-    };
 
+    };
 
     // --------------------------------------------------------------------------
 
-
-    this.error = function(output)
+    /**
+     * Write an error to the console
+     * @param  {string} output The error to write
+     * @return {void}
+     */
+    base.error = function(output)
     {
         if (window.console && window.ENVIRONMENT !== 'PRODUCTION') {
+
             console.error(output);
         }
     };
 
     // --------------------------------------------------------------------------
 
-    return this.__construct();
+    return base.__construct();
 };

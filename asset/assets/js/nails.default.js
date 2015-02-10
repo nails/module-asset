@@ -148,13 +148,13 @@ NAILS_JS = function()
 				var _w = $(this).data('width');
 
 				//	Open a new fancybox instance
-				$('<div>').fancybox({
+				$('<a>').fancybox({
 					'href': _href,
 					'width': _w,
 					'height': _h,
 					'helpers': {
-						overlay: {
-							locked: false
+						'overlay': {
+							'locked': false
 						}
 					},
 					'beforeLoad': function()
