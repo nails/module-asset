@@ -363,6 +363,34 @@ NAILS_Admin = function()
 
             $(this).closest('div.search').find('div.mask').show();
         });
+
+        // --------------------------------------------------------------------------
+
+        //  Filter Checkboxes
+        $('div.search .filterOption input[type=checkbox]').on('change', function() {
+
+            if ($(this).is(':checked')) {
+
+                $(this).closest('.filterOption').addClass('checked');
+
+            } else {
+
+                $(this).closest('.filterOption').removeClass('checked');
+            }
+        });
+
+        //  Initial styles
+        $('div.search .filterOption input[type=checkbox]').each(function() {
+
+            if ($(this).is(':checked')) {
+
+                $(this).closest('.filterOption').addClass('checked');
+
+            } else {
+
+                $(this).closest('.filterOption').removeClass('checked');
+            }
+        });
     };
 
     // --------------------------------------------------------------------------

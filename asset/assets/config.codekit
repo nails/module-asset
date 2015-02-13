@@ -4337,10 +4337,6 @@
 			"active": 0,
 			"flagValue": -1
 			},
-		"singleGroups": {
-			"active": 0,
-			"flagValue": -1
-			},
 		"strict": {
 			"active": 0,
 			"flagValue": -1

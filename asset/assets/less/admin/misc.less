@@ -77,6 +77,7 @@ textarea.ckeditor
              * Animate; we can't use fontAwesome's animate class because it
              * overwrites out transform property here.
              */
+
             -webkit-animation: search-spin 1s infinite linear;
                     animation: search-spin 1s infinite linear;
         }
@@ -107,6 +108,54 @@ textarea.ckeditor
         input[type=text]:focus
         {
             .drop-shadow( 0px, 0px, 0px, 0 );
+        }
+    }
+
+    hr
+    {
+        margin: 7px 0;
+    }
+
+    .filterGroup
+    {
+        border: 1px solid #EAEAEA;
+        background: #FEFEFE;
+        display: block;
+        padding: 0.25em;
+        margin: 0.1em;
+        float: left;
+        .rounded(2px);
+
+        .filterLabel
+        {
+            margin: 0 .65em 0 .5em;
+        }
+
+        .filterOption
+        {
+            border: 1px solid #EAEAEA;
+            background: #EEE;
+            padding: 0.2em 0.35em;
+            display:inline-block;
+            margin-right: 0.25em;
+            cursor: pointer;
+            .rounded(2px);
+
+            &.checked
+            {
+                background: #7C7C7C;
+                color: #FFF;
+            }
+
+            &:last-of-type
+            {
+                margin-right: 0;
+            }
+
+            input
+            {
+                margin-right: 0.25em;
+            }
         }
     }
 
