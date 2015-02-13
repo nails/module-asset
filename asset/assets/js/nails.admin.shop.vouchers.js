@@ -1,198 +1,197 @@
-var NAILS_Admin_Shop_Vouchers;
-NAILS_Admin_Shop_Vouchers = function()
+var NAILS_Admin_Shop_Vouchers_Edit;
+NAILS_Admin_Shop_Vouchers_Edit = function()
 {
-    this.init_create = function()
+    var base = this;
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Constructs the class and binds to all the things
+     * @return {void}
+     */
+    base.__construct = function()
     {
-        var _this = this;
-
-        // --------------------------------------------------------------------------
-
         //  Bind listeners
-        $( 'select[name=type]' ).on( 'change', function()
+        $('select[name=type]').on('change', function()
         {
-            _this._handle_type_change();
+            base.handleTypeChange();
         });
 
-        $( 'select[name=discount_application]' ).on( 'change', function()
+        $('select[name=discount_application]').on('change', function()
         {
-            _this._handle_application_change();
+            base.handleApplicationChange();
         });
 
-        $( '#generate-code' ).on( 'click', function()
+        $('#generate-code').on('click', function()
         {
-            return _this.generateCode();
+            return base.generateCode();
         });
 
         // --------------------------------------------------------------------------
 
         //  Run the handlers, so the form is rendered appropriately
-        this._handle_application_change();
-        this._handle_type_change();
+        base.handleApplicationChange();
+        base.handleTypeChange();
 
         // --------------------------------------------------------------------------
 
         //  Instanciate the datepickers
-        $( '.datetime1' ).datetimepicker(
+        $('.datetime1').datetimepicker(
         {
-            dateFormat  : 'yy-mm-dd',
-            timeFormat  : 'HH:mm:ss',
-            beforeShow      : function()
+            'dateFormat': 'yy-mm-dd',
+            'timeFormat': 'HH:mm:ss',
+            'beforeShow': function()
             {
-                $( '.datetime1' ).datetimepicker( 'option', "maxDate", $( '.datetime2' ).datetimepicker( 'getDate' ) );
+                $('.datetime1').datetimepicker('option', "maxDate", $('.datetime2').datetimepicker('getDate'));
             },
-            onSelect    : function()
+            'onSelect': function()
             {
-                $( '.datetime2' ).datetimepicker( 'option', "minDate", $( '.datetime1' ).datetimepicker( 'getDate' ) );
+                $('.datetime2').datetimepicker('option', "minDate", $('.datetime1').datetimepicker('getDate'));
             }
         });
 
-        var _today = new Date();
-
-        $( '.datetime2' ).datetimepicker(
+        $('.datetime2').datetimepicker(
         {
-            dateFormat  : 'yy-mm-dd',
-            timeFormat  : 'HH:mm:ss',
-            minDate     : _today,
-            beforeShow      : function()
+            'dateFormat': 'yy-mm-dd',
+            'timeFormat': 'HH:mm:ss',
+            'minDate': new Date(),
+            'beforeShow': function()
             {
-                $( '.datetime2' ).datetimepicker( 'option', "minDate", $( '.datetime1' ).datetimepicker( 'getDate' ) );
+                $('.datetime2').datetimepicker('option', "minDate", $('.datetime1').datetimepicker('getDate'));
             },
-            onSelect    : function()
+            'onSelect': function()
             {
-                $( '.datetime1' ).datetimepicker( 'option', "maxDate", $( '.datetime2' ).datetimepicker( 'getDate' ) );
+                $('.datetime1').datetimepicker('option', "maxDate", $('.datetime2').datetimepicker('getDate'));
             }
         });
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._handle_type_change = function()
+    /**
+     * Triggered when the user changes the voucher type
+     * @return {void}
+     */
+    base.handleTypeChange = function()
     {
-        switch( $( 'select[name=type]' ).val() )
+        switch($('select[name=type]').val())
         {
-            case 'NORMAL' :
+            case 'NORMAL':
 
-                $( '#type-limited' ).hide();
+                $('#type-limited').hide();
+                $('select[name=discount_type]').removeAttr('disabled');
+                $('select[name=discount_application]').removeAttr('disabled');
+                break;
 
-                // --------------------------------------------------------------------------
+            case 'LIMITED_USE':
 
-                $( 'select[name=discount_type]' ).removeAttr( 'disabled' );
-                $( 'select[name=discount_type]' ).trigger('liszt:updated');
+                $('#type-limited').show();
+                $('select[name=discount_type]').removeAttr('disabled');
+                $('select[name=discount_application]').removeAttr('disabled');
+                break;
 
-                $( 'select[name=discount_application]' ).removeAttr( 'disabled' );
-                $( 'select[name=discount_application]' ).trigger('liszt:updated');
+            case 'GIFT_CARD':
 
-            break;
-
-            case 'LIMITED_USE' :
-
-                $( '#type-limited' ).show();
-
-                // --------------------------------------------------------------------------
-
-                $( 'select[name=discount_type]' ).removeAttr( 'disabled' );
-                $( 'select[name=discount_type]' ).trigger('liszt:updated');
-
-                $( 'select[name=discount_application]' ).removeAttr( 'disabled' );
-                $( 'select[name=discount_application]' ).trigger('liszt:updated');
-
-            break;
-
-            case 'GIFT_CARD' :
-
-                $( '#type-limited' ).hide();
-                $( '#application-product_types' ).hide();
-
-                // --------------------------------------------------------------------------
+                $('#type-limited').hide();
+                $('#application-product_types').hide();
 
                 //  Set the discount type to amount and readonly-ify
-                $( 'select[name=discount_type] option[selected=selected]' ).attr( 'selected', '' );
-                $( 'select[name=discount_type] option[value=AMOUNT]' ).attr( 'selected', 'selected' );
-                $( 'select[name=discount_type]' ).attr( 'disabled', 'disabled' );
-                $( 'select[name=discount_type]' ).trigger('liszt:updated');
+                $('select[name=discount_type] option[selected=selected]').attr('selected', '');
+                $('select[name=discount_type] option[value=AMOUNT]').attr('selected', 'selected');
+                $('select[name=discount_type]').attr('disabled', 'disabled');
+                $('select[name=discount_type]').trigger('change');
 
-                $( 'select[name=discount_application] option[selected=selected]' ).attr( 'selected', '' );
-                $( 'select[name=discount_application] option[value=ALL]' ).attr( 'selected', 'selected' );
-                $( 'select[name=discount_application]' ).attr( 'disabled', 'disabled' );
-                $( 'select[name=discount_application]' ).trigger('liszt:updated');
-
-            break;
+                $('select[name=discount_application] option[selected=selected]').attr('selected', '');
+                $('select[name=discount_application] option[value=ALL]').attr('selected', 'selected');
+                $('select[name=discount_application]').attr('disabled', 'disabled');
+                $('select[name=discount_application]').trigger('change');
+                break;
         }
 
-        // --------------------------------------------------------------------------
-
-        //  Test if any of the extended views are visible, if so, hide the message
-        if ( $( '#type-limited:visible, #type-gift_card:visible, #application-product_types:visible' ).length )
-        {
-            $( '#no-extended-data' ).hide();
-        }
-        else
-        {
-            $( '#no-extended-data' ).show();
-        }
+        base.hideNoExtendedData();
     };
-
 
     // --------------------------------------------------------------------------
 
-
-    this._handle_application_change = function()
+    /**
+     * Triggered when the user changes the voucher application
+     * @return {void}
+     */
+    base.handleApplicationChange = function()
     {
-        switch( $( 'select[name=discount_application]' ).val() )
+        switch($('select[name=discount_application]').val())
         {
-            case 'PRODUCTS' :
-            case 'SHIPPING' :
-            case 'ALL' :
+            case 'PRODUCTS':
+            case 'SHIPPING':
+            case 'ALL':
 
-                $( '#application-product_types' ).hide();
+                $('#application-product_types').hide();
+                break;
 
-            break;
+            case 'PRODUCT_TYPES':
 
-            case 'PRODUCT_TYPES' :
-
-                $( '#application-product_types' ).show();
-
-            break;
+                $('#application-product_types').show();
+                break;
         }
 
-        // --------------------------------------------------------------------------
-
-        //  Test if any of the extended views are visible, if so, hide the message
-        if ( $( '#type-limited:visible, #type-gift_card:visible, #application-product_types:visible' ).length )
-        {
-            $( '#no-extended-data' ).hide();
-        }
-        else
-        {
-            $( '#no-extended-data' ).show();
-        }
+        base.hideNoExtendedData();
     };
-
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Shows the "No extended data" element when there's no extended data
+     * @return {void}
+     */
+    base.hideNoExtendedData = function() {
 
-    this.generateCode = function()
+        //  Test if any of the extended views are visible, if so, hide the message
+        if ($('#type-limited:visible, #type-gift_card:visible, #application-product_types:visible').length) {
+
+            $('#no-extended-data').hide();
+
+        } else {
+
+            $('#no-extended-data').show();
+        }
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Calls the API and requests a unique voucher code
+     * @return {void}
+     */
+    base.generateCode = function()
     {
-        var _this = this;
-        var _call = {
+        $('#generateCodeSpinner').show();
+
+        var call = {
             'controller': 'admin/shop',
             'method': 'voucher_generate_code',
             'success': function(data)
             {
-                _this.generateCodeOk(data);
+                base.generateCodeOk(data);
             }
         };
-        _nails_api.call(_call);
+        _nails_api.call(call);
         return false;
     };
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Callback when the code generation was successful
+     * @param  {Object} data The data returned by the server
+     * @return {void}
+     */
     this.generateCodeOk = function(data)
     {
+        $('#generateCodeSpinner').hide();
         $('input[name=code]').val(data.code);
     };
+
+    // --------------------------------------------------------------------------
+
+    return base.__construct();
 };
