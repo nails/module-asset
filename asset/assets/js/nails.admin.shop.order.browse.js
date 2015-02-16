@@ -52,6 +52,12 @@ NAILS_Admin_Shop_Order_Browse = function()
 
 				break;
 
+				case 'mark-cancelled' :
+
+					this._batch_action_cancel(_orders);
+
+				break;
+
 				case 'download' :
 
 					_title = 'Coming Soon!';
@@ -66,7 +72,7 @@ NAILS_Admin_Shop_Order_Browse = function()
 
 			//	Nothing selected, complain
 			_title = 'Please select some orders';
-			_body  = 'you have not selected any orders. Use the checkboxes to the left ';
+			_body  = 'You have not selected any orders. Use the checkboxes to the left ';
 			_body += 'of the row and repeat the action.';
 
 			this._show_dialog(_title, _body);
@@ -87,6 +93,14 @@ NAILS_Admin_Shop_Order_Browse = function()
 	this._batch_action_unfulfil = function(orders) {
 		//	Mark these orders as unfulfilled!
 		var _url = window.SITE_URL + 'admin/shop/orders/unfulfil_batch?' + $.param({ids:orders});
+		window.location = _url;
+	};
+
+	// --------------------------------------------------------------------------
+
+	this._batch_action_cancel = function(orders) {
+		//	Mark these orders as cancelled!
+		var _url = window.SITE_URL + 'admin/shop/orders/cancel_batch?' + $.param({ids:orders});
 		window.location = _url;
 	};
 
