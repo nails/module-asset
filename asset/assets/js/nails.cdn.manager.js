@@ -5,10 +5,10 @@ var NAILS_CDN_Manager;
  * @param  {array}    callback       The callback to use when handler is native. First element is the class name, second the method name
  * @param  {mixed}    passback       Any JSON encoded data to pass back to the callback
  * @param  {Object}   urlSchemes     The URL Schemes
- * @param  {Boolean}  isFancybox     Whether this manager is being shown in a fancybox or not
+ * @param  {Boolean}  isModal     Whether this manager is being shown in a fancybox or not
  * @param  {Boolean}  reopenFancybox Whether to reopen the fancybox after closing
  */
-NAILS_CDN_Manager =  function(handler, callback, passback, urlSchemes, isFancybox, reopenFancybox) {
+NAILS_CDN_Manager =  function(handler, callback, passback, urlSchemes, isModal, reopenFancybox) {
 
     var base = this;
 
@@ -18,7 +18,7 @@ NAILS_CDN_Manager =  function(handler, callback, passback, urlSchemes, isFancybo
     base.callback       = callback;
     base.passback       = passback;
     base.urlSchemes     = urlSchemes;
-    base.isFancybox     = isFancybox;
+    base.isModal     = isModal;
     base.reopenFancybox = reopenFancybox;
 
     // --------------------------------------------------------------------------
@@ -52,7 +52,7 @@ NAILS_CDN_Manager =  function(handler, callback, passback, urlSchemes, isFancybo
 
         } else {
 
-            if (base.isFancybox) {
+            if (base.isModal) {
 
                 try {
 
@@ -231,7 +231,7 @@ NAILS_CDN_Manager =  function(handler, callback, passback, urlSchemes, isFancybo
             }
 
             //  Close window
-            if (base.isFancybox)
+            if (base.isModal)
             {
                 parent.$.fancybox.close();
             }
@@ -293,7 +293,7 @@ NAILS_CDN_Manager =  function(handler, callback, passback, urlSchemes, isFancybo
      */
     base.insertNative = function(bucket, file, objectId)
     {
-        if (this.isFancybox)
+        if (this.isModal)
         {
             window.parent[this.callback[0]][this.callback[1]]
                 .call(null, bucket, file, objectId, this.reopenFancybox, base.passback);

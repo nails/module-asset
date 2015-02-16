@@ -140,7 +140,7 @@ NAILS_JS = function()
 						_href += '&';
 					}
 
-					_href += 'isFancybox=true';
+					_href += 'isModal=true';
 				}
 
 				//	Interpret width and height

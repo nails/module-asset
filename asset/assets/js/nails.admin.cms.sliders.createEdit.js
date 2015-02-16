@@ -127,7 +127,7 @@ NAILS_Admin_CMS_Sliders_Create_Edit = function()
         //  Open the CDN Manager
         var url;
         url  = base.managerUrl;
-        url += url.indexOf( '?' ) >= 0 ? '&isFancybox=1' : '?isFancybox=1';
+        url += url.indexOf( '?' ) >= 0 ? '&isModal=1' : '?isModal=1';
 
         $.fancybox.open({
             'href': url,
