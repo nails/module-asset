@@ -2482,6 +2482,50 @@
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
+	"\/js\/nails.admin.auth.groups.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/nails.admin.auth.groups.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.auth.groups.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 2,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/nails.admin.auth.groups.min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/nails.admin.auth.groups.min.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.auth.groups.min.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 2,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/nails.admin.auth.settings.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/nails.admin.auth.settings.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.auth.settings.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 2,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/nails.admin.auth.settings.min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/nails.admin.auth.settings.min.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.auth.settings.min.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 2,
+		"syntaxCheckerStyle": 1
+		},
 	"\/js\/nails.admin.blog.createEdit.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -2917,28 +2961,6 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/nails.admin.shop.vouchers.min.js",
 		"outputAbbreviatedPath": "\/js\/nails.admin.shop.vouchers.min.min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 2,
-		"syntaxCheckerStyle": 1
-		},
-	"\/js\/nails.admin.site.settings.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.site.settings.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.site.settings.min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 2,
-		"syntaxCheckerStyle": 1
-		},
-	"\/js\/nails.admin.site.settings.min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.site.settings.min.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.site.settings.min.min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
@@ -4334,10 +4356,6 @@
 			"flagValue": -1
 			},
 		"shelljs": {
-			"active": 0,
-			"flagValue": -1
-			},
-		"singleGroups": {
 			"active": 0,
 			"flagValue": -1
 			},

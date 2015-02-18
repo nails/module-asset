@@ -19,11 +19,11 @@ NAILS_Admin_Auth_Groups_Edit = function()
 
             if (active) {
 
-                $('#adminPermissions').slideUp();
+                $('#adminPermissions').hide();
 
             } else {
 
-                $('#adminPermissions').slideDown();
+                $('#adminPermissions').show();
             }
         });
     };
