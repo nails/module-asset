@@ -123,35 +123,41 @@ NAILS_JS = function()
 				e.stopPropagation();
 
 				//	Prep the URL
-				var _href = $(this).attr('href');
+				var href = $(this).attr('href');
+				var type = null;
 
-				if (_href.substr(0, 1) !== '#')
-				{
-					var _regex	= /\?/g;
+				if (href.substr(0, 1) !== '#') {
 
-					if (!_regex.test(_href))
-					{
+					//	Use iframe type, for some reason anything else fails.
+					type = 'iframe';
+
+					//	Parse the URL for a query string
+					var regex = /\?/g;
+
+					if (!regex.test(href)) {
+
 						//	Append '?'
-						_href += '?';
-					}
-					else
-					{
+						href += '?';
+
+					} else {
+
 						//	Append '&'
-						_href += '&';
+						href += '&';
 					}
 
-					_href += 'isModal=true';
+					href += 'isModal=true';
 				}
 
 				//	Interpret width and height
-				var _h = $(this).data('height');
-				var _w = $(this).data('width');
+				var height = $(this).data('height');
+				var width  = $(this).data('width');
 
 				//	Open a new fancybox instance
-				$('<a>').fancybox({
-					'href': _href,
-					'width': _w,
-					'height': _h,
+				$.fancybox.open({
+					'href': href,
+					'height': height,
+					'width': width,
+					'type': type,
 					'helpers': {
 						'overlay': {
 							'locked': false
@@ -165,7 +171,7 @@ NAILS_JS = function()
 					{
 						$('body').removeClass('noScroll');
 					}
-				}).trigger('click');
+				});
 
 				return false;
 			});
