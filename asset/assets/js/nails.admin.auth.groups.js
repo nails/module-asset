@@ -5,10 +5,16 @@ NAILS_Admin_Auth_Groups_Edit = function()
 
     // --------------------------------------------------------------------------
 
+    base.searchTimeout = null;
+    base.searchDelay   = 250;
+
+    // --------------------------------------------------------------------------
+
     base.__construct = function()
     {
         base.toggleSuperuser();
         base.togglePermissions();
+        base.permissionSearch();
     };
 
     // --------------------------------------------------------------------------
@@ -74,6 +80,68 @@ NAILS_Admin_Auth_Groups_Edit = function()
                     td.removeClass('success');
                 }
             });
+        });
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.permissionSearch = function()
+    {
+        $('#permissionSearch input').on('keyup', function() {
+
+            var keywords = $(this).val();
+
+            clearTimeout(base.searchTimeout);
+            base.searchTimeout = setTimeout(function() {
+
+                base.doPermissionSearch(keywords);
+
+            }, base.searchDelay);
+        });
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.doPermissionSearch = function(keywords)
+    {
+        var regex, searchMe, result;
+
+        /**
+         * Search through all the filters
+         */
+        regex = new RegExp($.trim(keywords), 'i');
+
+        $('.permissionGroup td.permission').each(function() {
+
+            searchMe = $.trim($(this).text());
+            result   = regex.test(searchMe);
+
+            if (result) {
+
+                $(this).closest('tr').show();
+
+            } else {
+
+                $(this).closest('tr').hide();
+            }
+        });
+
+        /**
+         * Only show groups where there are visible filters
+         */
+        $('.permissionGroup').show();
+        $('.permissionGroup').each(function() {
+
+            var visible = $(this).find('td.permission:visible').length;
+
+            if (visible > 0) {
+
+                $(this).show();
+
+            } else {
+
+                $(this).hide();
+            }
         });
     };
 

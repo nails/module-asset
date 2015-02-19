@@ -2724,17 +2724,6 @@
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/nails.admin.email.settings.min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.email.settings.min.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.email.settings.min.min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 2,
-		"syntaxCheckerStyle": 1
-		},
 	"\/js\/nails.admin.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -3375,26 +3364,6 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/less\/admin\/modules\/shop.less",
 		"outputAbbreviatedPath": "\/less\/admin\/css\/shop.css",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 2,
-		"relativeURLS": 0,
-		"shouldRunAutoprefixer": 1,
-		"shouldRunBless": 1,
-		"strictImports": 0,
-		"strictMath": 0,
-		"strictUnits": 0
-		},
-	"\/less\/admin\/modules\/stats.less": {
-		"allowInsecureImports": 0,
-		"createSourceMap": 0,
-		"disableJavascript": 0,
-		"fileType": 1,
-		"ieCompatibility": 1,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/less\/admin\/modules\/stats.less",
-		"outputAbbreviatedPath": "\/less\/admin\/css\/stats.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
@@ -4345,6 +4314,10 @@
 			"flagValue": -1
 			},
 		"shelljs": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"singleGroups": {
 			"active": 0,
 			"flagValue": -1
 			},
