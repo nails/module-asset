@@ -1,10 +1,14 @@
-var NAILS_Admin_Auth_Settings;
-NAILS_Admin_Auth_Settings = function()
+var NAILS_Admin_Settings;
+NAILS_Admin_Settings = function()
 {
 	var base = this;
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Construct the class
+	 * @return {void}
+	 */
 	base.__construct = function()
 	{
 		base.setActiveTab();
@@ -12,6 +16,9 @@ NAILS_Admin_Auth_Settings = function()
 
 	// --------------------------------------------------------------------------
 
+	/**
+	 * Set the activeTab when a tab is clicked so that the same tab can be shown on POST
+	 */
 	base.setActiveTab = function()
 	{
 		$('ul.tabs a').on('click', function()
@@ -24,4 +31,4 @@ NAILS_Admin_Auth_Settings = function()
 	// --------------------------------------------------------------------------
 
 	return base.__construct();
-};
+}();
