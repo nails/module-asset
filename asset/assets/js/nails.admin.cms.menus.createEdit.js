@@ -33,7 +33,6 @@ NAILS_Admin_CMS_Menus_Create_Edit = function(items)
             //  Build initial menu items
             for (var key in items) { console.log(items[key]);
 
-                items[key].counter = $('li.target').length;
                 html = Mustache.render(base.itemTemplate, items[key]);
 
                 //  Does this have a parent? If so then we need to append it there
@@ -65,9 +64,6 @@ NAILS_Admin_CMS_Menus_Create_Edit = function(items)
                 'toleranceElement': '> div',
                 'stop': function()
                 {
-                    //  Update orders
-                    base.updateOrders(container);
-
                     //  Update parents
                     base.updateParentIds(container);
                 }
@@ -79,14 +75,12 @@ NAILS_Admin_CMS_Menus_Create_Edit = function(items)
             sortable.find('a.add-item').on('click', function()
             {
                 var _data = {
-                    id: base.generateId(),
-                    counter: $('li.target').length
+                    id: base.generateId()
                 };
 
                 var html = Mustache.render(base.itemTemplate, _data);
 
                 container.append(html);
-                base.updateOrders();
 
                 return false;
             });
@@ -124,23 +118,6 @@ NAILS_Admin_CMS_Menus_Create_Edit = function(items)
             .show();
 
             return false;
-        });
-    };
-
-    // --------------------------------------------------------------------------
-
-    /**
-     * Updates each menu item's order field
-     * @param  {Object} container The container object to restrict to
-     * @return {void}
-     */
-    base.updateOrders = function(container)
-    {
-        var counter = 0;
-        $('input.input-order', container).each(function()
-        {
-            $(this).val(counter);
-            counter++;
         });
     };
 
