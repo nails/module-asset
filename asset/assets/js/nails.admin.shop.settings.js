@@ -127,7 +127,7 @@ NAILS_Admin_Shop_Settings = function()
 			if ( active )
 			{
 				$( '#warehouse-collection-address' ).show();
-				_nails.add_stripes();
+				_nails.addStripes();
 			}
 			else
 			{

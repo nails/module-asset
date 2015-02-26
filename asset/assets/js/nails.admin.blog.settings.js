@@ -236,7 +236,7 @@ NAILS_Admin_Blog_Settings = function()
 
         // --------------------------------------------------------------------------
 
-        _nails.add_stripes();
+        _nails.addStripes();
     };
 
 

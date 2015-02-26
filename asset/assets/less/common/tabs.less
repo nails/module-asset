@@ -37,10 +37,19 @@ ul.tabs
 
 			&.error
 			{
-				background-image: url('../img/admin/form/error.png') !important;
 				padding-left: 30px !important;
-				background-position: 5px 4px !important;
-				background-repeat: no-repeat !important;
+
+				&:before
+				{
+					font-family: FontAwesome;
+					content: "\f06a";
+					display: block;
+					position: absolute;
+					font-size: 1.4em;
+					left: 7px;
+					top: 6px;
+					color: #B52130;
+				}
 			}
 		}
 
@@ -62,7 +71,10 @@ ul.tabs
 				}
 				&.error
 				{
-					background-position: 5px 9px !important;
+					&:before
+					{
+						top: 10px;
+					}
 				}
 			}
 		}

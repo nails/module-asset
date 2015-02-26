@@ -136,7 +136,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 			if(active === true)
 			{
 				$('#is-external-fields').slideDown();
-				_nails.add_stripes();
+				_nails.addStripes();
 			}
 			else
 			{
@@ -165,9 +165,9 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
 			$('#product-variations').append( _template );
 
-			_nails.add_stripes();
-			_nails._init_tipsy();
-			_nails.process_prefixed_inputs();
+			_nails.addStripes();
+			_nails.initTipsy();
+			_nails.processPrefixedInputs();
 			_nails_admin.init_toggles();
 			_nails_admin.init_select2();
 			_this._variations_checkmax();
@@ -1052,7 +1052,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 				$(this).closest( '.fieldset' ).find( '.shipping-driver-options-hidden' ).slideDown();
 			}
 
-			_nails.add_stripes();
+			_nails.addStripes();
 		});
 
 		// --------------------------------------------------------------------------

@@ -1543,9 +1543,9 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
 
                     //  Add stripes
                     /* jshint ignore:start */
-                    if (typeof(_nails.add_stripes) === 'function')
+                    if (typeof(_nails.addStripes) === 'function')
                     {
-                        _nails.add_stripes();
+                        _nails.addStripes();
                     }
                     /* jshint ignore:end */
 
