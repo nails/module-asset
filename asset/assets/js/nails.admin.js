@@ -303,40 +303,61 @@ NAILS_Admin = function()
      */
     base.initNavReset = function()
     {
-        $('#admin-nav-reset a').on('click', function()
+        $('#admin-nav-reset-buttons a').on('click', function()
         {
-            var _call = {
-                'controller': 'admin',
-                'method': 'nav/reset',
-                'action': 'POST'
-            };
+            if ($(this).data('action') === 'reset') {
 
-            _nails_api.call(_call);
+                var _call = {
+                    'controller': 'admin',
+                    'method': 'nav/reset',
+                    'action': 'POST'
+                };
 
-            // --------------------------------------------------------------------------
+                _nails_api.call(_call);
 
-            $('<div>')
-            .html('<p>Your navigation has been reset, changes will take hold on the next page load.</p>')
-            .dialog(
-            {
-                'title': 'Reset Complete',
-                'resizable': false,
-                'draggable': false,
-                'modal': true,
-                'dialogClass': "no-close",
-                'buttons':
+                // --------------------------------------------------------------------------
+
+                $('<div>')
+                .html('<p>Your navigation has been reset, changes will take hold on the next page load.</p>')
+                .dialog(
                 {
-                    'OK': function()
+                    'title': 'Reset Complete',
+                    'resizable': false,
+                    'draggable': false,
+                    'modal': true,
+                    'dialogClass': "no-close",
+                    'buttons':
                     {
-                        $(this).dialog('close');
-                    },
-                    'Reload': function()
-                    {
-                        window.location.reload();
+                        'OK': function()
+                        {
+                            $(this).dialog('close');
+                        },
+                        'Reload': function()
+                        {
+                            window.location.reload();
+                        }
                     }
-                }
-            })
-            .show();
+                })
+                .show();
+
+            } else if ($(this).data('action') === 'open') {
+
+                $('ul.modules li.module').each(function() {
+
+                    var _toggle = $(this).find('.toggle');
+                    base.openBox(_toggle, false);
+                });
+                base.saveNav();
+
+            } else if ($(this).data('action') === 'close') {
+
+                $('ul.modules li.module').each(function() {
+
+                    var _toggle = $(this).find('.toggle');
+                    base.closeBox(_toggle, false);
+                });
+                base.saveNav();
+            }
 
             return false;
         });
