@@ -30,6 +30,17 @@ NAILS_Admin_Accounts_Edit = function()
             return false;
         });
 
+        $('#addEmailForm input[name=email]').on('keydown', function(e)
+        {
+            if (e.which === 13) {
+
+                _this.addEmail();
+                return false;
+            }
+
+            return true;
+        });
+
         $('tr.existingEmail td.actions a').on('click', function()
         {
             var email = $(this).closest('tr').data('email');

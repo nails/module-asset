@@ -123,15 +123,28 @@ NAILS_JS = function()
 
                 //  Prep the URL
                 var href = $(this).attr('href');
-                var type = null;
+                var type = 'iframe';
 
                 if (href.substr(0, 1) !== '#') {
 
-                    //  Use iframe type, for some reason anything else fails.
-                    type = 'iframe';
+                    /**
+                     * Ok, so fancybox has a hard time auto detecting thigns when it's done like this;
+                     * this results in it silently failing when trying to open something which should
+                     * be opened in an iframe.
+                     *
+                     * To solve this we're going to explicitly look for certain file extensions and set
+                     * the `type` accordingly.
+                     */
+
+                    var regex = new RegExp('^.+\.(jpg|png|gif)(\\?.*)?$');
+
+                    if (regex.test(href)) {
+
+                        type = null;
+                    }
 
                     //  Parse the URL for a query string
-                    var regex = /\?/g;
+                    regex = /\?/g;
 
                     if (!regex.test(href)) {
 
@@ -194,7 +207,7 @@ NAILS_JS = function()
         {
             var link  = $(this);
             var body  = link.data('body').replace(/\\n/g, "\n");
-            var title = link.data('title');
+            var title = link.data('title') || 'Are you sure?';
 
             if (body.length)
             {
