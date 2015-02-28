@@ -1,12 +1,25 @@
 var NAILS_Admin_CMS_Menus_Create_Edit;
 NAILS_Admin_CMS_Menus_Create_Edit = function(items)
 {
+    /**
+     * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
+     * @type {Object}
+     */
     var base = this;
 
     // --------------------------------------------------------------------------
 
+    /**
+     * The item's template
+     * @type {String}
+     */
     base.itemTemplate = '';
-    base.idLength     = 32;
+
+    /**
+     * The length of the ID to generate
+     * @type {Number}
+     */
+    base.idLength = 32;
 
     // --------------------------------------------------------------------------
 

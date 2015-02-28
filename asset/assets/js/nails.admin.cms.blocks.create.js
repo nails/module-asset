@@ -1,34 +1,50 @@
 var NAILS_Admin_CMS_Blocks_Create;
 NAILS_Admin_CMS_Blocks_Create = function()
 {
+    /**
+     * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
+     * @type {Object}
+     */
     var base = this;
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Construct the class
+     * @return {Void}
+     */
     base.__construct = function()
     {
-        base._init_type_change();
+        base.initTypeChange();
     };
 
     // --------------------------------------------------------------------------
 
-    base._init_type_change = function()
+    /**
+     * Binds to the `type` select box
+     * @return {Void}
+     */
+    base.initTypeChange = function()
     {
         $('select[name=type]').on('change', function() {
 
-            base._type_changed();
+            base.typeChanged();
         });
 
-        base._type_changed();
+        base.typeChanged();
     };
 
     // --------------------------------------------------------------------------
 
-    base._type_changed = function()
+    /**
+     * Triggered when the `type` select changes and shows/renders the appropriate fields
+     * @return {Void}
+     */
+    base.typeChanged = function()
     {
-        var _type = $('select[name=type]').val();
+        var type = $('select[name=type]').val();
 
-        switch(_type)
+        switch(type)
         {
             case 'plaintext':
 

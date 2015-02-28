@@ -18,13 +18,17 @@ if (typeof(console) === "undefined")
 var NAILS_Admin;
 NAILS_Admin = function()
 {
+    /**
+     * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
+     * @type {Object}
+     */
     var base = this;
 
     // --------------------------------------------------------------------------
 
     /**
      * Construct the class
-     * @return {void}
+     * @return {Void}
      */
     base.__construct = function()
     {
@@ -44,7 +48,7 @@ NAILS_Admin = function()
 
     /**
      * Initialise the nav boxes
-     * @return {void}
+     * @return {Void}
      */
     base.initBoxes = function()
     {
@@ -124,7 +128,7 @@ NAILS_Admin = function()
 
     /**
      * Save the nav layout
-     * @return {void}
+     * @return {Void}
      */
     base.saveNav = function()
     {
@@ -159,7 +163,7 @@ NAILS_Admin = function()
      * Open a nav box
      * @param  {Object}  toggle  The box which was toggled
      * @param  {Boolean} animate Whether to animate the movement
-     * @return {void}
+     * @return {Void}
      */
     base.openBox = function(toggle, animate)
     {
@@ -193,7 +197,7 @@ NAILS_Admin = function()
      * Close a nav box
      * @param  {Object}  toggle  The box which was toggled
      * @param  {Boolean} animate Whether to animate the movement
-     * @return {void}
+     * @return {Void}
      */
     base.closeBox = function(toggle, animate)
     {
@@ -299,7 +303,7 @@ NAILS_Admin = function()
 
     /**
      * Reset the nav layout
-     * @return {void}
+     * @return {Void}
      */
     base.initNavReset = function()
     {
@@ -367,7 +371,7 @@ NAILS_Admin = function()
 
     /**
      * Initialise the admin search & sort boxes
-     * @return {void}
+     * @return {Void}
      */
     base.initSearchBoxes = function()
     {
@@ -418,7 +422,7 @@ NAILS_Admin = function()
 
     /**
      * Initialise the mobile menu
-     * @return {void}
+     * @return {Void}
      */
     base.initMobileMenu = function()
     {
@@ -445,7 +449,7 @@ NAILS_Admin = function()
 
     /**
      * Initialise jQuery toggles
-     * @return {void}
+     * @return {Void}
      */
     base.initToggles = function()
     {
@@ -488,7 +492,7 @@ NAILS_Admin = function()
 
     /**
      * Instantiates CKEditor instances
-     * @return {void}
+     * @return {Void}
      */
     base.initCkeditor = function()
     {
@@ -562,7 +566,7 @@ NAILS_Admin = function()
 
     /**
      * Initialsie select2 elements
-     * @return {void}
+     * @return {Void}
      */
     base.initSelect2 = function()
     {
@@ -580,7 +584,7 @@ NAILS_Admin = function()
 
     /**
      * Initialise nicetime elements
-     * @return {void}
+     * @return {Void}
      */
     base.initNiceTime = function()
     {
@@ -782,7 +786,7 @@ NAILS_Admin = function()
 
     /**
      * Initialise system-alerts
-     * @return {void}
+     * @return {Void}
      */
     base.initSystemAlerts = function()
     {
@@ -794,7 +798,7 @@ NAILS_Admin = function()
     /**
      * Write an error to the console
      * @param  {string} output The error to write
-     * @return {void}
+     * @return {Void}
      */
     base.error = function(output)
     {

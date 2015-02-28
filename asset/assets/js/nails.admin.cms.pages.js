@@ -1,6 +1,10 @@
 var NAILS_Admin_CMS_Pages;
 NAILS_Admin_CMS_Pages = function()
 {
+    /**
+     * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
+     * @type {Object}
+     */
     var base = this;
 
     // --------------------------------------------------------------------------

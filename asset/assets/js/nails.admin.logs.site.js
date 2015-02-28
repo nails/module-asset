@@ -2,10 +2,18 @@
 var NAILS_Admin_Logs_Site;
 NAILS_Admin_Logs_Site = function()
 {
+    /**
+     * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
+     * @type {Object}
+     */
     var base = this;
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Construct the class
+     * @return {Void}
+     */
     base.__construct = function()
     {
         base.fetchLogs();
@@ -13,6 +21,10 @@ NAILS_Admin_Logs_Site = function()
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Fetches logs from the server
+     * @return {Void}
+     */
     base.fetchLogs = function()
     {
         var call = {
@@ -42,6 +54,11 @@ NAILS_Admin_Logs_Site = function()
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Called when fetchLogs is successful
+     * @param  {Object} data Data returned by the server
+     * @return {Void}
+     */
     base.fetchLogsOk = function(data)
     {
         var tpl,html;
@@ -68,10 +85,31 @@ NAILS_Admin_Logs_Site = function()
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Called when fetchLogs is unsuccessful
+     * @param  {Object} data Data from the server
+     * @return {Void}
+     */
     base.fetchLogsFail = function(data)
     {
-        alert('fail');
-        console.log(data);
+        $('<div>')
+        .html('<p>' + data.error + '</p>')
+        .dialog(
+        {
+            title: 'An error occurred',
+            resizable: false,
+            draggable: false,
+            modal: true,
+            dialogClass: "no-close",
+            buttons:
+            {
+                OK: function()
+                {
+                    $(this).dialog('close');
+                }
+            }
+        })
+        .show();
     };
 
     // --------------------------------------------------------------------------

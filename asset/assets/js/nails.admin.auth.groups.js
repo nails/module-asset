@@ -1,15 +1,31 @@
 var NAILS_Admin_Auth_Groups_Edit;
 NAILS_Admin_Auth_Groups_Edit = function()
 {
+    /**
+     * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
+     * @type {Object}
+     */
     var base = this;
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Holds the timeout object
+     * @type {Object}
+     */
     base.searchTimeout = null;
-    base.searchDelay   = 250;
+
+    /**
+     * The delay in ms before a search is triggered
+     * @type {Number}
+     */
+    base.searchDelay   = 150;
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Construct the class
+     */
     base.__construct = function()
     {
         base.toggleSuperuser();
@@ -19,6 +35,10 @@ NAILS_Admin_Auth_Groups_Edit = function()
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Toggles the permission tables, hidden for super users
+     * @return {Void}
+     */
     base.toggleSuperuser = function()
     {
         $('.field.boolean .toggle').on('toggle', function(e, active) {
@@ -36,6 +56,10 @@ NAILS_Admin_Auth_Groups_Edit = function()
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Toggles all the permissions within a particular group on or off
+     * @return {Void}
+     */
     base.togglePermissions = function()
     {
         $('.permissionGroup tbody td.permission').on('click', function()
@@ -85,11 +109,15 @@ NAILS_Admin_Auth_Groups_Edit = function()
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Binds to the permission search input and triggers a search after a delay
+     * @return {Void}
+     */
     base.permissionSearch = function()
     {
         $('#permissionSearch input').on('keyup', function() {
 
-            var keywords = $(this).val();
+            var keywords = $.trim($(this).val());
 
             clearTimeout(base.searchTimeout);
             base.searchTimeout = setTimeout(function() {
@@ -102,9 +130,21 @@ NAILS_Admin_Auth_Groups_Edit = function()
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Performs a search of the permissions
+     * @param  {String} keywords The keywords to search for
+     * @return {Void}
+     */
     base.doPermissionSearch = function(keywords)
     {
         var regex, searchMe, result;
+
+        if (keywords === '') {
+
+            $('.permissionGroup').show();
+            $('.permissionGroup tbody tr').show();
+            return;
+        }
 
         /**
          * Search through all the filters
@@ -123,6 +163,22 @@ NAILS_Admin_Auth_Groups_Edit = function()
             } else {
 
                 $(this).closest('tr').hide();
+            }
+        });
+
+        /**
+         * If a group's name matches the search term then show all the permissions
+         * regardless of what was done above
+         */
+        $('.permissionGroup legend').each(function() {
+
+            searchMe = $.trim($(this).text());
+            result   = regex.test(searchMe);
+            console.log(searchMe, result);
+
+            if (result) {
+
+                $(this).parent().find('tbody tr').show();
             }
         });
 

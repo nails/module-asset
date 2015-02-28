@@ -23,6 +23,10 @@ if (typeof(console) === "undefined")
 var NAILS_JS;
 NAILS_JS = function()
 {
+    /**
+     * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
+     * @type {Object}
+     */
     var base = this;
 
     // --------------------------------------------------------------------------
