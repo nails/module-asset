@@ -2438,6 +2438,28 @@
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
+	"\/js\/nails.admin.accounts.create.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/nails.admin.accounts.create.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.accounts.create.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 2,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/nails.admin.accounts.create.min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/nails.admin.accounts.create.min.js",
+		"outputAbbreviatedPath": "\/js\/nails.admin.accounts.create.min.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 2,
+		"syntaxCheckerStyle": 1
+		},
 	"\/js\/nails.admin.accounts.edit.js": {
 		"fileType": 64,
 		"ignore": 0,
