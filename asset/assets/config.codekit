@@ -2592,28 +2592,6 @@
 		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/nails.admin.cms.blocks.edit.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.edit.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.edit.min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 2,
-		"syntaxCheckerStyle": 1
-		},
-	"\/js\/nails.admin.cms.blocks.edit.min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.edit.min.js",
-		"outputAbbreviatedPath": "\/js\/nails.admin.cms.blocks.edit.min.min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 2,
-		"syntaxCheckerStyle": 1
-		},
 	"\/js\/nails.admin.cms.menus.createEdit.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -4314,6 +4292,10 @@
 			"flagValue": -1
 			},
 		"shelljs": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"singleGroups": {
 			"active": 0,
 			"flagValue": -1
 			},
