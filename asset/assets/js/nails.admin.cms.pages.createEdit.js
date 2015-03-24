@@ -1527,7 +1527,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
             {
                 'action'        : 'POST',
                 'controller'    : 'cms/pages',
-                'method'        : 'widget/get_editor',
+                'method'        : 'widgetEditor',
                 'data'          :
                 {
                     widget: _widget.slug,

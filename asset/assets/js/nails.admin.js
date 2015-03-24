@@ -145,9 +145,9 @@ NAILS_Admin = function()
         });
 
         _call = {
-            'controller': 'admin',
-            'method': 'nav/save',
-            'action': 'GET',
+            'controller': 'admin/nav',
+            'method': 'save',
+            'action': 'POST',
             'data':
             {
                 'preferences': _data
@@ -312,8 +312,8 @@ NAILS_Admin = function()
             if ($(this).data('action') === 'reset') {
 
                 var _call = {
-                    'controller': 'admin',
-                    'method': 'nav/reset',
+                    'controller': 'admin/nav',
+                    'method': 'reset',
                     'action': 'POST'
                 };
 

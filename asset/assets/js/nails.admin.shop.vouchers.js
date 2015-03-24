@@ -171,8 +171,8 @@ NAILS_Admin_Shop_Vouchers_Edit = function()
         $('#generateCodeSpinner').show();
 
         var call = {
-            'controller': 'admin/shop',
-            'method': 'voucher_generate_code',
+            'controller': 'shop/voucher',
+            'method': 'generateCode',
             'success': function(data)
             {
                 base.generateCodeOk(data);

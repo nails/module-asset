@@ -250,7 +250,7 @@ NAILS_Admin_Blog_Create_Edit = function()
             'auto': true,
             'swf': window.NAILS.URL + 'packages/uploadify/uploadify.swf',
             'queueID': 'gallery-items',
-            'uploader': window.SITE_URL + 'api/cdnapi/object_create/script.php',
+            'uploader': window.SITE_URL + 'api/cdn/object/create',
             'fileSizeLimit': 2048,
             'fileObjName': 'upload',
             'fileTypeExts': '*.gif; *.jpg; *.jpeg; *.png',
@@ -462,8 +462,8 @@ NAILS_Admin_Blog_Create_Edit = function()
 
                         //  Send off the delete request
                         var _call = {
-                            'controller'    : 'cdnapi',
-                            'method'        : 'object_delete',
+                            'controller'    : 'cdn/object',
+                            'method'        : 'delete',
                             'action'        : 'POST',
                             'data'          :
                             {

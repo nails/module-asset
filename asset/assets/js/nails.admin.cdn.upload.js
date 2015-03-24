@@ -29,7 +29,7 @@ NAILS_Admin_CDN_Upload = function()
 		Dropzone.autoDiscover = false;
 		this._dropzone = new Dropzone("div#dropzone",
 		{
-			url: window.SITE_URL + 'api/cdnapi/object_create',
+			url: window.SITE_URL + 'api/cdn/object/create',
 			autoProcessQueue: true,
 			headers:
 			{
