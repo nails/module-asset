@@ -499,7 +499,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 			'auto': true,
 			'swf': window.NAILS.URL + 'packages/uploadify/uploadify.swf',
 			'queueID': 'gallery-items',
-			'uploader': window.SITE_URL + 'api/cdn/object/create/script.php',
+			'uploader': window.SITE_URL + 'api/cdn/object/create',
 			'fileSizeLimit': 2048,
 			'fileObjName': 'upload',
 			'fileTypeExts': '*.gif; *.jpg; *.jpeg; *.png',
