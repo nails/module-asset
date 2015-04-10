@@ -132,7 +132,7 @@ NAILS_JS = function()
                 if (href.substr(0, 1) !== '#') {
 
                     /**
-                     * Ok, so fancybox has a hard time auto detecting thigns when it's done like this;
+                     * Ok, so fancybox has a hard time auto detecting things when it's done like this;
                      * this results in it silently failing when trying to open something which should
                      * be opened in an iframe.
                      *
@@ -140,7 +140,10 @@ NAILS_JS = function()
                      * the `type` accordingly.
                      */
 
-                    var regex = new RegExp('^.+\.(jpg|png|gif)(\\?.*)?$');
+                    var regex;
+                     /*jshint ignore: start */
+                    regex = new RegExp('^.+\.(jpg|png|gif)(\\?.*)?$');
+                    /*jshint ignore: end */
 
                     if (regex.test(href)) {
 
@@ -162,6 +165,10 @@ NAILS_JS = function()
                     }
 
                     href += 'isModal=true';
+                } else {
+
+                    //  It's an inline fancybox
+                    type = null;
                 }
 
                 //  Interpret width and height
