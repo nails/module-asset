@@ -48,11 +48,26 @@
                                 opacity: 1 !important;
                             }
                         }
+                        &.dz-error,
+                        &.dz-succes {
+                            .dz-success-mark,
+                            .dz-error-mark {
+                                left: 40px;
+                                top: 40px;
+                            }
+                        }
+                    }
+                    &.dz-error,
+                    &.dz-succes {
+                        .dz-filename,
+                        .dz-size {
+                            margin-left: 55px;
+                        }
                         .dz-success-mark,
                         .dz-error-mark {
                             position: absolute;
-                            left: 40px;
-                            top: 40px;
+                            left: 14px;
+                            top: 14px;
                         }
                     }
                     &.dz-error {
@@ -87,7 +102,11 @@
                         position: relative;
                         max-width: 100%;
                         left: 0;
-                        top: 0;
+                        top: 14px;
+                        padding: 5px;
+                        margin-bottom: 21px;
+                        border: 1px solid #EE1E2D;
+                        color: #EE1E2D;
                     }
                     .dz-remove {
                         margin-top: 5px;
