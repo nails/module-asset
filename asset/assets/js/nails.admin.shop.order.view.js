@@ -1,57 +1,116 @@
 var NAILS_Admin_Shop_Order_View;
 NAILS_Admin_Shop_Order_View = function()
 {
-	this.__construct = function()
-	{
-		this._match_col_heights();
+    /**
+     * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
+     * @type {Object}
+     */
+    var base = this;
 
-		// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-		var _this = this;	/*	Ugly Scope Hack	*/
-		$( '.todo' ).on( 'click', function()
-		{
-			_this._todo();
-			return false;
-		});
-	};
+    /**
+     * Construct the class
+     * @return {Void}
+     */
+    base.__construct = function()
+    {
+        base.matchColHeights();
+        base.alertCollection();
+        base.todo();
+    };
 
-	// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-	this._match_col_heights = function()
-	{
-		var _max_height = 0;
-		$( '.col-3 fieldset' ).each(function()
-		{
-			if ( $(this).outerHeight() > _max_height )
-			{
-				_max_height = $(this).outerHeight();
-			}
-		});
+    /**
+     * Matches the heights of the three status columns
+     * @return {Void}
+     */
+    base.matchColHeights = function()
+    {
+        var maxHeight = 0;
+        $('.col-3 fieldset').each(function()
+        {
+            if ($(this).outerHeight() > maxHeight)
+            {
+                maxHeight = $(this).outerHeight();
+            }
+        });
 
-		$( '.col-3 fieldset' ).css( { 'height' : _max_height } );
-	};
+        $('.col-3 fieldset').css({ 'height' : maxHeight });
+    };
 
-	// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-	this._todo = function()
-	{
-		$('<div>').html('This piece of functionality is in the works and will be available soon.').dialog({
-			title: 'Coming soon!',
-			resizable: false,
-			draggable: false,
-			modal: true,
-			dialogClass: "no-close",
-			buttons:
-			{
-				OK: function()
-				{
-					$(this).dialog("close");
-				}
-			}
-		});
-	};
+    /**
+     * Generates a dialog pop up if the order is unfulfilled and has collect only
+     * items in it or is a collect only order.
+     * @return {Void}
+     */
+    base.alertCollection = function()
+    {
+        var orderElement, fulfilmentStatus, deliveryType, numCollectItems, subject, message;
 
-	// --------------------------------------------------------------------------
+        orderElement     = $('#order');
+        fulfilmentStatus = orderElement.data('fulfilment-status');
+        deliveryType     = orderElement.data('delivery-type');
+        numCollectItems  = orderElement.data('num-collect-items');
 
-	return this.__construct();
+        console.log(fulfilmentStatus,deliveryType,numCollectItems);
+
+        if (fulfilmentStatus === 'UNFULFILLED') {
+
+            if (deliveryType === 'COLLECT') {
+
+                subject = 'Collection Order';
+                message = 'The customer has marked that they will come to collect this order. Do not ship.';
+
+            } else if (deliveryType === 'DELIVER' && numCollectItems > 0) {
+
+                subject = 'Partial Collection Order';
+                message = 'This order contains some items which are marked as "collect only". Do not ship these items.';
+            }
+
+            base.dialog(subject, message);
+        }
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Creates a popup dialog for todo items
+     * @return {Void}
+     */
+    base.todo = function()
+    {
+        $('.todo').on('click', function()
+        {
+            base.dialog('Coming Soon!', 'This piece of functionality is in the works and will be available soon.');
+            return false;
+        });
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.dialog = function(subject, message) {
+
+        $('<div>').html(message).dialog({
+            title: subject,
+            resizable: false,
+            draggable: false,
+            modal: true,
+            dialogClass: 'no-close',
+            buttons:
+            {
+                OK: function()
+                {
+                    $(this).dialog('close');
+                }
+            }
+        });
+    };
+
+    // --------------------------------------------------------------------------
+
+    return this.__construct();
 };
