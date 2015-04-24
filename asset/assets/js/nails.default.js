@@ -213,7 +213,6 @@ NAILS_JS = function()
      */
     base.initConfirm = function()
     {
-
         $(document).on('click', 'a.confirm' , function()
         {
             var link  = $(this);
