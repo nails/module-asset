@@ -64,14 +64,14 @@ NAILS_Admin_Shop_Order_View = function()
 
                 subject = 'Collection Order';
                 message = 'The customer has marked that they will come to collect this order. Do not ship.';
+                base.dialog(subject, message);
 
             } else if (deliveryType === 'DELIVER' && numCollectItems > 0) {
 
                 subject = 'Partial Collection Order';
                 message = 'This order contains some items which are marked as "collect only". Do not ship these items.';
+                base.dialog(subject, message);
             }
-
-            base.dialog(subject, message);
         }
     };
 
