@@ -25,13 +25,17 @@ textarea.ckeditor
     width:100%;
 }
 
-.select2-drop
-{
-    .select2-results
-    {
-        li
-        {
+.select2-drop {
+    .select2-results {
+        li {
             margin:0;
+            &.select2-disabled {
+                background: inherit;
+                color: #BBB;
+                .select2-result-label {
+                    cursor: not-allowed;
+                }
+            }
         }
     }
 }
