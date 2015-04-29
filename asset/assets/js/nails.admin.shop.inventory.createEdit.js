@@ -1,57 +1,51 @@
 var NAILS_Admin_Shop_Inventory_Create_Edit;
 NAILS_Admin_Shop_Inventory_Create_Edit = function()
 {
-    this.product_types      = [];
-    this.upload_token       = null;
-    this._api               = null;
-    this._variation_counter = 0;
-
+    this.productTypes     = [];
+    this.uploadToken      = null;
+    this.api              = null;
+    this.variationCounter = 0;
 
     // --------------------------------------------------------------------------
 
-
-    this.init = function( product_types, upload_token )
+    this.init = function(productTypes, uploadToken)
     {
         //  Set vars
-        this.product_types  = product_types;
-        this.upload_token   = upload_token;
+        this.productTypes = productTypes;
+        this.uploadToken  = uploadToken;
 
         // --------------------------------------------------------------------------
 
         //  Set up the API interface
-        this._api = new window.NAILS_API();
+        this.api = new window.NAILS_API();
 
         // --------------------------------------------------------------------------
 
         //  Init everything!
-        this._init_info();
-        this._init_meta();
-        this._init_variations();
-        this._init_gallery();
-        this._init_attributes();
-        this._init_select2();
-        this._init_related();
-        this._init_submit();
+        this.initInfo();
+        this.initMeta();
+        this.initVariations();
+        this.initGallery();
+        this.initAttributes();
+        this.initSelect2();
+        this.initRelated();
+        this.initSubmit();
     };
-
 
     // --------------------------------------------------------------------------
 
-
-    this._init_info = function()
+    this.initInfo = function()
     {
         //  Show the correct meta field
-        this.info_select2_type_change();
+        this.infoSelect2TypeChange();
     };
-
 
     // --------------------------------------------------------------------------
 
-
-    this.info_select2_type_change = function()
+    this.infoSelect2TypeChange = function()
     {
         //  Make sure the appropriate meta fields are being displayed
-        var _type_id = parseInt( $('#tab-basics .type_id:input').val(), 10 );
+        var _type_id = parseInt($('#tab-basics .type_id:input').val(), 10);
 
         //  We'll be updating the template, so fetch it now
         var _template = $('<div>').html($.parseHTML($.trim($('#template-variation').html(), null, true)));
@@ -67,57 +61,57 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         // --------------------------------------------------------------------------
 
         //  How many variations does this product type allow
-        this._variations_checkmax();
+        this.variationsCheckMax();
 
         // --------------------------------------------------------------------------
 
         //  Does this product type require shipping?
         var _is_physical = false;
 
-        for (var _key in this.product_types)
+        for (var _key in this.productTypes)
         {
-            if (this.product_types[_key].id === _type_id)
+            if (this.productTypes[_key].id === _type_id)
             {
-                _is_physical = this.product_types[_key].is_physical;
+                _is_physical = this.productTypes[_key].is_physical;
                 break;
             }
         }
 
-        if ( ! _is_physical )
+        if (! _is_physical)
         {
             //  Ensure shipping tabs are hidden and the physical fields are not showing
-            $( 'li.tab a.tabber-variation-shipping' ).addClass( 'disabled' ).hide();
+            $('li.tab a.tabber-variation-shipping').addClass('disabled').hide();
 
             //  If the shipping tab is active, make it non active
-            $( 'li.tab a.tabber-variation-shipping' ).each(function()
+            $('li.tab a.tabber-variation-shipping').each(function()
             {
                 var _shipping_tab = $(this);
 
-                if ( _shipping_tab.parent().hasClass( 'active' ) )
+                if (_shipping_tab.parent().hasClass('active'))
                 {
                     //  Swap tabs
-                    var _details_tab    = _shipping_tab.closest( 'ul' ).find( 'a.tabber-variation-details' );
+                    var _details_tab    = _shipping_tab.closest('ul').find('a.tabber-variation-details');
 
-                    _shipping_tab.parent().removeClass( 'active' );
-                    _details_tab.parent().addClass( 'active' );
+                    _shipping_tab.parent().removeClass('active');
+                    _details_tab.parent().addClass('active');
 
                     //  Swap bodies
-                    $( '#' + _shipping_tab.data( 'tab' ) ).removeClass( 'active' );
-                    $( '#' + _details_tab.data( 'tab' ) ).addClass( 'active' );
+                    $('#' + _shipping_tab.data('tab')).removeClass('active');
+                    $('#' + _details_tab.data('tab')).addClass('active');
                 }
             });
 
             //  Update template
-            $( 'li.tab a.tabber-variation-shipping', _template ).addClass( 'disabled' ).hide();
+            $('li.tab a.tabber-variation-shipping', _template).addClass('disabled').hide();
 
         }
         else
         {
             //  Enable shipping tabs and show physical fields
-            $( 'li.tab a.tabber-variation-shipping' ).removeClass( 'disabled' ).css( 'display', 'inline-block' );
+            $('li.tab a.tabber-variation-shipping').removeClass('disabled').css('display', 'inline-block');
 
             //  Update template
-            $( 'li.tab a.tabber-variation-shipping', _template ).removeClass( 'disabled' ).css( 'display', 'inline-block' );
+            $('li.tab a.tabber-variation-shipping', _template).removeClass('disabled').css('display', 'inline-block');
         }
 
         // --------------------------------------------------------------------------
@@ -126,13 +120,11 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         $('#template-variation').html($(_template).html());
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._init_meta = function()
+    this.initMeta = function()
     {
-        $('#is-external .toggle').on( 'toggle', function(e,active)
+        $('#is-external .toggle').on('toggle', function(e,active)
         {
             if(active === true)
             {
@@ -146,36 +138,36 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._init_variations = function()
+    this.initVariations = function()
     {
         var _this = this;
 
         //  Add a variation
         $('#product-variation-add').on('click', function()
         {
-            var _template   = $('#template-variation').html();
-            var _counter    = $('#product-variations .variation').length;
+            //  Bump the variationCounter
+            _this.variationCounter++;
 
-            _template = Mustache.render(_template, {
-                counter: _counter
+            var tplVariant = $('#template-variation').html();
+
+            tplVariant = Mustache.render(tplVariant, {
+                counter:  _this.variationCounter
             });
 
-            $('#product-variations').append( _template );
+            $('#product-variations').append(tplVariant);
 
             _nails.addStripes();
             _nails.initTipsy();
             _nails.processPrefixedInputs();
-            _nails_admin.init_toggles();
-            _nails_admin.init_select2();
-            _this._variations_checkmax();
-            _this._variation_meta_multiple();
+            _nails_admin.initToggles();
+            _nails_admin.initSelect2();
+            _this.variationsCheckMax();
+            _this.variationMetaMultiple();
 
             //  Show the price syncher
-            $( '#variation-sync-prices' ).show();
+            $('#product-variations .variation:first-of-type .variation-sync-prices').show();
 
             return false;
         });
@@ -187,18 +179,18 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         {
             var _variation = this;
 
-            if ( $( '#product-variations .variation' ).length === 1 )
+            if ($('#product-variations .variation').length === 1)
             {
                 $('#dialog-no-delete-one-variation').dialog({
                     resizable: false,
                     draggable: false,
                     modal: true,
-                    dialogClass: "no-close",
+                    dialogClass: 'no-close',
                     buttons:
                     {
                         OK: function()
                         {
-                            $(this).dialog("close");
+                            $(this).dialog('close');
                         }
                     }
                 });
@@ -209,27 +201,35 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                     resizable: false,
                     draggable: false,
                     modal: true,
-                    dialogClass: "no-close",
+                    dialogClass: 'no-close',
                     buttons:
                     {
-                        "Delete Variation": function()
+                        'Delete Variation': function()
                         {
+                            //  Close the dialog
+                            $(this).dialog('close');
+
                             //  Remove the variation
-                            $(_variation).closest('.variation').remove();
+                            $(_variation).closest('.variation').slideUp(500, function() {
 
-                            //  Check the max variations
-                            _this._variations_checkmax();
+                                //  Remove the variation
+                                $(this).remove();
 
-                            //  If there's only one variation left then hide the price syncher
-                            if ( $( '#product-variations .variation' ).length <= 1 )
-                            {
-                                $( '#variation-sync-prices' ).hide();
-                            }
+                                //  Check the max variations
+                                _this.variationsCheckMax();
 
-                            //  Close dialog
-                            $(this).dialog("close");
+                                //  Ensure only the first variation has the price syncer
+                                $('.variation-sync-prices').hide();
+                                $('#product-variations .variation:first-of-type .variation-sync-prices').show();
+
+                                //  If there's only one variation left then hide the price syncher
+                                if ($('#product-variations .variation').length <= 1)
+                                {
+                                    $('.variation-sync-prices').hide();
+                                }
+                            });
                         },
-                        Cancel: function()
+                        'Cancel': function()
                         {
                             $(this).dialog("close");
                         }
@@ -245,7 +245,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         //  Stock status
         $('#product-variations').on('change', 'select.stock-status', function()
         {
-            _this._variation_stock_status_change( $(this) );
+            _this.variationStockStatusChange($(this));
         });
 
         // --------------------------------------------------------------------------
@@ -253,7 +253,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         //  Out of Stock behaviour
         $('#product-variations').on('change', 'select.out-of-stock-behaviour', function()
         {
-            _this._variation_out_of_stock_behaviour_change( $(this) );
+            _this.variationOutOfStockBehaviourChange($(this));
         });
 
         // --------------------------------------------------------------------------
@@ -282,12 +282,12 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         //  Gallery association buttons
         $('#product-variations').on('click', 'ul.gallery-associations a.action', function()
         {
-            switch( $(this).data( 'function' ) )
+            switch($(this).data('function'))
             {
                 case 'all' :
 
                     //  Ensure that all of the items are selected
-                    $(this).closest( 'ul.gallery-associations' ).find( 'li.image:not(.selected)' ).click();
+                    $(this).closest('ul.gallery-associations').find('li.image:not(.selected)').click();
 
                 break;
 
@@ -295,7 +295,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
                 case 'none' :
 
-                    $(this).closest( 'ul.gallery-associations' ).find( 'li.image.selected' ).click();
+                    $(this).closest('ul.gallery-associations').find('li.image.selected').click();
 
                 break;
 
@@ -303,7 +303,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
                 case 'toggle' :
 
-                    $(this).closest( 'ul.gallery-associations' ).find( 'li.image' ).click();
+                    $(this).closest('ul.gallery-associations').find('li.image').click();
 
                 break;
             }
@@ -325,54 +325,63 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
         // --------------------------------------------------------------------------
 
-        //  Helper: copy the fill price to the sale price on blur
-        $( 'input.base-price, input.variation-price' ).on( 'blur', function()
+        //  Helper: copy the full price to the sale price on blur
+        $('input.variation-price').on('blur', function()
         {
             var _price = $(this).val();
-            var _sale_price = $(this).closest( 'tr' ).find( 'input.base-price-sale, input.variation-price' );
+            var _sale_price = $(this).closest('tr').find('input.variation-price-sale');
 
-            if ( $.trim( _sale_price.val() ).length === 0 )
+            if ($.trim(_sale_price.val()).length === 0)
             {
-                _sale_price.val( _price );
+                _sale_price.val(_price);
             }
 
         });
 
         //  Sync prices
-        $( '#variation-sync-prices a' ).on( 'click', function()
+        $(document).on('click', '.variation-sync-prices a', function()
         {
-            $('<div>').html( 'This action will take the values form the first variation and <strong>overwrite</strong> the corresponding values in each other variation.' ).dialog(
+            var title, message;
+
+            title    = 'Confirm Price Sync';
+            message  = 'This action will take the values form the <strong>first</strong> variation and ';
+            message += '<strong>overwrite</strong> the corresponding values in each other variations.';
+            $('<div>').html(message).dialog(
             {
-                title: 'Confirm Sync',
+                title: title,
                 resizable: false,
                 draggable: false,
                 modal: true,
-                dialogClass: "no-close",
+                dialogClass: 'no-close',
                 buttons:
                 {
-                    OK: function()
+                    'OK': function()
                     {
-                        //  Get base prices
-                        $( '#tab-variation-0-pricing .base-price' ).each(function()
-                        {
-                            var _code = $(this).data( 'code' );
 
-                            $( '#product-variations .variation-price.' + _code ).val( $(this).val() );
+                        //  Get base prices of the first visible variation
+                        $('#product-variations > .variation:first-of-type .variation-price').each(function()
+                        {
+                            var currencyCode = $(this).data('code');
+                            var value        = $.trim($(this).val());
+
+                            $('#product-variations .variation-price.' + currencyCode).val(value);
                         });
 
-                        $( '#tab-variation-0-pricing .base-price-sale' ).each(function()
+                        //  And the prices of the sale prices
+                        $('#product-variations > .variation:first-of-type .variation-price-sale').each(function()
                         {
-                            var _code = $(this).data( 'code' );
+                            var currencyCode = $(this).data('code');
+                            var value        = $.trim($(this).val());
 
-                            $( '#product-variations .variation-price-sale.' + _code ).val( $(this).val() );
+                            $('#product-variations .variation-price-sale.' + currencyCode).val(value);
                         });
 
                         //  Close dialog
-                        $(this).dialog("close");
+                        $(this).dialog('close');
                     },
-                    Cancel: function()
+                    'Cancel': function()
                     {
-                        $(this).dialog("close");
+                        $(this).dialog('close');
                     }
                 }
             });
@@ -382,31 +391,41 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
         // --------------------------------------------------------------------------
 
-        //  Init any meta fields
-        this._variation_meta_multiple();
-    };
+        //  Set the initial number of variations (they are zero-indexed)
+        this.variationCounter = $('#product-variations .variation').length-1;
+        if (this.variationCounter < 0) {
 
+            this.variationCounter = 0;
+        }
+
+        // --------------------------------------------------------------------------
+
+        //  Init any meta fields
+        this.variationMetaMultiple();
+    };
 
     // --------------------------------------------------------------------------
 
-
-    this._variations_checkmax = function()
+    this.variationsCheckMax = function()
     {
         var _type_id = $('#tab-basics select[name=type_id]').val();
         var max_variations = 0; //  Unlimited, by default
 
-        for (var _key in this.product_types) {
-            if (this.product_types[_key].id === _type_id) {
-                max_variations = parseInt(this.product_types[_key].max_variations, 10);
+        for (var _key in this.productTypes) {
+            if (this.productTypes[_key].id === _type_id) {
+                max_variations = parseInt(this.productTypes[_key].max_variations, 10);
             }
         }
 
         if (max_variations !== 0 && $('#product-variations .variation').length >= max_variations) {
+
             $('.add-variation-button').removeClass('enabled').addClass('disabled');
 
             //  If there are any existing variations which are no longer applicable, mark them so
             $('#product-variations .variation:gt(' + (max_variations - 1) + ')').addClass('not-applicable');
+
         } else {
+
             $('.add-variation-button').removeClass('disabled').addClass('enabled');
 
             //  Remove any variations which were previously disabled
@@ -414,41 +433,37 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         }
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._variation_meta_multiple = function()
+    this.variationMetaMultiple = function()
     {
-        $( '#product-variations input.allow-multiple:not(.select2-offscreen)' ).select2(
+        $('#product-variations input.allow-multiple:not(.select2-offscreen)').select2(
         {
             tags: [],
             tokenSeparators: [","]
         });
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._variation_stock_status_change = function( obj )
+    this.variationStockStatusChange = function(obj)
     {
         //  Get parent
-        var _parent = obj.closest( '.variation' );
+        var _parent = obj.closest('.variation');
 
         //  Hide all fields
-        _parent.find( 'div.stock-status-field' ).hide();
+        _parent.find('div.stock-status-field').hide();
 
         //  Show the ones we're interested in
-        _parent.find( 'div.stock-status-field.' + obj.val() ).show();
+        _parent.find('div.stock-status-field.' + obj.val()).show();
 
-        if ( obj.val() === 'OUT_OF_STOCK' && _parent.find( 'select.out-of-stock-behaviour' ).val() === 'TO_ORDER' )
+        if (obj.val() === 'OUT_OF_STOCK' && _parent.find('select.out-of-stock-behaviour').val() === 'TO_ORDER')
         {
             var _message;
             _message  = '<p>You have set the stock status to "Out of Stock" however the behaviour of this item when out of stock is set to "Behave as if: To Order".</p>';
             _message += '<p>This alert is to bring this to your attention to avoid unexpected behaviour.</p>';
 
-            $('<div>').html( _message ).dialog(
+            $('<div>').html(_message).dialog(
             {
                 title: 'Out of Stock Behaviour',
                 resizable: false,
@@ -467,32 +482,28 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         }
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._variation_out_of_stock_behaviour_change = function( obj )
+    this.variationOutOfStockBehaviourChange = function(obj)
     {
         //  Get parent
-        var _parent = obj.closest( '.variation' );
+        var _parent = obj.closest('.variation');
 
         //  Hide all fields
-        _parent.find( 'div.out-of-stock-behaviour-field' ).hide();
+        _parent.find('div.out-of-stock-behaviour-field').hide();
 
         //  Show the ones we're interested in
-        _parent.find( 'div.out-of-stock-behaviour-field.' + obj.val() ).show();
+        _parent.find('div.out-of-stock-behaviour-field.' + obj.val()).show();
     };
-
 
     // --------------------------------------------------------------------------
 
-
-    this._init_gallery = function()
+    this.initGallery = function()
     {
         var _this = this;
 
         //  Init uploadify
-        //  TODO: replace uploadify, it's lack of session support is killing me.
+        //  @todo: replace uploadify, it's lack of session support is killing me.
         //  Additionally, if CSRF is enabled, this won't work.
 
         $('#file_upload').uploadify({
@@ -505,7 +516,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
             'fileObjName': 'upload',
             'fileTypeExts': '*.gif; *.jpg; *.jpeg; *.png',
             'formData': {
-                'token': this.upload_token,
+                'token': this.uploadToken,
                 'bucket': 'shop-product-images',
                 'return': 'URL|THUMB|100x100,34x34'
             },
@@ -550,7 +561,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
             },
             'onQueueComplete': function() {
                 $('#product-form').off('submit');
-                _this._init_submit();
+                _this.initSubmit();
 
                 $('#product-form input[type=submit]').removeAttr('disabled').val($('#product-form input[type=submit]').data('old_val'));
                 window.onbeforeunload = null;
@@ -577,9 +588,9 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                 var _data;
                 try
                 {
-                    _data = JSON.parse( data );
+                    _data = JSON.parse(data);
                 }
-                catch( err )
+                catch(err)
                 {
                     _data = {};
                 }
@@ -642,7 +653,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                         _in.attr('name', 'variation[' + $(this).data('counter') + '][gallery][]');
 
                         $('ul.gallery-associations', this).removeClass('empty');
-                        _li.clone().insertBefore( $( 'ul.gallery-associations li.actions', this ) );
+                        _li.clone().insertBefore($('ul.gallery-associations li.actions', this));
                     });
 
                     //  Now update the template
@@ -650,7 +661,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
                     _in.attr('name', 'variation[{{counter}}][gallery][]');
                     $('ul.gallery-associations', _template).removeClass('empty');
-                    _li.clone().insertBefore( $( 'ul.gallery-associations li.actions', _template ) );
+                    _li.clone().insertBefore($('ul.gallery-associations li.actions', _template));
 
                     //  Replace the template
                     $('#template-variation').html($(_template).html());
@@ -735,14 +746,14 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                 });
 
                 //  Move the actions back to the end
-                $( 'ul.gallery-associations li.actions' ).each(function()
+                $('ul.gallery-associations li.actions').each(function()
                 {
                     var _parent = $(this).closest('ul.gallery-associations');
                     $(this).clone().appendTo(_parent);
                     $(this).remove();
                 });
 
-                $( 'ul.gallery-associations li.actions', _template ).each(function()
+                $('ul.gallery-associations li.actions', _template).each(function()
                 {
                     var _parent = $(this).closest('ul.gallery-associations');
                     $(this).clone().appendTo(_parent);
@@ -791,24 +802,24 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                 resizable: false,
                 draggable: false,
                 modal: true,
-                dialogClass: "no-close",
+                dialogClass: 'no-close',
                 buttons:
                 {
-                    "Delete Image": function()
+                    'Delete Image': function()
                     {
                         var _object_id = $(_object).data('object_id');
 
                         //  Send off the delete request
                         var _call = {
-                            'controller'    : 'cdn/object',
-                            'method'        : 'delete',
-                            'action'        : 'POST',
-                            'data'          :
+                            'controller' : 'cdn/object',
+                            'method'     : 'delete',
+                            'action'     : 'POST',
+                            'data'       :
                             {
                                 'object_id': _object_id
                             }
                         };
-                        _this._api.call( _call );
+                        _this.api.call(_call);
 
                         // --------------------------------------------------------------------------
 
@@ -836,10 +847,10 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                             }, 250);
 
                             //  Variations
-                            $( 'ul.gallery-associations' ).addClass( 'empty' );
+                            $('ul.gallery-associations').addClass('empty');
 
                             //  Template
-                            $('ul.gallery-associations', _template).addClass( 'empty' );
+                            $('ul.gallery-associations', _template).addClass('empty');
                         }
 
                         // --------------------------------------------------------------------------
@@ -852,7 +863,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                         //  Close dialog
                         $(this).dialog("close");
                     },
-                    Cancel: function()
+                    'Cancel': function()
                     {
                         $(this).dialog("close");
                     }
@@ -863,11 +874,9 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._init_attributes = function()
+    this.initAttributes = function()
     {
         $('#product-attribute-add').on('click', function()
         {
@@ -896,11 +905,9 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._init_select2 = function()
+    this.initSelect2 = function()
     {
         var _this = this;
 
@@ -938,7 +945,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
         //  Bind to select2 changes
         $(_target.types).change(function() {
-            _this.info_select2_type_change();
+            _this.infoSelect2TypeChange();
         });
 
         // --------------------------------------------------------------------------
@@ -950,7 +957,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                 width: '95%',
                 height: '95%',
                 beforeClose: function() {
-                    _this._rebuild_select2(_target.types);
+                    _this.rebuildSelect2(_target.types);
                 }
             });
             return false;
@@ -962,7 +969,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                 width: '95%',
                 height: '95%',
                 beforeClose: function() {
-                    _this._rebuild_select2(_target.brands);
+                    _this.rebuildSelect2(_target.brands);
                 }
             });
             return false;
@@ -974,7 +981,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                 width: '95%',
                 height: '95%',
                 beforeClose: function() {
-                    _this._rebuild_select2(_target.categories);
+                    _this.rebuildSelect2(_target.categories);
                 }
             });
             return false;
@@ -986,7 +993,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                 width: '95%',
                 height: '95%',
                 beforeClose: function() {
-                    _this._rebuild_select2(_target.tags);
+                    _this.rebuildSelect2(_target.tags);
                 }
             });
             return false;
@@ -998,7 +1005,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                 width: '95%',
                 height: '95%',
                 beforeClose: function() {
-                    _this._rebuild_select2(_target.tax_rates);
+                    _this.rebuildSelect2(_target.tax_rates);
                 }
             });
             return false;
@@ -1010,7 +1017,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                 width: '95%',
                 height: '95%',
                 beforeClose: function() {
-                    _this._rebuild_select2(_target.attributes, 'template-attribute');
+                    _this.rebuildSelect2(_target.attributes, 'template-attribute');
                 }
             });
             return false;
@@ -1022,7 +1029,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                 width: '95%',
                 height: '95%',
                 beforeClose: function() {
-                    _this._rebuild_select2(_target.ranges);
+                    _this.rebuildSelect2(_target.ranges);
                 }
             });
             return false;
@@ -1034,7 +1041,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                 width: '95%',
                 height: '95%',
                 beforeClose: function() {
-                    _this._rebuild_select2(_target.collections);
+                    _this.rebuildSelect2(_target.collections);
                 }
             });
             return false;
@@ -1042,15 +1049,15 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
         $(document).on('toggle', '.shipping-collection-only .toggle', function(e, active) {
 
-            if ( active === false )
+            if (active === false)
             {
-                $(this).closest( '.fieldset' ).find( '.shipping-driver-options' ).slideDown();
-                $(this).closest( '.fieldset' ).find( '.shipping-driver-options-hidden' ).slideUp();
+                $(this).closest('.fieldset').find('.shipping-driver-options').slideDown();
+                $(this).closest('.fieldset').find('.shipping-driver-options-hidden').slideUp();
             }
             else
             {
-                $(this).closest( '.fieldset' ).find( '.shipping-driver-options' ).slideUp();
-                $(this).closest( '.fieldset' ).find( '.shipping-driver-options-hidden' ).slideDown();
+                $(this).closest('.fieldset').find('.shipping-driver-options').slideUp();
+                $(this).closest('.fieldset').find('.shipping-driver-options-hidden').slideDown();
             }
 
             _nails.addStripes();
@@ -1059,27 +1066,25 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         // --------------------------------------------------------------------------
 
         //  Ensure all select2's are updated when their tab is shown
-        $( 'ul.tabs a:not(.disabled)' ).on( 'click', function()
+        $('ul.tabs a:not(.disabled)').on('click', function()
         {
             setTimeout(function()
             {
-                $(_target.types).trigger( 'change' );
-                $(_target.brands).trigger( 'change' );
-                $(_target.categories).trigger( 'change' );
-                $(_target.tags).trigger( 'change' );
-                $(_target.tax_rates).trigger( 'change' );
-                $(_target.attributes).trigger( 'change' );
-                $(_target.ranges).trigger( 'change' );
-                $(_target.collections).trigger( 'change' );
+                $(_target.types).trigger('change');
+                $(_target.brands).trigger('change');
+                $(_target.categories).trigger('change');
+                $(_target.tags).trigger('change');
+                $(_target.tax_rates).trigger('change');
+                $(_target.attributes).trigger('change');
+                $(_target.ranges).trigger('change');
+                $(_target.collections).trigger('change');
             }, 1);
         });
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._rebuild_select2 = function(target, template)
+    this.rebuildSelect2 = function(target, template)
     {
         var _DATA = $('.fancybox-iframe').get(0).contentWindow._DATA;
 
@@ -1135,11 +1140,11 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         });
 
         //  Rebuild template
-        if ( template )
+        if (template)
         {
             var _template = $('<div>').html($.parseHTML($.trim($('#' + template).html(), null, true)));
 
-            var _target = $( 'select', _template ).empty();
+            var _target = $('select', _template).empty();
 
             $.each(_DATA, function()
             {
@@ -1157,7 +1162,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
     // --------------------------------------------------------------------------
 
-    this._init_related = function()
+    this.initRelated = function()
     {
         $('#related-products')
         .select2({
@@ -1205,7 +1210,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                                 ids: ids
                             }
                         }
-                    ).done(function(data) {
+                   ).done(function(data) {
 
                         var results = [];
                         for (var i = 0; i < data.products.length; i++) {
@@ -1221,29 +1226,25 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._init_submit = function()
+    this.initSubmit = function()
     {
         var _this = this;
 
         $('#product-form').on('submit', function() {
-            return _this._submit();
+            return _this.submit();
         });
     };
 
-
     // --------------------------------------------------------------------------
 
-
-    this._submit = function()
+    this.submit = function()
     {
         //  Fetch the product and analyse the object tell the user what they did wrong
         //  remember to highlight tabs etc
 
-        //  TODO
+        //  @todo
 
         // --------------------------------------------------------------------------
 
