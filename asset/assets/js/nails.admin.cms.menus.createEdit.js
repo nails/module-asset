@@ -44,7 +44,7 @@ NAILS_Admin_CMS_Menus_Create_Edit = function(items)
             container = sortable.children('ol.nested-sortable').first();
 
             //  Build initial menu items
-            for (var key in items) { console.log(items[key]);
+            for (var key in items) {
 
                 html = Mustache.render(base.itemTemplate, items[key]);
 

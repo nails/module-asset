@@ -56,8 +56,6 @@ NAILS_Admin_Shop_Order_View = function()
         deliveryType     = orderElement.data('delivery-type');
         numCollectItems  = orderElement.data('num-collect-items');
 
-        console.log(fulfilmentStatus,deliveryType,numCollectItems);
-
         if (fulfilmentStatus === 'UNFULFILLED') {
 
             if (deliveryType === 'COLLECT') {

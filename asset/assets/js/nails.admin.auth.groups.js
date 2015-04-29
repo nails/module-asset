@@ -174,7 +174,6 @@ NAILS_Admin_Auth_Groups_Edit = function()
 
             searchMe = $.trim($(this).text());
             result   = regex.test(searchMe);
-            console.log(searchMe, result);
 
             if (result) {
 

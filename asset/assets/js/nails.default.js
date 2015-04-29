@@ -274,7 +274,6 @@ NAILS_JS = function()
         //  Look for tabs which contain error'd fields
         $('li.tab a').each(function(){
 
-            console.log('#' + $(this).data('tab') + ' div.field.error');
             if ($('#' + $(this).data('tab') + ' div.field.error').length)
             {
                 $(this).addClass('error');
