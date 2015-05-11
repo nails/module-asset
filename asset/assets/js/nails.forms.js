@@ -22,7 +22,7 @@ NAILS_Forms = function()
 
             if ($.fancybox.isOpen && $.fancybox.opts.type !== 'iframe')
             {
-                _href += '&reopenFancybox=' + encodeURIComponent($.fancybox.opts.href);
+                _href += '&reopenModal=' + encodeURIComponent($.fancybox.opts.href);
                 $.fancybox.close();
             }
 
@@ -114,7 +114,7 @@ NAILS_Forms = function()
 
             if ($.fancybox.isOpen && $.fancybox.opts.type !== 'iframe')
             {
-                _href += '&reopenFancybox=' + encodeURIComponent($.fancybox.opts.href);
+                _href += '&reopenModal=' + encodeURIComponent($.fancybox.opts.href);
                 $.fancybox.close();
             }
 

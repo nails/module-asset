@@ -1,14 +1,14 @@
 var NAILS_CDN_Manager;
 /**
  * The Nails CDN manager
- * @param  {string}   handler        The handler to use, either 'ckeditor' or 'native'
- * @param  {array}    callback       The callback to use when handler is native. First element is the class name, second the method name
- * @param  {mixed}    passback       Any JSON encoded data to pass back to the callback
- * @param  {Object}   urlSchemes     The URL Schemes
+ * @param  {string}   handler     The handler to use, either 'ckeditor' or 'native'
+ * @param  {array}    callback    The callback to use when handler is native. First element is the class name, second the method name
+ * @param  {mixed}    passback    Any JSON encoded data to pass back to the callback
+ * @param  {Object}   urlSchemes  The URL Schemes
  * @param  {Boolean}  isModal     Whether this manager is being shown in a fancybox or not
- * @param  {Boolean}  reopenFancybox Whether to reopen the fancybox after closing
+ * @param  {Boolean}  reopenModal Whether to reopen the fancybox after closing
  */
-NAILS_CDN_Manager =  function(handler, callback, passback, urlSchemes, isModal, reopenFancybox) {
+NAILS_CDN_Manager = function(handler, callback, passback, urlSchemes, isModal, reopenModal) {
 
     /**
      * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
@@ -18,12 +18,12 @@ NAILS_CDN_Manager =  function(handler, callback, passback, urlSchemes, isModal, 
 
     // --------------------------------------------------------------------------
 
-    base.handler        = handler;
-    base.callback       = callback;
-    base.passback       = passback;
-    base.urlSchemes     = urlSchemes;
+    base.handler     = handler;
+    base.callback    = callback;
+    base.passback    = passback;
+    base.urlSchemes  = urlSchemes;
     base.isModal     = isModal;
-    base.reopenFancybox = reopenFancybox;
+    base.reopenModal = reopenModal;
 
     // --------------------------------------------------------------------------
 
@@ -219,32 +219,30 @@ NAILS_CDN_Manager =  function(handler, callback, passback, urlSchemes, isModal, 
      */
     base.initInsert = function()
     {
-        $('a.insert').on('click', function()
-        {
+        $('a.insert').on('click', function() {
+
             var file     = $(this).attr('data-file');
             var objectId = $(this).attr('data-id');
             var bucket   = $(this).attr('data-bucket');
 
-            if (base.handler === 'ckeditor')
-            {
+            if (base.handler === 'ckeditor') {
+
                 base.insertCkeditor(bucket, file, objectId);
-            }
-            else
-            {
+            
+            } else {
+                
                 base.insertNative(bucket, file, objectId);
             }
 
             //  Close window
-            if (base.isModal)
-            {
+            if (base.isModal) {
+
                 parent.$.fancybox.close();
-            }
-            else
-            {
+            
+            } else {
+
                 window.close();
             }
-
-            // --------------------------------------------------------------------------
 
             return false;
         });
@@ -300,12 +298,12 @@ NAILS_CDN_Manager =  function(handler, callback, passback, urlSchemes, isModal, 
         if (this.isModal)
         {
             window.parent[this.callback[0]][this.callback[1]]
-                .call(null, bucket, file, objectId, this.reopenFancybox, base.passback);
+                .call(null, bucket, file, objectId, this.reopenModal, base.passback);
         }
         else
         {
             window.opener[this.callback[0]][this.callback[1]]
-                .call(null, bucket, file, objectId, this.reopenFancybox, base.passback);
+                .call(null, bucket, file, objectId, this.reopenModal, base.passback);
         }
     };
 
