@@ -923,6 +923,9 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         _target.brands          = '#tab-basics select.brands';
         _url.brands             = window.SITE_URL + 'admin/shop/manage/brand?isModal=1';
 
+        _target.suppliers       = '#tab-basics select.suppliers';
+        _url.suppliers          = window.SITE_URL + 'admin/shop/manage/supplier?isModal=1';
+
         _target.categories      = '#tab-basics select.categories';
         _url.categories         = window.SITE_URL + 'admin/shop/manage/category?isModal=1';
 
@@ -970,6 +973,18 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                 height: '95%',
                 beforeClose: function() {
                     _this.rebuildSelect2(_target.brands);
+                }
+            });
+            return false;
+        });
+
+        $(document).on('click', 'a.manage-suppliers', function() {
+            $.fancybox.open(_url.suppliers, {
+                type: 'iframe',
+                width: '95%',
+                height: '95%',
+                beforeClose: function() {
+                    _this.rebuildSelect2(_target.suppliers);
                 }
             });
             return false;
@@ -1072,6 +1087,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
             {
                 $(_target.types).trigger('change');
                 $(_target.brands).trigger('change');
+                $(_target.suppliers).trigger('change');
                 $(_target.categories).trigger('change');
                 $(_target.tags).trigger('change');
                 $(_target.tax_rates).trigger('change');
