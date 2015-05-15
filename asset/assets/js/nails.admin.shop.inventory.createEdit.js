@@ -23,6 +23,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
         //  Init everything!
         this.initInfo();
+        this.initGoogleCategories();
         this.initMeta();
         this.initVariations();
         this.initGallery();
@@ -1238,6 +1239,41 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                         callback(results);
                     });
                 }
+            }
+        });
+    };
+
+    // --------------------------------------------------------------------------
+
+    this.initGoogleCategories = function()
+    {
+        $('#google-category')
+        .select2({
+            placeholder: 'Search for a category',
+            minimumInputLength: 3,
+            multiple: false,
+            ajax: {
+                url: window.SITE_URL + 'api/shop/feed/searchGoogleCategories',
+                dataType: 'json',
+                quietMillis: 250,
+                data: function (term) {
+
+                    return {
+                        keywords: term,
+                    };
+                },
+                results: function (data) {
+
+                    var results = [];
+                    for (var i = 0; i < data.results.length; i++) {
+                        results.push({
+                            id: data.results[i],
+                            text: data.results[i],
+                        });
+                    }
+                    return { results: results };
+                },
+                cache: true
             }
         });
     };
