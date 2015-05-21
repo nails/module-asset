@@ -1274,6 +1274,14 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                     return { results: results };
                 },
                 cache: true
+            },
+            initSelection: function(element, callback) {
+
+                var results = {
+                    id: element.val(),
+                    text: element.val()
+                };
+                callback(results);
             }
         });
     };
