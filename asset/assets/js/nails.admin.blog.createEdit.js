@@ -8,7 +8,7 @@ NAILS_Admin_Blog_Create_Edit = function()
     // --------------------------------------------------------------------------
 
 
-    this.init = function( blog_id, upload_token )
+    this.init = function(blog_id, upload_token)
     {
         //  Set vars
         this.blog_id        = blog_id;
@@ -22,11 +22,23 @@ NAILS_Admin_Blog_Create_Edit = function()
         // --------------------------------------------------------------------------
 
         //  Init everything!
+        this.initTabs();
         this._init_publish_date();
         this._init_select2();
         this._init_gallery();
         this._init_submit();
         this._init_preview();
+    };
+
+    // --------------------------------------------------------------------------
+
+    this.initTabs = function()
+    {
+        $('ul.tabs a').on('click', function()
+        {
+            var tab = $(this).data('tab');
+            $('#activeTab').val(tab);
+        });
     };
 
 
@@ -37,12 +49,12 @@ NAILS_Admin_Blog_Create_Edit = function()
     {
         var _this = this;
 
-        $( '#is-published' ).on( 'change', function()
+        $('#is-published').on('change', function()
         {
             _this._publish_change();
         });
 
-        $( '#is-published' ).closest( 'div.field' ).on( 'toggle', function()
+        $('#is-published').closest('div.field').on('toggle', function()
         {
             _this._publish_change();
         });
@@ -56,16 +68,16 @@ NAILS_Admin_Blog_Create_Edit = function()
 
     this._publish_change = function()
     {
-        var _published = $( '#is-published' ).is( ':checked' );
+        var _published = $('#is-published').is(':checked');
 
-        if ( _published )
+        if (_published)
         {
-            $( '#publish-date' ).show();
+            $('#publish-date').show();
 
             //  If it's empty set it to now
-            var _publish_date = $.trim( $( '#publish-date input.datetime' ).val() );
+            var _publish_date = $.trim($('#publish-date input.datetime').val());
 
-            if ( _publish_date.length <= 0 )
+            if (_publish_date.length <= 0)
             {
                 var _date   = new Date();
                 var _year   = _date.getFullYear();
@@ -76,39 +88,39 @@ NAILS_Admin_Blog_Create_Edit = function()
                 var _second = _date.getSeconds();
 
                 //  Pad strings
-                if ( _month.toString().length === 1 )
+                if (_month.toString().length === 1)
                 {
                     _month = '0' + _month;
                 }
 
-                if ( _day.toString().length === 1 )
+                if (_day.toString().length === 1)
                 {
                     _day = '0' + _day;
                 }
 
-                if ( _hour.toString().length === 1 )
+                if (_hour.toString().length === 1)
                 {
                     _hour = '0' + _hour;
                 }
 
-                if ( _minute.toString().length === 1 )
+                if (_minute.toString().length === 1)
                 {
                     _minute = '0' + _minute;
                 }
 
-                if ( _second.toString().length === 1 )
+                if (_second.toString().length === 1)
                 {
                     _second = '0' + _second;
                 }
 
                 var _compiled = _year + '-' + _month + '-' + _day + ' ' + _hour + ':' + _minute + ':' + _second;
 
-                $( '#publish-date input.datetime' ).val( _compiled );
+                $('#publish-date input.datetime').val(_compiled);
             }
         }
         else
         {
-            $( '#publish-date' ).hide();
+            $('#publish-date').hide();
         }
     };
 
@@ -163,12 +175,12 @@ NAILS_Admin_Blog_Create_Edit = function()
         // --------------------------------------------------------------------------
 
         //  Ensure all select2s are updated when their tab is shown
-        $( 'ul.tabs a:not(.disabled)' ).on( 'click', function()
+        $('ul.tabs a:not(.disabled)').on('click', function()
         {
             setTimeout(function()
             {
-                $(_target.categories).trigger( 'change' );
-                $(_target.tags).trigger( 'change' );
+                $(_target.categories).trigger('change');
+                $(_target.tags).trigger('change');
             }, 1);
         });
     };
@@ -268,6 +280,23 @@ NAILS_Admin_Blog_Create_Edit = function()
                 }
             },
             'onUploadStart': function() {
+
+                //  Prevent submits
+                $('#post-form').off('submit');
+                $('#post-form').on('submit', function() {
+                    return false;
+                });
+
+                //  Destroy CKEditor instance
+                if (typeof(CKEDITOR.instances.post_body) !== 'undefined'){
+
+                    CKEDITOR.instances.post_body.destroy();
+                }
+                if (typeof(CKEDITOR.instances.post_excerpt) !== 'undefined'){
+
+                    CKEDITOR.instances.post_excerpt.destroy();
+                }
+
                 var _uploading_string = 'Uploading...';
                 var _button_val = $('#post-form input[type=submit]').val();
                 window.onbeforeunload = function() {
@@ -295,6 +324,22 @@ NAILS_Admin_Blog_Create_Edit = function()
                 //  Enable tabs - SWFUpload aborts uploads if it is hidden.
                 $('ul.tabs li a').removeClass('disabled');
                 $('#upload-message').hide();
+
+                //  Reinit description wysiwyg's
+                if (typeof(CKEDITOR.instances.post_body) === 'undefined'){
+
+                    $('#post_body').ckeditor(
+                    {
+                        customConfig: window.NAILS.URL + 'js/ckeditor.config.default.min.js'
+                    });
+                }
+                if (typeof(CKEDITOR.instances.post_excerpt) === 'undefined'){
+
+                    $('#post_excerpt').ckeditor(
+                    {
+                        customConfig: window.NAILS.URL + 'js/ckeditor.config.basic.min.js'
+                    });
+                }
             },
             'onUploadProgress': function(file, bytesUploaded, bytesTotal) {
                 var _percent = bytesUploaded / bytesTotal * 100;
@@ -305,9 +350,9 @@ NAILS_Admin_Blog_Create_Edit = function()
                 var _data;
                 try
                 {
-                    _data = JSON.parse( data );
+                    _data = JSON.parse(data);
                 }
-                catch( err )
+                catch(err)
                 {
                     _data = {};
                 }
@@ -370,7 +415,7 @@ NAILS_Admin_Blog_Create_Edit = function()
                         _in.attr('name', 'variation[' + $(this).data('counter') + '][gallery][]');
 
                         $('ul.gallery-associations', this).removeClass('empty');
-                        _li.clone().insertBefore( $( 'ul.gallery-associations li.actions', this ) );
+                        _li.clone().insertBefore($('ul.gallery-associations li.actions', this));
                     });
 
                     //  Now update the template
@@ -378,7 +423,7 @@ NAILS_Admin_Blog_Create_Edit = function()
 
                     _in.attr('name', 'variation[{{counter}}][gallery][]');
                     $('ul.gallery-associations', _template).removeClass('empty');
-                    _li.clone().insertBefore( $( 'ul.gallery-associations li.actions', _template ) );
+                    _li.clone().insertBefore($('ul.gallery-associations li.actions', _template));
 
                     //  Replace the template
                     $('#template-variation').html($(_template).html());
@@ -470,7 +515,7 @@ NAILS_Admin_Blog_Create_Edit = function()
                                 'object_id': _object_id
                             }
                         };
-                        _this._api.call( _call );
+                        _this._api.call(_call);
 
                         // --------------------------------------------------------------------------
 
@@ -498,10 +543,10 @@ NAILS_Admin_Blog_Create_Edit = function()
                             }, 250);
 
                             //  Variations
-                            $( 'ul.gallery-associations' ).addClass( 'empty' );
+                            $('ul.gallery-associations').addClass('empty');
 
                             //  Template
-                            $('ul.gallery-associations', _template).addClass( 'empty' );
+                            $('ul.gallery-associations', _template).addClass('empty');
                         }
 
                         // --------------------------------------------------------------------------
@@ -530,7 +575,7 @@ NAILS_Admin_Blog_Create_Edit = function()
 
     this._init_submit = function()
     {
-        $( '#post-form' ).on( 'submit', $.proxy(function(){ return this._submit(); }, this ) );
+        $('#post-form').on('submit', $.proxy(function(){ return this._submit(); }, this));
     };
 
 
@@ -539,15 +584,15 @@ NAILS_Admin_Blog_Create_Edit = function()
 
     this._submit = function()
     {
-        var _form   = $( '#post-form' );
+        var _form   = $('#post-form');
         var _errors = 0;
 
         // --------------------------------------------------------------------------
 
         //  Reset everything
-        $( 'ul.tabs li a.error,div.field.error' ).removeClass( 'error' );
-        $( 'div.field.error span.error' ).remove();
-        $( '#body-error' ).hide();
+        $('ul.tabs li a.error,div.field.error').removeClass('error');
+        $('div.field.error span.error').remove();
+        $('#body-error').hide();
 
         // --------------------------------------------------------------------------
 
@@ -560,19 +605,21 @@ NAILS_Admin_Blog_Create_Edit = function()
         // --------------------------------------------------------------------------
 
         //  Title
-        if ( ! $( 'input[name=title]', _form ).val().length )
+        $('#tabber-meta').removeClass('error');
+        $('input[name=title]', _form).closest('div.field').removeClass('error');
+        $('input[name=title]', _form).closest('div.field').find('span.error').remove();
+        if (!$('input[name=title]', _form).val().length)
         {
             _errors++;
 
-            $( '#tabber-meta' ).addClass( 'error' );
-            $( 'input[name=title]', _form ).closest( 'div.field' ).addClass( 'error' );
-            $( 'input[name=title]', _form ).closest( 'div.field' ).find( 'span.input' ).append( msg.required );
-
+            $('#tabber-meta').addClass('error');
+            $('input[name=title]', _form).closest('div.field').addClass('error');
+            $('input[name=title]', _form).closest('div.field').find('span.input').append(msg.required);
         }
 
         //  Body
         var _body_length;
-        if ( typeof(CKEDITOR) === 'object' )
+        if (typeof(CKEDITOR) === 'object')
         {
             //  CKEDITOR is available, use it's methods
             _body_length = CKEDITOR.instances.post_body.getData().length;
@@ -580,25 +627,26 @@ NAILS_Admin_Blog_Create_Edit = function()
         else
         {
             //  CKEDITOR isn't available, check the value of the textarea
-            _body_length = $( 'textarea[name=body]', _form ).val().length;
-
+            _body_length = $('textarea[name=body]', _form).val().length;
         }
 
-        if ( ! _body_length )
+        $('#tabber-body').removeClass('error');
+        $('textarea[name=body]', _form).closest('div.field').removeClass('error');
+        $('textarea[name=body]', _form).closest('div.field').find('span.error').remove();
+        if (!_body_length)
         {
             _errors++;
 
-            $( '#tabber-body' ).addClass( 'error' );
-            $( 'textarea[name=body]', _form ).closest( 'div.field' ).addClass( 'error' );
-            $( 'textarea[name=body]', _form ).closest( 'div.field' ).find( 'span.input' ).append( msg.required );
-
+            $('#tabber-body').addClass('error');
+            $('textarea[name=body]', _form).closest('div.field').addClass('error');
+            $('textarea[name=body]', _form).closest('div.field').find('span.input').append(msg.required);
         }
 
-        if ( _errors )
+        if (_errors)
         {
 
             //  Tab to the first error'd view
-            $( 'ul.tabs a.error' ).first().click();
+            $('ul.tabs a.error').first().click();
 
             return false;
         }

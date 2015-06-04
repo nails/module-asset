@@ -22,6 +22,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         // --------------------------------------------------------------------------
 
         //  Init everything!
+        this.initTabs();
         this.initInfo();
         this.initGoogleCategories();
         this.initMeta();
@@ -31,6 +32,17 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         this.initSelect2();
         this.initRelated();
         this.initSubmit();
+    };
+
+    // --------------------------------------------------------------------------
+
+    this.initTabs = function()
+    {
+        $('ul.tabs[data-tabgroup="main-product"] a').on('click', function()
+        {
+            var tab = $(this).data('tab');
+            $('#activeTab').val(tab);
+        });
     };
 
     // --------------------------------------------------------------------------
@@ -46,7 +58,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
     this.infoSelect2TypeChange = function()
     {
         //  Make sure the appropriate meta fields are being displayed
-        var _type_id = parseInt($('#tab-basics .type_id:input').val(), 10);
+        var _type_id = parseInt($('.tab-basics .type_id:input').val(), 10);
 
         //  We'll be updating the template, so fetch it now
         var _template = $('<div>').html($.parseHTML($.trim($('#template-variation').html(), null, true)));
@@ -167,8 +179,12 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
             _this.variationsCheckMax();
             _this.variationMetaMultiple();
 
-            //  Show the price syncher
+            //  Show the price and shipping synchers
             $('#product-variations .variation:first-of-type .variation-sync-prices').show();
+            $('#product-variations .variation:first-of-type .variation-sync-shipping').show();
+
+            //  Init any wysiwyg editors (possibly in shipping driver as additional options)
+            //  @todo
 
             return false;
         });
@@ -219,14 +235,17 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                                 //  Check the max variations
                                 _this.variationsCheckMax();
 
-                                //  Ensure only the first variation has the price syncer
+                                //  Ensure only the first variation has the price and shipping syncer
                                 $('.variation-sync-prices').hide();
+                                $('.variation-sync-shipping').hide();
                                 $('#product-variations .variation:first-of-type .variation-sync-prices').show();
+                                $('#product-variations .variation:first-of-type .variation-sync-shipping').show();
 
                                 //  If there's only one variation left then hide the price syncher
                                 if ($('#product-variations .variation').length <= 1)
                                 {
                                     $('.variation-sync-prices').hide();
+                                    $('.variation-sync-shipping').hide();
                                 }
                             });
                         },
@@ -340,13 +359,13 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         });
 
         //  Sync prices
-        $(document).on('click', '.variation-sync-prices a', function()
-        {
+        $(document).on('click', '.variation-sync-prices a', function() {
+
             var title, message;
 
             title    = 'Confirm Price Sync';
-            message  = 'This action will take the values form the <strong>first</strong> variation and ';
-            message += '<strong>overwrite</strong> the corresponding values in each other variations.';
+            message  = 'This action will take the pricing values form the <strong>first</strong> variation and ';
+            message += '<strong>overwrite</strong> the corresponding values in each other variation.';
             $('<div>').html(message).dialog(
             {
                 title: title,
@@ -390,6 +409,163 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
             return false;
         });
 
+        //  Sync shipping
+        $(document).on('click', '.variation-sync-shipping a', function() {
+
+            var title, message;
+
+            title    = 'Confirm Shipping Detail Sync';
+            message  = 'This action will take the shipping values form the <strong>first</strong> variation and ';
+            message += '<strong>overwrite</strong> the corresponding values in each other variation.';
+            $('<div>').html(message).dialog(
+            {
+                title: title,
+                resizable: false,
+                draggable: false,
+                modal: true,
+                dialogClass: 'no-close',
+                buttons:
+                {
+                    'OK': function()
+                    {
+                        //  Get the values from the first item
+                        var firstShippingTab = $('#product-variations .variation:first-of-type .tab-variation-shipping');
+                        var otherShippingTab = $('#product-variations .variation:not(:first-of-type) .tab-variation-shipping');
+                        var collectOnly      = firstShippingTab.find('.field-collection-only').is(':checked');
+                        var validFields      = ['input','textarea','select'];
+                        var validFieldsStr   = validFields.join('.driver-option,') + '.driver-option';
+                        var otherFields      = [];
+
+                        //  Get values of first tab
+                        firstShippingTab.find(validFieldsStr).each(function(index, elem) {
+
+                            var fieldData = {
+                                'value': null,
+                                'checked': null,
+                                'children': []
+                            };
+
+                            switch (elem.nodeName) {
+
+                                case 'INPUT':
+                                case 'TEXTAREA':
+
+                                    if ($(this).attr('type') === 'checkbox') {
+
+                                        fieldData.checked = $(this).prop('checked');
+
+                                    } else {
+
+                                        fieldData.value = $(this).val();
+                                    }
+                                    break;
+
+                                case 'SELECT':
+
+                                    //  Find options and note their selected state
+                                    $('option', elem).each(function(   ) {
+
+                                        fieldData.children.push({
+                                            'selected': $(this).prop('selected')
+                                        });
+                                    });
+                                    break;
+                            }
+
+                            otherFields.push(fieldData);
+                        });
+
+                        //  Set values of other items
+                        otherShippingTab.find(validFieldsStr).each(function(index, elem) {
+
+                            switch (elem.nodeName) {
+
+                                case 'INPUT':
+                                case 'TEXTAREA':
+
+                                    if ($(this).attr('type') === 'checkbox') {
+
+                                        if ($(this).data('is-boolean-field')) {
+
+                                            /**
+                                             * Need to update via the jQuery toggles methods in order for
+                                             * the UI to reflect the checkbox's state.
+                                             */
+
+                                            $(this)
+                                                .siblings('.toggle')
+                                                .first()
+                                                .data('toggles')
+                                                .toggle(otherFields[index].checked);
+
+                                        } else {
+
+                                            $(this).prop('checked', otherFields[index].checked);
+                                        }
+
+                                    } else {
+
+                                        $(this).val(otherFields[index].value);
+                                    }
+                                    break;
+
+                                case 'SELECT':
+
+                                    //  Find options and set their selected state
+                                    $('option', elem).each(function(optionIndex) {
+
+                                        $(this).prop('selected', otherFields[index].children[optionIndex].selected);
+                                    });
+
+                                    $(this).trigger('change');
+                                    break;
+                            }
+                        });
+
+                        //  If collection only then ensure that the values are hidden
+                        $('#product-variations .variation .tab-variation-shipping').each(function(index) {
+
+                            //  Ignore the first one, it's the source
+                            if (index !== 0) {
+
+                                if (collectOnly) {
+
+                                    $('.field-collection-only', this)
+                                        .siblings('.toggle')
+                                        .first()
+                                        .data('toggles')
+                                        .toggle(true);
+
+                                    $('.shipping-driver-options', this).hide();
+                                    $('.shipping-driver-options-hidden', this).show();
+
+                                } else {
+
+                                    $('.field-collection-only', this)
+                                        .siblings('.toggle')
+                                        .first()
+                                        .data('toggles')
+                                        .toggle(false);
+
+                                    $('.shipping-driver-options', this).show();
+                                    $('.shipping-driver-options-hidden', this).hide();
+                                }
+                            }
+                        });
+
+                        //  Close dialog
+                        $(this).dialog('close');
+                    },
+                    'Cancel': function()
+                    {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+
+            return false;
+        });
+
         // --------------------------------------------------------------------------
 
         //  Set the initial number of variations (they are zero-indexed)
@@ -409,7 +585,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
     this.variationsCheckMax = function()
     {
-        var _type_id = $('#tab-basics select[name=type_id]').val();
+        var _type_id = $('.tab-basics select[name=type_id]').val();
         var max_variations = 0; //  Unlimited, by default
 
         for (var _key in this.productTypes) {
@@ -697,7 +873,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         // --------------------------------------------------------------------------
 
         //  Switch to variations tab (when there are no gallery associations)
-        $('#tab-gallery').on('click', 'a.switch-to-variations', function()
+        $('.tab-gallery').on('click', 'a.switch-to-variations', function()
         {
             $('#tabber-variations').click();
 
@@ -918,32 +1094,32 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
         var _target = {};
         var _url    = {};
 
-        _target.types           = '#tab-basics select.type_id';
-        _url.types              = window.SITE_URL + 'admin/shop/manage/productType?isModal=1';
+        _target.types      = '.tab-basics select.type_id';
+        _url.types         = window.SITE_URL + 'admin/shop/manage/productType?isModal=1';
 
-        _target.brands          = '#tab-basics select.brands';
-        _url.brands             = window.SITE_URL + 'admin/shop/manage/brand?isModal=1';
+        _target.brands     = '.tab-basics select.brands';
+        _url.brands        = window.SITE_URL + 'admin/shop/manage/brand?isModal=1';
 
-        _target.suppliers       = '#tab-basics select.suppliers';
-        _url.suppliers          = window.SITE_URL + 'admin/shop/manage/supplier?isModal=1';
+        _target.suppliers  = '.tab-basics select.suppliers';
+        _url.suppliers     = window.SITE_URL + 'admin/shop/manage/supplier?isModal=1';
 
-        _target.categories      = '#tab-basics select.categories';
-        _url.categories         = window.SITE_URL + 'admin/shop/manage/category?isModal=1';
+        _target.categories = '.tab-basics select.categories';
+        _url.categories    = window.SITE_URL + 'admin/shop/manage/category?isModal=1';
 
-        _target.tags            = '#tab-basics select.tags';
-        _url.tags               = window.SITE_URL + 'admin/shop/manage/tag?isModal=1';
+        _target.tags       = '.tab-basics select.tags';
+        _url.tags          = window.SITE_URL + 'admin/shop/manage/tag?isModal=1';
 
-        _target.tax_rates       = '#tab-basics select.tax_rate_id';
-        _url.tax_rates          = window.SITE_URL + 'admin/shop/manage/taxRate?isModal=1';
+        _target.tax_rates  = '.tab-basics select.tax_rate_id';
+        _url.tax_rates     = window.SITE_URL + 'admin/shop/manage/taxRate?isModal=1';
 
-        _target.attributes      = '#tab-attributes select.attributes';
-        _url.attributes         = window.SITE_URL + 'admin/shop/manage/attribute?isModal=1';
+        _target.attributes = '.tab-attributes select.attributes';
+        _url.attributes    = window.SITE_URL + 'admin/shop/manage/attribute?isModal=1';
 
-        _target.ranges          = '#tab-ranges-collections select.ranges';
-        _url.ranges             = window.SITE_URL + 'admin/shop/manage/range?isModal=1';
+        _target.ranges     = '.tab-ranges-collections select.ranges';
+        _url.ranges        = window.SITE_URL + 'admin/shop/manage/range?isModal=1';
 
-        _target.collections     = '#tab-ranges-collections select.collections';
-        _url.collections        = window.SITE_URL + 'admin/shop/manage/collection?isModal=1';
+        _target.collections= '.tab-ranges-collections select.collections';
+        _url.collections   = window.SITE_URL + 'admin/shop/manage/collection?isModal=1';
 
         // --------------------------------------------------------------------------
 
@@ -1067,13 +1243,13 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
 
             if (active === false)
             {
-                $(this).closest('.fieldset').find('.shipping-driver-options').slideDown();
-                $(this).closest('.fieldset').find('.shipping-driver-options-hidden').slideUp();
+                $(this).closest('.fieldset').find('.shipping-driver-options').show();
+                $(this).closest('.fieldset').find('.shipping-driver-options-hidden').hide();
             }
             else
             {
-                $(this).closest('.fieldset').find('.shipping-driver-options').slideUp();
-                $(this).closest('.fieldset').find('.shipping-driver-options-hidden').slideDown();
+                $(this).closest('.fieldset').find('.shipping-driver-options').hide();
+                $(this).closest('.fieldset').find('.shipping-driver-options-hidden').show();
             }
 
             _nails.addStripes();

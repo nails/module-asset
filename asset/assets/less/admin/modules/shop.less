@@ -131,21 +131,20 @@
                 }
             }
 
-            .tab
+            section.tabs
             {
-                &.page
+                .tab-page
                 {
                     table
                     {
                         margin-bottom:1em;
                     }
 
-                    &.variations
+                    &.tab-variations
                     {
                         .variation
                         {
                             position:relative;
-
                             .not-applicable
                             {
                                 position:absolute;
@@ -168,43 +167,6 @@
                                     margin-bottom:1em;
                                 }
                             }
-
-                            table.pricing-options
-                            {
-                                th.currency,
-                                td.currency
-                                {
-                                    text-align: center;
-                                    width:50px;
-                                }
-
-                                td.price,
-                                td.price-sale
-                                {
-                                    position:relative;
-                                    text-align:left;
-
-                                    input
-                                    {
-                                        width:100%;
-                                        box-sizing: border-box;
-                                    }
-
-                                    span.error
-                                    {
-                                        border: 1px solid #B52130;
-                                        padding: 2px 7px;
-                                        -webkit-border-radius: 3px;
-                                        -moz-border-radius: 3px;
-                                        border-radius: 3px;
-                                        background: #B52130;
-                                        color: #FFF;
-                                        margin-top: 4px;
-                                        display:inline-block;
-                                    }
-                                }
-                            }
-
                             &.not-applicable
                             {
                                 .not-applicable
@@ -212,75 +174,127 @@
                                     display:block;
                                 }
                             }
-                        }
+                            div.tab-variation-details {
 
-                        ul.gallery-associations
-                        {
-                            li
-                            {
-                                margin:0;
+                            }
+                            div.tab-variation-meta {
 
-                                &.image
+                            }
+                            div.tab-variation-pricing {
+
+                                table.pricing-options
                                 {
-                                    display:inline-block;
-                                    width:32px;
-                                    height:32px;
-                                    border:1px solid #ccc;
-                                    .rounded(3px);
-                                    .opacity(0.3);
-                                    background:url(../img/loader/20px-TRANS.gif) center no-repeat;
-                                    cursor:pointer;
-                                    margin-right:3px;
-                                    overflow:hidden;
-
-                                    img
+                                    th.currency,
+                                    td.currency
                                     {
-
+                                        text-align: center;
+                                        width:50px;
                                     }
 
-                                    input
+                                    td.price,
+                                    td.price-sale
                                     {
-                                        display:none;
+                                        position:relative;
+                                        text-align:left;
+
+                                        input
+                                        {
+                                            width:100%;
+                                            box-sizing: border-box;
+                                        }
+
+                                        span.error
+                                        {
+                                            border: 1px solid #B52130;
+                                            padding: 2px 7px;
+                                            -webkit-border-radius: 3px;
+                                            -moz-border-radius: 3px;
+                                            border-radius: 3px;
+                                            background: #B52130;
+                                            color: #FFF;
+                                            margin-top: 4px;
+                                            display:inline-block;
+                                        }
                                     }
-                                }
-
-                                &.selected
-                                {
-                                    .opacity(1);
-                                }
-
-                                &.empty
-                                {
-                                    display: none;
-                                }
-
-                                &.actions
-                                {
-                                    display:block;
-                                    border-top:1px solid #eee;
-                                    margin-top:5px;
-                                    padding-top:15px;
                                 }
                             }
-
-                            &.empty
-                            {
-                                li
+                            div.tab-variation-gallery {
+                                ul.gallery-associations
                                 {
+                                    li
+                                    {
+                                        margin:0;
+
+                                        &.image
+                                        {
+                                            display:inline-block;
+                                            width:32px;
+                                            height:32px;
+                                            border:1px solid #ccc;
+                                            .rounded(3px);
+                                            .opacity(0.3);
+                                            background:url(../img/loader/20px-TRANS.gif) center no-repeat;
+                                            cursor:pointer;
+                                            margin-right:3px;
+                                            overflow:hidden;
+
+                                            img
+                                            {
+
+                                            }
+
+                                            input
+                                            {
+                                                display:none;
+                                            }
+                                        }
+
+                                        &.selected
+                                        {
+                                            .opacity(1);
+                                        }
+
+                                        &.empty
+                                        {
+                                            display: none;
+                                        }
+
+                                        &.actions
+                                        {
+                                            display:block;
+                                            border-top:1px solid #eee;
+                                            margin-top:5px;
+                                            padding-top:15px;
+                                        }
+                                    }
+
                                     &.empty
                                     {
-                                        display:block;
-                                        color:#CCC;
-                                        padding:20px 0px;
-                                    }
-                                    &.actions
-                                    {
-                                        display:none;
+                                        li
+                                        {
+                                            &.empty
+                                            {
+                                                display:block;
+                                                color:#CCC;
+                                                padding:20px 0px;
+                                            }
+                                            &.actions
+                                            {
+                                                display:none;
+                                            }
+                                        }
                                     }
                                 }
                             }
+                            div.tab-variation-shipping {
+                                .shipping-driver-options-hidden {
+                                    margin-bottom: 1em;
+                                }
+                                .variation-sync-shipping {
+                                    margin-top: 1em;
+                                }
+                            }
                         }
-
                         div.add-variation-button
                         {
                             &.enabled
@@ -319,7 +333,7 @@
                         }
                     }
 
-                    &.gallery
+                    &.tab-gallery
                     {
                         small
                         {
@@ -507,7 +521,7 @@
                         }
                     }
 
-                    &.attributes
+                    &.tab-attributes
                     {
                         table
                         {

@@ -274,17 +274,17 @@ NAILS_JS = function()
         //  Look for tabs which contain error'd fields
         $('li.tab a').each(function(){
 
-            if ($('#' + $(this).data('tab') + ' div.field.error').length)
+            if ($($(this).data('tab') + ' div.field.error').length)
             {
                 $(this).addClass('error');
             }
 
-            if ($('#' + $(this).data('tab') + ' .system-alert.error').length)
+            if ($($(this).data('tab') + ' .system-alert.error').length)
             {
                 $(this).addClass('error');
             }
 
-            if ($('#' + $(this).data('tab') + ' .error.show-in-tabs').length)
+            if ($($(this).data('tab') + ' .error.show-in-tabs').length)
             {
                 $(this).addClass('error');
             }
@@ -301,20 +301,42 @@ NAILS_JS = function()
     base.switchToTab = function(tab)
     {
         //  Tab group
-        var tabs     = tab.parents('ul.tabs');
-        var tabGroup = tab.parents('ul.tabs').data('tabgroup');
-        tabGroup     = tabGroup ? '.' + tabGroup : '';
+        var selectedTab = tab.data('tab');
+        var tabGroup    = tab.parents('ul.tabs').data('tabgroup');
 
         //  Switch tab
-        $('li.tab', tabs).removeClass('active');
-        tab.parent().addClass('active');
+        if (tabGroup) {
 
-        // --------------------------------------------------------------------------
+            //  Find all tab groups and set the appropriate tab as the active one
 
-        //  Show results
-        var newTab = tab.attr('data-tab');
-        $('section.tabs' + tabGroup + ' > div.tab.page').removeClass('active');
-        $('#' + newTab).addClass('active');
+            //  Mark the appropriate tab as active
+            $('ul.tabs[data-tabgroup="' + tabGroup + '"] > li.tab')
+            .removeClass('active');
+
+            $('ul.tabs[data-tabgroup="' + tabGroup + '"] > li.tab > a[data-tab="' + selectedTab + '"]')
+            .parent()
+            .addClass('active');
+
+            //  Show the appropriate panel
+            $('section.tabs[data-tabgroup="' + tabGroup + '"] > div.tab-page')
+            .removeClass('active');
+
+            $('section.tabs[data-tabgroup="' + tabGroup + '"] > div.tab-page.' + selectedTab)
+            .addClass('active');
+
+        } else {
+
+            //  No tab group, keep it global
+
+            //  Mark the selected tab as active
+            $('li.tab').removeClass('active');
+            tab.parent().addClass('active');
+
+            //  Show the appropriate panel
+            $('section.tabs > div.tab-page').removeClass('active');
+            var newTab = tab.attr('data-tab');
+            $('section.tabs > div.tab-page.' + newTab).addClass('active');
+        }
 
         // --------------------------------------------------------------------------
 
