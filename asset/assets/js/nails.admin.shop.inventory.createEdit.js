@@ -463,7 +463,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                                 case 'SELECT':
 
                                     //  Find options and note their selected state
-                                    $('option', elem).each(function(   ) {
+                                    $('option', elem).each(function() {
 
                                         fieldData.children.push({
                                             'selected': $(this).prop('selected')
@@ -476,50 +476,57 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                         });
 
                         //  Set values of other items
-                        otherShippingTab.find(validFieldsStr).each(function(index, elem) {
+                        otherShippingTab.each(function() {
 
-                            switch (elem.nodeName) {
+                            $(validFieldsStr, this).each(function(index, elem) {
 
-                                case 'INPUT':
-                                case 'TEXTAREA':
+                                switch (elem.nodeName) {
 
-                                    if ($(this).attr('type') === 'checkbox') {
+                                    case 'INPUT':
+                                    case 'TEXTAREA':
 
-                                        if ($(this).data('is-boolean-field')) {
+                                        if ($(this).attr('type') === 'checkbox') {
 
-                                            /**
-                                             * Need to update via the jQuery toggles methods in order for
-                                             * the UI to reflect the checkbox's state.
-                                             */
+                                            if ($(this).data('is-boolean-field')) {
 
-                                            $(this)
-                                                .siblings('.toggle')
-                                                .first()
-                                                .data('toggles')
-                                                .toggle(otherFields[index].checked);
+                                                /**
+                                                 * Need to update via the jQuery toggles methods in order for
+                                                 * the UI to reflect the checkbox's state.
+                                                 */
+
+                                                $(this)
+                                                    .siblings('.toggle')
+                                                    .first()
+                                                    .data('toggles')
+                                                    .toggle(otherFields[index].checked);
+
+                                            } else {
+
+                                                $(this).prop('checked', otherFields[index].checked);
+                                            }
 
                                         } else {
 
-                                            $(this).prop('checked', otherFields[index].checked);
+                                            $(this).val(otherFields[index].value);
                                         }
+                                        break;
 
-                                    } else {
+                                    case 'SELECT':
 
-                                        $(this).val(otherFields[index].value);
-                                    }
-                                    break;
+                                        //  Find options and set their selected state
+                                        $('option', elem).each(function(optionIndex) {
 
-                                case 'SELECT':
+                                            $(this).prop(
+                                                'selected',
+                                                otherFields[index].children[optionIndex].selected
+                                            );
+                                        });
 
-                                    //  Find options and set their selected state
-                                    $('option', elem).each(function(optionIndex) {
+                                        $(this).trigger('change');
+                                        break;
+                                }
 
-                                        $(this).prop('selected', otherFields[index].children[optionIndex].selected);
-                                    });
-
-                                    $(this).trigger('change');
-                                    break;
-                            }
+                            });
                         });
 
                         //  If collection only then ensure that the values are hidden
@@ -740,7 +747,11 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                 $('#product-form').off('submit');
                 _this.initSubmit();
 
-                $('#product-form input[type=submit]').removeAttr('disabled').val($('#product-form input[type=submit]').data('old_val'));
+                $('#product-form input[type=submit]')
+                    .removeAttr('disabled')
+                    .val($('#product-form input[type=submit]')
+                    .data('old_val'));
+
                 window.onbeforeunload = null;
 
                 //  Enable tabs - SWFUpload aborts uploads if it is hidden.
@@ -896,9 +907,12 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
                     _ids.push(parseInt($(this).val(), 10));
                 });
 
-                //  Now we know the order of ID's we need to shuffle the order of the variations' gallery
-                //  We're gonna do this by reversing the array then cloning the element, removing the original
-                //  and then reinserting it at as the first element. The next element will go above it and so forth.
+                /**
+                 * Now we know the order of ID's we need to shuffle the order of the variations' gallery.
+                 * We're gonna do this by reversing the array then cloning the element, removing the original
+                 * and then reinserting it at as the first element. The next element will go above it and
+                 * so forth.
+                 */
 
                 //  Parse the template so we can adjust it
                 var _template = $('<div>').html($.parseHTML($.trim($('#template-variation').html(), null, true)));
@@ -964,7 +978,6 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
             }
 
             return false;
-
         });
 
         // --------------------------------------------------------------------------
@@ -1302,9 +1315,7 @@ NAILS_Admin_Shop_Inventory_Create_Edit = function()
             //  Save a reference to the target
             var _target = this;
 
-            //  Get the currently selected items in this select
-            //  and store as an array of ID's
-
+            //  Get the currently selected items in this select and store as an array of ID's
             var _selected = [];
             $('option:selected', this).each(function()
             {
