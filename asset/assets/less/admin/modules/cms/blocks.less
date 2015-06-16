@@ -1,83 +1,66 @@
 /**
  * --------------------------------------------------------------------------
- *	CMS BLOCKS
+ *  CMS BLOCKS
  * --------------------------------------------------------------------------
  **/
 
-.group-cms.blocks
-{
-	code
-	{
-		border: 1px solid #EFEFEF;
-		background: #F8F8F8;
-		padding: 5px;
-	}
+.group-cms.blocks {
+    code {
+        border: 1px solid #EFEFEF;
+        background: #F8F8F8;
+        padding: 5px;
+    }
 }
 
 // --------------------------------------------------------------------------
 
-.group-cms.blocks.overview
-{
-	table
-	{
-		th.label,
-		th.location
-		{
-			min-width:250px;
-		}
-
-		th.type
-		{
-			min-width: 100px;
-		}
-
-		th.value
-		{
-			min-width: 200px;
-		}
-
-		th.default,
-		td.default
-		{
-			max-width:225px;
-
-			ul
-			{
-				list-style-type: none;
-				padding:0;
-				margin:0;
-
-				li
-				{
-					border:1px solid #CCC;
-					margin-bottom:5px;
-					.rounded(4px);
-					background:#FFF;
-					padding:5px;
-				}
-
-				li:last-of-type
-				{
-					margin-bottom: 0px;
-				}
-			}
-		}
-
-		th.actions
-		{
-			min-width: 110px;
-		}
-	}
+.group-cms.blocks.overview {
+    table {
+        th.label,
+        th.location {
+            min-width:250px;
+        }
+        th.type {
+            min-width: 100px;
+        }
+        th.value {
+            min-width: 200px;
+        }
+        th.default,
+        td.default {
+            max-width: 225px;
+            img {
+                border: 1px solid #CCC;
+                padding: 2px;
+                border-radius: 3px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+        th.actions {
+            min-width: 110px;
+        }
+    }
 }
 
 // --------------------------------------------------------------------------
 
-.group-cms.blocks.edit
-{
-	textarea
-	{
-		width:100%;
-		margin-bottom: 0;
-		padding: 10px;
-	}
+.group-cms.blocks.edit {
+    textarea,
+    input[type=text],
+    input[type=url],
+    input[type=email],
+    input[type=number] {
+        width: 100%;
+        margin-bottom: 0;
+        padding: 10px;
+    }
+    .field {
+        &.mm-image,
+        &.mm-file {
+            span.label {
+                display: none;
+            }
+        }
+    }
 }

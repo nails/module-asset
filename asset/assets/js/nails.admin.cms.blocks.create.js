@@ -44,40 +44,30 @@ NAILS_Admin_CMS_Blocks_Create = function()
     {
         var type = $('select[name=type]').val();
 
-        switch(type)
+        //  Hide all the fields
+        $('.default-value').hide();
+
+        //  Destroy the richtext editor, if there is one
+        if (typeof(CKEDITOR.instances['default-value-richtext-editor']) !== 'undefined')
         {
-            case 'plaintext':
-
-                //  Destroy the rich text editor instance and hide the WYSIWYG warning
-                $('#default-value').show();
-                $('#ckeditor-warn').hide();
-
-                if (typeof(CKEDITOR.instances.default_value) !== 'undefined')
-                {
-                    CKEDITOR.instances.default_value.destroy();
-                }
-                break;
-
-            case 'richtext':
-
-                //  Instanciate a CKEditor instance and show the WYSIWYG warning
-                $('#default-value').show();
-                $('#ckeditor-warn').show();
-                CKEDITOR.replace('default_value', { 'customConfig' : window.NAILS.URL + 'js/ckeditor.config.default.min.js' });
-                break;
-
-            default:
-
-                //  Destroy the instance, hide the warning and hide the fieldset
-                $('#default-value').hide();
-                $('#ckeditor-warn').hide();
-
-                if (typeof(CKEDITOR.instances.default_value) !== 'undefined')
-                {
-                    CKEDITOR.instances.default_value.destroy();
-                }
-                break;
+            console.log('Destroy');
+            CKEDITOR.instances['default-value-richtext-editor'].destroy();
         }
+
+        //  Custom actions dependant on the block type
+        if (type === 'richtext') {
+
+            console.log('IT LIVES');
+            CKEDITOR.replace(
+                'default-value-richtext-editor',
+                {
+                    'customConfig': window.NAILS.URL + 'js/ckeditor.config.default.min.js'
+                }
+            );
+        }
+
+        //  Show the relevant field
+        $('#default-value-' + type).show();
     };
 
     // --------------------------------------------------------------------------
