@@ -54,6 +54,10 @@ NAILS_Admin_CMS_Menus_Create_Edit = function(items)
                     //  Find the parent and append to it's <ol class="nested-sortable-sub">
                     target = $('li.target-' + items[key].parent_id + ' ol.nested-sortable-sub').first();
 
+                    if (target.length === 0) {
+                        target = container;
+                    }
+
                 } else {
 
                     target = container;
