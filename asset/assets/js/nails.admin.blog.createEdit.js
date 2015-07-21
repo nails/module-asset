@@ -405,9 +405,8 @@ NAILS_Admin_Blog_Create_Edit = function(mode, initialPublishState)
                 }
             },
             'onQueueComplete': function() {
-                $('#post-form').off('submit');
-                _this._init_submit();
 
+                $('#post-form').off('submit');
                 $('#post-form input[type=submit]').removeAttr('disabled').val($('#post-form input[type=submit]').data('old_val'));
                 window.onbeforeunload = null;
 
