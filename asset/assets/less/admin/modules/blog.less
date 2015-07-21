@@ -59,16 +59,22 @@
         		margin-top: 1em;
         		input {
         			margin-bottom: 0.5em;
+                    width: 100%;
         		}
         	}
         	#post-type-fields-photo {
         		img {
-        			max-width: 100%;
+        			width: 100%;
         			height: auto;
         			.rounded(2px);
         			cursor: pointer;
+                    border: 1px solid #CCC;
+                    margin-bottom: 0.2em;
+                    &[src=""] {
+                        display: none;
+                    }
         		}
-        		button {
+        		a {
         			display: block;
         			width: 100%;
         		}
