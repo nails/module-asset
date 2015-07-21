@@ -228,9 +228,9 @@ NAILS_CDN_Manager = function(handler, callback, passback, urlSchemes, isModal, r
             if (base.handler === 'ckeditor') {
 
                 base.insertCkeditor(bucket, file, objectId);
-            
+
             } else {
-                
+
                 base.insertNative(bucket, file, objectId);
             }
 
@@ -238,7 +238,7 @@ NAILS_CDN_Manager = function(handler, callback, passback, urlSchemes, isModal, r
             if (base.isModal) {
 
                 parent.$.fancybox.close();
-            
+
             } else {
 
                 window.close();

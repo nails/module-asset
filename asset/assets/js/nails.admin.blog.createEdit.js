@@ -1,18 +1,20 @@
+/* global moment */
 var NAILS_Admin_Blog_Create_Edit;
-NAILS_Admin_Blog_Create_Edit = function()
+NAILS_Admin_Blog_Create_Edit = function(mode, initialPublishState)
 {
     this.blog_id        = null;
     this.upload_token   = null;
     this._api           = null;
+    this.sMode = mode;
+    this.sInitialPublishState = initialPublishState;
 
     // --------------------------------------------------------------------------
-
 
     this.init = function(blog_id, upload_token)
     {
         //  Set vars
-        this.blog_id        = blog_id;
-        this.upload_token   = upload_token;
+        this.blog_id      = blog_id;
+        this.upload_token = upload_token;
 
         // --------------------------------------------------------------------------
 
@@ -24,9 +26,11 @@ NAILS_Admin_Blog_Create_Edit = function()
         //  Init everything!
         this.initTabs();
         this._init_publish_date();
+        this._init_comments();
+        this._init_type();
         this._init_select2();
         this._init_gallery();
-        this._init_submit();
+        this._init_submit_btn_txt();
         this._init_preview();
     };
 
@@ -41,9 +45,7 @@ NAILS_Admin_Blog_Create_Edit = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._init_publish_date = function()
     {
@@ -62,9 +64,7 @@ NAILS_Admin_Blog_Create_Edit = function()
         this._publish_change();
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._publish_change = function()
     {
@@ -72,10 +72,10 @@ NAILS_Admin_Blog_Create_Edit = function()
 
         if (_published)
         {
-            $('#publish-date').show();
+            $('#field-publish-date').show();
 
             //  If it's empty set it to now
-            var _publish_date = $.trim($('#publish-date input.datetime').val());
+            var _publish_date = $.trim($('#field-publish-date input.datetime').val());
 
             if (_publish_date.length <= 0)
             {
@@ -85,7 +85,6 @@ NAILS_Admin_Blog_Create_Edit = function()
                 var _day    = _date.getDate();
                 var _hour   = _date.getHours();
                 var _minute = _date.getMinutes();
-                var _second = _date.getSeconds();
 
                 //  Pad strings
                 if (_month.toString().length === 1)
@@ -108,25 +107,120 @@ NAILS_Admin_Blog_Create_Edit = function()
                     _minute = '0' + _minute;
                 }
 
-                if (_second.toString().length === 1)
-                {
-                    _second = '0' + _second;
-                }
+                var _compiled = _year + '-' + _month + '-' + _day + ' ' + _hour + ':' + _minute;
 
-                var _compiled = _year + '-' + _month + '-' + _day + ' ' + _hour + ':' + _minute + ':' + _second;
-
-                $('#publish-date input.datetime').val(_compiled);
+                $('#field-publish-date input.datetime').val(_compiled);
             }
         }
         else
         {
-            $('#publish-date').hide();
+            $('#field-publish-date').hide();
         }
-    };
 
+        _nails.addStripes();
+    };
 
     // --------------------------------------------------------------------------
 
+    this._init_comments = function() {
+
+        var _this = this;
+
+        $('#comments-enabled').on('change', function()
+        {
+            _this.commentsChange();
+        });
+
+        $('#comments-enabled').closest('div.field').on('toggle', function()
+        {
+            _this.commentsChange();
+        });
+
+        this.commentsChange();
+    };
+
+    // --------------------------------------------------------------------------
+
+    this.commentsChange = function() {
+
+        var commentsEnabled = $('#comments-enabled').is(':checked');
+
+        if (commentsEnabled)
+        {
+            $('#field-comments-expire').show();
+        }
+        else
+        {
+            $('#field-comments-expire').hide();
+        }
+
+        _nails.addStripes();
+    };
+
+    // --------------------------------------------------------------------------
+
+    this._init_type = function() {
+
+        var _this = this;
+
+        //  Type changing
+        $('#post-type').on('change', function()
+        {
+            _this.typeChange();
+        });
+
+        this.typeChange();
+
+        // --------------------------------------------------------------------------
+
+        //  Type JS
+        $('#post-type-fields-photo').on('click', 'img,a', function() {
+
+            var cdnManagerUrl = $(this).closest('.type-fields').data('manager-url');
+
+            if (cdnManagerUrl.length) {
+
+                cdnManagerUrl += cdnManagerUrl.indexOf('?') >= 0 ? '&isModal=1' : '?isModal=1';
+
+                $.fancybox.open({
+                    href: cdnManagerUrl,
+                    type: 'iframe',
+                    iframe: {
+                        preload: false // fixes issue with iframe and IE
+                    }
+                });
+            }
+
+            return false;
+        });
+    };
+
+    // --------------------------------------------------------------------------
+
+    this.typePhotoCdnManagerCallback = function(bucket, filename, id)
+    {
+        var urlScheme = $('#post-type-fields-photo').data('url-scheme');
+
+        urlScheme = urlScheme.replace('{{width}}', 500);
+        urlScheme = urlScheme.replace('{{height}}', 500);
+        urlScheme = urlScheme.replace('{{bucket}}', bucket);
+        urlScheme = urlScheme.replace('{{filename}}{{extension}}', filename);
+
+        $('#post-type-fields-photo img').attr('src', urlScheme);
+        $('#post-type-fields-photo input').val(id);
+        return true;
+    };
+
+    // --------------------------------------------------------------------------
+
+    this.typeChange = function() {
+
+        var postType = $('#post-type').val();
+        $('.type-fields').hide();
+        $('#post-type-fields-' + postType.toLowerCase()).show();
+    };
+
+    // --------------------------------------------------------------------------
 
     this._init_select2 = function()
     {
@@ -185,9 +279,7 @@ NAILS_Admin_Blog_Create_Edit = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._rebuild_select2 = function(target)
     {
@@ -245,9 +337,7 @@ NAILS_Admin_Blog_Create_Edit = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._init_gallery = function()
     {
@@ -572,89 +662,135 @@ NAILS_Admin_Blog_Create_Edit = function()
 
     // --------------------------------------------------------------------------
 
+    this._init_submit_btn_txt = function() {
 
-    this._init_submit = function()
-    {
-        $('#post-form').on('submit', $.proxy(function(){ return this._submit(); }, this));
+        var _this = this;
+        $('#field-is-published').on('toggle', function() {
+            setTimeout(function() {
+                _this.calcSubmitBtnTxt();
+            }, 100);
+        });
+        $('#field-publish-date input').on('change', function() {
+            setTimeout(function() {
+                _this.calcSubmitBtnTxt();
+            }, 100);
+        });
+
+        //  And run now too, so button is correct at outset
+        _this.calcSubmitBtnTxt();
     };
-
 
     // --------------------------------------------------------------------------
 
+    this.calcSubmitBtnTxt = function() {
 
-    this._submit = function()
+        /**
+         * CREATING A POST
+         * - If publish is to "on" and publish date is in the future then the button should read "Schedule Post".
+         * - If publish is to "on" then the button should read "Publish Now".
+         * - If publish is set to "off" then button should read "Save Draft"
+         *
+         * EDITING A POST
+         * - If post is previously unpublished and publish is to "on" and publish date is in the future then the button should read "Schedule Post".
+         * - If post is previously unpublished and publish is to "on" then the button should read "Publish Now".
+         * - If post is previously unpublished and publish is set to "off" then button should read "Update Draft"
+         *
+         * - If post is previously published and publish is to "on" and publish date is in the future then the button should read "Unpublish & Schedule Post".
+         * - If post is previously published and publish is to "on" then the button should read "Update Post".
+         * - If post is previously published and publish is set to "off" then button should read "Unpublish Post & Save as Draft"
+         *
+         * - If post is previously scheduled and publish is to "on" and publish date is in the future then the button should read "Schedule Post".
+         * - If post is previously scheduled and publish is to "on" then the button should read "Publish Post".
+         * - If post is previously scheduled and publish is set to "off" then button should read "Unschedule Post & Save as Draft"
+         */
+
+        var now = moment();
+        var publishDateVal = $('#field-publish-date input').val();
+        var publishDate;
+        var isSetToPublish = $('#field-is-published .toggle').data('toggles').active;
+
+        if (publishDateVal.length) {
+
+            publishDateVal += ':00';
+            publishDate = moment(publishDateVal, 'YYYY-MM-DD HH:mm:ss');
+
+        } else {
+
+            publishDate = moment();
+        }
+
+        if (this.sMode === 'CREATE') {
+
+            if (isSetToPublish) {
+
+                if (publishDate.isAfter(now)) {
+                    this.setSubmitBtnTxt('Schedule Post', 'orange');
+                } else {
+                    this.setSubmitBtnTxt('Publish Now', 'green');
+                }
+
+            } else {
+
+                this.setSubmitBtnTxt('Save Draft');
+            }
+
+        } else if (this.sMode === 'EDIT') {
+console.log(this.sInitialPublishState);
+            if (this.sInitialPublishState === 'PUBLISHED') {
+
+                if (isSetToPublish) {
+
+                    if (publishDate.isAfter(now)) {
+                        this.setSubmitBtnTxt('Unpublish & Schedule Post', 'orange');
+                    } else {
+                        this.setSubmitBtnTxt('Update Post', 'green');
+                    }
+
+                } else {
+
+                    this.setSubmitBtnTxt('Unpublish & Save Draft');
+                }
+
+            } else if (this.sInitialPublishState === 'SCHEDULED') {
+
+                if (isSetToPublish) {
+
+                    if (publishDate.isAfter(now)) {
+                        this.setSubmitBtnTxt('Schedule Post', 'orange');
+                    } else {
+                        this.setSubmitBtnTxt('Publish Now', 'green');
+                    }
+
+                } else {
+
+                    this.setSubmitBtnTxt('Unschedule Post & Save as Draft');
+                }
+
+            } else if (this.sInitialPublishState === 'DRAFT') {
+
+                if (isSetToPublish) {
+
+                    if (publishDate.isAfter(now)) {
+                        this.setSubmitBtnTxt('Schedule Post', 'orange');
+                    } else {
+                        this.setSubmitBtnTxt('Publish Now', 'green');
+                    }
+
+                } else {
+
+                    this.setSubmitBtnTxt('Update Draft');
+                }
+            }
+        }
+    };
+
+    // --------------------------------------------------------------------------
+
+    this.setSubmitBtnTxt = function(txt, colour)
     {
-        var _form   = $('#post-form');
-        var _errors = 0;
-
-        // --------------------------------------------------------------------------
-
-        //  Reset everything
-        $('ul.tabs li a.error,div.field.error').removeClass('error');
-        $('div.field.error span.error').remove();
-        $('#body-error').hide();
-
-        // --------------------------------------------------------------------------
-
-        //  Error messages
-        var msg =
-        {
-            required: '<span class="error">This field is required</span>'
-        };
-
-        // --------------------------------------------------------------------------
-
-        //  Title
-        $('#tabber-meta').removeClass('error');
-        $('input[name=title]', _form).closest('div.field').removeClass('error');
-        $('input[name=title]', _form).closest('div.field').find('span.error').remove();
-        if (!$('input[name=title]', _form).val().length)
-        {
-            _errors++;
-
-            $('#tabber-meta').addClass('error');
-            $('input[name=title]', _form).closest('div.field').addClass('error');
-            $('input[name=title]', _form).closest('div.field').find('span.input').append(msg.required);
-        }
-
-        //  Body
-        var _body_length;
-        if (typeof(CKEDITOR) === 'object')
-        {
-            //  CKEDITOR is available, use it's methods
-            _body_length = CKEDITOR.instances.post_body.getData().length;
-        }
-        else
-        {
-            //  CKEDITOR isn't available, check the value of the textarea
-            _body_length = $('textarea[name=body]', _form).val().length;
-        }
-
-        $('#tabber-body').removeClass('error');
-        $('textarea[name=body]', _form).closest('div.field').removeClass('error');
-        $('textarea[name=body]', _form).closest('div.field').find('span.error').remove();
-        if (!_body_length)
-        {
-            _errors++;
-
-            $('#tabber-body').addClass('error');
-            $('textarea[name=body]', _form).closest('div.field').addClass('error');
-            $('textarea[name=body]', _form).closest('div.field').find('span.input').append(msg.required);
-        }
-
-        if (_errors)
-        {
-
-            //  Tab to the first error'd view
-            $('ul.tabs a.error').first().click();
-
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-        return _errors ? false : true;
+        $('#btnSubmit')
+            .text(txt)
+            .attr('class', 'awesome ' + colour);
     };
 
     // --------------------------------------------------------------------------
