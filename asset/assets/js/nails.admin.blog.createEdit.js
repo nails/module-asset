@@ -796,25 +796,10 @@ NAILS_Admin_Blog_Create_Edit = function(mode, initialPublishState)
 
     this._init_preview = function()
     {
-        // var _this = this;
+        var _this = this;
         $('#btnPreview').on('click', function() {
 
-            // _this._submit_preview();
-
-            $('<div>').text('Preview functionality is coming soon').dialog({
-                title: 'Coming Soon!',
-                resizable: false,
-                draggable: false,
-                modal: true,
-                buttons:
-                {
-                    OK: function()
-                    {
-                        $(this).dialog('close');
-                    }
-                }
-            });
-
+            _this._submit_preview();
             return false;
         });
     };
@@ -825,16 +810,14 @@ NAILS_Admin_Blog_Create_Edit = function(mode, initialPublishState)
     {
         //  Alter the post form and submit it
         var oldTarget = $('#post-form').attr('target') || '';
-        var oldAction = $('#post-form').attr('action');
+        $('#post-form').attr('target', '_blogPreview');
+        $('#isPreview').val(1);
 
-        $('#post-form')
-            .attr('action', window.SITE_URL + 'admin/blog/post/preview/' + this.blog_id)
-            .attr('target', '_blogPreview');
-
+        //  Do submit
         $('#btnSubmit').click();
 
-        $('#post-form')
-            .attr('action', oldAction)
-            .attr('target', oldTarget);
+        //   Reset
+        $('#isPreview').val(0);
+        $('#post-form').attr('target', oldTarget);
     };
 };
