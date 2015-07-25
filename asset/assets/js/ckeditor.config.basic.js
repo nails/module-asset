@@ -13,13 +13,17 @@
 /**
  * Load any external plugins (i.e, plugins not bundled with CKEditor)
  */
-
 CKEDITOR.plugins.addExternal('codemirror', window.NAILS.URL + 'js/ckeditor.plugins/codemirror/');
+
+/**
+ * Define the CSS to use in the content area
+ * @type {String}
+ */
+CKEDITOR.config.contentsCss = window.NAILS.URL + 'css/nails.admin.ckeditor.css';
 
 /**
  * Define the CKEditor config object
  */
-
 CKEDITOR.editorConfig = function(config)
 {
     /**

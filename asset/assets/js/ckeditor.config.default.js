@@ -13,17 +13,69 @@
 /**
  * Load any external plugins (i.e, plugins not bundled with CKEditor)
  */
-
 CKEDITOR.plugins.addExternal('codemirror', window.NAILS.URL + 'js/ckeditor.plugins/codemirror/');
 CKEDITOR.plugins.addExternal('mediaembed', window.NAILS.URL + 'js/ckeditor.plugins/mediaembed/');
 CKEDITOR.plugins.addExternal('image2', window.NAILS.URL + 'js/ckeditor.plugins/image2/');
 
 /**
+ * Set the contents of the "Styles" dropdown
+ */
+CKEDITOR.stylesSet.add(
+    'nailsStyles',
+    [
+        {
+            name: 'Preformatted',
+            element: 'pre'
+        },
+        {
+            name: 'Code Block',
+            element: 'pre',
+            attributes: { 'class': 'code-block' }
+        },
+        {
+            name: 'Big',
+            element: 'big'
+        },
+        {
+            name: 'Small',
+            element: 'small'
+        },
+        {
+            name: 'Computer Code',
+            element: 'code'
+        },
+        {
+            name: 'Variable',
+            element: 'var'
+        },
+        {
+            name: 'Deleted Text',
+            element: 'del'
+        },
+        {
+            name: 'Marker',
+            element: 'mark'
+        },
+    ]
+);
+
+/**
+ * Define the CSS to use in the content area
+ * @type {String}
+ */
+CKEDITOR.config.contentsCss = window.NAILS.URL + 'css/nails.admin.ckeditor.css';
+
+/**
  * Define the CKEditor config object
  */
-
 CKEDITOR.editorConfig = function(config)
 {
+    /**
+     * The name of the styles object to show in the "Styles" dropdown
+     * @type {String}
+     */
+    config.stylesSet = 'nailsStyles';
+
     /**
      * Additional plugins to enable
      * @type {String}
@@ -106,7 +158,7 @@ CKEDITOR.editorConfig = function(config)
     config.extraAllowedContent = {
         '*': {
             classes: '*',
-            attributes: 'data-*'
+            attributes: 'data-*,id,clas'
         },
         'img': {
             attributes: '!width,!height'
