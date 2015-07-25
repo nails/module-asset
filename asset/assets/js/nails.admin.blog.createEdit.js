@@ -734,7 +734,7 @@ NAILS_Admin_Blog_Create_Edit = function(mode, initialPublishState)
             }
 
         } else if (this.sMode === 'EDIT') {
-console.log(this.sInitialPublishState);
+
             if (this.sInitialPublishState === 'PUBLISHED') {
 
                 if (isSetToPublish) {
