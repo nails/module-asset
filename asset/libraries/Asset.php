@@ -27,7 +27,9 @@ class Asset
      **/
     public function __construct()
     {
-        $this->oCi          =& get_instance();
+        $this->oCi =& get_instance();
+        $this->oCi->load->helper('string');
+
         $this->aCss         = array();
         $this->aCssInline   = array();
         $this->aJs          = array();
