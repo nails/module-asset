@@ -1,11 +1,6 @@
 {
     "name": "nailsapp/module-asset",
-    "keywords": [
-        "Nails",
-        "Shed Collective",
-        "CodeIgniter",
-        "Asset Module"
-    ],
+    "keywords": ["Nails", "Shed Collective", "CodeIgniter", "Asset Module"],
     "homepage": "http://nailsapp.co.uk/modules/asset",
     "description": "This is the \"Asset\" module for Nails.",
     "license": "MIT",
