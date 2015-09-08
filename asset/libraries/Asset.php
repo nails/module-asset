@@ -796,7 +796,7 @@ class Asset
     /**
      * Output the assets for HTML
      * @param  string  $sType   The type of asset to output
-     * @param  boolean $bOutput whether to output to the browser or to return as a string
+     * @param  boolean $bOutput Whether to output to the browser or to return as a string
      * @return string
      */
     public function output($sType = 'ALL', $bOutput = true)
