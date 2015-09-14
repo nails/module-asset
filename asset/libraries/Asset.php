@@ -19,6 +19,7 @@ class Asset
     protected $aJsInline;
     protected $sCacheBuster;
     protected $sBaseUrl;
+    protected $sBaseUrlSecure;
     protected $sBowerDir;
     protected $sCssDir;
     protected $sJsDir;
@@ -34,19 +35,21 @@ class Asset
         $this->oCi =& get_instance();
         $this->oCi->load->helper('string');
 
-        $this->aCss         = array();
-        $this->aCssInline   = array();
-        $this->aJs          = array();
-        $this->aJsInline    = array();
-        $this->sCacheBuster = defined('DEPLOY_REVISION') ? DEPLOY_REVISION : '';
-        $this->sBaseUrl     = defined('DEPLOY_ASSET_BASE_URL') ? DEPLOY_ASSET_BASE_URL : site_url('assets');
-        $this->sBaseUrl     = addTrailingSlash($this->sBaseUrl);
-        $this->sBowerDir    = defined('DEPLOY_ASSET_BOWER_DIR') ? DEPLOY_ASSET_BOWER_DIR : 'bower_components';
-        $this->sBowerDir    = addTrailingSlash($this->sBowerDir);
-        $this->sCssDir      = defined('DEPLOY_ASSET_CSS_DIR') ? DEPLOY_ASSET_CSS_DIR : 'css';
-        $this->sCssDir      = addTrailingSlash($this->sCssDir);
-        $this->sJsDir       = defined('DEPLOY_ASSET_JS_DIR') ? DEPLOY_ASSET_CJS_DIR : 'js';
-        $this->sJsDir       = addTrailingSlash($this->sJsDir);
+        $this->aCss           = array();
+        $this->aCssInline     = array();
+        $this->aJs            = array();
+        $this->aJsInline      = array();
+        $this->sCacheBuster   = defined('DEPLOY_REVISION') ? DEPLOY_REVISION : '';
+        $this->sBaseUrl       = defined('DEPLOY_ASSET_BASE_URL') ? DEPLOY_ASSET_BASE_URL : site_url('assets');
+        $this->sBaseUrl       = addTrailingSlash($this->sBaseUrl);
+        $this->sBaseUrlSecure = defined('DEPLOY_ASSET_BASE_URL_SECURE') ? DEPLOY_ASSET_BASE_URL_SECURE : secure_site_url('assets');
+        $this->sBaseUrlSecure = addTrailingSlash($this->sBaseUrlSecure);
+        $this->sBowerDir      = defined('DEPLOY_ASSET_BOWER_DIR') ? DEPLOY_ASSET_BOWER_DIR : 'bower_components';
+        $this->sBowerDir      = addTrailingSlash($this->sBowerDir);
+        $this->sCssDir        = defined('DEPLOY_ASSET_CSS_DIR') ? DEPLOY_ASSET_CSS_DIR : 'css';
+        $this->sCssDir        = addTrailingSlash($this->sCssDir);
+        $this->sJsDir         = defined('DEPLOY_ASSET_JS_DIR') ? DEPLOY_ASSET_CJS_DIR : 'js';
+        $this->sJsDir         = addTrailingSlash($this->sJsDir);
 
     }
 
@@ -867,7 +870,7 @@ class Asset
         //  Force SSL for assets if page is secure
         if (isPageSecure()) {
 
-            $sOut = str_replace(BASE_URL, SECURE_BASE_URL, $sOut);
+            $sOut = str_replace($this->sBaseUrl, $this->sBaseUrlSecure, $sOut);
         }
 
         // --------------------------------------------------------------------------
