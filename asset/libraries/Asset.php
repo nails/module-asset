@@ -18,6 +18,10 @@ class Asset
     protected $aJs;
     protected $aJsInline;
     protected $sCacheBuster;
+    protected $sBaseUrl;
+    protected $sBowerDir;
+    protected $sCssDir;
+    protected $sJsDir;
 
     // --------------------------------------------------------------------------
 
@@ -35,8 +39,14 @@ class Asset
         $this->aJs          = array();
         $this->aJsInline    = array();
         $this->sCacheBuster = defined('DEPLOY_REVISION') ? DEPLOY_REVISION : '';
-        $this->sBaseUrl     = defined('DEPLOY_ASSET_BASE_URL') ? DEPLOY_ASSET_BASE_URL : site_url();
+        $this->sBaseUrl     = defined('DEPLOY_ASSET_BASE_URL') ? DEPLOY_ASSET_BASE_URL : site_url('assets');
         $this->sBaseUrl     = addTrailingSlash($this->sBaseUrl);
+        $this->sBowerDir    = defined('DEPLOY_ASSET_BOWER_DIR') ? DEPLOY_ASSET_BOWER_DIR : 'bower_components';
+        $this->sBowerDir    = addTrailingSlash($this->sBowerDir);
+        $this->sCssDir      = defined('DEPLOY_ASSET_CSS_DIR') ? DEPLOY_ASSET_CSS_DIR : 'css';
+        $this->sCssDir      = addTrailingSlash($this->sCssDir);
+        $this->sJsDir       = defined('DEPLOY_ASSET_JS_DIR') ? DEPLOY_ASSET_CJS_DIR : 'js';
+        $this->sJsDir       = addTrailingSlash($this->sJsDir);
 
     }
 
@@ -188,12 +198,12 @@ class Asset
 
             case 'CSS':
 
-                $this->aCss['NAILS-' . $sAsset] = NAILS_ASSETS_URL . 'css/' . $sAsset;
+                $this->aCss['NAILS-' . $sAsset] = NAILS_ASSETS_URL . $this->sCssDir . $sAsset;
                 break;
 
             case 'JS':
 
-                $this->aJs['NAILS-' . $sAsset] = NAILS_ASSETS_URL . 'js/' . $sAsset;
+                $this->aJs['NAILS-' . $sAsset] = NAILS_ASSETS_URL . $this->sJsDir . $sAsset;
                 break;
         }
     }
@@ -214,12 +224,12 @@ class Asset
 
             case 'CSS':
 
-                $this->aCss['NAILS-BOWER-' . $sAsset] = NAILS_ASSETS_URL . 'bower_components/' . $sAsset;
+                $this->aCss['NAILS-BOWER-' . $sAsset] = NAILS_ASSETS_URL . $this->sBowerDir . $sAsset;
                 break;
 
             case 'JS':
 
-                $this->aJs['NAILS-BOWER-' . $sAsset] = NAILS_ASSETS_URL . 'bower_components/' . $sAsset;
+                $this->aJs['NAILS-BOWER-' . $sAsset] = NAILS_ASSETS_URL . $this->sBowerDir . $sAsset;
                 break;
         }
     }
@@ -266,12 +276,12 @@ class Asset
 
             case 'CSS':
 
-                $this->aCss['APP-BOWER-' . $sAsset] = $this->sBaseUrl . 'assets/bower_components/' . $sAsset;
+                $this->aCss['APP-BOWER-' . $sAsset] = $this->sBaseUrl . $this->sBowerDir . $sAsset;
                 break;
 
             case 'JS':
 
-                $this->aJs['APP-BOWER-' . $sAsset] = $this->sBaseUrl . 'assets/bower_components/' . $sAsset;
+                $this->aJs['APP-BOWER-' . $sAsset] = $this->sBaseUrl . $this->sBowerDir . $sAsset;
                 break;
         }
     }
@@ -279,7 +289,7 @@ class Asset
     // --------------------------------------------------------------------------
 
     /**
-     * Loads an App package asset (as a relative url from 'assets/packages/')
+     * Loads an App package asset (as a relative url from 'packages/')
      * @param  string $sAsset     The asset to load
      * @param  string $sForceType Force a particular type of asset (i.e. JS or CSS)
      * @return void
@@ -292,12 +302,12 @@ class Asset
 
             case 'CSS':
 
-                $this->aCss['APP-PACKAGE-' . $sAsset] = $this->sBaseUrl . 'assets/packages/' . $sAsset;
+                $this->aCss['APP-PACKAGE-' . $sAsset] = $this->sBaseUrl . 'packages/' . $sAsset;
                 break;
 
             case 'JS':
 
-                $this->aJs['APP-PACKAGE-' . $sAsset] = $this->sBaseUrl . 'assets/packages/' . $sAsset;
+                $this->aJs['APP-PACKAGE-' . $sAsset] = $this->sBaseUrl . 'packages/' . $sAsset;
                 break;
         }
     }
@@ -318,12 +328,12 @@ class Asset
 
             case 'CSS':
 
-                $this->aCss['APP-' . $sAsset] = $this->sBaseUrl . 'assets/css/' . $sAsset;
+                $this->aCss['APP-' . $sAsset] = $this->sBaseUrl . $this->sCssDir . $sAsset;
                 break;
 
             case 'JS':
 
-                $this->aJs['APP-' . $sAsset] = $this->sBaseUrl . 'assets/js/' . $sAsset;
+                $this->aJs['APP-' . $sAsset] = $this->sBaseUrl . $this->sJsDir . $sAsset;
                 break;
         }
     }
@@ -567,7 +577,7 @@ class Asset
     // --------------------------------------------------------------------------
 
     /**
-     * Unloads an App package asset (as a relative url from 'assets/packages/')
+     * Unloads an App package asset (as a relative url from 'packages/')
      * @param  string $sAsset     The asset to load
      * @param  string $sForceType Force a particular type of asset (i.e. JS or CSS)
      * @return void
