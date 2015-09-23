@@ -1,5 +1,5 @@
-#Asset Module for Nails
+# Asset Module for Nails
 
-This is the asset module for nails, it provides a unified interface for handling front end assets.
+This module provides pre-compiled assets which are used by Nails modules.
 
 http://nailsapp.co.uk/modules/asset

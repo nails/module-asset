@@ -148,6 +148,7 @@ div.field
 	{
 		display:block;
 		width:100%;
+        padding: 0;
 	}
 
 	//	So tips are always the same colour - badly designed form helper
@@ -183,6 +184,10 @@ div.field
 			display:block;
 			margin-left: 149px;
 			position:relative;
+
+            &.is-disabled {
+                color: #CCC;
+            }
 
 			input[type=text],
 			input[type=password],

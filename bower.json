@@ -4,9 +4,10 @@
   "authors": [
     "Pablo de la Pena <p@shedcollective.org>"
   ],
-  "description": "Nails is a framework for CodeIgniter designed to make building interactive web applications fast.",
+  "description": "This module provides pre-compiled assets which are used by Nails modules.",
   "keywords": [
-    "CodeIgniter"
+    "CodeIgniter",
+    "Nails"
   ],
   "license": "MIT",
   "homepage": "http://nailsapp.co.uk",

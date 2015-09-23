@@ -6,7 +6,9 @@ NAILS_Admin_Accounts_Create = function()
         $('select[name=group_id]').on('change', function() {
 
             $('#user-group-descriptions li').hide();
+            $('#user-group-pwrules li').hide();
             $('#user-group-' + $(this).val()).show();
+            $('#user-group-pw-' + $(this).val()).show();
         });
     };
 
