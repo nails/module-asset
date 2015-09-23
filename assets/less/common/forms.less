@@ -144,7 +144,8 @@ div.field
 	min-height:30px;
 	background:#FFF;
 
-    &.checkbox {
+    &.checkbox,
+    &.radio {
         .input {
             padding-left: 14px;
         }
@@ -805,26 +806,16 @@ select
 /* Tablet Portrait size to standard 960 (devices and browsers) */
 @media only screen and (min-width: 768px) and (max-width: 959px)
 {
-	div.field
-	{
+	div.field {
 		input[type=file],
-		select
-		{
+		select {
 			width:251px;
 		}
-
-		span.text
-		{
-			width:234px;
-		}
-
-		&.error
-		{
+		&.error {
 			&.datetime-picker,
-			&.checkbox
-			{
-				span.error
-				{
+			&.checkbox,
+            &.radio {
+				span.error {
 					margin-bottom:20px;
 					position:relative;
 					top:15px;
@@ -835,32 +826,24 @@ select
 }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
-@media only screen and (min-width: 480px) and (max-width: 767px)
-{
-	div.field
-	{
-		span
-		{
-			&.label
-			{
-				width:100px;
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+	div.field {
+		span {
+			&.label {
+				width: 100px;
 			}
-			&.input
-			{
-				margin-left:135px;
+			&.input {
+				margin-left: 135px;
 			}
 		}
-
-		&.error
-		{
+		&.error {
 			&.datetime-picker,
-			&.checkbox
-			{
-				span.error
-				{
-					margin-bottom:20px;
-					position:relative;
-					top:15px;
+			&.checkbox,
+            &.radio {
+				span.error {
+					margin-bottom: 20px;
+					position: relative;
+					top: 15px;
 				}
 			}
 		}
@@ -868,11 +851,10 @@ select
 }
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
-@media only screen and (max-width: 479px)
-{
-	div.field
-	{
-        &.checkbox {
+@media only screen and (max-width: 479px) {
+	div.field {
+        &.checkbox,
+        &.radio {
             label {
                 &:first-of-type {
                     .label {
@@ -884,10 +866,8 @@ select
                 }
             }
         }
-		span
-		{
-			&.label
-			{
+		span {
+			&.label {
 				display:block;
                 float: none;
 				width:100%;
@@ -909,67 +889,46 @@ select
 				}
 			}
 		}
-
 		&.mm-file,
-		&.mm-image
-		{
-			span
-			{
-				&.input
-				{
-					&.with-tip
-					{
-						.tip
-						{
+		&.mm-image {
+			span {
+				&.input {
+					&.with-tip {
+						.tip {
 							top:8px;
 						}
 					}
 				}
 			}
 		}
-
-		&.date-picker
-		{
-			padding-bottom:20px;
-
-			select
-			{
-				width:64px;
+		&.date-picker {
+			padding-bottom: 20px;
+			select {
+				width: 64px;
 			}
 		}
-
-		&.multiimage
-		{
-			ul.filelist
-			{
+		&.multiimage {
+			ul.filelist {
 				clear:left;
 			}
 		}
-
-		&.error
-		{
-			span
-			{
-				&.input.with-tip
-				{
+		&.error {
+			span {
+				&.input.with-tip {
 					padding-right:0px;
 				}
-
-				&.error
-				{
+				&.error {
 					width:100%;
 					box-sizing:border-box;
 				}
 			}
-
 			&.datetime-picker,
-			&.checkbox
-			{
-				span.error
-				{
-					margin-bottom:20px;
-					position:relative;
-					top:15px;
+			&.checkbox,
+            &.radio {
+				span.error {
+					margin-bottom: 20px;
+					position: relative;
+					top: 15px;
 				}
 			}
 		}
