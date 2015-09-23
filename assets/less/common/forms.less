@@ -144,6 +144,12 @@ div.field
 	min-height:30px;
 	background:#FFF;
 
+    &.checkbox {
+        .input {
+            padding-left: 14px;
+        }
+    }
+
 	label
 	{
 		display:block;
@@ -268,7 +274,7 @@ div.field
 			top:5px;
 			display:block;
 			float:left;
-			width:343px;
+			width:100%;
 		}
 
 		&.file-download
@@ -317,9 +323,10 @@ div.field
 	input[type=radio],
 	input[type=checkbox]
 	{
-		position:relative;
-		top:10px;
-		float:left;
+		position: relative;
+		top: 6px;
+        left: 6px;
+		float: left;
 	}
 
 
@@ -865,11 +872,24 @@ select
 {
 	div.field
 	{
+        &.checkbox {
+            label {
+                &:first-of-type {
+                    .label {
+                        display: block;
+                    }
+                }
+                .label {
+                    display: none;
+                }
+            }
+        }
 		span
 		{
 			&.label
 			{
 				display:block;
+                float: none;
 				width:100%;
 				text-align:left;
 				border:none;
@@ -879,16 +899,12 @@ select
 				padding:0;
 				padding-bottom:5px;
 			}
-
-			&.input
-			{
-				margin-left:0px;
-
-				&.with-tip
-				{
-					.tip
-					{
-						top:46px;
+			&.input {
+				margin-left: 0;
+				&.with-tip {
+                    padding-right: 0;
+					.tip {
+						top: -35px;
 					}
 				}
 			}
