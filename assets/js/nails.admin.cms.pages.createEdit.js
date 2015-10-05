@@ -1,6 +1,8 @@
+/* globals Mustache, console */
 var NAILS_Admin_CMS_pages_Create_Edit;
 NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_data)
 {
+    console.log(widgets);
     this._api               = null;
     this.editor_id          = Math.floor(Math.random() * 10000000000000001);
     this._editor            = {};
@@ -18,7 +20,6 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
     this._async_save        = true;
 
     // --------------------------------------------------------------------------
-
 
     this.__construct = function(page_id, page_data)
     {
@@ -41,13 +42,13 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
             };
 
             //  Create new page_data object
-            for(_key in this.templates)
-            {
-                this.page_data.widget_areas[_key] = {};
+            for (var i = 0; i < this.templates.length; i++) {
 
-                for (_key2 in this.templates[_key].widget_areas)
-                {
-                    this.page_data.widget_areas[_key][_key2] = [];
+                this.page_data.widget_areas[this.templates[i].slug] = {};
+
+                for (var x = 0; x < this.templates[i].widget_areas.length; i++) {
+
+                    this.page_data.widget_areas[this.templates[i].slug][this.templates[i].widget_areas[x].slug] = [];
                 }
             }
 
@@ -145,9 +146,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         });
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._enable_main_actions = function()
     {
@@ -158,9 +157,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         $('p.actions').removeClass('loading');
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._disable_main_actions = function()
     {
@@ -171,9 +168,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         $('p.actions').addClass('loading');
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._main_action_save = function()
     {
@@ -210,9 +205,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         _this._save(_success, _error, true);
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._main_action_publish = function()
     {
@@ -248,7 +241,6 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
 
         _this._save(_success, _error, true, true);
     };
-
 
     // --------------------------------------------------------------------------
 
@@ -306,9 +298,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         this._save_preview(_success, _error, true);
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._save = function(success_callback, error_callback, force_save, is_published)
     {
@@ -410,9 +400,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         }
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._save_ok = function(success_callback, data)
     {
@@ -467,9 +455,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         }
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._save_fail = function(error_callback, data)
     {
@@ -503,9 +489,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         }
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._save_preview = function(success_callback, error_callback)
     {
@@ -543,9 +527,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         this._api.call(_call);
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._save_preview_ok = function(success_callback, data)
     {
@@ -560,9 +542,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         }
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._save_preview_fail = function(error_callback, data)
     {
@@ -590,9 +570,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         }
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._needs_saved = function()
     {
@@ -609,9 +587,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         }
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._refresh_page_data = function()
     {
@@ -676,9 +652,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         this._refreshing = false;
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._generate_data_hash = function()
     {
@@ -695,9 +669,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         return this.md5(JSON.stringify(_carrots));
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._template_chooser_init = function()
     {
@@ -718,9 +690,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         });
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._editor_init = function()
     {
@@ -758,11 +728,11 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         _tpl_group      =  this.mustache_tpl.widget_grouping;
         _tpl_widget     =  this.mustache_tpl.widget;
 
-        for (var _key in this.widgets)
-        {
+        for (var i = 0; i < this.widgets.length; i++) {
+
             //  Build the grouping HTML
             _data   = {
-                name: this.widgets[_key].label,
+                name: this.widgets[i].label,
                 group : 'group-' + _group_counter
             };
 
@@ -771,24 +741,26 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
             this._editor.widgets.append(_html);
 
             //  Build this grouping's widgets
-            for (var _key2 in this.widgets[_key].widgets)
-            {
-                _data   = {
-                            group: 'group-' + _group_counter,
-                            name: this.widgets[_key].widgets[_key2].label,
-                            description: this.widgets[_key].widgets[_key2].description,
-                            keywords: this.widgets[_key].widgets[_key2].keywords,
-                            slug:  this.widgets[_key].widgets[_key2].slug
-                        };
+            console.log(this.widgets[i]);
 
-                _html   = Mustache.render(_tpl_widget, _data);
+            for (var x = 0; x < this.widgets[i].widgets.length; x++) {
+
+                _data = {
+                    group: 'group-' + _group_counter,
+                    name: this.widgets[i].widgets[x].label,
+                    description: this.widgets[i].widgets[x].description,
+                    keywords: this.widgets[i].widgets[x].keywords,
+                    slug:  this.widgets[i].widgets[x].slug
+                };
+
+                _html = Mustache.render(_tpl_widget, _data);
 
                 this._editor.widgets.append(_html);
 
                 // --------------------------------------------------------------------------
 
                 //  Build the callback functions for this widget
-                _script = 'var _WIDGET_CALLBACKS_' + this.widgets[_key].widgets[_key2].slug + ' = function(){';
+                _script = 'var _WIDGET_CALLBACKS_' + this.widgets[i].widgets[x].slug + ' = function(){';
 
                 // --------------------------------------------------------------------------
 
@@ -893,10 +865,10 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
 
                     //  Dropped
                     _script += 'this.dropped = function(ui) {';
-
-                        if (this.widgets[_key].widgets[_key2].callbacks.dropped.length > 0)
+console.log(this.widgets[i].widgets[x]);
+                        if (this.widgets[i].widgets[x].callbacks.dropped.length > 0)
                         {
-                            _script += this.widgets[_key].widgets[_key2].callbacks.dropped;
+                            _script += this.widgets[i].widgets[x].callbacks.dropped;
                         }
 
                         //  Automatically interpret any textareas with the class `wysiwyg` as CKEditors
@@ -914,9 +886,9 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
                     //  Sort Start
                     _script += 'this.sort_start = function(ui){';
 
-                        if (this.widgets[_key].widgets[_key2].callbacks.sort_start.length > 0)
+                        if (this.widgets[i].widgets[x].callbacks.sort_start.length > 0)
                         {
-                            _script += this.widgets[_key].widgets[_key2].callbacks.sort_start;
+                            _script += this.widgets[i].widgets[x].callbacks.sort_start;
                         }
 
                         // --------------------------------------------------------------------------
@@ -937,7 +909,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
                         _script += '    var _mask = ui.find(\'.mask\');';
                         _script += '    if (_mask.length === 0)';
                         _script += '    {';
-                        _script += '        _mask = $(\'<div>\').addClass(\'mask\').text(\'' + this.widgets[_key].widgets[_key2].label + ' widget disabled while sorting.\');';
+                        _script += '        _mask = $(\'<div>\').addClass(\'mask\').text(\'' + this.widgets[i].widgets[x].label + ' widget disabled while sorting.\');';
                         _script += '        ui.prepend(_mask);';
                         _script += '    }';
                         _script += '    ui.addClass(\'sorting\');';
@@ -951,9 +923,9 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
                     //  Sort Stop
                     _script += 'this.sort_stop = function(ui){';
 
-                        if (this.widgets[_key].widgets[_key2].callbacks.sort_stop.length > 0)
+                        if (this.widgets[i].widgets[x].callbacks.sort_stop.length > 0)
                         {
-                            _script += this.widgets[_key].widgets[_key2].callbacks.sort_stop;
+                            _script += this.widgets[i].widgets[x].callbacks.sort_stop;
                         }
 
                         // --------------------------------------------------------------------------
@@ -974,9 +946,9 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
                     //  Remove start
                     _script += 'this.remove_start = function(ui){';
 
-                        if (this.widgets[_key].widgets[_key2].callbacks.remove_start.length > 0)
+                        if (this.widgets[i].widgets[x].callbacks.remove_start.length > 0)
                         {
-                            _script += this.widgets[_key].widgets[_key2].callbacks.remove_start;
+                            _script += this.widgets[i].widgets[x].callbacks.remove_start;
                         }
 
                         // --------------------------------------------------------------------------
@@ -999,9 +971,9 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
                     //  Remove Stop
                     _script += 'this.remove_stop = function(ui){';
 
-                        if (this.widgets[_key].widgets[_key2].callbacks.remove_stop.length > 0)
+                        if (this.widgets[i].widgets[x].callbacks.remove_stop.length > 0)
                         {
-                            _script += this.widgets[_key].widgets[_key2].callbacks.remove_stop;
+                            _script += this.widgets[i].widgets[x].callbacks.remove_stop;
                         }
 
                     _script += '};';
@@ -1023,9 +995,9 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
                 // --------------------------------------------------------------------------
 
                 _script += '};';
-                _script += 'var _WIDGET_' + this.widgets[_key].widgets[_key2].slug + ' = new _WIDGET_CALLBACKS_' + this.widgets[_key].widgets[_key2].slug + '();';
+                _script += 'var _WIDGET_' + this.widgets[i].widgets[x].slug + ' = new _WIDGET_CALLBACKS_' + this.widgets[i].widgets[x].slug + '();';
 
-                _callbacks = $('<script>').attr('id', 'callbacks-' + this.widgets[_key].widgets[_key2].slug).attr('type', 'text/javascript').html(_script);
+                _callbacks = $('<script>').attr('id', 'callbacks-' + this.widgets[i].widgets[x].slug).attr('type', 'text/javascript').html(_script);
 
                 $('body').append(_callbacks);
 
@@ -1058,9 +1030,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         $('li.widget[title!=""]', this._editor.widgets).tipsy({gravity:'w'});
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._editor_launch = function(template, area)
     {
@@ -1087,9 +1057,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         $('#' + this.editor_id).addClass('ready').removeClass('loading');
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._editor_construct = function(template, area)
     {
@@ -1206,43 +1174,62 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
 
         //  Disable widgets which don't apply to this template and/or area
         var _disabled_msg = 'This widget has been disabled for this template/area.';
-        for(var _key in this.widgets)
-        {
-            for(var _key2 in this.widgets[_key].widgets)
-            {
+
+        for (var i = this.widgets.length - 1; i >= 0; i--) {
+            for (var x = this.widgets[i].widgets.length - 1; x >= 0; x--) {
                 //  Restricted to: Templates
-                if (this.widgets[_key].widgets[_key2].restrict_to_template.length)
+                if (this.widgets[i].widgets[x].restricted_to_template.length)
                 {
-                    if (this._array_search(template, this.widgets[_key].widgets[_key2].restrict_to_template) === false)
+                    if (this._array_search(template, this.widgets[i].widgets[x].restricted_to_template) === false)
                     {
-                        this._editor.widgets.find('li.widget.' + this.widgets[_key].widgets[_key2].slug).addClass('disabled').data('original-title', _disabled_msg).attr('title', _disabled_msg);
+                        this._editor
+                        .widgets
+                        .find('li.widget.' + this.widgets[i].widgets[x].slug)
+                        .addClass('disabled')
+                        .data('original-title', _disabled_msg)
+                        .attr('title', _disabled_msg);
                     }
                 }
 
                 //  Restricted to: Areas
-                if (this.widgets[_key].widgets[_key2].restrict_to_area.length)
+                if (this.widgets[i].widgets[x].restricted_to_area.length)
                 {
-                    if (this._array_search(area, this.widgets[_key].widgets[_key2].restrict_to_area) === false)
+                    if (this._array_search(area, this.widgets[i].widgets[x].restricted_to_area) === false)
                     {
-                        this._editor.widgets.find('li.widget.' + this.widgets[_key].widgets[_key2].slug).addClass('disabled').data('original-title', _disabled_msg).attr('title', _disabled_msg);
+                        this._editor
+                        .widgets
+                        .find('li.widget.' + this.widgets[i].widgets[x].slug)
+                        .addClass('disabled')
+                        .data('original-title', _disabled_msg)
+                        .attr('title', _disabled_msg);
                     }
                 }
 
                 //  Restricted from: Templates
-                if (this.widgets[_key].widgets[_key2].restrict_from_template.length)
+                if (this.widgets[i].widgets[x].restricted_from_template.length)
                 {
-                    if (this._array_search(template, this.widgets[_key].widgets[_key2].restrict_from_template) !== false)
+                    if (this._array_search(template, this.widgets[i].widgets[x].restricted_from_template) !== false)
                     {
-                        this._editor.widgets.find('li.widget.' + this.widgets[_key].widgets[_key2].slug).addClass('disabled').data('original-title', _disabled_msg).attr('title', _disabled_msg);
+                        this._editor
+                        .widgets
+                        .find('li.widget.' + this.widgets[i].widgets[x].slug)
+                        .addClass('disabled')
+                        .data('original-title', _disabled_msg)
+                        .attr('title', _disabled_msg);
                     }
                 }
 
                 //  Restricted from: Areas
-                if (this.widgets[_key].widgets[_key2].restrict_from_area.length)
+                if (this.widgets[i].widgets[x].restricted_from_area.length)
                 {
-                    if (this._array_search(area, this.widgets[_key].widgets[_key2].restrict_from_area) !== false)
+                    if (this._array_search(area, this.widgets[i].widgets[x].restricted_from_area) !== false)
                     {
-                        this._editor.widgets.find('li.widget.' + this.widgets[_key].widgets[_key2].slug).addClass('disabled').data('original-title', _disabled_msg).attr('title', _disabled_msg);
+                        this._edito
+                        .widgets
+                        .find('li.widget.' + this.widgets[i].widgets[x].slug)
+                        .addClass('disabled')
+                        .data('original-title', _disabled_msg)
+                        .attr('title', _disabled_msg);
                     }
                 }
             }
@@ -1379,9 +1366,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         this._editor_open = true;
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._editor_destruct = function()
     {
@@ -1425,9 +1410,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         this._editor_open = false;
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._load_widgets_for_area = function(template, area)
     {
@@ -1461,9 +1444,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         }
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._drop_widget = function(template, ui, widget_data)
     {
@@ -1639,9 +1620,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         }
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._remove_widget = function(id)
     {
@@ -1719,9 +1698,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         $('.ui-widget-overlay').css({zIndex:1000});
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._editor_close = function()
     {
@@ -1729,36 +1706,39 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         this._editor_destruct();
     };
 
-
     // --------------------------------------------------------------------------
 
-
+    /**
+     * Get an individual template by it's ID.
+     * @param  {String} slug The template's slug
+     * @return {Object}
+     */
     this._get_template = function(slug)
     {
-        for (var _key in this.templates)
-        {
-            if (slug === this.templates[_key].slug)
+        for (var i = this.templates.length - 1; i >= 0; i--) {
+            if (slug === this.templates[i].slug)
             {
-                return this.templates[_key];
+                return this.templates[i];
             }
         }
 
         return false;
     };
 
-
     // --------------------------------------------------------------------------
 
-
+    /**
+     * Get an individual widget by it's ID.
+     * @param  {String} slug The widget's slug
+     * @return {Object}
+     */
     this._get_widget = function(slug)
     {
-        for (var _key in this.widgets)
-        {
-            for (var _key2 in this.widgets[_key].widgets)
-            {
-                if (slug === this.widgets[_key].widgets[_key2].slug)
+        for (var i = this.widgets.length - 1; i >= 0; i--) {
+            for (var x = this.widgets[i].widgets.length - 1; x >= 0; x--) {
+                if (slug === this.widgets[i].widgets[x].slug)
                 {
-                    return this.widgets[_key].widgets[_key2];
+                    return this.widgets[i].widgets[x];
                 }
             }
         }
@@ -1766,9 +1746,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         return false;
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._redirect = function(url)
     {
@@ -1776,9 +1754,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
         window.location.href    = url;
     };
 
-
     // --------------------------------------------------------------------------
-
 
     /* jshint ignore:start */
     this._array_search = function(needle, haystack, argStrict )
@@ -1835,9 +1811,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
     };
     /* jshint ignore:end */
 
-
     // --------------------------------------------------------------------------
-
 
     /* jshint ignore:start */
     this.md5 = function(str)
@@ -2055,9 +2029,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
     };
     /* jshint ignore:end */
 
-
     // --------------------------------------------------------------------------
-
 
     /* jshint ignore:start */
     this.utf8_encode = function(argString)
