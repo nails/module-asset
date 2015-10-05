@@ -1,6 +1,8 @@
+/* globals Mustache, console */
 var NAILS_Admin_CMS_pages_Create_Edit;
 NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_data)
 {
+    console.log(widgets);
     this._api               = null;
     this.editor_id          = Math.floor(Math.random() * 10000000000000001);
     this._editor            = {};
@@ -1735,12 +1737,8 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
 
     this._get_template = function(slug)
     {
-        for (var _key in this.templates)
-        {
-            if (slug === this.templates[_key].slug)
-            {
-                return this.templates[_key];
-            }
+        if (typeof this.templates[slug] === 'object') {
+            return this.templates[slug];
         }
 
         return false;
@@ -2055,9 +2053,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
     };
     /* jshint ignore:end */
 
-
     // --------------------------------------------------------------------------
-
 
     /* jshint ignore:start */
     this.utf8_encode = function(argString)
