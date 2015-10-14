@@ -2,7 +2,7 @@
   "name": "nailsapp/module-asset",
   "version": "0.2.1",
   "authors": [
-    "Pablo de la Pena <p@shedcollective.org>"
+    "Pablo de la Pena <p@nailsapp.co.uk>"
   ],
   "description": "This module provides pre-compiled assets which are used by Nails modules.",
   "keywords": [
