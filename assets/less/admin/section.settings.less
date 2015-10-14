@@ -1,0 +1,116 @@
+/* --------------------------------------------------------------
+   Nails Settings Module Admin Styles
+-------------------------------------------------------------- */
+
+.group-settings {
+    .tab.page.skin {
+        .system-alert {
+            margin-bottom: 0;
+        }
+    }
+    ul.skins {
+        li.skin {
+            .opacity(0.5);
+            border: 1px solid #CCC;
+            display: block;
+            float: left;
+            box-sizing: border-box;
+            margin: 0;
+            margin-right: 1em;
+            margin-top: 1em;
+            padding: 10px;
+            background: #FFF;
+            width: 250px;
+            height: 200px;
+            .rounded(3px);
+            .nifty-drop-shadow();
+            cursor: pointer;
+            .icon {
+                img {
+                    width: 230px;
+                    height: 150px;
+                    border-bottom: 1px solid #CCC;
+                    margin-bottom: 5px;
+                }
+            }
+            .name {
+                font-weight: bold;
+                text-align: center;
+                span {
+                    display: none;
+                }
+            }
+            input {
+                display: none;
+            }
+            &:hover,
+            &.selected {
+                .opacity(1)
+            }
+            &.selected {
+                .name {
+                    span {
+                        color: @green;
+                        margin-left: 0.5em;
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
+    &.site {
+        .configure-provider {
+            .awesome {
+                position: relative;
+                top: -9px;
+                left: 15px;
+                &:active {
+                    top: -8px;
+                }
+            }
+        }
+    }
+    &.notification {
+        @input_margin: 5px;
+        &.overview {
+            table {
+                th,
+                td {
+                    &.event-label {
+                        width: 125px;
+                    }
+                    &.value {
+                        position:relative;
+                        .input-wrapper {
+                            left: @input_margin;
+                            right: @input_margin;
+                            bottom: @input_margin;
+                            top: @input_margin;
+                            margin: 0;
+                            position: absolute;
+                            input {
+                                width: 100%;
+                                box-sizing: border-box;
+                            }
+                        }
+                        &.has-tip {
+                            .input-wrapper {
+                                right: @input_margin + 35px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.configure-provider-fancybox {
+    div.field {
+        span.label {
+            width:70px;
+        }
+        span.input {
+            margin-left:105px;
+        }
+    }
+}

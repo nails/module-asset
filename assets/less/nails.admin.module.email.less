@@ -1,0 +1,41 @@
+/* --------------------------------------------------------------
+   Nails Email Module Admin Styles
+-------------------------------------------------------------- */
+
+@import "common/variables.less";
+@import "admin/variables.less";
+@import "common/elements.less";
+
+.group-email {
+	table {
+		margin-bottom: 2em;
+		th.id,
+		td.id,
+		th.ref,
+		td.ref,
+		th.status,
+		td.status,
+		th.reads,
+		td.reads,
+		th.clicks,
+		td.clicks 	{
+			text-align: center;
+		}
+		td.to {
+			img {
+				float: left;
+				margin-right: 10px;
+				.rounded(3px);
+				border: 1px solid #ccc;
+			}
+		}
+		td.status {
+			b {
+				margin-right: 0.3em;
+			}
+		}
+		th.actions {
+			min-width: 135px;
+		}
+	}
+}

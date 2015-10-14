@@ -1,4 +1,11 @@
-//  Generic
+/* --------------------------------------------------------------
+   Nails Shop Module Admin Styles
+-------------------------------------------------------------- */
+
+@import "common/variables.less";
+@import "admin/variables.less";
+@import "common/elements.less";
+
 .group-shop
 {
     //  Common across all sections
@@ -989,6 +996,43 @@
     }
 }
 
+.group-settings {
+    &.shop {
+        table {
+            td.order {
+                width:25px;
+                text-align:center;
+                font-size:2em;
+                cursor: url(../img/admin/cursors/openhand.cur), none !important;
+            }
+            th.enabled,
+            td.enabled {
+                width:150px;
+                text-align:center;
+            }
+            th.selected,
+            td.selected {
+                width:50px;
+                text-align:center;
+            }
+            th.configure,
+            td.configure {
+                width:80px;
+                text-align:center;
+            }
+            td.enabled {
+                .toggle {
+                    text-align:center;
+                    display:inline-block;
+                }
+                input[type=checkbox] {
+                    display:none;
+                }
+            }
+        }
+    }
+}
+
 // --------------------------------------------------------------------------
 
 #help-variation-examples
@@ -1029,9 +1073,7 @@
     }
 }
 
-
 // --------------------------------------------------------------------------
-
 
 @-webkit-keyframes barberpole
 {

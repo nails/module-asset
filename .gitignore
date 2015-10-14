@@ -3,3 +3,5 @@
 config.codekit
 composer.lock
 vendor/*
+node_modules
+.idea
