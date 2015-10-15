@@ -9,8 +9,10 @@ var dripCampaignEdit = function(emails) {
 
     // --------------------------------------------------------------------------
 
-    for (var i = emails.length - 1; i >= 0; i--) {
-        emails[i].showTemplate = ko.observable(false);
+    if (emails) {
+        for (var i = emails.length - 1; i >= 0; i--) {
+            emails[i].showTemplate = ko.observable(false);
+        }
     }
 
     // --------------------------------------------------------------------------
