@@ -1,3 +1,4 @@
+/* globals Mustache */
 var NAILS_Admin_CMS_Menus_Create_Edit;
 NAILS_Admin_CMS_Menus_Create_Edit = function(items)
 {
@@ -45,30 +46,31 @@ NAILS_Admin_CMS_Menus_Create_Edit = function(items)
 
             //  Build initial menu items
             for (var key in items) {
+                if (items.hasOwnProperty(key)) {
+                    html = Mustache.render(base.itemTemplate, items[key]);
 
-                html = Mustache.render(base.itemTemplate, items[key]);
+                    //  Does this have a parent? If so then we need to append it there
+                    if (items[key].parent_id !== null && items[key].parent_id !== '') {
 
-                //  Does this have a parent? If so then we need to append it there
-                if (items[key].parent_id !== null && items[key].parent_id !== '') {
+                        //  Find the parent and append to it's <ol class="nested-sortable-sub">
+                        target = $('li.target-' + items[key].parent_id + ' ol.nested-sortable-sub').first();
 
-                    //  Find the parent and append to it's <ol class="nested-sortable-sub">
-                    target = $('li.target-' + items[key].parent_id + ' ol.nested-sortable-sub').first();
+                        if (target.length === 0) {
+                            target = container;
+                        }
 
-                    if (target.length === 0) {
+                    } else {
+
                         target = container;
                     }
 
-                } else {
+                    target.append(html);
 
-                    target = container;
-                }
+                    //  If the page_id is set, then make sure it's selected in the dropdown
+                    if (parseInt(items[key].page_id, 10) > 0) {
 
-                target.append(html);
-
-                //  If the page_id is set, then make sure it's selected in the dropdown
-                if (parseInt(items[key].page_id, 10) > 0) {
-
-                    target.find('li:last option[value=' + items[key].page_id + ']').prop('selected', true);
+                        target.find('li:last option[value=' + items[key].page_id + ']').prop('selected', true);
+                    }
                 }
             }
 

@@ -1,3 +1,4 @@
+/* globals console, CKEDITOR */
 var NAILS_Admin_CMS_Blocks_Create;
 NAILS_Admin_CMS_Blocks_Create = function()
 {

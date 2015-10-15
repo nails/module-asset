@@ -1,3 +1,4 @@
+/* globals console  */
 /**
  * api.js
  *

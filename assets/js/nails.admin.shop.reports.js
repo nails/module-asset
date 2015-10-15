@@ -1,4 +1,4 @@
-
+/* globals _nails  */
 var NAILS_Admin_Shop_Reports;
 NAILS_Admin_Shop_Reports = function()
 {

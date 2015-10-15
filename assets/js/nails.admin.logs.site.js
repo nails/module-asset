@@ -1,4 +1,4 @@
-/* global Mustache */
+/* global _nails_api, Mustache */
 var NAILS_Admin_Logs_Site;
 NAILS_Admin_Logs_Site = function()
 {

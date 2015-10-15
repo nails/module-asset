@@ -1,3 +1,4 @@
+/* globals _nails, Mustache, _nails_admin, CKEDITOR  */
 var NAILS_Admin_Shop_Inventory_Create_Edit;
 NAILS_Admin_Shop_Inventory_Create_Edit = function()
 {

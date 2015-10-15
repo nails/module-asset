@@ -1,3 +1,4 @@
+/* globals console */
 var NAILS_Admin_Admin_Settings;
 NAILS_Admin_Admin_Settings = function()
 {

@@ -1,3 +1,4 @@
+/* globals _nails_api  */
 var NAILS_Admin_Shop_Vouchers_Edit;
 NAILS_Admin_Shop_Vouchers_Edit = function()
 {

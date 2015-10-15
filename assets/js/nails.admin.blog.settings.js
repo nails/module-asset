@@ -1,3 +1,4 @@
+/* globals _nails */
 var NAILS_Admin_Blog_Settings;
 NAILS_Admin_Blog_Settings = function()
 {

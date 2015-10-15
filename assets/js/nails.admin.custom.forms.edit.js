@@ -1,3 +1,4 @@
+/* globals _nails, Mustache */
 var _ADMIN_CUSTOM_FORMS_EDIT;
 _ADMIN_CUSTOM_FORMS_EDIT = function()
 {

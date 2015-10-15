@@ -1,3 +1,4 @@
+/* globals Mustache */
 var NAILS_Admin_CMS_Sliders_Create_Edit;
 NAILS_Admin_CMS_Sliders_Create_Edit = function()
 {
@@ -58,7 +59,9 @@ NAILS_Admin_CMS_Sliders_Create_Edit = function()
     base.addSlides = function(slides)
     {
         for (var key in slides) {
-            base.addSlide(slides[key]);
+            if (slides.hasOwnProperty(key)) {
+                base.addSlide(slides[key]);
+            }
         }
     };
 

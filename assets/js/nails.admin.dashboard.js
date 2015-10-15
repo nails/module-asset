@@ -5,7 +5,6 @@ NAILS_Admin_Dashboard = function()
 	{
 		$( '#add-widget' ).on( 'click', function()
 		{
-			alert( 'Add widget: TODO' );
 			return false;
 		});
 	};

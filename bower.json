@@ -40,6 +40,7 @@
     "select2": "~3.5.2",
     "social-likes": "~3.0.9",
     "tipsy": "~0.1.7",
-    "moment": "~2.10.3"
+    "moment": "~2.10.3",
+    "knockout": "~3.3.0"
   }
 }

@@ -1,4 +1,5 @@
 //  Catch undefined console
+/* globals console, _nails_api  */
 /* jshint ignore:start */
 if (typeof(console) === "undefined")
 {

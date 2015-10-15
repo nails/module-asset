@@ -1,3 +1,5 @@
+/* globals Mustache, _nails, alert  */
+//  @todo: don't use alerts
 var NAILS_Admin_Shop_Settings;
 NAILS_Admin_Shop_Settings = function()
 {

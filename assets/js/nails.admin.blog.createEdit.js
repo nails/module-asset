@@ -1,4 +1,4 @@
-/* global moment */
+/* global moment, _nails, CKEDITOR */
 var NAILS_Admin_Blog_Create_Edit;
 NAILS_Admin_Blog_Create_Edit = function(mode, initialPublishState)
 {

@@ -1,3 +1,4 @@
+/* globals Dropzone */
 var NAILS_Admin_CDN_Upload;
 NAILS_Admin_CDN_Upload = function()
 {

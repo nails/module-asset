@@ -1,3 +1,4 @@
+/* globals Mustache  */
 var NAILS_CDN_Manager;
 /**
  * The Nails CDN manager

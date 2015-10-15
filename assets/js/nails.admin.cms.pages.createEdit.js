@@ -61,21 +61,19 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
 
             for(_key in this.templates)
             {
-                if (typeof(this.page_data.widget_areas) === 'undefined')
-                {
-                    this.page_data.widget_areas = {};
-                }
+                if (this.templates.hasOwnProperty(_key)) {
+                    if (typeof(this.page_data.widget_areas) === 'undefined') {
+                        this.page_data.widget_areas = {};
+                    }
 
-                if (typeof(this.page_data.widget_areas[_key]) === 'undefined')
-                {
-                    this.page_data.widget_areas[_key] = {};
-                }
+                    if (typeof(this.page_data.widget_areas[_key]) === 'undefined') {
+                        this.page_data.widget_areas[_key] = {};
+                    }
 
-                for (_key2 in this.templates[_key].widget_areas)
-                {
-                    if (typeof(this.page_data.widget_areas[_key][_key2]) === 'undefined')
-                    {
-                        this.page_data.widget_areas[_key][_key2] = [];
+                    for (_key2 in this.templates[_key].widget_areas) {
+                        if (typeof(this.page_data.widget_areas[_key][_key2]) === 'undefined') {
+                            this.page_data.widget_areas[_key][_key2] = [];
+                        }
                     }
                 }
             }
@@ -1428,17 +1426,18 @@ console.log(this.widgets[i].widgets[x]);
                 this._editor.dropzone.removeClass('empty');
                 this._editor.dropzone.find('li.empty').remove();
 
-                for (var _key in this.page_data.widget_areas[template][area])
-                {
-                    //  Quick shortcut
-                    var _data = this.page_data.widget_areas[template][area][_key];
+                for (var _key in this.page_data.widget_areas[template][area]) {
+                    if (this.page_data.widget_areas[template][area].hasOwnProperty(_key)) {
+                        //  Quick shortcut
+                        var _data = this.page_data.widget_areas[template][area][_key];
 
-                    //  Create a placeholder item in the list
-                    var _placeholder = $('<div>').data('slug', _data.widget);
-                    this._editor.dropzone.append(_placeholder);
+                        //  Create a placeholder item in the list
+                        var _placeholder = $('<div>').data('slug', _data.widget);
+                        this._editor.dropzone.append(_placeholder);
 
-                    //  Drop the widget
-                    this._drop_widget(template, _placeholder, _data.data);
+                        //  Drop the widget
+                        this._drop_widget(template, _placeholder, _data.data);
+                    }
                 }
             }
         }

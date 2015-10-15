@@ -25,12 +25,13 @@ NAILS_Admin_Accounts_Merge = function()
                     var userId     = '';
                     var userName   = '';
 
-                    for(var key in data.users) {
+                    for (var key in data.users) {
+                        if (data.users.hasOwnProperty(key)) {
+                            userId   = data.users[key].id;
+                            userName = '#' + userId + ' - ' + data.users[key].first_name + ' ' + data.users[key].last_name;
 
-                        userId   = data.users[key].id;
-                        userName = '#' + userId + ' - ' + data.users[key].first_name + ' ' + data.users[key].last_name;
-
-                        returnData.results.push({'text' : userName, 'id' : userId});
+                            returnData.results.push({'text' : userName, 'id' : userId});
+                        }
                     }
 
                     return returnData;
@@ -58,12 +59,13 @@ NAILS_Admin_Accounts_Merge = function()
                     var userId     = '';
                     var userName   = '';
 
-                    for(var key in data.users) {
+                    for (var key in data.users) {
+                        if (data.users.hasOwnProperty(key)) {
+                            userId   = data.users[key].id;
+                            userName = '#' + userId + ' - ' + data.users[key].first_name + ' ' + data.users[key].last_name;
 
-                        userId   = data.users[key].id;
-                        userName = '#' + userId + ' - ' + data.users[key].first_name + ' ' + data.users[key].last_name;
-
-                        returnData.results.push({'text' : userName, 'id' : userId});
+                            returnData.results.push({'text' : userName, 'id' : userId});
+                        }
                     }
 
                     return returnData;
@@ -132,8 +134,9 @@ NAILS_Admin_Accounts_Merge = function()
             message += '<ul>';
 
             for (var key in errorMsg) {
-                message += '<li>&rsaquo; ' + errorMsg[key] + '</li>';
-
+                if (errorMsg.hasOwnProperty(key)) {
+                    message += '<li>&rsaquo; ' + errorMsg[key] + '</li>';
+                }
             }
             message += '</ul>';
 
