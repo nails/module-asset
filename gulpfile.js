@@ -10,6 +10,8 @@ var notify = require('gulp-notify');
 var path = require('path');
 var plumber = require('gulp-plumber');
 var gutil = require('gulp-util');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 
 //  Styles
 gulp.task('css', function() {
@@ -68,6 +70,8 @@ gulp.task('js', function() {
     gulp.src(['assets/js/*.js', '!assets/js/*.min.js', '!assets/js/*.min.js.map'])
         .pipe(plumber({errorHandler: onError}))
         .pipe(sourcemaps.init())
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter('jshint-stylish'))
         .pipe(uglify())
         .pipe(rename({
             suffix: '.min'
