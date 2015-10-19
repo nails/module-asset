@@ -1,67 +1,42 @@
-form
-{
-    width:100%;
+form {
+    width: 100%;
 }
-
 fieldset
 {
-    height:auto;
-    border:1px solid #ccc;
+    height: auto;
+    border: 1px solid #ccc;
     padding: 0;
-    margin-bottom:35px;
-    position:relative;
-    background:#FFF;
+    margin-bottom: 35px;
+    position: relative;
+    background: #FFF;
     margin-top: 50px;
     box-sizing: border-box;
-
-    /**
-     * The last fieldset within a fieldset shouldn't have a margin
-     * bottom, looks waaay nicer!
-     */
-
-    fieldset
-    {
-        border-color:#eee;
-
-        &:first-of-type
-        {
-            margin-top: 0;
-        }
-
-        &:last-of-type
-        {
-            margin-bottom: 0;
-        }
+    fieldset {
+        margin: 1em;
+        margin-top: 3.35em;
     }
-
-    .fieldset-toggle
-    {
-        position:absolute;
-        right:10px;
-        top:-11px;
-        border:1px solid #CCC;
-        font-size:0.8em;
-        background:#EFEFEF;
+    .fieldset-toggle {
+        position: absolute;
+        right: 10px;
+        top: -11px;
+        border: 1px solid #CCC;
+        font-size: 0.8em;
+        background: #EFEFEF;
         text-decoration: none;
-        padding:3px 4px;
-        display:block;
+        padding: 3px 4px;
+        display: block;
         .rounded(5px);
         line-height: 1em;
-
-        .show
-        {
-            display:none;
+        .show {
+            display: none;
         }
-        .hide
-        {
-            display:block;
+        .hide {
+            display: block;
         }
     }
-    .fieldset-toggle:hover
-    {
-        background:#CCC;
+    .fieldset-toggle:hover {
+        background: #CCC;
     }
-
     legend,
     .legend
     {
@@ -76,32 +51,30 @@ fieldset
         width: auto;
         border-radius: 3px 3px 0 0;
         font-weight: bold;
-
-        *
-        {
-            font-weight:inherit;
+        * {
+            font-weight: inherit;
         }
-
-        select
-        {
-            font-weight:normal;
+        select {
+            font-weight: normal;
         }
     }
-
-    table
-    {
+    table {
         border: 0;
         th.label,
-        td.label
-        {
+        td.label {
             font-weight:bold;
             width:125px;
             text-align:right;
         }
     }
-
-    > p {
-        padding: 1em
+    > p,
+    > .system-alert,
+    > .alert,
+    > .padded {
+        margin: 1em;
+        & + & {
+            margin-top: 0;
+        }
     }
 
     &.closed

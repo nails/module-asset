@@ -62,12 +62,12 @@ NAILS_Admin_Auth_Groups_Edit = function()
      */
     base.togglePermissions = function()
     {
-        $('.permissionGroup tbody td.permission').on('click', function()
+        $('.permission-group tbody td.permission').on('click', function()
         {
             $(this).closest('tr').find('input[type=checkbox]').click();
         });
 
-        $('.permissionGroup tbody td.enabled input').on('change', function() {
+        $('.permission-group tbody td.enabled input').on('change', function() {
 
             var td = $(this).closest('td');
             if ($(this).is(':checked')) {
@@ -82,7 +82,7 @@ NAILS_Admin_Auth_Groups_Edit = function()
             }
         });
 
-        $('.permissionGroup .toggleAll').on('click', function()
+        $('.permission-group .toggleAll').on('click', function()
         {
             var inputs  = $(this).closest('table').find('tbody td.enabled input');
             var checked = $(this).is(':checked');
@@ -141,8 +141,8 @@ NAILS_Admin_Auth_Groups_Edit = function()
 
         if (keywords === '') {
 
-            $('.permissionGroup').show();
-            $('.permissionGroup tbody tr').show();
+            $('.permission-group').show();
+            $('.permission-group tbody tr').show();
             return;
         }
 
@@ -151,7 +151,7 @@ NAILS_Admin_Auth_Groups_Edit = function()
          */
         regex = new RegExp($.trim(keywords), 'i');
 
-        $('.permissionGroup td.permission').each(function() {
+        $('.permission-group td.permission').each(function() {
 
             searchMe = $.trim($(this).text());
             result   = regex.test(searchMe);
@@ -170,7 +170,7 @@ NAILS_Admin_Auth_Groups_Edit = function()
          * If a group's name matches the search term then show all the permissions
          * regardless of what was done above
          */
-        $('.permissionGroup legend').each(function() {
+        $('.permission-group legend').each(function() {
 
             searchMe = $.trim($(this).text());
             result   = regex.test(searchMe);
@@ -184,8 +184,8 @@ NAILS_Admin_Auth_Groups_Edit = function()
         /**
          * Only show groups where there are visible filters
          */
-        $('.permissionGroup').show();
-        $('.permissionGroup').each(function() {
+        $('.permission-group').show();
+        $('.permission-group').each(function() {
 
             var visible = $(this).find('td.permission:visible').length;
 
