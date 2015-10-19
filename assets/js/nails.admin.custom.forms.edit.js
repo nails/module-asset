@@ -195,12 +195,12 @@ _ADMIN_CUSTOM_FORMS_EDIT = function()
             case 'RADIOS' :
             case 'CHECKBOX' :
 
-                elem.siblings('a').addClass('active');
+                elem.siblings('a').addClass('is-active');
                 break;
 
             default :
 
-                elem.siblings('a').removeClass('active');
+                elem.siblings('a').removeClass('is-active');
                 break;
         }
     };
@@ -213,12 +213,12 @@ _ADMIN_CUSTOM_FORMS_EDIT = function()
         {
             case 'CUSTOM' :
 
-                elem.siblings('input').addClass('active');
+                elem.siblings('input').addClass('is-active');
                 break;
 
             default :
 
-                elem.siblings('input').removeClass('active');
+                elem.siblings('input').removeClass('is-active');
                 break;
         }
     };
