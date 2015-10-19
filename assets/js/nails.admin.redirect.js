@@ -1,29 +1,60 @@
-(function()
-{
-    var base  = this;
-
-    // --------------------------------------------------------------------------
-
-    base.template = $('#template-row').html();
-
-    // --------------------------------------------------------------------------
-
-    base.__construct = function()
+/* globals ko */
+ko.bindingHandlers.select2 = {
+    init: function(element)
     {
-        $('#add').on('click', function(e){
-            $('.redirect-table tbody tr:last').before(base.template);
-            $('.select2').select2('destroy');
-            $('.select2').select2();
-            e.preventDefault();
-        });
+        $(element).select2();
+    }
+}
 
-        $(document).on('click', '.delete',  function(e){
-            $(e.target).closest('tr').remove();
-            e.preventDefault();
-        });
+var redirects = function(redirects) {
+
+    /**
+     * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
+     * @type {Object}
+     */
+    var base = this;
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * The list of redirects
+     * @type {observableArray}
+     */
+    base.redirects = ko.observableArray(redirects);
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * The typs of redirect which the user can choose from
+     * @type {Object}
+     */
+    base.redirectTypes = [
+        {
+            'code': 301,
+            'label': '301 - Moved Permanently'
+        },
+        {
+            'code': 302,
+            'label': '302 - Moved Temporarily'
+        }
+    ];
+
+    // --------------------------------------------------------------------------
+
+    base.addRedirect = function()
+    {
+        var redirect = {
+            'old_url': '',
+            'new_url': '',
+            'type': 301
+        };
+        base.redirects.push(redirect);
     };
 
     // --------------------------------------------------------------------------
 
-    base.__construct();
-})();
+    base.removeRedirect = function()
+    {
+        base.redirects.remove(this);
+    };
+};

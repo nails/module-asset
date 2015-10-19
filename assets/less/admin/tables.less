@@ -12,11 +12,10 @@
 @table_td_padding_bottom : 8px;
 @table_td_padding_left   : 10px;
 
-table
-{
+table {
     width: 100%;
     border:1px solid #EFEFEF;
-
+    margin-bottom: 1em;
     thead
     {
         tr
@@ -45,8 +44,8 @@ table
                     &:link,
                     &:vsited
                     {
-                        text-decoration:none;
-                        color:inherit;
+                        text-decoration: none;
+                        color: inherit;
                     }
                 }
 
@@ -105,16 +104,20 @@ table
 
                 a
                 {
-                    &:link,
-                    &:visited
-                    {
-                        color: #000;
-                        text-decoration: none;
+                    &:not(.btn) {
+                        &:link,
+                        &:visited
+                        {
+                            color: #000;
+                            text-decoration: none;
+                        }
+                        &:hover
+                        {
+                            color: #999;
+                        }
                     }
-
-                    &:hover
-                    {
-                        color: #999;
+                    &.btn {
+                        margin-right: 0.5em;
                     }
                 }
 

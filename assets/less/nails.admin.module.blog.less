@@ -47,47 +47,54 @@
     // --------------------------------------------------------------------------
 
     &.edit {
+        height: auto;
         fieldset.categories-tags {
             select {
                 width: 100%;
             }
         }
-        #post-type-area {
-        	border: 1px solid #CCC;
-        	margin-left: -15px;
-        	padding: 7px;
-        	background: #FAFAFA;
-        	.rounded(3px);
-        	strong {
-        		display: block;
-        		margin-bottom: 0.5em;
-        	}
-        	.type-fields {
-        		margin-top: 1em;
-        		input {
-        			margin-bottom: 0.5em;
-                    width: 100%;
-        		}
-        	}
-        	#post-type-fields-photo {
-        		img {
-        			width: 100%;
-        			height: auto;
-        			.rounded(2px);
-        			cursor: pointer;
-                    border: 1px solid #CCC;
-                    margin-bottom: 0.2em;
-                    &[src=""] {
-                        display: none;
+        .tab-page {
+            &.tab-title-body {
+                background-color: #F4F4F4;
+                #post-editor {
+                    border-right: 1px solid #CCC;
+                    padding-right: 0;
+                }
+                #post-type-area {
+                    padding: 7px;
+                    margin-left: -15px;
+                    strong {
+                        display: block;
+                        margin-bottom: 0.5em;
                     }
-        		}
-        		a {
-        			display: block;
-        			width: 100%;
-        		}
-        	}
-            .system-alert {
-                margin-bottom: 0;
+                    .type-fields {
+                        margin-top: 1em;
+                        input {
+                            margin-bottom: 0.5em;
+                            width: 100%;
+                        }
+                    }
+                    #post-type-fields-photo {
+                        img {
+                            width: 100%;
+                            height: auto;
+                            .rounded(2px);
+                            cursor: pointer;
+                            border: 1px solid #CCC;
+                            margin-bottom: 0.2em;
+                            &[src=""] {
+                                display: none;
+                            }
+                        }
+                        a {
+                            display: block;
+                            width: 100%;
+                        }
+                    }
+                    .system-alert {
+                        margin-bottom: 0;
+                    }
+                }
             }
         }
         #gallery-items {

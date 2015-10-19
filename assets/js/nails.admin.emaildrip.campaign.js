@@ -51,14 +51,15 @@ var dripCampaignEdit = function(emails) {
 
     // --------------------------------------------------------------------------
 
-    base.toggleTemplate = function() {
+    base.toggleTemplate = function()
+    {
         this.showTemplate(!this.showTemplate());
     };
 
     // --------------------------------------------------------------------------
 
-    base.addEmail = function() {
-
+    base.addEmail = function()
+    {
         var email = {
             'subject': '',
             'body_html': '',
@@ -76,20 +77,22 @@ var dripCampaignEdit = function(emails) {
 
     // --------------------------------------------------------------------------
 
-    base.removeEmail = function() {
-
+    base.removeEmail = function()
+    {
         base.emails.remove(this);
     };
 
     // --------------------------------------------------------------------------
 
-    base.moveUp = function() {
+    base.moveUp = function()
+    {
         alert('@todo: move email up the list');
     };
 
     // --------------------------------------------------------------------------
 
-    base.moveDown = function() {
+    base.moveDown = function()
+    {
         alert('@todo: move email down the list');
     };
 };
