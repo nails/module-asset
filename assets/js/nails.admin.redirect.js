@@ -4,7 +4,7 @@ ko.bindingHandlers.select2 = {
     {
         $(element).select2();
     }
-}
+};
 
 var redirects = function(redirects) {
 

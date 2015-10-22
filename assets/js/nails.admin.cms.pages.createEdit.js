@@ -2,7 +2,6 @@
 var NAILS_Admin_CMS_pages_Create_Edit;
 NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_data)
 {
-    console.log(widgets);
     this._api               = null;
     this.editor_id          = Math.floor(Math.random() * 10000000000000001);
     this._editor            = {};
@@ -739,8 +738,6 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
             this._editor.widgets.append(_html);
 
             //  Build this grouping's widgets
-            console.log(this.widgets[i]);
-
             for (var x = 0; x < this.widgets[i].widgets.length; x++) {
 
                 _data = {
@@ -863,7 +860,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
 
                     //  Dropped
                     _script += 'this.dropped = function(ui) {';
-console.log(this.widgets[i].widgets[x]);
+
                         if (this.widgets[i].widgets[x].callbacks.dropped.length > 0)
                         {
                             _script += this.widgets[i].widgets[x].callbacks.dropped;
