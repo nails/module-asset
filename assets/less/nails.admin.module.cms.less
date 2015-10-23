@@ -610,42 +610,31 @@
                 width: @widgeteditor-widgets-width;
                 //  Styling
                 background: #121618;
-                overflow: auto;
+                overflow-y: auto;
                 border-right: 1px solid #121618;
                 .widget-group {
                     padding: 1em 0.6em;
+                    padding-right: 2em;
                     font-weight: bold;
                     color: #FFF;
                     cursor: pointer;
+                    position: relative;
+                    &.closed {
+                        .icon {
+                            transform: rotate(180deg);
+                        }
+                    }
                     .icon {
-                        float: right;
+                        position: absolute;
+                        right: 1em;
+                        top: 1em;
                         line-height: 1.5em;
                         color: #03A9F4;
+                        transition: transform .2s;
+                        transform: rotate(0deg);
                     }
                     + .widget {
                         border-top: 0;
-                    }
-                }
-                .widget {
-                    padding: 0.6em;
-                    border-top: 1px solid #CCC;
-                    border-left: 4px solid #03A9F4;
-                    background: #FFF;
-                    cursor: move;
-                    cursor: grab;
-                    cursor: -moz-grab;
-                    cursor: -webkit-grab;
-                    &:hover {
-                        background: #EFEFEF;
-                    }
-                    &:active {
-                        background: #DEDEDE;
-                        cursor: grabbing;
-                        cursor: -moz-grabbing;
-                        cursor: -webkit-grabbing;
-                    }
-                    .icon {
-                        margin-right: 0.5em;
                     }
                 }
             }
@@ -659,6 +648,84 @@
                 //  Styling
                 background: rgba(255,255,255,0.75);
                 overflow: auto;
+                > ul {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 1;
+                    padding: 1em;
+                    &:empty + .no-widgets {
+                        display: block;
+                    }
+                    > .widget {
+                        margin: 1em 0;
+                        width: 100% !important;
+                        &:first-child {
+                            margin-top: 0;
+                        }
+                    }
+                    .sortable-placeholder {
+                        height: 150px !important;
+                        background: #FFF;
+                        border: 1px dashed #ccc;
+                    }
+                    .widget {
+                        width: 100% !important;
+                    }
+                }
+                > .no-widgets {
+                    position: absolute;
+                    top: 0.5em;
+                    left: 0.5em;
+                    right: 0.5em;
+                    bottom: 0.5em;
+                    display: none;
+                    font-size: 2em;
+                    color: #999;
+                    border: 1px dashed #999;
+                    padding: 1em;
+                    padding-top: 3em;
+                    text-align: center;
+                    background: rgba(255, 255, 255, 0.5);
+                }
+            }
+        }
+        /**
+         * Not nested within widgeteditor-widgets so that styles can be maintained whilst dragging
+         */
+        .widget {
+            padding: 0.6em;
+            border-top: 1px solid #CCC;
+            border-left: 4px solid #03A9F4;
+            background: #FFF;
+            cursor: move;
+            cursor: grab;
+            cursor: -moz-grab;
+            cursor: -webkit-grab;
+            width: @widgeteditor-widgets-width;
+            &.ui-draggable-dragging {
+                color: #FFF;
+                background: #03A9F4;
+                border: 1px solid darken(#03A9F4, 10%);
+            }
+            &.closed {
+                display: none;
+            }
+            &:hover {
+                background: #EFEFEF;
+            }
+            &:active {
+                background: #DEDEDE;
+                cursor: grabbing;
+                cursor: -moz-grabbing;
+                cursor: -webkit-grabbing;
+            }
+            .icon {
+                margin-right: 0.5em;
+                width: 15px;
+                text-align: center;
             }
         }
     }

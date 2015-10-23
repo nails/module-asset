@@ -14,7 +14,7 @@ NAILS_Admin_CMS_Areas_CreateEdit = function(widgetEditor)
      * The widget editor instance
      * @type {Object}
      */
-    base.widgetEditor = widgetEditor;
+    base.editor = widgetEditor;
 
     // --------------------------------------------------------------------------
 
@@ -25,6 +25,30 @@ NAILS_Admin_CMS_Areas_CreateEdit = function(widgetEditor)
     base.__construct = function()
     {
         base.log('Constructing Area Editor');
+
+        base.bindEvents();
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Bind to various events
+     * @return {Object}
+     */
+    base.bindEvents = function()
+    {
+        $('#open-widget-editor').on('click', function()
+        {
+            base.editor.show();
+            return false;
+        });
+
+        $(base.editor).on('widgeteditor-close', function()
+        {
+            base.log('Editor Closing, getting area data');
+            var data = base.editor.getData();
+            $('#widget-data').html(JSON.stringify(data));
+        });
     };
 
     // --------------------------------------------------------------------------
