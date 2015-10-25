@@ -637,6 +637,23 @@
                         border-top: 0;
                     }
                 }
+                .widget {
+                    &:hover {
+                        background: #EFEFEF;
+                    }
+                    &:active {
+                        background: #DEDEDE;
+                        cursor: move;
+                        cursor: grabbing;
+                        cursor: -moz-grabbing;
+                        cursor: -webkit-grabbing;
+                    }
+                    .action,
+                    .description,
+                    .editor-target {
+                        display: none;
+                    }
+                }
             }
             &body {
                 //  Layout
@@ -662,8 +679,16 @@
                     > .widget {
                         margin: 1em 0;
                         width: 100% !important;
+                        height: auto !important;
+                        cursor: default;
                         &:first-child {
                             margin-top: 0;
+                        }
+                        .icon {
+                            cursor: move;
+                            cursor: grab;
+                            cursor: -moz-grab;
+                            cursor: -webkit-grab;
                         }
                     }
                     .sortable-placeholder {
@@ -704,28 +729,40 @@
             cursor: grab;
             cursor: -moz-grab;
             cursor: -webkit-grab;
-            width: @widgeteditor-widgets-width;
-            &.ui-draggable-dragging {
+            width: @widgeteditor-widgets-width - 1; // Account for the right border
+            position: relative;
+            &.ui-draggable-dragging,
+            &.ui-sortable-helper {
                 color: #FFF;
                 background: #03A9F4;
                 border: 1px solid darken(#03A9F4, 10%);
+                .action,
+                .description,
+                .editor-target {
+                    display: none;
+                }
             }
             &.closed {
                 display: none;
-            }
-            &:hover {
-                background: #EFEFEF;
-            }
-            &:active {
-                background: #DEDEDE;
-                cursor: grabbing;
-                cursor: -moz-grabbing;
-                cursor: -webkit-grabbing;
             }
             .icon {
                 margin-right: 0.5em;
                 width: 15px;
                 text-align: center;
+            }
+            .action {
+                position: absolute;
+                right: 1em;
+                top: 1em;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+            .description {
+                font-size: 0.8em;
+            }
+            .editor-target {
+                margin-top: 1em;
             }
         }
     }

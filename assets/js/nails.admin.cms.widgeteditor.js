@@ -57,6 +57,14 @@ NAILS_Admin_CMS_WidgetEditor = function()
     // --------------------------------------------------------------------------
 
     /**
+     * Whether the editor is currently open
+     * @type {Boolean}
+     */
+    base.isOpen = false;
+
+    // --------------------------------------------------------------------------
+
+    /**
      * Construct the CMS widget editor
      * @return {Object}
      */
@@ -119,9 +127,6 @@ NAILS_Admin_CMS_WidgetEditor = function()
             base.renderSidebarWidgets();
             base.renderActions();
 
-            //  Set up sortables
-            base.sortableConstruct();
-
         } else {
             base.warn('Editor already generated');
         }
@@ -156,8 +161,8 @@ NAILS_Admin_CMS_WidgetEditor = function()
         });
 
         //  Widgets
-        base.sections.widgets.on('click', '.widget-group', function()
-        {
+        base.sections.widgets.on('click', '.widget-group', function() {
+
             base.log('Toggling visibility of group\'s widgets.');
             if ($(this).hasClass('closed')) {
                 $(this).removeClass('closed');
@@ -170,9 +175,15 @@ NAILS_Admin_CMS_WidgetEditor = function()
         });
 
         //  Search
-        base.sections.search.on('keyup', function(e)
-        {
-            console.log(e.which);
+        base.sections.search.on('keyup', function(e) {
+            var term = base.sections.search.find('input').val().trim();
+            base.log('Filtering widgets by term "' + term + '"');
+        });
+
+        //  Body
+        base.sections.body.on('click', '.action-remove', function() {
+            base.log('Removing Widget');
+            $(this).closest('.widget').remove();
         });
 
         return base;
@@ -235,16 +246,23 @@ NAILS_Admin_CMS_WidgetEditor = function()
             //  Individual widgets
             for (x = 0; x < base.widgets[i].widgets.length; x++) {
 
-                icon      = $('<i>').addClass('icon fa ' + base.widgets[i].widgets[x].icon);
-                label     = $('<span>').addClass('label').text(base.widgets[i].widgets[x].label);
-                container = $('<div>').addClass('widget widget-group-' + i).append(icon).append(label);
+                icon         = $('<i>').addClass('icon fa ' + base.widgets[i].widgets[x].icon);
+                label        = $('<span>').addClass('label').text(base.widgets[i].widgets[x].label);
+                description  = $('<div>').addClass('description').text(base.widgets[i].widgets[x].description);
+                btnRemove    = $('<a>').attr('href', '#').addClass('action action-remove fa fa-trash-o');
+                editorTarget = $('<div>').addClass('editor-target').html('Widget Loading...');
+                container    = $('<div>').addClass('widget widget-group-' + i).data('group', i).data('widget', x);
+
+                container
+                    .append(icon)
+                    .append(label)
+                    .append(btnRemove)
+                    .append(description)
+                    .append(editorTarget);
+
                 base.sections.widgets.append(container);
             }
         }
-
-        //  Make the widgets draggable
-        base.draggableDestroy();
-        base.draggableConstruct();
 
         return base;
     };
@@ -323,10 +341,16 @@ NAILS_Admin_CMS_WidgetEditor = function()
         base.log('Showing Editor for "' + area + '"');
 
         //  Build the widgets for this area
+        base.sections.body.find('> ul').empty();
         //  @todo
+
+        //  Make things draggable and sortable
+        base.draggableConstruct();
+        base.sortableConstruct(area);
 
         //  Show the editor
         base.container.addClass('active');
+        base.isOpen = true;
 
         //  Prevent scrolling on the body
         $('body').addClass('noscroll');
@@ -344,6 +368,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
 
         base.log('Closing Editor');
         base.container.removeClass('active');
+        base.isOpen = true;
 
         //  Destroy all sortables and draggables
         base.draggableDestroy();
@@ -364,9 +389,9 @@ NAILS_Admin_CMS_WidgetEditor = function()
      */
     base.draggableConstruct = function() {
 
-        $(base.sections.widgets).find('.widget').draggable({
+        base.sections.widgets.find('.widget').draggable({
             'helper': 'clone',
-            'connectToSortable': $(base.sections.body).find('> ul')
+            'connectToSortable': base.sections.body.find('> ul')
         });
 
         return base;
@@ -380,7 +405,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
      */
     base.draggableDestroy = function() {
 
-        $(base.sections.widgets)
+        base.sections.widgets
             .find('.widget.ui-draggable')
             .draggable('destroy');
 
@@ -393,14 +418,24 @@ NAILS_Admin_CMS_WidgetEditor = function()
      * Set up sortables
      * @return {Object}
      */
-    base.sortableConstruct = function() {
+    base.sortableConstruct = function(area) {
 
-        console.log($(base.sections.body).find('> ul'));
-        $(base.sections.body).find('> ul').sortable({
+        base.sections.body.find('> ul').sortable({
             placeholder: 'sortable-placeholder',
-            start: function(e,ui)
+            handle: '.icon',
+            receive: function(e, ui)
             {
-                ui.placeholder.height(ui.helper.height());
+                var sourceWidget, targetWidget, groupIndex, widgetIndex;
+
+                sourceWidget = ui.item;
+                targetWidget = ui.helper;
+                groupIndex   = sourceWidget.data('group');
+                widgetIndex  = sourceWidget.data('widget');
+
+                base.addWidget(area, groupIndex, widgetIndex);
+
+                //  Allow auto sizing
+                targetWidget.removeAttr('style');
             }
         });
 
@@ -415,8 +450,43 @@ NAILS_Admin_CMS_WidgetEditor = function()
      */
     base.sortableDestroy = function() {
 
-        $(base.sections.body).find('> ul').sortable('destroy');
+        var sortable = base.sections.body.find('> ul.ui-sortable');
+
+        if (sortable.length > 0) {
+            sortable.sortable('destroy');
+        }
+
         return base;
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.addWidget = function(area, groupIndex, widgetIndex, data) {
+
+        if (base.widgets[groupIndex] && base.widgets[groupIndex].widgets[widgetIndex]) {
+
+            var widget = base.widgets[groupIndex].widgets[widgetIndex];
+
+            base.log('Adding Widget "' + widget.label + '" with data:', data);
+
+            //  Add to the widget array for this area
+
+            //  If the editor is active then fetch the widget's editor panel
+            if (base.isOpen) {
+                base.getWidgetEditor(groupIndex, widgetIndex, data);
+            }
+
+        } else {
+
+            base.warn('Attempted to add an invalid widget');
+        }
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.getWidgetEditor = function(groupIndex, widgetIndex, data) {
+
+        base.log('Getting widget editor');
     };
 
     // --------------------------------------------------------------------------
