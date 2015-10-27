@@ -2,55 +2,44 @@
    Nails Logs Module Admin Styles
 -------------------------------------------------------------- */
 
-.group-logs
-{
-    &.sitelog
-    {
-        table
-        {
-            th.date
-            {
+.group-logs {
+    &.sitelog {
+        table {
+            th.date {
                 min-width: 175px;
             }
 
             th.lines,
-            td.lines
-            {
+            td.lines {
                 text-align: center;
                 width: 75px;
             }
 
-            th.actions
-            {
+            th.actions {
                 width: 75px;
             }
         }
 
-        &.view
-        {
-            ol
-            {
-                padding:0;
-                margin:0;
-                border:1px solid #CCC;
-                background: #FFF;
+        &.view {
+            ol {
+                padding: 0;
+                margin: 0;
+                border: 1px solid #CCCCCC;
+                background: #FFFFFF;
 
-                li
-                {
-                    padding:0.25em 0.5em;
-                    margin:0;
+                li {
+                    padding: 0.25em 0.5em;
+                    margin: 0;
                     font-family: monospace;
                     border-bottom: 1px solid #EFEFEF;
                     margin-left: 0;
                     list-style-position: inside;
 
-                    &:nth-child(even)
-                    {
+                    &:nth-child(even) {
                         background: #FEFEFE;
                     }
 
-                    &:hover
-                    {
+                    &:hover {
                         background: #EFEFEF;
                     }
                 }
@@ -58,17 +47,11 @@
         }
     }
 
-    &.changelog
-    {
 
-    }
 
-    &.events
-    {
-        table
-        {
-            th.actions
-            {
+    &.events {
+        table {
+            th.actions {
                 width: 175px;
             }
         }

@@ -2,48 +2,42 @@
    Tables
 -------------------------------------------------------------- */
 
-@table_th_padding_top    : 5px;
-@table_th_padding_right  : 10px;
-@table_th_padding_bottom : 5px;
-@table_th_padding_left   : 10px;
+@table_th_padding_top: 5px;
+@table_th_padding_right: 10px;
+@table_th_padding_bottom: 5px;
+@table_th_padding_left: 10px;
 
-@table_td_padding_top    : 8px;
-@table_td_padding_right  : 10px;
-@table_td_padding_bottom : 8px;
-@table_td_padding_left   : 10px;
+@table_td_padding_top: 8px;
+@table_td_padding_right: 10px;
+@table_td_padding_bottom: 8px;
+@table_td_padding_left: 10px;
 
 table {
     width: 100%;
-    border:1px solid #EFEFEF;
+    border: 1px solid #EFEFEF;
     margin-bottom: 1em;
-    thead
-    {
-        tr
-        {
-            th
-            {
+    thead {
+        tr {
+            th {
                 font-size: 11px;
                 font-weight: bold;
                 text-align: left;
                 padding: @table_th_padding_top @table_th_padding_right @table_th_padding_bottom @table_th_padding_left;
                 text-transform: uppercase;
-                color: #fff;
+                color: #FFFFFF;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
 
-                img
-                {
+                img {
                     float: none !important;
                     padding: 0 0 1px 4px !important;
-                    vertical-align:baseline;
+                    vertical-align: baseline;
                 }
 
-                a
-                {
+                a {
                     &:link,
-                    &:vsited
-                    {
+                    &:vsited {
                         text-decoration: none;
                         color: inherit;
                     }
@@ -53,67 +47,55 @@ table {
                 &.date,
                 &.datetime,
                 &.actions,
-                &.boolean
-                {
+                &.boolean {
                     text-align: center;
                 }
 
-                &.user
-                {
-                    width:200px;
+                &.user {
+                    width: 200px;
                 }
 
                 &.date,
-                &.datetime
-                {
-                    width:150px;
+                &.datetime {
+                    width: 150px;
                 }
             }
         }
     }
 
-    tbody
-    {
-        tr
-        {
-            td
-            {
+    tbody {
+        tr {
+            td {
                 background: #FFFFFF;
                 border-bottom: 1px solid #EFEFEF;
-                border-right:1px solid #EFEFEF;
-                vertical-align:middle;
+                border-right: 1px solid #EFEFEF;
+                vertical-align: middle;
                 padding: @table_td_padding_top @table_td_padding_right @table_td_padding_bottom @table_td_padding_left;
 
-                &:last-of-type
-                {
-                    border-right:0px;
+                &:last-of-type {
+                    border-right: 0;
                 }
 
                 &.action:empty:before,
-                &.actions:empty:before
-                {
-                    content: "No Actions";
-                    color:#ccc;
+                &.actions:empty:before {
+                    content: 'No Actions';
+                    color: #CCCCCC;
                 }
 
-                small
-                {
-                    display:block;
+                small {
+                    display: block;
                     line-height: 1.75em;
                 }
 
-                a
-                {
+                a {
                     &:not(.btn) {
                         &:link,
-                        &:visited
-                        {
-                            color: #000;
+                        &:visited {
+                            color: #000000;
                             text-decoration: none;
                         }
-                        &:hover
-                        {
-                            color: #999;
+                        &:hover {
+                            color: #999999;
                         }
                     }
                     &.btn {
@@ -124,232 +106,208 @@ table {
                     }
                 }
 
-                ul
-                {
+                ul {
                     list-style: circle;
                     margin-left: 12px;
 
-                    li
-                    {
+                    li {
                         margin: 0;
                     }
                 }
 
                 input[type=text],
                 input[type=email],
-                input[type=password]
-                {
-                    margin-bottom:0px;
+                input[type=password] {
+                    margin-bottom: 0;
                 }
 
                 .no-data,
-                .blank
-                {
-                    color:#ccc;
+                .blank {
+                    color: #CCCCCC;
                 }
 
-                &.error
-                {
-                    background:@error !important;
-                    color:@error_colour !important;
+                &.error {
+                    background: @error !important;
+                    color: @error_colour !important;
                 }
 
-                &.success
-                {
-                    background:@success !important;
-                    color:@success_colour !important;
+                &.success {
+                    background: @success !important;
+                    color: @success_colour !important;
                 }
 
-                &.notice
-                {
-                    background:@notice !important;
-                    color:@notice_colour !important;
+                &.notice {
+                    background: @notice !important;
+                    color: @notice_colour !important;
                 }
 
-                &.message
-                {
-                    background:@message !important;
-                    color:@message_colour !important;
+                &.message {
+                    background: @message !important;
+                    color: @message_colour !important;
                 }
 
-                &.no-data
-                {
+                &.no-data {
                     height: 75px;
                     text-align: center;
-                    color: #AAA;
+                    color: #AAAAAA;
                     text-transform: uppercase;
                 }
 
-                &.user-cell
-                {
-                    position:relative;
-                    min-width:200px;
-                    min-height:35px;
+                &.user-cell {
+                    position: relative;
+                    min-width: 200px;
+                    min-height: 35px;
 
-                    img
-                    {
-                        position:absolute;
-                        left:@table_td_padding_left;
-                        padding:3px;
-                        border:1px solid #EEE;
-                        background: #FFF url(../img/loader/10px-FFFFFF.gif) center no-repeat;
-                        width:35px;
-                        height:35px;
+                    img {
+                        position: absolute;
+                        left: @table_td_padding_left;
+                        padding: 3px;
+                        border: 1px solid #EEEEEE;
+                        background: #FFFFFF url(../img/loader/10px-FFFFFF.gif) center no-repeat;
+                        width: 35px;
+                        height: 35px;
                         .rounded(3px);
-                        margin-top:5px;
+                        margin-top: 5px;
                     }
 
-                    span
-                    {
-                        &.user-data
-                        {
-                            margin-left:35px+@table_td_padding_left+5px;
-                            display:block;
+                    span {
+                        &.user-data {
+                            margin-left: 35px+@table_td_padding_left+5px;
+                            display: block;
                         }
                     }
                 }
 
-                &.datetime
-                {
-                    min-width:150px;
+                &.datetime {
+                    min-width: 150px;
                 }
 
-                &.boolean
-                {
-                    text-align:center;
-                    min-width:70px;
+                &.boolean {
+                    text-align: center;
+                    min-width: 70px;
                 }
 
 
                 &.user-cell,
-                &.datetime
-                {
-                    &.no-data
-                    {
-                        height:auto;
+                &.datetime {
+                    &.no-data {
+                        height: auto;
                         text-transform: none;
-                        text-align:left;
+                        text-align: left;
                     }
                 }
 
-                &.indentosaurus
-                {
-                    position:relative;
+                &.indentosaurus {
+                    position: relative;
 
-                    .indentor
-                    {
-                        display:inline-block;
-                        float:left;
-                        left:0px;
-                        margin-top:2px;
-                        height:15px;
-                        width:15px;
-                        margin-right:3px;
+                    .indentor {
+                        display: inline-block;
+                        float: left;
+                        left: 0;
+                        margin-top: 2px;
+                        height: 15px;
+                        width: 15px;
+                        margin-right: 3px;
                         .rounded(10px);
-                        background:#CCC;
-                        border-right:1px solid #FFF;
+                        background: #CCCCCC;
+                        border-right: 1px solid #FFFFFF;
                     }
 
-                    &.indent-1 .indentor-content { margin-left:20*1px; }
-                    &.indent-2 .indentor-content { margin-left:20*2px; }
-                    &.indent-3 .indentor-content { margin-left:20*3px; }
-                    &.indent-4 .indentor-content { margin-left:20*4px; }
-                    &.indent-5 .indentor-content { margin-left:20*5px; }
-                    &.indent-6 .indentor-content { margin-left:20*6px; }
-                    &.indent-7 .indentor-content { margin-left:20*7px; }
-                    &.indent-8 .indentor-content { margin-left:20*8px; }
+                    &.indent-1 .indentor-content {
+                        margin-left: 20*1px;
+                    }
+                    &.indent-2 .indentor-content {
+                        margin-left: 20*2px;
+                    }
+                    &.indent-3 .indentor-content {
+                        margin-left: 20*3px;
+                    }
+                    &.indent-4 .indentor-content {
+                        margin-left: 20*4px;
+                    }
+                    &.indent-5 .indentor-content {
+                        margin-left: 20*5px;
+                    }
+                    &.indent-6 .indentor-content {
+                        margin-left: 20*6px;
+                    }
+                    &.indent-7 .indentor-content {
+                        margin-left: 20*7px;
+                    }
+                    &.indent-8 .indentor-content {
+                        margin-left: 20*8px;
+                    }
                 }
 
-                &.actions
-                {
+                &.actions {
                     text-align: center;
 
-                    a.awesome
-                    {
-                        &:last-of-type
-                        {
-                            margin-right:0;
+                    a.awesome {
+                        &:last-of-type {
+                            margin-right: 0;
                         }
                     }
                 }
             }
 
-            &.error
-            {
-                td
-                {
-                    background:@error !important;
-                    color:@error_colour !important;
+            &.error {
+                td {
+                    background: @error !important;
+                    color: @error_colour !important;
                 }
             }
 
-            &.success
-            {
-                td
-                {
-                    background:@success !important;
-                    color:@success_colour !important;
+            &.success {
+                td {
+                    background: @success !important;
+                    color: @success_colour !important;
                 }
             }
 
-            &.notice
-            {
-                td
-                {
-                    background:@notice !important;
-                    color:@notice_colour !important;
+            &.notice {
+                td {
+                    background: @notice !important;
+                    color: @notice_colour !important;
                 }
             }
 
-            &.message
-            {
-                td
-                {
-                    background:@message !important;
-                    color:@message_colour !important;
+            &.message {
+                td {
+                    background: @message !important;
+                    color: @message_colour !important;
                 }
             }
 
-            &:hover
-            {
-                td
-                {
-                    background:#F6F6F6;
+            &:hover {
+                td {
+                    background: #F6F6F6;
 
-                    &.error
-                    {
-                        background:@error !important;
+                    &.error {
+                        background: @error !important;
                     }
 
-                    &.success
-                    {
-                        background:@success !important;
+                    &.success {
+                        background: @success !important;
                     }
 
-                    &.notice
-                    {
-                        background:@notice !important;
+                    &.notice {
+                        background: @notice !important;
                     }
 
-                    &.message
-                    {
-                        background:@message !important;
+                    &.message {
+                        background: @message !important;
                     }
                 }
             }
 
-            &:last-child
-            {
-                td
-                {
+            &:last-child {
+                td {
                     border-bottom: 0 !important;
                 }
             }
 
-            &:nth-child(even)
-            {
-                td
-                {
+            &:nth-child(even) {
+                td {
                     background: #F9F9F9;
                 }
             }

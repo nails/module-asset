@@ -2,9 +2,9 @@
    Nails CDN Module Admin Styles
 -------------------------------------------------------------- */
 
-@import "common/variables.less";
-@import "admin/variables.less";
-@import "common/elements.less";
+@import 'common/variables.less';
+@import 'admin/variables.less';
+@import 'common/elements.less';
 
 .group-cdn {
     &.browse {
@@ -22,7 +22,7 @@
         }
         td.thumbnail {
             img {
-                border: 1px solid #CCC;
+                border: 1px solid #CCCCCC;
                 padding: 3px;
                 .rounded(3px);
             }
@@ -128,16 +128,16 @@
 .group-utilities {
     &.cdn {
         &.orphans {
-            position:relative;
+            position: relative;
             .mask {
-                position:absolute;
-                left:0;
-                top:0;
-                right:0;
-                bottom:0;
-                background:#FFF url(../img/loader/20px-FFFFFF.gif) center no-repeat;
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                background: #FFFFFF url(../img/loader/20px-FFFFFF.gif) center no-repeat;
                 .opacity(0.75);
-                display:none;
+                display: none;
             }
         }
     }

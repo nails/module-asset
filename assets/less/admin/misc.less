@@ -6,10 +6,9 @@
    CKEditor - if no JS style the textarea nicely
    Duplicated in common/_nails_default.less
 -------------------------------------------------------------- */
-textarea.ckeditor
-{
-    width:99%;
-    height:150px;
+textarea.ckeditor {
+    width: 99%;
+    height: 150px;
 }
 
 
@@ -20,18 +19,17 @@ textarea.ckeditor
 //  Overriding the styles set by admin's default form styles
 //  Note: Keep this updated should select2 be upgraded
 
-.select2-container
-{
-    width:100%;
+.select2-container {
+    width: 100%;
 }
 
 .select2-drop {
     .select2-results {
         li {
-            margin:0;
+            margin: 0;
             &.select2-disabled {
                 background: inherit;
-                color: #BBB;
+                color: #BBBBBB;
                 .select2-result-label {
                     cursor: not-allowed;
                 }
@@ -44,36 +42,31 @@ textarea.ckeditor
 /* --------------------------------------------------------------
    Search Box
 -------------------------------------------------------------- */
-.search
-{
+.search {
     padding: 10px;
     position: relative;
     border: 1px solid #EAEAEA;
     margin-bottom: 1em;
     background: #F5F5F5;
 
-    &.noOptions
-    {
-        .search-text
-        {
+    &.noOptions {
+        .search-text {
             margin-bottom: 0;
         }
     }
 
-    .mask
-    {
-        background:rgba(255,255,255,0.7);
-        position:absolute;
-        left:0px;
-        top:0px;
-        width:100%;
-        height:100%;
-        z-index:999;
-        text-align:center;
-        display:none;
+    .mask {
+        background: rgba(255,255,255,0.7);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 999;
+        text-align: center;
+        display: none;
 
-        b
-        {
+        b {
             position: relative;
             top: 50%;
 
@@ -83,45 +76,39 @@ textarea.ckeditor
              */
 
             -webkit-animation: search-spin 1s infinite linear;
-                    animation: search-spin 1s infinite linear;
+            animation: search-spin 1s infinite linear;
         }
     }
 
-    form
-    {
-        margin:0;
+    form {
+        margin: 0;
     }
 
-    .search-text
-    {
-        background:#FFF;
-        padding:0px 6px;
-        border:1px solid #CCC;
+    .search-text {
+        background: #FFFFFF;
+        padding: 0 6px;
+        border: 1px solid #CCCCCC;
         .rounded(4px);
         .drop-shadow( 0px, 0px, 3px );
-        margin-bottom:1em;
+        margin-bottom: 1em;
 
-        input[type=text]
-        {
-            display:block;
-            margin-bottom:0;
-            width:100%;
-            padding:6px 0;
-            border:0;
+        input[type=text] {
+            display: block;
+            margin-bottom: 0;
+            width: 100%;
+            padding: 6px 0;
+            border: 0;
         }
-        input[type=text]:focus
-        {
+        input[type=text]:focus {
             .drop-shadow( 0px, 0px, 0px, 0 );
         }
     }
 
-    hr
-    {
+    hr {
         margin: 7px 0;
     }
 
-    .filterGroup
-    {
+    .filterGroup {
         border: 1px solid #EAEAEA;
         background: #FEFEFE;
         display: inline-block;
@@ -129,63 +116,52 @@ textarea.ckeditor
         margin: 0.1em;
         .rounded(2px);
 
-        .filterLabel
-        {
-            margin: 0 .65em 0 .5em;
+        .filterLabel {
+            margin: 0 0.65em 0 0.5em;
         }
 
-        .filterOption
-        {
+        .filterOption {
             border: 1px solid #EAEAEA;
-            background: #EEE;
+            background: #EEEEEE;
             padding: 0.2em 0.35em;
             margin: 2px;
-            display:inline-block;
+            display: inline-block;
             margin-right: 0.25em;
             cursor: pointer;
             .rounded(2px);
 
-            &.checked
-            {
+            &.checked {
                 background: #7C7C7C;
-                color: #FFF;
+                color: #FFFFFF;
             }
 
-            &:last-of-type
-            {
+            &:last-of-type {
                 margin-right: 0;
             }
 
-            input
-            {
+            input {
                 margin-right: 0.25em;
             }
         }
 
-        &.dropdown
-        {
-            select
-            {
+        &.dropdown {
+            select {
                 width: 230px;
             }
         }
     }
 
-    select,
-    {
-        display:inline-block;
-        width:auto;
-        margin:0.25em 0.5em;
+    select, {
+        display: inline-block;
+        width: auto;
+        margin: 0.25em 0.5em;
     }
 
-    .actions
-    {
+    .actions {
         float: right;
-        .awesome
-        {
-            &:last-child
-            {
-                margin-right:0;
+        .awesome {
+            &:last-child {
+                margin-right: 0;
             }
         }
     }
@@ -195,43 +171,33 @@ textarea.ckeditor
    Pagination
 -------------------------------------------------------------- */
 
-.pagination
-{
-    clear:both;
+.pagination {
+    clear: both;
 
-    ul
-    {
-        float:right;
-        margin:15px 0;
-
-        li.page
-        {
-            display:inline;
-            margin-left:5px;
-
+    ul {
+        float: right;
+        margin: 15px 0;
+        li.page {
+            display: inline;
+            margin-left: 5px;
             a,
-            span.current
-            {
-                border:1px solid #CFCFCF;
-                padding:5px 8px;
+            span.current {
+                border: 1px solid #CFCFCF;
+                padding: 5px 8px;
                 .rounded( 3px );
                 .nifty-drop-shadow();
                 text-decoration: none;
+                background: #EFEFEF;
+                font-weight: bold;
             }
-            a:hover
-            {
-                background:#F4F4F4;
-            }
-            a:active
-            {
-                position:relative;
-                top:1px;
-            }
-
-            span.current
-            {
-                background:#EFEFEF;
-                font-weight:bold;
+            a {
+                &:hover {
+                    background: #F4F4F4;
+                }
+                &:active {
+                    position: relative;
+                    top: 1px;
+                }
             }
         }
     }
@@ -242,38 +208,34 @@ textarea.ckeditor
    Elements
 -------------------------------------------------------------- */
 
-hr
-{
+hr {
     border: none;
-    width:100%;
-    margin:20px auto 16px auto;
+    width: 100%;
+    margin: 20px auto 16px auto;
     border-bottom: 1px solid #EFEFEF;
 }
 
-.search-text
-{
+.search-text {
     font-size: 10px;
     text-align: center;
 }
 
-.inline_indicator
-{
+.inline_indicator {
     font-size: 9px;
     padding: 4px;
-    background-color: #ededed;
+    background-color: #EDEDED;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     margin-right: 3px;
-    color: #333;
+    color: #333333;
 }
 
 /* --------------------------------------------------------------
    Badges - copying Bootstrap
 -------------------------------------------------------------- */
 
-.badge
-{
+.badge {
     display: inline-block;
     min-width: 10px;
     padding: 3px 7px;
@@ -282,7 +244,7 @@ hr
     text-align: center;
     background-color: rgba(0,0,0,0.25);
     border-radius: 10px;
-    margin-right:0.5em;
+    margin-right: 0.5em;
 }
 
 
@@ -290,30 +252,29 @@ hr
    Tipsy's - make 'em fatter
 -------------------------------------------------------------- */
 
-.tipsy-inner
-{
-    padding:15px;
-    font-size:1.2em;
+.tipsy-inner {
+    padding: 15px;
+    font-size: 1.2em;
 }
 
 @-webkit-keyframes search-spin {
-  0% {
-    -webkit-transform: translateY(-50%) rotate(0deg);
-            transform: translateY(-50%) rotate(0deg);
-  }
-  100% {
-    -webkit-transform: translateY(-50%) rotate(359deg);
-            transform: translateY(-50%) rotate(359deg);
-  }
+    0% {
+        -webkit-transform: translateY(-50%) rotate(0deg);
+        transform: translateY(-50%) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-50%) rotate(359deg);
+        transform: translateY(-50%) rotate(359deg);
+    }
 }
 
 @keyframes search-spin {
-  0% {
-    -webkit-transform: translateY(-50%) rotate(0deg);
-            transform: translateY(-50%) rotate(0deg);
-  }
-  100% {
-    -webkit-transform: translateY(-50%) rotate(359deg);
-            transform: translateY(-50%) rotate(359deg);
-  }
+    0% {
+        -webkit-transform: translateY(-50%) rotate(0deg);
+        transform: translateY(-50%) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-50%) rotate(359deg);
+        transform: translateY(-50%) rotate(359deg);
+    }
 }

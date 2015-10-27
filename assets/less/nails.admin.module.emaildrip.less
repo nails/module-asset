@@ -2,8 +2,8 @@
    Nails Email Drip Module Admin Styles
 -------------------------------------------------------------- */
 
-@import "common/variables.less";
-@import "admin/variables.less";
+@import 'common/variables.less';
+@import 'admin/variables.less';
 
 .group-email-drip {
     &.campaign {
@@ -11,8 +11,8 @@
             .configurations {
                 padding: 1em;
                 .time-group {
-                    border: 1px solid #CCC;
-                    background: #FFF;
+                    border: 1px solid #CCCCCC;
+                    background: #FFFFFF;
                     padding: 0.5em;
                     margin: 0 0.5em;
                     display: inline-block;
@@ -51,14 +51,14 @@
                         height: 29px;
                         padding: 6px 12px;
                         line-height: 1.42857143;
-                        color: #555;
-                        background-color: #fff;
+                        color: #555555;
+                        background-color: #FFFFFF;
                         background-image: none;
-                        border: 1px solid #ccc;
+                        border: 1px solid #CCCCCC;
                         border-radius: 4px;
                         &[disabled] {
                             background: #EFEFEF;
-                            color: #777;
+                            color: #777777;
                             cursor: not-allowed;
                         }
                     }
@@ -75,13 +75,13 @@
                 }
                 .fields {
                     transition: max-height 0.5s;
-                    max-height: 0px;
+                    max-height: 0;
                     overflow: hidden;
                     &.show {
                         max-height: 400px;
                     }
                     > .field:first-child {
-                        border-top: 1px solid #CCC;
+                        border-top: 1px solid #CCCCCC;
                     }
                     textarea {
                         min-height: 150px;

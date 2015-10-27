@@ -2,22 +2,18 @@
    Nails Shop Module Admin Styles
 -------------------------------------------------------------- */
 
-@import "common/variables.less";
-@import "admin/variables.less";
-@import "common/elements.less";
+@import 'common/variables.less';
+@import 'admin/variables.less';
+@import 'common/elements.less';
 
-.group-shop
-{
+.group-shop {
     //  Common across all sections
     &.inventory,
     &.vouchers,
-    &.orders
-    {
-        &.browse
-        {
-            table
-            {
-                margin-bottom:1em;
+    &.orders {
+        &.browse {
+            table {
+                margin-bottom: 1em;
             }
         }
     }
@@ -25,10 +21,8 @@
     // --------------------------------------------------------------------------
 
     //  Inventory
-    &.inventory
-    {
-        table
-        {
+    &.inventory {
+        table {
             th.id,
             td.id,
             th.image,
@@ -44,9 +38,8 @@
             th.on-sale,
             td.on-sale,
             th.actions,
-            td.actions
-            {
-                text-align:center;
+            td.actions {
+                text-align: center;
             }
 
             th.type,
@@ -56,238 +49,183 @@
             th.price,
             td.price,
             th.actions,
-            td.actions
-            {
-                min-width:150px;
+            td.actions {
+                min-width: 150px;
             }
 
             th.label,
-            td.label
-            {
+            td.label {
                 min-width: 270px;
             }
 
             th.image,
-            td.image
-            {
-                width:75px;
+            td.image {
+                width: 75px;
 
-                img
-                {
-                    border:1px solid #EFEFEF;
-                    padding:3px;
-                    background:#FFF;
+                img {
+                    border: 1px solid #EFEFEF;
+                    padding: 3px;
+                    background: #FFFFFF;
                     .rounded(3px);
                     .nifty-drop-shadow();
                 }
             }
 
-            td.sold-available
-            {
-                .infinity
-                {
-                    font-size:1.5em;
-                    top:2px;
-                    position:relative;
+            td.sold-available {
+                .infinity {
+                    font-size: 1.5em;
+                    top: 2px;
+                    position: relative;
                 }
             }
 
-            td.status
-            {
-                span
-                {
+            td.status {
+                span {
                     font-size: 1.5em;
                 }
             }
         }
 
-        &.edit
-        {
-            ul.tabs
-            {
-                li.action
-                {
-                    position:absolute;
-                    right:10px;
-                    bottom:-1px;
-                    margin-bottom:0px;
-                    border:1px solid #C9C9C9;
-                    background:#EFEFEF;
-                    -webkit-border-top-right-radius: 3px;
-                    -webkit-border-bottom-right-radius: 0;
-                    -webkit-border-bottom-left-radius: 0;
-                    -webkit-border-top-left-radius: 3px;
-                    -moz-border-radius-topright: 3px;
-                    -moz-border-radius-bottomright: 0;
-                    -moz-border-radius-bottomleft: 0;
-                    -moz-border-radius-topleft: 3px;
+        &.edit {
+            ul.tabs {
+                li.action {
+                    position: absolute;
+                    right: 10px;
+                    bottom: -1px;
+                    margin-bottom: 0;
+                    border: 1px solid #C9C9C9;
+                    background: #EFEFEF;
                     border-top-right-radius: 3px;
                     border-bottom-right-radius: 0;
                     border-bottom-left-radius: 0;
                     border-top-left-radius: 3px;
 
-                    a
-                    {
-                        margin:5px;
-                        width:16px;
-                        height:16px;
-                        display:block;
-                        text-indent:-999em;
-                        background:url(../img/system-alerts/close.png) no-repeat;
+                    a {
+                        margin: 5px;
+                        width: 16px;
+                        height: 16px;
+                        display: block;
+                        text-indent: -999em;
+                        background: url(../img/system-alerts/close.png) no-repeat;
                     }
                 }
             }
 
-            section.tabs
-            {
-                .tab-page
-                {
-                    table
-                    {
-                        margin-bottom:1em;
+            section.tabs {
+                .tab-page {
+                    table {
+                        margin-bottom: 1em;
                     }
 
-                    &.tab-variations
-                    {
-                        .variation
-                        {
-                            position:relative;
-                            .not-applicable
-                            {
-                                position:absolute;
-                                left:0px;
-                                top:0px;
-                                right:0px;
-                                bottom:0px;
-                                background:rgba(255,255,255,0.9);
-                                z-index:100;
-                                text-align:center;
-                                padding-top:75px;
-                                font-size:1.2em;
+                    &.tab-variations {
+                        .variation {
+                            position: relative;
+                            .not-applicable {
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                right: 0;
+                                bottom: 0;
+                                background: rgba(255,255,255,0.9);
+                                z-index: 100;
+                                text-align: center;
+                                padding-top: 75px;
+                                font-size: 1.2em;
                                 border: 1px solid #CECECE;
                                 .rounded(3px);
-                                display:none;
+                                display: none;
 
-                                strong
-                                {
-                                    display:block;
-                                    margin-bottom:1em;
+                                strong {
+                                    display: block;
+                                    margin-bottom: 1em;
                                 }
                             }
-                            &.not-applicable
-                            {
-                                .not-applicable
-                                {
-                                    display:block;
+                            &.not-applicable {
+                                .not-applicable {
+                                    display: block;
                                 }
                             }
-                            div.tab-variation-details {
 
-                            }
-                            div.tab-variation-meta {
 
-                            }
                             div.tab-variation-pricing {
-
-                                table.pricing-options
-                                {
+                                table.pricing-options {
                                     th.currency,
-                                    td.currency
-                                    {
+                                    td.currency {
                                         text-align: center;
-                                        width:50px;
+                                        width: 50px;
                                     }
 
                                     td.price,
-                                    td.price-sale
-                                    {
-                                        position:relative;
-                                        text-align:left;
+                                    td.price-sale {
+                                        position: relative;
+                                        text-align: left;
 
-                                        input
-                                        {
-                                            width:100%;
+                                        input {
+                                            width: 100%;
                                             box-sizing: border-box;
                                         }
 
-                                        span.error
-                                        {
+                                        span.error {
                                             border: 1px solid #B52130;
                                             padding: 2px 7px;
-                                            -webkit-border-radius: 3px;
-                                            -moz-border-radius: 3px;
                                             border-radius: 3px;
                                             background: #B52130;
-                                            color: #FFF;
+                                            color: #FFFFFF;
                                             margin-top: 4px;
-                                            display:inline-block;
+                                            display: inline-block;
                                         }
                                     }
                                 }
                             }
                             div.tab-variation-gallery {
-                                ul.gallery-associations
-                                {
-                                    li
-                                    {
-                                        margin:0;
+                                ul.gallery-associations {
+                                    li {
+                                        margin: 0;
 
-                                        &.image
-                                        {
-                                            display:inline-block;
-                                            width:32px;
-                                            height:32px;
-                                            border:1px solid #ccc;
+                                        &.image {
+                                            display: inline-block;
+                                            width: 32px;
+                                            height: 32px;
+                                            border: 1px solid #CCCCCC;
                                             .rounded(3px);
                                             .opacity(0.3);
-                                            background:url(../img/loader/20px-TRANS.gif) center no-repeat;
-                                            cursor:pointer;
-                                            margin-right:3px;
-                                            overflow:hidden;
+                                            background: url(../img/loader/20px-TRANS.gif) center no-repeat;
+                                            cursor: pointer;
+                                            margin-right: 3px;
+                                            overflow: hidden;
 
-                                            img
-                                            {
 
-                                            }
 
-                                            input
-                                            {
-                                                display:none;
+                                            input {
+                                                display: none;
                                             }
                                         }
 
-                                        &.selected
-                                        {
+                                        &.selected {
                                             .opacity(1);
                                         }
 
-                                        &.empty
-                                        {
+                                        &.empty {
                                             display: none;
                                         }
 
-                                        &.actions
-                                        {
-                                            display:block;
-                                            border-top:1px solid #eee;
-                                            margin-top:5px;
-                                            padding-top:15px;
+                                        &.actions {
+                                            display: block;
+                                            border-top: 1px solid #EEEEEE;
+                                            margin-top: 5px;
+                                            padding-top: 15px;
                                         }
                                     }
 
-                                    &.empty
-                                    {
-                                        li
-                                        {
-                                            &.empty
-                                            {
-                                                display:block;
-                                                color:#CCC;
-                                                padding:20px 0px;
+                                    &.empty {
+                                        li {
+                                            &.empty {
+                                                display: block;
+                                                color: #CCCCCC;
+                                                padding: 20px 0;
                                             }
-                                            &.actions
-                                            {
-                                                display:none;
+                                            &.actions {
+                                                display: none;
                                             }
                                         }
                                     }
@@ -302,188 +240,161 @@
                                 }
                             }
                         }
-                        div.add-variation-button
-                        {
-                            &.enabled
-                            {
-                                p.enabled
-                                {
-                                    display:block;
-                                    margin-bottom:0;
+                        div.add-variation-button {
+                            &.enabled {
+                                p.enabled {
+                                    display: block;
+                                    margin-bottom: 0;
                                 }
 
-                                p.disabled
-                                {
-                                    display:none;
+                                p.disabled {
+                                    display: none;
                                 }
                             }
 
-                            &.disabled
-                            {
-                                p.enabled
-                                {
-                                    display:none;
+                            &.disabled {
+                                p.enabled {
+                                    display: none;
                                 }
 
-                                p.disabled
-                                {
-                                    display:block;
-                                    font-style:italic;
-                                    color:#555;
+                                p.disabled {
+                                    display: block;
+                                    font-style: italic;
+                                    color: #555555;
 
-                                    a
-                                    {
-                                        font-style:normal;
+                                    a {
+                                        font-style: normal;
                                     }
                                 }
                             }
                         }
                     }
 
-                    &.tab-gallery
-                    {
-                        small
-                        {
-                            display:block;
+                    &.tab-gallery {
+                        small {
+                            display: block;
                         }
 
-                        #gallery-items
-                        {
-                            margin-top:1em;
-                            border:1px dashed #EFEFEF;
-                            padding:5px;
-                            padding-bottom:0;
-                            line-height:1em;
-                            min-height:107px;
-                            overflow:auto;
+                        #gallery-items {
+                            margin-top: 1em;
+                            border: 1px dashed #EFEFEF;
+                            padding: 5px;
+                            padding-bottom: 0;
+                            line-height: 1em;
+                            min-height: 107px;
+                            overflow: auto;
 
-                            li.empty
-                            {
-                                display:none !important;
+                            li.empty {
+                                display: none !important;
                             }
 
-                            .gallery-item
-                            {
-                                cursor:move;
-                                float:left;
-                                display:block;
-                                width:100px;
-                                height:100px;
-                                margin:0;
-                                margin-right:5px;
-                                margin-bottom:5px;
-                                border:1px solid #ccc;
-                                background:#EFEFEF url(../img/form/upload-icon.png) center no-repeat;
-                                position:relative;
-                                padding:0;
+                            .gallery-item {
+                                cursor: move;
+                                float: left;
+                                display: block;
+                                width: 100px;
+                                height: 100px;
+                                margin: 0;
+                                margin-right: 5px;
+                                margin-bottom: 5px;
+                                border: 1px solid #CCCCCC;
+                                background: #EFEFEF url(../img/form/upload-icon.png) center no-repeat;
+                                position: relative;
+                                padding: 0;
                                 .rounded(3px);
-                                overflow:hidden;
-                                box-sizing:border-box;
+                                overflow: hidden;
+                                box-sizing: border-box;
 
                                 a.remove,
-                                a.delete
-                                {
-                                    display:block;
-                                    position:absolute;
-                                    width:20px;
-                                    height:20px;
-                                    right:2px;
-                                    top:2px;
+                                a.delete {
+                                    display: block;
+                                    position: absolute;
+                                    width: 20px;
+                                    height: 20px;
+                                    right: 2px;
+                                    top: 2px;
                                     background: rgba(219, 218, 220,0.8);
-                                    z-index:1;
+                                    z-index: 1;
                                     .rounded(2px);
-                                    cursor:pointer;
+                                    cursor: pointer;
 
-                                    &:hover
-                                    {
-                                        background:rgba(219, 218, 220,0.8) url(../img/form/stop-icon2.png) center no-repeat;
+                                    &:hover {
+                                        background: rgba(219, 218, 220,0.8) url(../img/form/stop-icon2.png) center no-repeat;
                                     }
                                 }
 
-                                .progress
-                                {
-                                    background:#888;
-                                    position:absolute;
-                                    bottom:0px;
-                                    left:0px;
-                                    right:0px;
-                                    z-index:0;
+                                .progress {
+                                    background: #888888;
+                                    position: absolute;
+                                    bottom: 0;
+                                    left: 0;
+                                    right: 0;
+                                    z-index: 0;
                                     .drop-shadow(0, 0, 5px, 0.5);
                                     .transition(0.5s);
-
                                     background-size: 30px 30px;
                                     background-image: linear-gradient(
-                                        45deg,
-                                        rgba(0,0,0,0.1) 25%,
-                                        transparent     25%,
-                                        transparent     50%,
-                                        rgba(0,0,0,0.1) 50%,
-                                        rgba(0,0,0,0.1) 75%,
-                                        transparent     75%,
-                                        transparent
+                                    45deg,
+                                    rgba(0,0,0,0.1) 25%,
+                                    transparent     25%,
+                                    transparent     50%,
+                                    rgba(0,0,0,0.1) 50%,
+                                    rgba(0,0,0,0.1) 75%,
+                                    transparent     75%,
+                                    transparent
                                     );
-                                    -webkit-animation: barberpole 0.5s linear infinite;
-                                    -moz-animation: barberpole 0.5s linear infinite;
                                     animation: barberpole 0.5s linear infinite;
                                 }
 
-                                .data-cancel
-                                {
+                                .data-cancel {
                                     position: absolute;
-                                    top: 0px;
-                                    bottom: 0px;
-                                    left: 0px;
-                                    right: 0px;
+                                    top: 0;
+                                    bottom: 0;
+                                    left: 0;
+                                    right: 0;
                                     text-align: center;
                                     line-height: 102px;
-                                    background: #EEE;
+                                    background: #EEEEEE;
                                     font-weight: bold;
-                                    color: #777;
+                                    color: #777777;
                                     z-index: 1;
                                     .opacity(0.9);
-                                    display:none;
+                                    display: none;
                                     text-transform: uppercase;
                                 }
 
-                                .crunching
-                                {
+                                .crunching {
                                     position: absolute;
-                                    top: 0px;
-                                    bottom: 0px;
-                                    left: 0px;
-                                    right: 0px;
+                                    top: 0;
+                                    bottom: 0;
+                                    left: 0;
+                                    right: 0;
                                     background: rgba(255, 255, 255, 0.9) url(../img/loader/60PX-TRANS.gif) center no-repeat;
-                                    display:none;
+                                    display: none;
                                 }
 
-                                &.placeholder
-                                {
-                                    border:1px dashed #ccc;
-                                    background:#FEFEFE;
+                                &.placeholder {
+                                    border: 1px dashed #CCCCCC;
+                                    background: #FEFEFE;
                                 }
 
-                                &.crunching
-                                {
-                                    .crunching
-                                    {
-                                        display:block;
+                                &.crunching {
+                                    .crunching {
+                                        display: block;
                                     }
                                 }
 
-                                &.error
-                                {
-                                    background:#FFEBE8;
-                                    border-color:#CA0300;
+                                &.error {
+                                    background: #FFEBE8;
+                                    border-color: #CA0300;
 
-                                    p
-                                    {
-                                        text-align:center;
-                                        margin:5px;
-                                        color:#CA0300;
-                                        font-size:0.9em;
+                                    p {
+                                        text-align: center;
+                                        margin: 5px;
+                                        color: #CA0300;
+                                        font-size: 0.9em;
 
-                                        &.filename
-                                        {
+                                        &.filename {
                                             font-weight: bold;
                                             text-overflow: ellipsis;
                                             white-space: nowrap;
@@ -494,55 +405,48 @@
                                 }
                             }
 
-                            &:after
-                            {
+                            &:after {
                                 content: '\0020';
                                 display: block;
                                 overflow: hidden;
                                 visibility: hidden;
                                 width: 0;
                                 height: 0;
-                                clear:both;
+                                clear: both;
                             }
 
-                            &.empty
-                            {
-                                position:relative;
+                            &.empty {
+                                position: relative;
 
-                                li.empty
-                                {
-                                    display:block !important;
-                                    position:absolute;
-                                    top:0px;
-                                    left:0px;
-                                    bottom:0px;
-                                    right:0px;
-                                    text-align:center;
-                                    font-size:2em;
+                                li.empty {
+                                    display: block !important;
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    bottom: 0;
+                                    right: 0;
+                                    text-align: center;
+                                    font-size: 2em;
                                     font-weight: bold;
-                                    color:#CCC;
-                                    padding-top:30px;
-                                    line-height:1.25em;
+                                    color: #CCCCCC;
+                                    padding-top: 30px;
+                                    line-height: 1.25em;
                                 }
                             }
                         }
                     }
 
-                    &.tab-attributes
-                    {
-                        table
-                        {
+                    &.tab-attributes {
+                        table {
                             th.attribute,
                             td.attribute,
                             th.value,
-                            td.value
-                            {
-                                width:49%;
+                            td.value {
+                                width: 49%;
 
-                                input
-                                {
-                                    width:100%;
-                                    box-sizing:border-box;
+                                input {
+                                    width: 100%;
+                                    box-sizing: border-box;
                                 }
                             }
                         }
@@ -551,17 +455,14 @@
             }
         }
 
-        &.import
-        {
-            .import-field
-            {
-                border:1px solid #ccc;
-                padding:5px;
+        &.import {
+            .import-field {
+                border: 1px solid #CCCCCC;
+                padding: 5px;
                 .rounded(3px);
 
-                input
-                {
-                    border:0;
+                input {
+                    border: 0;
                 }
             }
         }
@@ -570,12 +471,9 @@
     // --------------------------------------------------------------------------
 
     //  Orders
-    &.orders
-    {
-        &.browse
-        {
-            table
-            {
+    &.orders {
+        &.browse {
+            table {
                 th.id,
                 td.id,
                 th.ref,
@@ -589,27 +487,23 @@
                 th.fulfilment,
                 td.fulfilment,
                 th.checkAll,
-                td.checkAll
-                {
-                    text-align:center;
+                td.checkAll {
+                    text-align: center;
                 }
 
                 th.checkAll,
-                td.checkAll
-                {
-                    width:10px;
+                td.checkAll {
+                    width: 10px;
                 }
 
                 th.ref,
-                td.ref
-                {
-                    width:120px;
+                td.ref {
+                    width: 120px;
                 }
 
                 th.placed,
-                td.placed
-                {
-                    width:60px;
+                td.placed {
+                    width: 60px;
                 }
 
                 th.value,
@@ -617,135 +511,114 @@
                 th.status,
                 td.status,
                 th.fulfilment,
-                td.fulfilment
-                {
-                    width:60px;
+                td.fulfilment {
+                    width: 60px;
                 }
 
                 th.actions,
-                td.actions
-                {
-                    width:150px;
+                td.actions {
+                    width: 150px;
                 }
             }
 
-            #batch-actions
-            {
-                select
-                {
-                    display:inline-block;
-                    margin:0 10px;
+            #batch-actions {
+                select {
+                    display: inline-block;
+                    margin: 0 10px;
                 }
             }
         }
 
-        &.single
-        {
-            .col-3-container
-            {
-                &:after
-                {
+        &.single {
+            .col-3-container {
+                &:after {
                     display: block;
                     content: '';
                     clear: both;
                 }
 
-                .col-3
-                {
+                .col-3 {
                     float: left;
                     width: 33.333%;
                 }
 
-                td.label
-                {
-                    font-weight:bold;
+                td.label {
+                    font-weight: bold;
                     vertical-align: top;
                 }
 
-                .order-status-container
-                {
+                .order-status-container {
                     height: 50%;
-                    box-sizing:border-box;
+                    box-sizing: border-box;
                     padding-bottom: 0.5em;
 
-                    &:last-of-type
-                    {
+                    &:last-of-type {
                         padding-bottom: 0;
                     }
 
-                    .order-status
-                    {
-                        border: 1px solid #CCC;
+                    .order-status {
+                        border: 1px solid #CCCCCC;
                         background-color: #EFEFEF;
                         .rounded(3px);
                         padding: 1em;
                         text-align: center;
-                        height:100%;
+                        height: 100%;
                         box-sizing: border-box;
 
-                        h1
-                        {
-                            padding:0.5em;
-                            margin:0;
-                            margin-bottom:0.5em;
+                        h1 {
+                            padding: 0.5em;
+                            margin: 0;
+                            margin-bottom: 0.5em;
                             text-transform: uppercase;
-                            background: #888;
-                            color: #FFF;
+                            background: #888888;
+                            color: #FFFFFF;
                         }
 
                         &.unpaid,
                         &.abandoned,
                         &.cancelled,
-                        &.failed
-                        {
-                            border-color: #ebccd1;
-                            color: #a94442;
-                            background: #f2dede;
+                        &.failed {
+                            border-color: #EBCCD1;
+                            color: #A94442;
+                            background: #F2DEDE;
 
-                            h1
-                            {
-                                background: #a94442;
-                                color: #FFF;
+                            h1 {
+                                background: #A94442;
+                                color: #FFFFFF;
                             }
                         }
 
                         &.paid,
-                        &.fulfilled
-                        {
-                            border-color: #d6e9c6;
-                            color: #3c763d;
-                            background: #dff0d8;
+                        &.fulfilled {
+                            border-color: #D6E9C6;
+                            color: #3C763D;
+                            background: #DFF0D8;
 
-                            h1
-                            {
-                                background: #3c763d;
-                                color: #FFF;
+                            h1 {
+                                background: #3C763D;
+                                color: #FFFFFF;
                             }
                         }
 
-                        &.pending
-                        {
-                            border-color: #bce8f1;
-                            color: #31708f;
-                            background: #d9edf7;
+                        &.pending {
+                            border-color: #BCE8F1;
+                            color: #31708F;
+                            background: #D9EDF7;
 
-                            h1
-                            {
-                                background: #31708f;
-                                color: #FFF;
+                            h1 {
+                                background: #31708F;
+                                color: #FFFFFF;
                             }
                         }
 
-                        &.unfulfilled
-                        {
-                            border-color: #faebcc;
-                            color: #8a6d3b;
-                            background: #fcf8e3;
+                        &.unfulfilled {
+                            border-color: #FAEBCC;
+                            color: #8A6D3B;
+                            background: #FCF8E3;
 
-                            h1
-                            {
-                                background: #faebcc;
-                                color: #8a6d3b;
+                            h1 {
+                                background: #FAEBCC;
+                                color: #8A6D3B;
                             }
                         }
                     }
@@ -762,12 +635,9 @@
     // --------------------------------------------------------------------------
 
     //  Vouchers
-    &.vouchers
-    {
-        &.browse
-        {
-            table
-            {
+    &.vouchers {
+        &.browse {
+            table {
                 th.id,
                 td.id,
                 th.code,
@@ -777,56 +647,46 @@
                 th.uses,
                 td.uses,
                 th.actions,
-                td.actions
-                {
-                    text-align:center;
+                td.actions {
+                    text-align: center;
                 }
 
                 th.id,
-                td.id
-                {
-                    width:40px;
+                td.id {
+                    width: 40px;
                 }
 
                 th.details,
-                td.details
-                {
-                    min-width:250px;
+                td.details {
+                    min-width: 250px;
                 }
 
                 th.code,
-                td.code
-                {
-                    width:120px;
+                td.code {
+                    width: 120px;
                 }
 
                 th.value,
-                td.value
-                {
-                    width:60px;
+                td.value {
+                    width: 60px;
                 }
 
                 th.actions,
-                td.actions
-                {
-                    width:65px;
+                td.actions {
+                    width: 65px;
                 }
 
-                td
-                {
-                    span.blank
-                    {
-                        color:#CCC;
+                td {
+                    span.blank {
+                        color: #CCCCCC;
                     }
                 }
             }
         }
 
-        &.edit
-        {
-            #generateCodeSpinner
-            {
-                display:none;
+        &.edit {
+            #generateCodeSpinner {
+                display: none;
             }
         }
     }
@@ -834,46 +694,38 @@
     // --------------------------------------------------------------------------
 
     //  Managers
-    &.manage
-    {
-        table
-        {
+    &.manage {
+        table {
             th,
-            td
-            {
+            td {
                 vertical-align: middle;
 
-                .thumbnail
-                {
-                    float:left;
-                    width:40px;
+                .thumbnail {
+                    float: left;
+                    width: 40px;
                 }
 
-                .content
-                {
-                    margin-left:55px;
+                .content {
+                    margin-left: 55px;
                 }
             }
 
             th.label,
-            td.label
-            {
-                img
-                {
-                    float:left;
-                    width:32px;
-                    height:32px;
-                    padding:3px;
+            td.label {
+                img {
+                    float: left;
+                    width: 32px;
+                    height: 32px;
+                    padding: 3px;
                     .rounded(3px);
-                    border:1px solid #DDD;
-                    background:#FFF url(../img/loader/10px-TRANS.gif) center no-repeat;
+                    border: 1px solid #DDDDDD;
+                    background: #FFFFFF url(../img/loader/10px-TRANS.gif) center no-repeat;
                 }
             }
             th.ipn,
-            td.ipn
-            {
-                width:100px;
-                text-align:center;
+            td.ipn {
+                width: 100px;
+                text-align: center;
             }
 
             th.physical,
@@ -883,23 +735,19 @@
             th.max-v,
             td.max-v,
             th.active,
-            td.active,
-            {
-                width:50px;
-                text-align:center;
+            td.active, {
+                width: 50px;
+                text-align: center;
             }
 
             th.count,
-            td.count
-            {
-                width:75px;
-                text-align:center;
+            td.count {
+                width: 75px;
+                text-align: center;
             }
 
-            th.count
-            {
-                span
-                {
+            th.count {
+                span {
                     font-size: 1.25em;
                     top: 1px;
                     position: relative;
@@ -907,65 +755,55 @@
                 }
             }
 
-            td.active
-            {
-                span
-                {
-                    font-size:1.5em;
+            td.active {
+                span {
+                    font-size: 1.5em;
                 }
             }
 
             th.modified,
-            td.datetime
-            {
-                width:110px;
+            td.datetime {
+                width: 110px;
             }
 
             th.actions,
-            td.actions
-            {
-                width:150px;
-                text-align:center;
+            td.actions {
+                width: 150px;
+                text-align: center;
             }
         }
 
-        &.index
-        {
-            .options
-            {
-                width:100%;
+        &.index {
+            .options {
+                width: 100%;
 
-                .option
-                {
-                    display:inline-block;
-                    width:100%;
-                    box-sizing:border-box;
-                    margin:0;
-                    padding-right:1em;
-                    padding-bottom:1em;
+                .option {
+                    display: inline-block;
+                    width: 100%;
+                    box-sizing: border-box;
+                    margin: 0;
+                    padding-right: 1em;
+                    padding-bottom: 1em;
 
-                    a
-                    {
-                        box-shadow: 0px 2px 2px rgba(0,0,0,0.15);
-                        width:100%;
-                        text-align:center;
-                        display:block;
-                        border:1px solid #CCC;
-                        background:#EFEFEF;
-                        padding:25px 25px;
-                        text-decoration:none;
-                        box-sizing:border-box;
+                    a {
+                        box-shadow: 0 2px 2px rgba(0,0,0,0.15);
+                        width: 100%;
+                        text-align: center;
+                        display: block;
+                        border: 1px solid #CCCCCC;
+                        background: #EFEFEF;
+                        padding: 25px 25px;
+                        text-decoration: none;
+                        box-sizing: border-box;
                         .rounded(2px);
 
-                        &:active
-                        {
-                            top:1px;
+                        &:active {
+                            top: 1px;
                             position: relative;
                             box-shadow: none;
                         }
 
-                        &:hover
-                        {
+                        &:hover {
                             background: darken(#EFEFEF, 10%);
                         }
                     }
@@ -977,18 +815,13 @@
     // --------------------------------------------------------------------------
 
     //  Product availability notices
-    &.product-availability-notifications
-    {
-        table
-        {
-            th
-            {
-                &.checkAll
-                {
+    &.product-availability-notifications {
+        table {
+            th {
+                &.checkAll {
                     width: 10px;
                 }
-                &.actions
-                {
+                &.actions {
                     width: 110px;
                 }
             }
@@ -1000,33 +833,33 @@
     &.shop {
         table {
             td.order {
-                width:25px;
-                text-align:center;
-                font-size:2em;
+                width: 25px;
+                text-align: center;
+                font-size: 2em;
                 cursor: url(../img/admin/cursors/openhand.cur), none !important;
             }
             th.enabled,
             td.enabled {
-                width:150px;
-                text-align:center;
+                width: 150px;
+                text-align: center;
             }
             th.selected,
             td.selected {
-                width:50px;
-                text-align:center;
+                width: 50px;
+                text-align: center;
             }
             th.configure,
             td.configure {
-                width:80px;
-                text-align:center;
+                width: 80px;
+                text-align: center;
             }
             td.enabled {
                 .toggle {
-                    text-align:center;
-                    display:inline-block;
+                    text-align: center;
+                    display: inline-block;
                 }
                 input[type=checkbox] {
-                    display:none;
+                    display: none;
                 }
             }
         }
@@ -1035,57 +868,42 @@
 
 // --------------------------------------------------------------------------
 
-#help-variation-examples
-{
-    width:800px;
+#help-variation-examples {
+    width: 800px;
 
-    h1
-    {
-        font-size:1.5em;
-        border-bottom: 1px solid #CCC;
+    h1 {
+        font-size: 1.5em;
+        border-bottom: 1px solid #CCCCCC;
     }
-    h2
-    {
-        font-size:1.2em;
-        border-bottom: 1px dashed #CCC;
+    h2 {
+        font-size: 1.2em;
+        border-bottom: 1px dashed #CCCCCC;
     }
-    h3
-    {
-        font-size:1.1em;
-        margin-bottom:0;
+    h3 {
+        font-size: 1.1em;
+        margin-bottom: 0;
     }
-    ul
-    {
-        padding:10px;
-        border:1px solid #CCC;
+    ul {
+        padding: 10px;
+        border: 1px solid #CCCCCC;
         .rounded(3px);
-        margin-bottom:1em;
-
-        li.variant
-        {
-            list-style-type: disc;
-            padding-left:1.5em;
-        }
-        li:last-of-type
-        {
-            margin-bottom:0;
+        margin-bottom: 1em;
+        li {
+            &.variant {
+                list-style-type: disc;
+                padding-left: 1.5em;
+            }
+            &:last-of-type {
+                margin-bottom: 0;
+            }
         }
     }
-}
-
-// --------------------------------------------------------------------------
-
-@-webkit-keyframes barberpole
-{
-    from { background-position: 0 0; }
-    to   { background-position: 60px 30px; }
-}
-@-moz-keyframes barberpole
-{
-    from { background-position: 0 0; }
-    to   { background-position: 60px 30px; }
 }
 @keyframes barberpole {
-    from { background-position: 0 0; }
-    to   { background-position: 60px 30px; }
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 60px 30px;
+    }
 }
