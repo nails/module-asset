@@ -175,7 +175,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
         });
 
         //  Search
-        base.sections.search.on('keyup', function(e) {
+        base.sections.search.on('keyup', function() {
             var term = base.sections.search.find('input').val().trim();
             base.log('Filtering widgets by term "' + term + '"');
         });
@@ -233,7 +233,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
 
         base.sections.widgets.empty();
 
-        var i, x, label, toggle, container, icon;
+        var i, x, label, toggle, container, icon, description, btnRemove, editorTarget;
 
         for (i = 0; i < base.widgets.length; i++) {
 
@@ -487,6 +487,10 @@ NAILS_Admin_CMS_WidgetEditor = function()
     base.getWidgetEditor = function(groupIndex, widgetIndex, data) {
 
         base.log('Getting widget editor');
+        base.log(groupIndex);
+        base.log(widgetIndex);
+        base.log(data);
+
     };
 
     // --------------------------------------------------------------------------

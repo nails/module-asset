@@ -1,4 +1,5 @@
 /* globals ko */
+/* exported redirects*/
 ko.bindingHandlers.select2 = {
     init: function(element)
     {

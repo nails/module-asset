@@ -1,99 +1,199 @@
-var gulp = require('gulp');
-var less = require('gulp-less');
+/**
+ * Nails Asset Gulpfile
+ * Build tool for JS and CSS
+ *
+ * @todo Find a way to not have to duplicate tasks simply for watching
+ * @todo Notify on success in watch task
+ * @todo Failures are breaking pipes in watch task
+ * @todo Lint JS files
+ */
+
+// --------------------------------------------------------------------------
+
+//  Configs
+var watchCss          = 'assets/less/*.less';
+var watchJs            = ['assets/js/*.js', '!assets/js/*.min.js', '!assets/js/*.min.js.map'];
+var autoPrefixBrowsers = ['last 2 versions', 'ie 8', 'ie 9'];
+var autoPrefixCascade  = false;
+var minifiedSuffix     = '.min';
+var sourcemapDest      = './';
+var sourcemapOptions   = {includeContent: false};
+var jsDest             = './assets/js/';
+var cssDest            = './assets/css/';
+
+//  Notification vars
+var cssSuccessTitle  = 'Successfully compiled CSS';
+var cssSuccessBody   = '.less files were successfully compiled into CSS';
+var cssSuccessSound  = false;
+var cssSuccessIcon   = false;
+var cssSuccessOnLast = true;
+
+var jsSuccessTitle  = 'Successfully compiled JS';
+var jsSuccessBody   = '.js files were successfully minified and sourcemaps created';
+var jsSuccessSound  = false;
+var jsSuccessIcon   = false;
+var jsSuccessOnLast = true;
+
+// --------------------------------------------------------------------------
+
+//  Common
+var gulp      = require('gulp');
+var watch     = require('gulp-watch');
+var watchLess = require('gulp-less-watcher');
+var plumber   = require('gulp-plumber');
+var notify    = require('gulp-notify');
+var path      = require('path');
+var gutil     = require('gulp-util');
+
+//  CSS
+var less         = require('gulp-less');
 var autoprefixer = require('gulp-autoprefixer');
-var minifyCss = require('gulp-minify-css');
-var rename = require('gulp-rename');
-var uglify = require('gulp-uglify');
+var minifyCss    = require('gulp-minify-css');
+
+//  JS
 var sourcemaps = require('gulp-sourcemaps');
-var runSequence = require('run-sequence');
-var notify = require('gulp-notify');
-var path = require('path');
-var plumber = require('gulp-plumber');
-var gutil = require('gulp-util');
-var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
+var uglify     = require('gulp-uglify');
+var rename     = require('gulp-rename');
+var jshint     = require('gulp-jshint');
+var stylish    = require('jshint-stylish');
 
-//  Styles
-gulp.task('css', function() {
+// --------------------------------------------------------------------------
 
-    var onError = function(err) {
-        notify
-            .onError({
-                title: 'Error compiling CSS',
-                subtitle: 'Check your terminal',
-                message: '<%= error.message %>',
-                sound: 'Funk',
-                contentImage: path.join(__dirname, 'assets/img/nails/icon/icon-red@2x.png'),
-                icon: false,
-                onLast: true
-            })(err);
+var onError = function(err) {
+    notify
+        .onError({
+            title: 'Check your Terminal',
+            message: '<%= error.message %>',
+            sound: 'Funk',
+            contentImage: path.join(__dirname, 'assets/img/nails/icon/icon-red@2x.png'),
+            icon: false,
+            onLast: true
+        })(err);
+}
 
-        this.emit('end');
-    };
+// --------------------------------------------------------------------------
 
-    gulp.src(['assets/less/*.less'])
-        .pipe(plumber({errorHandler: onError}))
+/**
+ * Watch for changes in LESS files and process on change
+ */
+gulp.task('watch:css', function() {
+
+    return gulp.src(watchCss)
+        .pipe(watchLess(watchCss))
+        .pipe(plumber({
+            errorHandler: onError
+        }))
         .pipe(less())
         .pipe(autoprefixer({
-            browsers: ['last 2 versions', 'ie 8', 'ie 9'],
-            cascade: false
+            browsers: autoPrefixBrowsers,
+            cascade: autoPrefixCascade
         }))
         .pipe(minifyCss())
-        .pipe(gulp.dest('./assets/css/'))
+        .pipe(gulp.dest(cssDest))
         .pipe(notify({
-          title: 'Successfully compiled CSS',
-          message: '.less files were successfully compiled into CSS',
-          sound: false,
-          contentImage: path.join(__dirname, 'assets/img/nails/icon/icon@2x.png'),
-          icon: false,
-          onLast: true
+            title: cssSuccessTitle,
+            message: cssSuccessBody,
+            sound: cssSuccessSound,
+            contentImage: path.join(__dirname, 'assets/img/nails/icon/icon@2x.png'),
+            icon: cssSuccessIcon,
+            onLast: cssSuccessOnLast
         }));
 });
 
-//  JS
-gulp.task('js', function() {
+// --------------------------------------------------------------------------
 
-    var onError = function(err) {
-        notify
-            .onError({
-                title: 'Error compiling JS',
-                message: 'Check your terminal',
-                sound: 'Funk',
-                contentImage: path.join(__dirname, 'assets/img/nails/icon/icon-red@2x.png'),
-                icon: false,
-                onLast: true
-            })(err);
+/**
+ * Watch for changes in JS files and process on change
+ */
+gulp.task('watch:js', function() {
 
-        this.emit('end');
-    };
-
-    gulp.src(['assets/js/*.js', '!assets/js/*.min.js', '!assets/js/*.min.js.map'])
-        .pipe(plumber({errorHandler: onError}))
+    return gulp.src(watchJs)
+        .pipe(watch(watchJs))
+        .pipe(plumber({
+            errorHandler: onError
+        }))
         .pipe(sourcemaps.init())
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('jshint-stylish'))
         .pipe(uglify())
         .pipe(rename({
-            suffix: '.min'
+            suffix: minifiedSuffix
         }))
-        .pipe(sourcemaps.write('./', {includeContent: false}))
-        .pipe(gulp.dest('./assets/js/'))
+        .pipe(sourcemaps.write(sourcemapDest, sourcemapOptions))
+        .pipe(gulp.dest(jsDest))
         .pipe(notify({
-            title: 'Successfully compiled JS',
-            message: '.js files were successfully minified and sourcemaps generated',
+            title: jsSuccessTitle,
+            message: jsSuccessBody,
+            sound: jsSuccessSound,
             contentImage: path.join(__dirname, 'assets/img/nails/icon/icon@2x.png'),
-            icon: false,
-            onLast: true
+            icon: jsSuccessIcon,
+            onLast: jsSuccessOnLast
         }));
 });
 
-//  Watches for changes in JS or less files and executes other tasks
-gulp.task('default', function() {
-    gulp.watch('assets/less/**/*.less', ['css']);
-    gulp.watch(['assets/js/**/*.js', '!assets/js/**/*.min.js', '!assets/js/**/*.min.js.map'], ['js']);
+// --------------------------------------------------------------------------
+
+/**
+ * Build CSS
+ */
+gulp.task('css', function() {
+
+    //  CSS
+    return gulp.src(watchCss)
+        .pipe(plumber({
+            errorHandler: onError
+        }))
+        .pipe(less())
+        .pipe(autoprefixer({
+            browsers: autoPrefixBrowsers,
+            cascade: autoPrefixCascade
+        }))
+        .pipe(minifyCss())
+        .pipe(gulp.dest(cssDest))
+        .pipe(notify({
+            title: cssSuccessTitle,
+            message: cssSuccessBody,
+            sound: cssSuccessSound,
+            contentImage: path.join(__dirname, 'assets/img/nails/icon/icon@2x.png'),
+            icon: cssSuccessIcon,
+            onLast: cssSuccessOnLast
+        }));
 });
 
-//  Builds both CSS and JS
-gulp.task('build', function() {
-    runSequence(['css', 'js']);
+// --------------------------------------------------------------------------
+
+/**
+ * Build both CSS and JS
+ */
+gulp.task('js', function() {
+
+    //  JS
+    return gulp.src(watchJs)
+        .pipe(plumber({
+            errorHandler: onError
+        }))
+        .pipe(sourcemaps.init())
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(uglify())
+        .pipe(rename({
+            suffix: minifiedSuffix
+        }))
+        .pipe(sourcemaps.write(sourcemapDest, sourcemapOptions))
+        .pipe(gulp.dest(jsDest))
+        .pipe(notify({
+            title: jsSuccessTitle,
+            message: jsSuccessBody,
+            sound: jsSuccessSound,
+            contentImage: path.join(__dirname, 'assets/img/nails/icon/icon@2x.png'),
+            icon: jsSuccessIcon,
+            onLast: jsSuccessOnLast
+        }));
 });
+
+
+// --------------------------------------------------------------------------
+
+gulp.task('build', ['css', 'js']);
+gulp.task('watch', ['watch:css', 'watch:js']);
+gulp.task('default', ['watch:css', 'watch:js']);
