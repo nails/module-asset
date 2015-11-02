@@ -2,16 +2,13 @@
  * Nails Asset Gulpfile
  * Build tool for JS and CSS
  *
- * @todo Find a way to not have to duplicate tasks simply for watching
- * @todo Notify on success in watch task
- * @todo Failures are breaking pipes in watch task
- * @todo Lint JS files
+ * @todo Only process changed files
  */
 
 // --------------------------------------------------------------------------
 
 //  Configs
-var watchCss          = 'assets/less/*.less';
+var watchCss           = 'assets/less/*.less';
 var watchJs            = ['assets/js/*.js', '!assets/js/*.min.js', '!assets/js/*.min.js.map'];
 var autoPrefixBrowsers = ['last 2 versions', 'ie 8', 'ie 9'];
 var autoPrefixCascade  = false;
@@ -77,27 +74,7 @@ var onError = function(err) {
  * Watch for changes in LESS files and process on change
  */
 gulp.task('watch:css', function() {
-
-    return gulp.src(watchCss)
-        .pipe(watchLess(watchCss))
-        .pipe(plumber({
-            errorHandler: onError
-        }))
-        .pipe(less())
-        .pipe(autoprefixer({
-            browsers: autoPrefixBrowsers,
-            cascade: autoPrefixCascade
-        }))
-        .pipe(minifyCss())
-        .pipe(gulp.dest(cssDest))
-        .pipe(notify({
-            title: cssSuccessTitle,
-            message: cssSuccessBody,
-            sound: cssSuccessSound,
-            contentImage: path.join(__dirname, 'assets/img/nails/icon/icon@2x.png'),
-            icon: cssSuccessIcon,
-            onLast: cssSuccessOnLast
-        }));
+    gulp.watch('assets/less/**/*.less', ['css']);
 });
 
 // --------------------------------------------------------------------------
@@ -106,29 +83,7 @@ gulp.task('watch:css', function() {
  * Watch for changes in JS files and process on change
  */
 gulp.task('watch:js', function() {
-
-    return gulp.src(watchJs)
-        .pipe(watch(watchJs))
-        .pipe(plumber({
-            errorHandler: onError
-        }))
-        .pipe(sourcemaps.init())
-        .pipe(jshint('.jshintrc'))
-        .pipe(jshint.reporter('jshint-stylish'))
-        .pipe(uglify())
-        .pipe(rename({
-            suffix: minifiedSuffix
-        }))
-        .pipe(sourcemaps.write(sourcemapDest, sourcemapOptions))
-        .pipe(gulp.dest(jsDest))
-        .pipe(notify({
-            title: jsSuccessTitle,
-            message: jsSuccessBody,
-            sound: jsSuccessSound,
-            contentImage: path.join(__dirname, 'assets/img/nails/icon/icon@2x.png'),
-            icon: jsSuccessIcon,
-            onLast: jsSuccessOnLast
-        }));
+    gulp.watch(watchJs, ['js']);
 });
 
 // --------------------------------------------------------------------------

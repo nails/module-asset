@@ -791,13 +791,13 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
                         _script += "    success: function()";
                         _script += "    {";
                         _script += "        ui.find('textarea.wysiwyg-basic').each(function(index) {";
-                        _script += "            _this.initCkeditor(ui, $(this), appConfigBasic, index);";
+                        _script += "            _this.initWysiwyg(ui, $(this), appConfigBasic, index);";
                         _script += "        });";
                         _script += "    },";
                         _script += "    error: function()";
                         _script += "    {";
                         _script += "        ui.find('textarea.wysiwyg-basic').each(function(index) {";
-                        _script += "            _this.initCkeditor(ui, $(this), configBasic, index);";
+                        _script += "            _this.initWysiwyg(ui, $(this), configBasic, index);";
                         _script += "        });";
                         _script += "    }";
                         _script += "});";
@@ -809,19 +809,19 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
                         _script += "    success: function()";
                         _script += "    {";
                         _script += "        ui.find('textarea.wysiwyg').each(function(index) {";
-                        _script += "            _this.initCkeditor(ui, $(this), appConfigDefault, index);";
+                        _script += "            _this.initWysiwyg(ui, $(this), appConfigDefault, index);";
                         _script += "        });";
                         _script += "    },";
                         _script += "    error: function()";
                         _script += "    {";
                         _script += "        ui.find('textarea.wysiwyg').each(function(index) {";
-                        _script += "            _this.initCkeditor(ui, $(this), configDefault, index);";
+                        _script += "            _this.initWysiwyg(ui, $(this), configDefault, index);";
                         _script += "        });";
                         _script += "    }";
                         _script += "});";
                     _script += "};";
 
-                    _script += "this.initCkeditor = function(ui, el, config, index)";
+                    _script += "this.initWysiwyg = function(ui, el, config, index)";
                     _script += "{";
                         _script += "var id = ui.attr('id') + '-wysiwyg-' + index;";
                         _script += "el.attr('id', id);";

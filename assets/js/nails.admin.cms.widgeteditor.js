@@ -182,8 +182,14 @@ NAILS_Admin_CMS_WidgetEditor = function()
 
         //  Body
         base.sections.body.on('click', '.action-remove', function() {
-            base.log('Removing Widget');
-            $(this).closest('.widget').remove();
+
+            var widget = $(this).closest('.widget');
+            base.confirm('Are you sure you wish to remove this widget from the interface?')
+            .done(function() {
+
+                base.log('Removing Widget');
+                widget.remove();
+            });
         });
 
         return base;
@@ -203,18 +209,17 @@ NAILS_Admin_CMS_WidgetEditor = function()
 
         deferred = $.Deferred();
 
-        //  @todo get this from the server
         _nails_api.call({
             'controller': 'cms/widgets',
             'method': 'index',
-            'success': function(data)
-            {
+            'success': function(data) {
+
                 base.log('Succesfully fetched widgets from the server.');
                 base.widgets = data.widgets;
                 deferred.resolve();
             },
-            'error': function()
-            {
+            'error': function() {
+
                 base.warn('Failed to load widgets from the server.');
                 deferred.reject();
             }
@@ -391,7 +396,9 @@ NAILS_Admin_CMS_WidgetEditor = function()
 
         base.sections.widgets.find('.widget').draggable({
             'helper': 'clone',
-            'connectToSortable': base.sections.body.find('> ul')
+            'connectToSortable': base.sections.body.find('> ul'),
+            'appendTo': base.container,
+            'zIndex': 100
         });
 
         return base;
@@ -423,6 +430,11 @@ NAILS_Admin_CMS_WidgetEditor = function()
         base.sections.body.find('> ul').sortable({
             placeholder: 'sortable-placeholder',
             handle: '.icon',
+            axis: 'y',
+            start: function(e, ui)
+            {
+                ui.helper.height('auto');
+            },
             receive: function(e, ui)
             {
                 var sourceWidget, targetWidget, groupIndex, widgetIndex;
@@ -432,7 +444,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
                 groupIndex   = sourceWidget.data('group');
                 widgetIndex  = sourceWidget.data('widget');
 
-                base.addWidget(area, groupIndex, widgetIndex);
+                base.addWidget(area, groupIndex, widgetIndex, null, targetWidget);
 
                 //  Allow auto sizing
                 targetWidget.removeAttr('style');
@@ -461,7 +473,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
 
     // --------------------------------------------------------------------------
 
-    base.addWidget = function(area, groupIndex, widgetIndex, data) {
+    base.addWidget = function(area, groupIndex, widgetIndex, data, target) {
 
         if (base.widgets[groupIndex] && base.widgets[groupIndex].widgets[widgetIndex]) {
 
@@ -470,10 +482,37 @@ NAILS_Admin_CMS_WidgetEditor = function()
             base.log('Adding Widget "' + widget.label + '" with data:', data);
 
             //  Add to the widget array for this area
+            //  @todo
 
             //  If the editor is active then fetch the widget's editor panel
             if (base.isOpen) {
-                base.getWidgetEditor(groupIndex, widgetIndex, data);
+                base.getWidgetEditor(groupIndex, widgetIndex, data)
+                .done(function(data) {
+
+                    base.log('Editor Received');
+                    target
+                        .find('.editor-target')
+                        .html(data);
+
+                    //  Now the markup is in place we need to ensure that things look the part
+                    //  Table stripes
+                    _nails.addStripes();
+                    //  WYSIWYG editors
+                    _nails_admin.buildWysiwyg('basic');
+                    _nails_admin.buildWysiwyg('default');
+                    //  Select2 Dropdowns
+                    //  Tipsys
+
+                    //  Finally, call the "dropped" callback
+
+                })
+                .fail(function(data) {
+
+                    target
+                        .find('.editor-target')
+                        .addClass('alert alert-danger')
+                        .html('<strong>Error:</strong> ' + data.error);
+                });
             }
 
         } else {
@@ -486,11 +525,44 @@ NAILS_Admin_CMS_WidgetEditor = function()
 
     base.getWidgetEditor = function(groupIndex, widgetIndex, data) {
 
-        base.log('Getting widget editor');
-        base.log(groupIndex);
-        base.log(widgetIndex);
-        base.log(data);
+        var deferred;
 
+        deferred = $.Deferred();
+
+        _nails_api.call({
+            'controller': 'cms/widgets',
+            'method': 'editor',
+            'action': 'POST',
+            'data': {
+                'slug': base.widgets[groupIndex].widgets[widgetIndex].slug,
+                'data': data
+            },
+            'success': function(data) {
+
+                base.log('Succesfully fetched widget editor from the server.');
+                deferred.resolve(data.editor);
+            },
+            'error': function(data) {
+
+                var _data;
+
+                try {
+
+                    _data = JSON.parse(data.responseText);
+
+                } catch (e) {
+
+                    _data = {
+                        'status': 500,
+                        'error': 'An unknown error occurred.'
+                    }
+                }
+                base.warn('Failed to load widget editor from the server with error: ', _data.error);
+                deferred.reject(_data);
+            }
+        });
+
+        return deferred.promise();
     };
 
     // --------------------------------------------------------------------------
@@ -507,6 +579,41 @@ NAILS_Admin_CMS_WidgetEditor = function()
         base.log('Getting editor data for area "' + area + '"');
 
         return [{'foo': 'bar'}, {'foo': 'bar'}];
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.confirm = function(message, title) {
+
+        message = message ? message : 'Are you sure you wish to complete this action?'
+        title   = title ? title : 'Are you sure?'
+
+        var deferred = $.Deferred();
+
+        $('<div>')
+            .text(message)
+            .dialog({
+                title: title,
+                resizable: false,
+                draggable: false,
+                modal: true,
+                dialogClass: 'group-cms widgeteditor-alert',
+                buttons:
+                {
+                    'OK': function()
+                    {
+                        $(this).dialog('close');
+                        deferred.resolve();
+                    },
+                    'Cancel': function()
+                    {
+                        $(this).dialog('close');
+                        deferred.reject();
+                    }
+                }
+            });
+
+        return deferred.promise();
     };
 
     // --------------------------------------------------------------------------

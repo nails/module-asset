@@ -436,6 +436,10 @@
     /**
      * Widget Editor
      */
+
+    //  Generic variables
+    @widgeteditor-zindex: 999;
+
     //  Header variables
     @widgeteditor-header-height: 42px;
 
@@ -454,7 +458,7 @@
         top: 0;
         width: 100%;
         height: 100%;
-        z-index: 9999;
+        z-index: @widgeteditor-zindex;
         background: rgba(0, 0, 0, 0.8);
         &.active {
             display: block;
@@ -598,14 +602,14 @@
                     right: 0;
                     bottom: 0;
                     z-index: 1;
-                    padding: 1em;
+                    margin: 1em;
                     &:empty + .no-widgets {
                         display: block;
                     }
                     > .widget {
                         margin: 1em 0;
-                        width: 100% !important;
-                        height: auto !important;
+                        width: 100%;
+                        box-sizing: border-box;
                         cursor: default;
                         &:first-child {
                             margin-top: 0;
@@ -621,9 +625,6 @@
                         height: 150px !important;
                         background: #FFFFFF;
                         border: 1px dashed #CCCCCC;
-                    }
-                    .widget {
-                        width: 100% !important;
                     }
                 }
                 > .no-widgets {
@@ -662,6 +663,7 @@
                 color: #FFFFFF;
                 background: #03A9F4;
                 border: 1px solid darken(#03A9F4, 10%);
+                height: 40px;
                 .action,
                 .description,
                 .editor-target {
@@ -680,7 +682,9 @@
                 position: absolute;
                 right: 1em;
                 top: 1em;
-                &:hover {
+                &:hover,
+                &:active,
+                &:focus {
                     text-decoration: none;
                 }
             }
@@ -688,9 +692,21 @@
                 font-size: 0.8em;
             }
             .editor-target {
+                margin: 0;
                 margin-top: 1em;
+                border: 1px solid #EFEFEF;
+                > *:last-child {
+                    margin-bottom: 0;
+                }
+                textarea {
+                    width: 100%;
+                    min-height: 200px;
+                }
             }
         }
+    }
+    &.widgeteditor-alert {
+        z-index: @widgeteditor-zindex + 1;
     }
 }
 
