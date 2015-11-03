@@ -1,4 +1,4 @@
-/* globals console, _nails_api */
+/* globals console, _nails, _nails_admin, _nails_api, Mustache */
 var NAILS_Admin_CMS_WidgetEditor;
 NAILS_Admin_CMS_WidgetEditor = function()
 {
@@ -27,6 +27,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
             'label': '<i class="fa fa-lg fa-times"></i>',
             'type': 'danger',
             'callback': function() {
+                base.widgetData[base.activeArea] = base.getActiveData();
                 base.close();
             }
         }
@@ -52,7 +53,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
     /**
      * The individual editor sections
      */
-    base.sections = null;
+    base.sections = {};
 
     // --------------------------------------------------------------------------
 
@@ -61,6 +62,38 @@ NAILS_Admin_CMS_WidgetEditor = function()
      * @type {Boolean}
      */
     base.isOpen = false;
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * The currently active area
+     * @type {String}
+     */
+    base.activeArea = '';
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * The name/slug of the default area
+     * @type {String}
+     */
+    base.defaultArea = 'default';
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Holds the timeout when seraching
+     * @type {Number}
+     */
+    base.searchTimeout = null;
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * The delay before searching widgets, in milliseconds
+     * @type {Number}
+     */
+    base.searchDelay = 150;
 
     // --------------------------------------------------------------------------
 
@@ -77,7 +110,8 @@ NAILS_Admin_CMS_WidgetEditor = function()
         base.bindEvents();
 
          // Fetch and render available widgets
-        base.loadSidebarWidgets().done(function() {
+        base.loadSidebarWidgets()
+        .done(function() {
             base.renderSidebarWidgets();
         });
 
@@ -87,7 +121,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
     // --------------------------------------------------------------------------
 
     /**
-     * Generate the base amrkup for the editor
+     * Generate the base markup for the editor
      * @return {Object}
      */
     base.generateMarkup = function() {
@@ -104,8 +138,16 @@ NAILS_Admin_CMS_WidgetEditor = function()
                 'actions': $('<div>').addClass('widgeteditor-actions'),
                 'search': $('<div>').addClass('widgeteditor-search'),
                 'widgets': $('<div>').addClass('widgeteditor-widgets'),
-                'body': $('<ul>').addClass('widgeteditor-body').html(
+                'body': $('<div>').addClass('widgeteditor-body').html(
                     '<ul></ul><div class="no-widgets">Drag widgets from the left to here</div>'
+                ),
+                'widget': $('<div>').html(
+                    '<i class="icon fa {{icon}}"></i>' +
+                    '<span class="label">{{label}}</span>' +
+                    '<a href="#" class="action action-remove fa fa-trash-o" rel="tipsy" title="Remove"></a>' +
+                    '<a href="#" class="action action-refresh-editor fa fa-refresh" rel="tipsy" title="Refresh"></a>' +
+                    '<div class="description">{{description}}</div>' +
+                    '<div class="editor-target">Widget Loading...</div>'
                 )
             };
 
@@ -128,6 +170,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
             base.renderActions();
 
         } else {
+
             base.warn('Editor already generated');
         }
 
@@ -171,13 +214,22 @@ NAILS_Admin_CMS_WidgetEditor = function()
             }
 
             groupIndex = $(this).data('group');
-            $('.widget-group-' + groupIndex).toggle();
+            $('.widget-group-' + groupIndex).toggleClass('hidden');
         });
 
         //  Search
         base.sections.search.on('keyup', function() {
-            var term = base.sections.search.find('input').val().trim();
-            base.log('Filtering widgets by term "' + term + '"');
+
+            if (base.searchTimeout) {
+                clearTimeout(base.searchTimeout);
+            }
+
+            base.searchTimeout = setTimeout(function() {
+
+                var term = base.sections.search.find('input').val().trim();
+                base.searchWidgets(term);
+
+            }, base.searchDelay);
         });
 
         //  Body
@@ -190,6 +242,22 @@ NAILS_Admin_CMS_WidgetEditor = function()
                 base.log('Removing Widget');
                 widget.remove();
             });
+        });
+
+        base.sections.body.on('click', '.action-refresh-editor', function() {
+
+            var widget = $(this).closest('.widget');
+            var slug   = widget.data('slug');
+            var data   = widget.find(':input').serializeObject();
+
+            widget
+                .addClass('editor-loading')
+                .find('.editor-target')
+                .empty()
+                .text('Widget Loading...');
+
+            base.setupWidgetEditor(slug, data, widget);
+
         });
 
         return base;
@@ -238,7 +306,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
 
         base.sections.widgets.empty();
 
-        var i, x, label, toggle, container, icon, description, btnRemove, editorTarget;
+        var i, x, label, toggle, container, icon;
 
         for (i = 0; i < base.widgets.length; i++) {
 
@@ -251,25 +319,78 @@ NAILS_Admin_CMS_WidgetEditor = function()
             //  Individual widgets
             for (x = 0; x < base.widgets[i].widgets.length; x++) {
 
-                icon         = $('<i>').addClass('icon fa ' + base.widgets[i].widgets[x].icon);
-                label        = $('<span>').addClass('label').text(base.widgets[i].widgets[x].label);
-                description  = $('<div>').addClass('description').text(base.widgets[i].widgets[x].description);
-                btnRemove    = $('<a>').attr('href', '#').addClass('action action-remove fa fa-trash-o');
-                editorTarget = $('<div>').addClass('editor-target').html('Widget Loading...');
-                container    = $('<div>').addClass('widget widget-group-' + i).data('group', i).data('widget', x);
+                icon      = $('<i>').addClass('icon fa ' + base.widgets[i].widgets[x].icon);
+                label     = $('<span>').addClass('label').text(base.widgets[i].widgets[x].label);
+                container = $('<div>')
+                            .addClass('widget widget-group-' + i)
+                            .data('group', i)
+                            .data('slug', base.widgets[i].widgets[x].slug)
+                            .data('keywords', base.widgets[i].widgets[x].keywords);
 
                 container
                     .append(icon)
-                    .append(label)
-                    .append(btnRemove)
-                    .append(description)
-                    .append(editorTarget);
+                    .append(label);
 
                 base.sections.widgets.append(container);
             }
         }
 
         return base;
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.searchWidgets = function(term) {
+
+        var keywords, i, regex, group;
+
+        if (term.length > 0) {
+
+            base.log('Filtering widgets by term "' + term + '"');
+
+            //  Hide widgets which do not match the search term
+            base.sections.widgets.find('.widget').each(function() {
+
+                keywords = $(this).data('keywords').split(',');
+                for (i = keywords.length - 1; i >= 0; i--) {
+
+                    regex = new RegExp(term, 'gi');
+                    if (regex.test(keywords[i])) {
+
+                        $(this).removeClass('search-hide');
+                        $(this).addClass('search-show');
+                        return;
+
+                    } else {
+
+                        $(this).removeClass('search-show');
+                        $(this).addClass('search-hide');
+                    }
+                }
+            });
+
+            //  Hide group headings which no longer have any widgets showing
+            base.sections.widgets.find('.widget-group').each(function() {
+
+                group = $(this).data('group');
+                if ($('.widget-group-' + group + '.search-show').length) {
+
+                    $(this).removeClass('search-hide');
+                    $(this).addClass('search-show');
+                    return;
+
+                } else {
+
+                    $(this).removeClass('search-show');
+                    $(this).addClass('search-hide');
+                }
+            });
+
+        } else {
+
+            base.log('Restoring widgets');
+            base.sections.widgets.find('.widget, .widget-group').removeClass('search-show search-hide');
+        }
     };
 
     // --------------------------------------------------------------------------
@@ -341,17 +462,40 @@ NAILS_Admin_CMS_WidgetEditor = function()
      */
     base.show = function(area) {
 
-        area = area || 'default';
+        area = area || base.defaultArea;
 
         base.log('Showing Editor for "' + area + '"');
 
+        base.activeArea = area;
+
         //  Build the widgets for this area
         base.sections.body.find('> ul').empty();
-        //  @todo
+
+        if (base.widgetData[area] && base.widgetData[area].length) {
+
+            base.log('Adding previous widgets');
+
+            for (var key in base.widgetData[area]) {
+
+                if (base.widgetData[area].hasOwnProperty(key)) {
+
+                    //  Add to the DOM, addWidget will populate
+                    var widgetDom = $('<div>').addClass('widget');
+                    base.sections.body.find('> ul').append(widgetDom);
+
+                    base.log(base.widgetData[area][key]);
+                    base.addWidget(
+                        base.widgetData[area][key].slug,
+                        base.widgetData[area][key].data,
+                        widgetDom
+                    );
+                }
+            }
+        }
 
         //  Make things draggable and sortable
         base.draggableConstruct();
-        base.sortableConstruct(area);
+        base.sortableConstruct();
 
         //  Show the editor
         base.container.addClass('active');
@@ -373,7 +517,8 @@ NAILS_Admin_CMS_WidgetEditor = function()
 
         base.log('Closing Editor');
         base.container.removeClass('active');
-        base.isOpen = true;
+        base.isOpen = false;
+        base.activeArea = '';
 
         //  Destroy all sortables and draggables
         base.draggableDestroy();
@@ -383,6 +528,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
         $('body').removeClass('noscroll');
 
         $(base).trigger('widgeteditor-close');
+
         return base;
     };
 
@@ -425,7 +571,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
      * Set up sortables
      * @return {Object}
      */
-    base.sortableConstruct = function(area) {
+    base.sortableConstruct = function() {
 
         base.sections.body.find('> ul').sortable({
             placeholder: 'sortable-placeholder',
@@ -433,21 +579,27 @@ NAILS_Admin_CMS_WidgetEditor = function()
             axis: 'y',
             start: function(e, ui)
             {
-                ui.helper.height('auto');
+                ui.placeholder.height(ui.helper.outerHeight());
+                _nails_admin.destroyWysiwyg('basic');
+                _nails_admin.destroyWysiwyg('default');
             },
             receive: function(e, ui)
             {
-                var sourceWidget, targetWidget, groupIndex, widgetIndex;
+                var sourceWidget, targetWidget, widgetSlug;
 
                 sourceWidget = ui.item;
                 targetWidget = ui.helper;
-                groupIndex   = sourceWidget.data('group');
-                widgetIndex  = sourceWidget.data('widget');
+                widgetSlug   = sourceWidget.data('slug');
 
-                base.addWidget(area, groupIndex, widgetIndex, null, targetWidget);
+                base.addWidget(widgetSlug, null, targetWidget);
 
                 //  Allow auto sizing
                 targetWidget.removeAttr('style');
+            },
+            stop: function() {
+
+                _nails_admin.buildWysiwyg('basic');
+                _nails_admin.buildWysiwyg('default');
             }
         });
 
@@ -473,57 +625,113 @@ NAILS_Admin_CMS_WidgetEditor = function()
 
     // --------------------------------------------------------------------------
 
-    base.addWidget = function(area, groupIndex, widgetIndex, data, target) {
+    /**
+     * Add a widget to the interface
+     * @param  {String|Object} slug      The widget slug, or the widget Object
+     * @param  {Object}        data      Any data to populate the editor with
+     * @param  {DomElement}    widgetDom The widget's DOM element
+     * @return {Object}
+     */
+    base.addWidget = function(widget, data, widgetDom) {
 
-        if (base.widgets[groupIndex] && base.widgets[groupIndex].widgets[widgetIndex]) {
+        if (typeof widget === 'string') {
 
-            var widget = base.widgets[groupIndex].widgets[widgetIndex];
+            widget = base.getWidget(widget);
+        }
 
-            base.log('Adding Widget "' + widget.label + '" with data:', data);
+        if (widget) {
 
-            //  Add to the widget array for this area
-            //  @todo
+            base.log('Adding Widget "' + widget.slug + '" with data:', data);
 
-            //  If the editor is active then fetch the widget's editor panel
-            if (base.isOpen) {
-                base.getWidgetEditor(groupIndex, widgetIndex, data)
-                .done(function(data) {
+            //  Populate the dom element with the widget template
+            $(widgetDom)
+                .empty()
+                .data('slug', widget.slug)
+                .addClass('editor-loading')
+                .html(Mustache.render(base.sections.widget.html(), widget));
 
-                    base.log('Editor Received');
-                    target
-                        .find('.editor-target')
-                        .html(data);
-
-                    //  Now the markup is in place we need to ensure that things look the part
-                    //  Table stripes
-                    _nails.addStripes();
-                    //  WYSIWYG editors
-                    _nails_admin.buildWysiwyg('basic');
-                    _nails_admin.buildWysiwyg('default');
-                    //  Select2 Dropdowns
-                    //  Tipsys
-
-                    //  Finally, call the "dropped" callback
-
-                })
-                .fail(function(data) {
-
-                    target
-                        .find('.editor-target')
-                        .addClass('alert alert-danger')
-                        .html('<strong>Error:</strong> ' + data.error);
-                });
-            }
+            //  Setup the widget's editor
+            base.setupWidgetEditor(widget.slug, data, widgetDom);
 
         } else {
 
             base.warn('Attempted to add an invalid widget');
         }
+
+        return base;
     };
 
     // --------------------------------------------------------------------------
 
-    base.getWidgetEditor = function(groupIndex, widgetIndex, data) {
+    base.setupWidgetEditor = function(slug, data, widgetDom) {
+
+        base.getWidgetEditor(slug, data)
+        .done(function(data) {
+
+            base.log('Editor Received');
+            widgetDom
+                .removeClass('editor-loading')
+                .find('.editor-target')
+                .html(data);
+
+            //  Now the markup is in place we need to ensure that things look the part
+            //  Table stripes
+            _nails.addStripes();
+
+            //  WYSIWYG editors
+            _nails_admin.buildWysiwyg('basic');
+            _nails_admin.buildWysiwyg('default');
+
+            //  Select2 Dropdowns
+            _nails_admin.initSelect2();
+
+            //  Tipsys
+            _nails.initTipsy();
+
+            //  Finally, call the "dropped" callback
+            //  @todo
+        })
+        .fail(function(data) {
+
+            widgetDom
+                .removeClass('editor-loading')
+                .find('.editor-target')
+                .addClass('alert alert-danger')
+                .html('<strong>Error:</strong> ' + data.error);
+        });
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Return a single widget
+     * @param  {String} slug The slug of the widget to return
+     * @return {Object}
+     */
+    base.getWidget = function(slug) {
+
+        var i, x;
+
+        for (i = base.widgets.length - 1; i >= 0; i--) {
+            for (x = base.widgets[i].widgets.length - 1; x >= 0; x--) {
+                if (base.widgets[i].widgets[x].slug === slug) {
+                    return base.widgets[i].widgets[x];
+                }
+            }
+        }
+
+        return false;
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Fetch the widgete ditor from the API
+     * @param  {String} slug The slug of the widget to render the editor for
+     * @param  {Object} data Data to prefill the editor with
+     * @return {Object}      A jQuery promise
+     */
+    base.getWidgetEditor = function(slug, data) {
 
         var deferred;
 
@@ -534,7 +742,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
             'method': 'editor',
             'action': 'POST',
             'data': {
-                'slug': base.widgets[groupIndex].widgets[widgetIndex].slug,
+                'slug': slug,
                 'data': data
             },
             'success': function(data) {
@@ -555,7 +763,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
                     _data = {
                         'status': 500,
                         'error': 'An unknown error occurred.'
-                    }
+                    };
                 }
                 base.warn('Failed to load widget editor from the server with error: ', _data.error);
                 deferred.reject(_data);
@@ -572,21 +780,66 @@ NAILS_Admin_CMS_WidgetEditor = function()
      * @param  {String} area The area to get data for
      * @return {Array}
      */
-    base.getData = function(area)
-    {
-        area = area || 'default';
+    base.getAreaData = function(area) {
 
+        area = area || base.defaultArea;
         base.log('Getting editor data for area "' + area + '"');
-
-        return [{'foo': 'bar'}, {'foo': 'bar'}];
+        return base.widgetData[area] || null;
     };
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Sets the data contents of an area
+     * @param  {String} area The area to set data for
+     * @param  {Array}  data  The data to set
+     * @return {Object}
+     */
+    base.setAreaData = function(area, data) {
+
+        area = area || base.defaultArea;
+        base.log('Setting editor data for area "' + area + '"', data);
+        base.widgetData[area] = data;
+
+        return base;
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Returns the data of widgets in the currently active editor
+     * @return {Array}
+     */
+    base.getActiveData = function() {
+
+        var widgets, out = [];
+
+        base.log('Getting active editor\'s data');
+
+        widgets = base.sections.body.find('> ul > .widget');
+        widgets.each(function() {
+
+            out.push({
+                'slug': $(this).data('slug'),
+                'data': $(this).find(':input').serializeObject()
+            });
+        });
+
+        return out;
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Show a confirmation dialog
+     * @param  {String} message The message/question to show
+     * @param  {String} title   The title of the dialog
+     * @return {Object}         A jQuery Promise
+     */
     base.confirm = function(message, title) {
 
-        message = message ? message : 'Are you sure you wish to complete this action?'
-        title   = title ? title : 'Are you sure?'
+        message = message ? message : 'Are you sure you wish to complete this action?';
+        title   = title ? title : 'Are you sure?';
 
         var deferred = $.Deferred();
 
@@ -622,10 +875,10 @@ NAILS_Admin_CMS_WidgetEditor = function()
      * Write a log to the console
      * @param  {String} message The message to log
      * @param  {Mixed}  payload Any additional data to display in the console
-     * @return {Void}
+     * @return {Object}
      */
-    base.log = function(message, payload)
-    {
+    base.log = function(message, payload) {
+
         if (typeof(console.log) === 'function') {
 
             if (payload !== undefined) {
@@ -637,6 +890,8 @@ NAILS_Admin_CMS_WidgetEditor = function()
                 console.log('CMS Widget Editor:', message);
             }
         }
+
+        return base;
     };
 
     // --------------------------------------------------------------------------
@@ -645,10 +900,10 @@ NAILS_Admin_CMS_WidgetEditor = function()
      * Write a warning to the console
      * @param  {String} message The message to warn
      * @param  {Mixed}  payload Any additional data to display in the console
-     * @return {Void}
+     * @return {Object}
      */
-    base.warn = function(message, payload)
-    {
+    base.warn = function(message, payload) {
+
         if (typeof(console.warn) === 'function') {
 
             if (payload !== undefined) {
@@ -660,6 +915,8 @@ NAILS_Admin_CMS_WidgetEditor = function()
                 console.warn('CMS Widget Editor:', message);
             }
         }
+
+        return base;
     };
 
     // --------------------------------------------------------------------------

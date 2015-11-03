@@ -558,7 +558,29 @@ NAILS_Admin = function()
                 customConfig: base.defaultConfig
             }).addClass('wysiwyged');
         }
-    }
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.destroyWysiwyg = function(type)
+    {
+        if (type === 'basic') {
+
+            $('.wysiwyg.wysiwyg-basic.wysiwyged')
+                .ckeditor(function() {
+                    this.destroy();
+                })
+                .removeClass('wysiwyged');
+
+        } else if (type === 'default') {
+
+            $('.wysiwyg.wysiwyged')
+                .ckeditor(function() {
+                    this.destroy();
+                })
+                .removeClass('wysiwyged');
+        }
+    };
 
     // --------------------------------------------------------------------------
 

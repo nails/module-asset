@@ -18,6 +18,10 @@ NAILS_Admin_CMS_Areas_CreateEdit = function(widgetEditor)
 
     // --------------------------------------------------------------------------
 
+    base.areaName = 'default';
+
+    // --------------------------------------------------------------------------
+
     /**
      * Construct the CMS widget editor
      * @return {void}
@@ -25,8 +29,8 @@ NAILS_Admin_CMS_Areas_CreateEdit = function(widgetEditor)
     base.__construct = function()
     {
         base.log('Constructing Area Editor');
-
         base.bindEvents();
+        base.populateEditor();
     };
 
     // --------------------------------------------------------------------------
@@ -39,16 +43,42 @@ NAILS_Admin_CMS_Areas_CreateEdit = function(widgetEditor)
     {
         $('#open-widget-editor').on('click', function()
         {
-            base.editor.show();
+            base.editor.show(base.areaName);
             return false;
         });
 
         $(base.editor).on('widgeteditor-close', function()
         {
             base.log('Editor Closing, getting area data');
-            var data = base.editor.getData();
-            $('#widget-data').html(JSON.stringify(data));
+            var data = base.editor.getAreaData(base.areaName);
+            $('#widget-data').val(JSON.stringify(data));
         });
+
+        return base;
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Populate the editor widget data
+     * @return {Object}
+     */
+    base.populateEditor = function() {
+
+        var widgetData;
+
+        widgetData = $('#widget-data').val();
+
+        if (widgetData.length) {
+
+            try {
+
+                widgetData = JSON.parse(widgetData);
+                base.editor.setAreaData(base.areaName, widgetData);
+
+            } catch (e) {}
+        }
+        return base;
     };
 
     // --------------------------------------------------------------------------

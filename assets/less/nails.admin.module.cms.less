@@ -434,6 +434,21 @@
         }
     }
     /**
+     * Areas
+     */
+    &.areas {
+        &.overview {
+            table {
+                th,
+                td {
+                    &.actions {
+                        width: 110px;
+                    }
+                }
+            }
+        }
+    }
+    /**
      * Widget Editor
      */
 
@@ -476,12 +491,10 @@
                 user-select: none;
             }
             &header {
-                //  Layout
                 top: 0;
                 left: 0;
                 right: 0;
                 height: @widgeteditor-header-height;
-                //  Styling
                 background: rgba(255, 255, 255, 1);
                 line-height: @widgeteditor-header-height;
                 border-bottom: 1px solid #121618;
@@ -491,11 +504,9 @@
                 z-index: 1;
             }
             &actions {
-                //  Layout
                 top: 0;
                 right: 0;
                 height: @widgeteditor-header-height - 1;
-                //  Styling
                 text-align: right;
                 padding: 5px;
                 z-index: 2;
@@ -504,12 +515,10 @@
                 }
             }
             &search {
-                //  Layout
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: @widgeteditor-search-height;
-                //  Styling
                 background: rgba(255, 255, 255, 1);
                 line-height: @widgeteditor-search-height;
                 z-index: 1;
@@ -533,12 +542,10 @@
                 }
             }
             &widgets {
-                //  Layout
                 top: @widgeteditor-header-height;
                 left: 0;
                 bottom: 0;
                 width: @widgeteditor-widgets-width;
-                //  Styling
                 background: #121618;
                 overflow-y: auto;
                 border-right: 1px solid #121618;
@@ -568,6 +575,9 @@
                     }
                 }
                 .widget {
+                    &.hidden {
+                        display: none;
+                    }
                     &:hover {
                         background: #EFEFEF;
                     }
@@ -578,21 +588,23 @@
                         cursor: -moz-grabbing;
                         cursor: -webkit-grabbing;
                     }
-                    .action,
-                    .description,
-                    .editor-target {
+                }
+                .widget-group,
+                .widget {
+                    &.search-show {
+                        display: block;
+                    }
+                    &.search-hide {
                         display: none;
                     }
                 }
             }
             &body {
-                //  Layout
                 top: @widgeteditor-header-height;
                 left: @widgeteditor-widgets-width;
                 right: 0;
                 bottom: 0;
                 padding: @widgeteditor-body-padding;
-                //  Styling
                 background: rgba(255,255,255,0.75);
                 overflow: auto;
                 > ul {
@@ -619,11 +631,17 @@
                             cursor: grab;
                             cursor: -moz-grab;
                             cursor: -webkit-grab;
+                            &:active {
+                                cursor: move;
+                                cursor: grabbing;
+                                cursor: -moz-grabbing;
+                                cursor: -webkit-grabbing;
+                            }
                         }
                     }
                     .sortable-placeholder {
-                        height: 150px !important;
                         background: #FFFFFF;
+                        box-sizing: border-box;
                         border: 1px dashed #CCCCCC;
                     }
                 }
@@ -664,14 +682,17 @@
                 background: #03A9F4;
                 border: 1px solid darken(#03A9F4, 10%);
                 height: 40px;
-                .action,
-                .description,
-                .editor-target {
-                    display: none;
-                }
             }
             &.closed {
                 display: none;
+            }
+            &.editor-loading {
+                .action-refresh-editor {
+                    animation: fa-spin 2s infinite linear;
+                }
+                .editor-target {
+                    border-color: transparent;
+                }
             }
             .icon {
                 margin-right: 0.5em;
@@ -680,12 +701,18 @@
             }
             .action {
                 position: absolute;
-                right: 1em;
                 top: 1em;
                 &:hover,
                 &:active,
                 &:focus {
                     text-decoration: none;
+                    outline: none;
+                }
+                &.action-remove {
+                    right: 1em;
+                }
+                &.action-refresh-editor {
+                    right: 2.5em;
                 }
             }
             .description {
