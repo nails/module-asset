@@ -474,7 +474,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
 
         base.sections.actions.empty();
 
-        for (i = 0; i < base.actions.length; i++) {
+        for (i = base.actions.length - 1; i >= 0; i--) {
 
             action = $('<a>')
                 .addClass('action btn btn-sm btn-' + base.actions[i].type)

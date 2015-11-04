@@ -18,6 +18,10 @@ NAILS_Admin_CMS_Areas_CreateEdit = function(widgetEditor)
 
     // --------------------------------------------------------------------------
 
+    /**
+     * The name of the area to use in the widgeteditor
+     * @type {String}
+     */
     base.areaName = 'default';
 
     // --------------------------------------------------------------------------
