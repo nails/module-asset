@@ -42,6 +42,7 @@
     "tipsy": "~0.1.7",
     "moment": "~2.10.3",
     "knockout": "~3.3.0",
-    "jquery-serialize-object": "~2.5.0"
+    "jquery-serialize-object": "~2.5.0",
+    "handsontable": "~0.20.0"
   }
 }

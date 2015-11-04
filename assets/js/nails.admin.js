@@ -544,29 +544,47 @@ NAILS_Admin = function()
 
     // --------------------------------------------------------------------------
 
-    base.buildWysiwyg = function(type)
-    {
+    /**
+     * Build WYSIWYG editors
+     * @param  {String} type       The type of editor to build [basic|default]
+     * @param  {Object} domElement Restrict operations to this dom element
+     * @return {Object}
+     */
+    base.buildWysiwyg = function(type, domElement) {
+
         if (type === 'basic') {
 
-            $('.wysiwyg.wysiwyg-basic:not(.wysiwyged)').ckeditor({
-                customConfig: base.basicConfig
-            }).addClass('wysiwyged');
+            $('.wysiwyg.wysiwyg-basic:not(.wysiwyged)', domElement)
+                .ckeditor({
+                    customConfig: base.basicConfig
+                })
+                .addClass('wysiwyged');
 
         } else if (type === 'default') {
 
-            $('.wysiwyg:not(.wysiwyged)').ckeditor({
-                customConfig: base.defaultConfig
-            }).addClass('wysiwyged');
+            $('.wysiwyg:not(.wysiwyged)', domElement)
+                .ckeditor({
+                    customConfig: base.defaultConfig
+                })
+                .addClass('wysiwyged');
         }
+
+        return base;
     };
 
     // --------------------------------------------------------------------------
 
-    base.destroyWysiwyg = function(type)
-    {
+    /**
+     * Build WYSIWYG editors
+     * @param  {String} type       The type of editor to destroy [basic|default]
+     * @param  {Object} domElement Restrict operations to this dom element
+     * @return {Object}
+     */
+    base.destroyWysiwyg = function(type, domElement) {
+
         if (type === 'basic') {
 
-            $('.wysiwyg.wysiwyg-basic.wysiwyged')
+            $('.wysiwyg.wysiwyg-basic.wysiwyged', domElement)
                 .ckeditor(function() {
                     this.destroy();
                 })
@@ -574,12 +592,14 @@ NAILS_Admin = function()
 
         } else if (type === 'default') {
 
-            $('.wysiwyg.wysiwyged')
+            $('.wysiwyg.wysiwyged', domElement)
                 .ckeditor(function() {
                     this.destroy();
                 })
                 .removeClass('wysiwyged');
         }
+
+        return base;
     };
 
     // --------------------------------------------------------------------------

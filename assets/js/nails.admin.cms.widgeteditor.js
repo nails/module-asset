@@ -144,10 +144,10 @@ NAILS_Admin_CMS_WidgetEditor = function()
                 'widget': $('<div>').html(
                     '<i class="icon fa {{icon}}"></i>' +
                     '<span class="label">{{label}}</span>' +
-                    '<a href="#" class="action action-remove fa fa-trash-o" rel="tipsy" title="Remove"></a>' +
-                    '<a href="#" class="action action-refresh-editor fa fa-refresh" rel="tipsy" title="Refresh"></a>' +
+                    '<a href="#" class="action action-remove fa fa-trash-o"></a>' +
+                    '<a href="#" class="action action-refresh-editor fa fa-refresh"></a>' +
                     '<div class="description">{{description}}</div>' +
-                    '<div class="editor-target">Widget Loading...</div>'
+                    '<div class="editor-target fieldset">Widget Loading...</div>'
                 )
             };
 
@@ -235,12 +235,15 @@ NAILS_Admin_CMS_WidgetEditor = function()
         //  Body
         base.sections.body.on('click', '.action-remove', function() {
 
-            var widget = $(this).closest('.widget');
-            base.confirm('Are you sure you wish to remove this widget from the interface?')
+            var domElement = $(this).closest('.widget');
+            var widget     = base.getWidget(domElement.data('slug'));
+
+            base.confirm('Are you sure you wish to remove this "' + widget.label + '" widget from the interface?')
             .done(function() {
 
                 base.log('Removing Widget');
-                widget.remove();
+                domElement.remove();
+                widget.callbacks.removed.call(base, domElement);
             });
         });
 
@@ -271,7 +274,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
      */
     base.loadSidebarWidgets = function() {
 
-        var deferred;
+        var deferred, i, x, key, assetsCss, assetsJs;
 
         base.log('Fetching available CMS widgets');
 
@@ -284,6 +287,37 @@ NAILS_Admin_CMS_WidgetEditor = function()
 
                 base.log('Succesfully fetched widgets from the server.');
                 base.widgets = data.widgets;
+
+                //  Make the callbacks on each widget callable
+                for (i = base.widgets.length - 1; i >= 0; i--) {
+                    for (x = base.widgets[i].widgets.length - 1; x >= 0; x--) {
+                        for (key in base.widgets[i].widgets[x].callbacks) {
+                            if (base.widgets[i].widgets[x].callbacks.hasOwnProperty(key)) {
+                                /* jshint ignore:start */
+                                base.widgets[i].widgets[x].callbacks[key] = new Function(
+                                    'domElement',
+                                    base.widgets[i].widgets[x].callbacks[key]
+                                );
+                                /* jshint ignore:end */
+                            }
+                        }
+                    }
+                }
+
+                //  Inject any assets to load into the  DOM
+                assetsCss = '';
+                for (i = 0; i < data.assets.css.length; i++) {
+                    assetsCss += data.assets.css[i] + "\n";
+                }
+
+                assetsJs = '';
+                for (i = 0; i < data.assets.js.length; i++) {
+                    assetsJs += data.assets.js[i] + "\n";
+                }
+
+                $('head').append(assetsCss);
+                $('body').append(assetsJs);
+
                 deferred.resolve();
             },
             'error': function() {
@@ -580,8 +614,8 @@ NAILS_Admin_CMS_WidgetEditor = function()
             start: function(e, ui)
             {
                 ui.placeholder.height(ui.helper.outerHeight());
-                _nails_admin.destroyWysiwyg('basic');
-                _nails_admin.destroyWysiwyg('default');
+                _nails_admin.destroyWysiwyg('basic', ui.helper);
+                _nails_admin.destroyWysiwyg('default', ui.helper);
             },
             receive: function(e, ui)
             {
@@ -596,10 +630,10 @@ NAILS_Admin_CMS_WidgetEditor = function()
                 //  Allow auto sizing
                 targetWidget.removeAttr('style');
             },
-            stop: function() {
+            stop: function(e, ui) {
 
-                _nails_admin.buildWysiwyg('basic');
-                _nails_admin.buildWysiwyg('default');
+                _nails_admin.buildWysiwyg('basic', ui.helper);
+                _nails_admin.buildWysiwyg('default', ui.helper);
             }
         });
 
@@ -679,17 +713,21 @@ NAILS_Admin_CMS_WidgetEditor = function()
             _nails.addStripes();
 
             //  WYSIWYG editors
-            _nails_admin.buildWysiwyg('basic');
-            _nails_admin.buildWysiwyg('default');
+            _nails_admin.buildWysiwyg('basic', widgetDom);
+            _nails_admin.buildWysiwyg('default', widgetDom);
 
             //  Select2 Dropdowns
             _nails_admin.initSelect2();
+
+            //  Toggles
+            _nails_admin.initToggles();
 
             //  Tipsys
             _nails.initTipsy();
 
             //  Finally, call the "dropped" callback
-            //  @todo
+            var widget = base.getWidget(slug);
+            widget.callbacks.dropped.call(base, widgetDom);
         })
         .fail(function(data) {
 
@@ -846,20 +884,20 @@ NAILS_Admin_CMS_WidgetEditor = function()
         $('<div>')
             .text(message)
             .dialog({
-                title: title,
-                resizable: false,
-                draggable: false,
-                modal: true,
-                dialogClass: 'group-cms widgeteditor-alert',
-                buttons:
-                {
-                    'OK': function()
-                    {
+                'title': title,
+                'resizable': false,
+                'draggable': false,
+                'modal': true,
+                'dialogClass': 'group-cms widgeteditor-alert',
+                'buttons': {
+
+                    'OK': function() {
+
                         $(this).dialog('close');
                         deferred.resolve();
                     },
-                    'Cancel': function()
-                    {
+                    'Cancel': function() {
+
                         $(this).dialog('close');
                         deferred.reject();
                     }
