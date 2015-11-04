@@ -1,4 +1,5 @@
-/* globals ko */
+/* globals ko, console */
+/* exported dripCampaignEdit*/
 var dripCampaignEdit = function(emails) {
 
     /**
@@ -86,13 +87,59 @@ var dripCampaignEdit = function(emails) {
 
     base.moveUp = function()
     {
-        alert('@todo: move email up the list');
+        base.warn('@todo: move email up the list');
     };
 
     // --------------------------------------------------------------------------
 
     base.moveDown = function()
     {
-        alert('@todo: move email down the list');
+        base.warn('@todo: move email down the list');
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Write a log to the console
+     * @param  {String} message The message to log
+     * @param  {Mixed}  payload Any additional data to display in the console
+     * @return {Void}
+     */
+    base.log = function(message, payload)
+    {
+        if (typeof(console.log) === 'function') {
+
+            if (payload !== undefined) {
+
+                console.log('EmailDrip Campaign:', message, payload);
+
+            } else {
+
+                console.log('EmailDrip Campaign:', message);
+            }
+        }
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Write a warning to the console
+     * @param  {String} message The message to warn
+     * @param  {Mixed}  payload Any additional data to display in the console
+     * @return {Void}
+     */
+    base.warn = function(message, payload)
+    {
+        if (typeof(console.warn) === 'function') {
+
+            if (payload !== undefined) {
+
+                console.warn('EmailDrip Campaign:', message, payload);
+
+            } else {
+
+                console.warn('EmailDrip Campaign:', message);
+            }
+        }
     };
 };

@@ -1,10 +1,11 @@
 /* globals ko */
+/* exported redirects*/
 ko.bindingHandlers.select2 = {
     init: function(element)
     {
         $(element).select2();
     }
-}
+};
 
 var redirects = function(redirects) {
 

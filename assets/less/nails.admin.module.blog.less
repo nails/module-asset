@@ -2,9 +2,9 @@
    Nails Blog Module Admin Styles
 -------------------------------------------------------------- */
 
-@import "common/variables.less";
-@import "admin/variables.less";
-@import "common/elements.less";
+@import 'common/variables.less';
+@import 'admin/variables.less';
+@import 'common/elements.less';
 
 .group-blog {
     &.manage {
@@ -57,7 +57,7 @@
             &.tab-title-body {
                 background-color: #F4F4F4;
                 #post-editor {
-                    border-right: 1px solid #CCC;
+                    border-right: 1px solid #CCCCCC;
                     padding-right: 0;
                 }
                 #post-type-area {
@@ -80,9 +80,9 @@
                             height: auto;
                             .rounded(2px);
                             cursor: pointer;
-                            border: 1px solid #CCC;
+                            border: 1px solid #CCCCCC;
                             margin-bottom: 0.2em;
-                            &[src=""] {
+                            &[src=''] {
                                 display: none;
                             }
                         }
@@ -143,9 +143,9 @@
                 .progress {
                     background: #888888;
                     position: absolute;
-                    bottom: 0px;
-                    left: 0px;
-                    right: 0px;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
                     z-index: 0;
                     .drop-shadow(0, 0, 5px, 0.5);
                     .transition(0.5s);
@@ -161,15 +161,15 @@
                     transparent
                     );
                     -webkit-animation: barberpole 0.5s linear infinite;
-                       -moz-animation: barberpole 0.5s linear infinite;
-                            animation: barberpole 0.5s linear infinite;
+                    -moz-animation: barberpole 0.5s linear infinite;
+                    animation: barberpole 0.5s linear infinite;
                 }
                 .data-cancel {
                     position: absolute;
-                    top: 0px;
-                    bottom: 0px;
-                    left: 0px;
-                    right: 0px;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
                     text-align: center;
                     line-height: 102px;
                     background: #EEEEEE;
@@ -182,10 +182,10 @@
                 }
                 .crunching {
                     position: absolute;
-                    top: 0px;
-                    bottom: 0px;
-                    left: 0px;
-                    right: 0px;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
                     background: rgba(255, 255, 255, 0.9) url(../img/loader/60PX-TRANS.gif) center no-repeat;
                     display: none;
                 }
@@ -217,7 +217,7 @@
                 }
             }
             &:after {
-                content: "\0020";
+                content: '\0020';
                 display: block;
                 overflow: hidden;
                 visibility: hidden;
@@ -230,10 +230,10 @@
                 li.empty {
                     display: block !important;
                     position: absolute;
-                    top: 0px;
-                    left: 0px;
-                    bottom: 0px;
-                    right: 0px;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
                     text-align: center;
                     font-size: 2em;
                     font-weight: bold;
@@ -284,7 +284,7 @@
                     }
                     &:active {
                         background-position-x: -32px;
-                        background-position-y: 0px;
+                        background-position-y: 0;
                     }
                 }
             }

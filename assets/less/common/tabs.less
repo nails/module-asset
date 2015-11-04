@@ -31,7 +31,7 @@ ul.tabs {
                 padding-left: 30px !important;
                 &:before {
                     font-family: FontAwesome;
-                    content: "\f06a";
+                    content: '\f06a';
                     display: block;
                     position: absolute;
                     font-size: 1.4em;
@@ -70,14 +70,9 @@ section.tabs {
         border: 1px solid #CECECE;
         border-top-color: transparent;
         display: none;
-        background: #FFF;
+        background: #FFFFFF;
         background-clip: content-box;
-        > p,
-        > .system-alert,
-        > .alert,
-        > .padded,
-        > fieldset,
-        > form {
+        > p, > .system-alert, > .alert, > .padded, > fieldset, > form {
             padding: 1em;
             margin: 0;
             & + & {
@@ -117,8 +112,10 @@ section.tabs {
                 }
             }
         }
-        fieldset:last-of-type {
-            margin-bottom: 0;
+        fieldset {
+            &:last-of-type {
+                margin-bottom: 0;
+            }
         }
         &.active {
             display: block;

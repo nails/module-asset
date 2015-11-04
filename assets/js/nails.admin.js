@@ -39,7 +39,7 @@ NAILS_Admin = function()
         base.initSearchBoxes();
         base.initMobileMenu();
         base.initToggles();
-        base.initCkeditor();
+        base.initWysiwyg();
         base.initSelect2();
         base.initNiceTime();
         base.initSystemAlerts();
@@ -495,45 +495,31 @@ NAILS_Admin = function()
      * Instantiates CKEditor instances
      * @return {Void}
      */
-    base.initCkeditor = function()
+
+    base.basicConfig   = window.NAILS.URL + 'js/ckeditor.config.basic.min.js';
+    base.defaultConfig = window.NAILS.URL + 'js/ckeditor.config.default.min.js';
+
+    base.initWysiwyg = function()
     {
         if ($.fn.ckeditor) {
-
-            /**
-             * Should the app want to override the default behaviour of the editors
-             * then it must provide complete config files. If these are found they
-             * will be loaded *instead* of the default config files.
-             */
-
-            //  Nails Config files
-            var configBasic   = window.NAILS.URL + 'js/ckeditor.config.basic.min.js';
-            var configDefault = window.NAILS.URL + 'js/ckeditor.config.default.min.js';
-
-            //  App Config files
-            var appConfigBasic   = window.SITE_URL + 'assets/js/nails.admin.ckeditor.config.basic.min.js';
-            var appConfigDefault = window.SITE_URL + 'assets/js/nails.admin.ckeditor.config.default.min.js';
 
             /**
              * Check for the presence of the app config files, if found use them as
              * the customConfig; if not found fall back to the Nails config files.
              */
 
+            var appConfigBasic   = window.SITE_URL + 'assets/js/nails.admin.ckeditor.config.basic.min.js';
+            var appConfigDefault = window.SITE_URL + 'assets/js/nails.admin.ckeditor.config.default.min.js';
+
             $.ajax({
                 'url': appConfigBasic,
                 'type':'HEAD',
-                'success': function()
-                {
-                    $('.wysiwyg.wysiwyg-basic').ckeditor(
-                    {
-                        customConfig: appConfigBasic
-                    });
+                'success': function() {
+                    base.basicConfig = appConfigBasic;
+                    base.buildWysiwyg('basic');
                 },
-                'error': function()
-                {
-                    $('.wysiwyg.wysiwyg-basic').ckeditor(
-                    {
-                        customConfig: configBasic
-                    });
+                error: function() {
+                    base.buildWysiwyg('basic');
                 }
             });
 
@@ -541,19 +527,12 @@ NAILS_Admin = function()
             $.ajax({
                 'url': appConfigDefault,
                 'type':'HEAD',
-                'success': function()
-                {
-                    $('.wysiwyg:not(.wysiwyg-basic)').ckeditor(
-                    {
-                        customConfig: appConfigDefault
-                    });
+                'success': function() {
+                    base.defaultConfig = appConfigDefault;
+                    base.buildWysiwyg('default');
                 },
-                'error': function()
-                {
-                    $('.wysiwyg:not(.wysiwyg-basic)').ckeditor(
-                    {
-                        customConfig: configDefault
-                    });
+                error: function() {
+                    base.buildWysiwyg('default');
                 }
             });
         }
@@ -561,6 +540,66 @@ NAILS_Admin = function()
         {
             base.error('NAILS_ADMIN_JS: CKEditor not available.');
         }
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Build WYSIWYG editors
+     * @param  {String} type       The type of editor to build [basic|default]
+     * @param  {Object} domElement Restrict operations to this dom element
+     * @return {Object}
+     */
+    base.buildWysiwyg = function(type, domElement) {
+
+        if (type === 'basic') {
+
+            $('.wysiwyg.wysiwyg-basic:not(.wysiwyged)', domElement)
+                .ckeditor({
+                    customConfig: base.basicConfig
+                })
+                .addClass('wysiwyged');
+
+        } else if (type === 'default') {
+
+            $('.wysiwyg:not(.wysiwyged)', domElement)
+                .ckeditor({
+                    customConfig: base.defaultConfig
+                })
+                .addClass('wysiwyged');
+        }
+
+        return base;
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Build WYSIWYG editors
+     * @param  {String} type       The type of editor to destroy [basic|default]
+     * @param  {Object} domElement Restrict operations to this dom element
+     * @return {Object}
+     */
+    base.destroyWysiwyg = function(type, domElement) {
+
+        if (type === 'basic') {
+
+            $('.wysiwyg.wysiwyg-basic.wysiwyged', domElement)
+                .ckeditor(function() {
+                    this.destroy();
+                })
+                .removeClass('wysiwyged');
+
+        } else if (type === 'default') {
+
+            $('.wysiwyg.wysiwyged', domElement)
+                .ckeditor(function() {
+                    this.destroy();
+                })
+                .removeClass('wysiwyged');
+        }
+
+        return base;
     };
 
     // --------------------------------------------------------------------------

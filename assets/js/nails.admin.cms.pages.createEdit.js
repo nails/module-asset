@@ -2,7 +2,6 @@
 var NAILS_Admin_CMS_pages_Create_Edit;
 NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_data)
 {
-    console.log(widgets);
     this._api               = null;
     this.editor_id          = Math.floor(Math.random() * 10000000000000001);
     this._editor            = {};
@@ -739,8 +738,6 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
             this._editor.widgets.append(_html);
 
             //  Build this grouping's widgets
-            console.log(this.widgets[i]);
-
             for (var x = 0; x < this.widgets[i].widgets.length; x++) {
 
                 _data = {
@@ -794,13 +791,13 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
                         _script += "    success: function()";
                         _script += "    {";
                         _script += "        ui.find('textarea.wysiwyg-basic').each(function(index) {";
-                        _script += "            _this.initCkeditor(ui, $(this), appConfigBasic, index);";
+                        _script += "            _this.initWysiwyg(ui, $(this), appConfigBasic, index);";
                         _script += "        });";
                         _script += "    },";
                         _script += "    error: function()";
                         _script += "    {";
                         _script += "        ui.find('textarea.wysiwyg-basic').each(function(index) {";
-                        _script += "            _this.initCkeditor(ui, $(this), configBasic, index);";
+                        _script += "            _this.initWysiwyg(ui, $(this), configBasic, index);";
                         _script += "        });";
                         _script += "    }";
                         _script += "});";
@@ -812,19 +809,19 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
                         _script += "    success: function()";
                         _script += "    {";
                         _script += "        ui.find('textarea.wysiwyg').each(function(index) {";
-                        _script += "            _this.initCkeditor(ui, $(this), appConfigDefault, index);";
+                        _script += "            _this.initWysiwyg(ui, $(this), appConfigDefault, index);";
                         _script += "        });";
                         _script += "    },";
                         _script += "    error: function()";
                         _script += "    {";
                         _script += "        ui.find('textarea.wysiwyg').each(function(index) {";
-                        _script += "            _this.initCkeditor(ui, $(this), configDefault, index);";
+                        _script += "            _this.initWysiwyg(ui, $(this), configDefault, index);";
                         _script += "        });";
                         _script += "    }";
                         _script += "});";
                     _script += "};";
 
-                    _script += "this.initCkeditor = function(ui, el, config, index)";
+                    _script += "this.initWysiwyg = function(ui, el, config, index)";
                     _script += "{";
                         _script += "var id = ui.attr('id') + '-wysiwyg-' + index;";
                         _script += "el.attr('id', id);";
@@ -863,7 +860,7 @@ NAILS_Admin_CMS_pages_Create_Edit = function(templates, widgets, page_id, page_d
 
                     //  Dropped
                     _script += 'this.dropped = function(ui) {';
-console.log(this.widgets[i].widgets[x]);
+
                         if (this.widgets[i].widgets[x].callbacks.dropped.length > 0)
                         {
                             _script += this.widgets[i].widgets[x].callbacks.dropped;
@@ -881,97 +878,12 @@ console.log(this.widgets[i].widgets[x]);
 
                     // --------------------------------------------------------------------------
 
-                    //  Sort Start
-                    _script += 'this.sort_start = function(ui){';
+                    //  Removed
+                    _script += 'this.removed = function(ui){';
 
-                        if (this.widgets[i].widgets[x].callbacks.sort_start.length > 0)
+                        if (this.widgets[i].widgets[x].callbacks.removed.length > 0)
                         {
-                            _script += this.widgets[i].widgets[x].callbacks.sort_start;
-                        }
-
-                        // --------------------------------------------------------------------------
-
-                        //  Automatically handle any textareas with the class `wysiwyg`
-                        _script += 'var _textarea = ui.find(\'textarea.wysiwyg\');';
-                        _script += 'if (_textarea.length > 0)';
-                        _script += '{';
-                        _script += '    $.each(_textarea, function(index)';
-                        _script += '    {';
-
-                        //  Destroy the instance
-                        _script += '        var _id = ui.attr(\'id\') + \'-wysiwyg-\' + index;';
-                        _script += '        CKEDITOR.instances[_id].destroy();';
-                        _script += '    });';
-
-                        //  Show the mask (add one if there isn't a rpedefined one by the widget)
-                        _script += '    var _mask = ui.find(\'.mask\');';
-                        _script += '    if (_mask.length === 0)';
-                        _script += '    {';
-                        _script += '        _mask = $(\'<div>\').addClass(\'mask\').text(\'' + this.widgets[i].widgets[x].label + ' widget disabled while sorting.\');';
-                        _script += '        ui.prepend(_mask);';
-                        _script += '    }';
-                        _script += '    ui.addClass(\'sorting\');';
-                        _script += '    _mask.animate({ opacity: 1 }, 150);';
-                        _script += '}';
-
-                    _script += '};';
-
-                    // --------------------------------------------------------------------------
-
-                    //  Sort Stop
-                    _script += 'this.sort_stop = function(ui){';
-
-                        if (this.widgets[i].widgets[x].callbacks.sort_stop.length > 0)
-                        {
-                            _script += this.widgets[i].widgets[x].callbacks.sort_stop;
-                        }
-
-                        // --------------------------------------------------------------------------
-
-                        //  Automatically interpret any textareas with the class `wysiwyg` as CKEditors
-                        _script += ' this.findCkeditor(ui);';
-
-                        //  Unhide the mask
-                        _script += 'ui.find(\'.mask\').animate({ opacity: 0 }, 150, function()';
-                        _script += '{';
-                        _script += '    ui.removeClass(\'sorting\');';
-                        _script += '});';
-
-                    _script += '};';
-
-                    // --------------------------------------------------------------------------
-
-                    //  Remove start
-                    _script += 'this.remove_start = function(ui){';
-
-                        if (this.widgets[i].widgets[x].callbacks.remove_start.length > 0)
-                        {
-                            _script += this.widgets[i].widgets[x].callbacks.remove_start;
-                        }
-
-                        // --------------------------------------------------------------------------
-
-                        //  Automatically handle any textareas with the class `wysiwyg`
-                        _script += 'var _textarea = ui.find(\'textarea.wysiwyg\');';
-                        _script += '$.each(_textarea, function(index)';
-                        _script += '{';
-
-                        //  Destroy the instance
-                        _script += '    var _id = ui.attr(\'id\') + \'-wysiwyg-\' + index;';
-                        _script += '    CKEDITOR.instances[_id].destroy();';
-
-                        _script += '});';
-
-                    _script += '};';
-
-                    // --------------------------------------------------------------------------
-
-                    //  Remove Stop
-                    _script += 'this.remove_stop = function(ui){';
-
-                        if (this.widgets[i].widgets[x].callbacks.remove_stop.length > 0)
-                        {
-                            _script += this.widgets[i].widgets[x].callbacks.remove_stop;
+                            _script += this.widgets[i].widgets[x].callbacks.removed;
                         }
 
                     _script += '};';
@@ -1089,26 +1001,6 @@ console.log(this.widgets[i].widgets[x]);
             start: function(e,ui)
             {
                 ui.placeholder.height(ui.helper.height());
-
-                // --------------------------------------------------------------------------
-
-                if (ui.item.hasClass('processed'))
-                {
-                    var _slug = ui.item.data('slug');
-
-                    //  Call the widget's sort_start event
-                    try
-                    {
-                        window['_WIDGET_' + _slug].sort_start(ui.item);
-                    }
-                    catch(error)
-                    {
-                        if (typeof(console.log) === 'function')
-                        {
-                            console.log('CMS PAGES: `sort_start` callback is not defined for widget "' + _slug + '"', error);
-                        }
-                    }
-                }
             },
             update: function(e,ui)
             {
@@ -1146,92 +1038,10 @@ console.log(this.widgets[i].widgets[x]);
                     _this._editor.dropzone.removeClass('empty');
                     _this._editor.dropzone.find('li.empty').remove();
                 }
-
-                // --------------------------------------------------------------------------
-
-                if (ui.item.hasClass('processed'))
-                {
-                    //  Call the widget's sort_start event
-                    var _slug = ui.item.data('slug');
-                    try
-                    {
-                        window['_WIDGET_' + _slug].sort_stop(ui.item);
-                    }
-                    catch(error)
-                    {
-                        if (typeof(console.log) === 'function')
-                        {
-                            console.log('CMS PAGES: `sort_stop` callback is not defined for widget "' + _slug + '"', error);
-                        }
-                    }
-                }
             }
         });
 
         // --------------------------------------------------------------------------
-
-        //  Disable widgets which don't apply to this template and/or area
-        var _disabled_msg = 'This widget has been disabled for this template/area.';
-
-        for (var i = this.widgets.length - 1; i >= 0; i--) {
-            for (var x = this.widgets[i].widgets.length - 1; x >= 0; x--) {
-                //  Restricted to: Templates
-                if (this.widgets[i].widgets[x].restricted_to_template.length)
-                {
-                    if (this._array_search(template, this.widgets[i].widgets[x].restricted_to_template) === false)
-                    {
-                        this._editor
-                        .widgets
-                        .find('li.widget.' + this.widgets[i].widgets[x].slug)
-                        .addClass('disabled')
-                        .data('original-title', _disabled_msg)
-                        .attr('title', _disabled_msg);
-                    }
-                }
-
-                //  Restricted to: Areas
-                if (this.widgets[i].widgets[x].restricted_to_area.length)
-                {
-                    if (this._array_search(area, this.widgets[i].widgets[x].restricted_to_area) === false)
-                    {
-                        this._editor
-                        .widgets
-                        .find('li.widget.' + this.widgets[i].widgets[x].slug)
-                        .addClass('disabled')
-                        .data('original-title', _disabled_msg)
-                        .attr('title', _disabled_msg);
-                    }
-                }
-
-                //  Restricted from: Templates
-                if (this.widgets[i].widgets[x].restricted_from_template.length)
-                {
-                    if (this._array_search(template, this.widgets[i].widgets[x].restricted_from_template) !== false)
-                    {
-                        this._editor
-                        .widgets
-                        .find('li.widget.' + this.widgets[i].widgets[x].slug)
-                        .addClass('disabled')
-                        .data('original-title', _disabled_msg)
-                        .attr('title', _disabled_msg);
-                    }
-                }
-
-                //  Restricted from: Areas
-                if (this.widgets[i].widgets[x].restricted_from_area.length)
-                {
-                    if (this._array_search(area, this.widgets[i].widgets[x].restricted_from_area) !== false)
-                    {
-                        this._edito
-                        .widgets
-                        .find('li.widget.' + this.widgets[i].widgets[x].slug)
-                        .addClass('disabled')
-                        .data('original-title', _disabled_msg)
-                        .attr('title', _disabled_msg);
-                    }
-                }
-            }
-        }
 
         //  Initialise draggables
         this._editor.widgets.find('li.widget:not(.disabled)').draggable(
@@ -1637,19 +1447,6 @@ console.log(this.widgets[i].widgets[x]);
                     var _item   = $('#' + id);
                     var _slug   = _item.data('slug');
 
-                    //  Before remove calback
-                    try
-                    {
-                        window['_WIDGET_' + _slug].remove_start(_item);
-                    }
-                    catch(error)
-                    {
-                        if (typeof(console.log) === 'function')
-                        {
-                            console.log('NAILS CMS PAGES: `remove_start` callback is not defined for widget "' + _slug + '"', error);
-                        }
-                    }
-
                     //  Close dialog
                     $(this).dialog('close');
 
@@ -1674,13 +1471,13 @@ console.log(this.widgets[i].widgets[x]);
                         //  Removed callback
                         try
                         {
-                            window['_WIDGET_' + _slug].remove_stop(_item);
+                            window['_WIDGET_' + _slug].removed(_item);
                         }
                         catch(error)
                         {
                             if (typeof(console.log) === 'function')
                             {
-                                console.log('CMS PAGES: `remove_stop` callback is not defined for widget "' + _slug + '"', error);
+                                console.log('CMS PAGES: `removed` callback is not defined for widget "' + _slug + '"', error);
                             }
                         }
                     });

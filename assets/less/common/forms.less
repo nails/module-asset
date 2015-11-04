@@ -1,16 +1,16 @@
 form {
     width: 100%;
 }
-fieldset
-{
+fieldset {
     height: auto;
-    border: 1px solid #ccc;
+    border: 1px solid #CCCCCC;
     border-radius: 3px 3px 0 0;
     padding: 0;
     position: relative;
-    background: #FFF;
+    background: #FFFFFF;
     padding-top: 30px;
     box-sizing: border-box;
+    margin: 0;
     margin-bottom: 1em;
     fieldset {
         margin: 1em;
@@ -20,7 +20,7 @@ fieldset
         position: absolute;
         right: 10px;
         top: -11px;
-        border: 1px solid #CCC;
+        border: 1px solid #CCCCCC;
         font-size: 0.8em;
         background: #EFEFEF;
         text-decoration: none;
@@ -36,17 +36,16 @@ fieldset
         }
     }
     .fieldset-toggle:hover {
-        background: #CCC;
+        background: #CCCCCC;
     }
     legend,
-    .legend
-    {
+    .legend {
         position: absolute;
         top: -1px;
         left: -1px;
         right: -1px;
         background: #EFEFEF;
-        border: 1px solid #CCC;
+        border: 1px solid #CCCCCC;
         padding: 3px 10px;
         background-clip: padding-box;
         width: auto;
@@ -72,44 +71,35 @@ fieldset
             margin-bottom: 0;
         }
     }
-    > p,
-    > .system-alert,
-    > .alert,
-    > .padded {
+    > p, > .system-alert, > .alert, > .padded {
         margin: 1em;
         & + & {
             margin-top: 0;
         }
     }
-    &.closed
-    {
-        height: 0px;
+    &.closed {
+        height: 0;
         overflow: hidden;
 
-        *
-        {
+        * {
             .opacity(0);
         }
 
-        legend
-        {
+        legend {
             top: 2px;
             .opacity(1);
             border: 0;
             .drop-shadow(0, 0, 0, 0);
         }
-        .fieldset-toggle
-        {
+        .fieldset-toggle {
             top: 6px;
             .opacity(1);
 
-            .show
-            {
+            .show {
                 display: block;
                 .opacity(1);
             }
-            .hide
-            {
+            .hide {
                 display: none;
             }
         }
@@ -122,8 +112,7 @@ div.field {
     border-bottom: 1px solid #EFEFEF;
     clear: both;
     min-height: 30px;
-    background: #FFF;
-
+    background: #FFFFFF;
     &:not(.boolean) {
         &.checkbox,
         &.radio {
@@ -131,51 +120,52 @@ div.field {
                 padding-left: 14px;
             }
         }
-       }
+    }
+    &.checkbox,
+    &.radio {
+        margin-top: 0; // Fix for bootstraps .checkbox + .checkbox
+        .input {
+            padding-left: 14px;
+        }
+    }
 
-    label
-    {
-        display:block;
-        width:100%;
+    label {
+        display: block;
+        width: 100%;
         padding: 0;
     }
 
     //  So tips are always the same colour - badly designed form helper
-    .tip
-    {
-        color:#747A90;
+    .tip {
+        color: #747A90;
     }
 
-    span
-    {
-        &.label
-        {
-            display:block;
-            float:left;
-            width:130px;
-            font-weight:bold;
-            margin-right:20px;
-            text-align:right;
-            margin-top:5px;
-            padding-right:15px;
-            vertical-align:top;
+    span {
+        &.label {
+            display: block;
+            float: left;
+            width: 130px;
+            font-weight: bold;
+            margin-right: 20px;
+            text-align: right;
+            margin-top: 5px;
+            padding-right: 15px;
+            vertical-align: top;
 
-            small
-            {
-                display:block;
-                font-weight:normal;
+            small {
+                display: block;
+                font-weight: normal;
             }
         }
 
-        &.input
-        {
-            border:1px dashed transparent;  //  Don't ask me why this is required, but it is. - Pablo.
-            display:block;
+        &.input {
+            border: 1px dashed transparent;  //  Don't ask me why this is required, but it is. - Pablo.
+            display: block;
             margin-left: 149px;
-            position:relative;
+            position: relative;
 
             &.is-disabled {
-                color: #CCC;
+                color: #CCCCCC;
             }
 
             input[type=text],
@@ -185,35 +175,30 @@ div.field {
             input[type=url],
             input[type=file],
             textarea,
-            select
-            {
-                float:none;
-                display:block;
-                box-sizing:border-box;
-                width:100%;
-                margin:0;
+            select {
+                float: none;
+                display: block;
+                box-sizing: border-box;
+                width: 100%;
+                margin: 0;
             }
 
-            small
-            {
-                &.info2
-                {
+            small {
+                &.info2 {
                     display: block;
                     margin-top: 1em;
                     border-left: 2px solid #A9C5DB;
                     padding: 0.1em 0.5em;
                     background: #E4EDF5;
                     .rounded(3px);
-                    color:#50606F;
+                    color: #50606F;
 
-                    strong
-                    {
-                        color:inherit
+                    strong {
+                        color: inherit;
                     }
                 }
 
-                &.info
-                {
+                &.info {
                     margin-top: 1em;
                     position: relative;
                     display: block;
@@ -221,91 +206,80 @@ div.field {
                     width: 100%;
                     font-size: 0.85em;
 
-                    strong
-                    {
-                        color:inherit
+                    strong {
+                        color: inherit;
                     }
                 }
             }
 
-            &:after
-            {
-                float:none;
-                clear:both;
+            &:after {
+                float: none;
+                clear: both;
                 content: ' ';
-                position:relative;
-                display:block;
+                position: relative;
+                display: block;
             }
 
-            &.with-tip
-            {
-                padding-right:25px;
+            &.with-tip {
+                padding-right: 25px;
 
-                .tip
-                {
-                    position:absolute;
-                    right:0px;
-                    top:9px;
+                .tip {
+                    position: absolute;
+                    right: 0;
+                    top: 9px;
                 }
             }
         }
 
-        &.text
-        {
-            margin-left:5px;
-            position:relative;
-            top:5px;
-            display:block;
-            float:left;
-            width:100%;
+        &.text {
+            margin-left: 5px;
+            position: relative;
+            top: 5px;
+            display: block;
+            float: left;
+            width: 100%;
         }
 
-        &.file-download
-        {
-            display:block;
-            clear:left;
-            margin-left:25%;
-            padding:5px 20px;
+        &.file-download {
+            display: block;
+            clear: left;
+            margin-left: 25%;
+            padding: 5px 20px;
 
-            img
-            {
-                border:1px solid #CCC;
-                padding:2px;
-                background: #FFF;
+            img {
+                border: 1px solid #CCCCCC;
+                padding: 2px;
+                background: #FFFFFF;
                 .rounded(2px);
                 vertical-align: middle;
-                margin-left:5px;
+                margin-left: 5px;
             }
         }
 
-        &.error
-        {
-            display:none;
-            border:1px solid #CCCCCC;
-            padding:2px 7px;
-            position:relative;
-            top:1px;
+        &.error {
+            display: none;
+            border: 1px solid #CCCCCC;
+            padding: 2px 7px;
+            position: relative;
+            top: 1px;
             .rounded(2px);
-            background: #ffebe8;
-            color:#B52130;
+            background: #FFEBE8;
+            color: #B52130;
             border-color: #B52130;
-            margin:0;
-            margin-top:3px;
+            margin: 0;
+            margin-top: 3px;
 
-            a
-            {
-                color:inherit;
+            a {
+                color: inherit;
             }
         }
     }
 
-    input[type=file]
-    {
+    input[type=file] {
         margin-top: 5px;
     }
     input[type=radio],
-    input[type=checkbox]
-    {
+    input[type=checkbox] {
         position: relative;
         top: 6px;
         left: 6px;
@@ -313,156 +287,130 @@ div.field {
     }
 
 
-    select
-    {
-        position:relative;
-        top:7px;
+    select {
+        position: relative;
+        top: 7px;
     }
 
     .mm-file-container,
-    .mm-image-container
-    {
-        float:left;
-        margin-left:0 !important;
+    .mm-image-container {
+        float: left;
+        margin-left: 0 !important;
 
         .mm-file-download,
-        .mm-file-remove
-        {
-            display:block;
-            margin-top:7px;
+        .mm-file-remove {
+            display: block;
+            margin-top: 7px;
         }
     }
 
-    .mm-image-preview
-    {
-        padding:5px;
-        border:1px solid #CCC;
-        margin-right:10px;
-        width:98px;
-        height:98px;
-        display:block;
-        float:left;
-        background:url(../img/backgrounds/faux-transparency.png);
+    .mm-image-preview {
+        padding: 5px;
+        border: 1px solid #CCCCCC;
+        margin-right: 10px;
+        width: 98px;
+        height: 98px;
+        display: block;
+        float: left;
+        background: url(../img/backgrounds/faux-transparency.png);
         .rounded(3px);
         text-align: center;
 
-        img
-        {
+        img {
             max-width: 100%;
             max-height: 100%;
         }
     }
 
-    .mm-image-remove
-    {
-        margin-top:10px;
-        display:none;
+    .mm-image-remove {
+        margin-top: 10px;
+        display: none;
     }
 
-    &:after
-    {
-        position:relative;
-        display:block;
+    &:after {
+        position: relative;
+        display: block;
         content: '';
-        float:none;
-        clear:both;
+        float: none;
+        clear: both;
     }
-    &:hover
-    {
-        background:#F5F5F5;
+    &:hover {
+        background: #F5F5F5;
 
-        span.label
-        {
-            border-color:#CCC;
+        span.label {
+            border-color: #CCCCCC;
         }
     }
 
-    &.even
-    {
-        background:#FAFAFA;
+    &.even {
+        background: #FAFAFA;
 
-        span.label
-        {
-            border-color:#CCCCCC;
+        span.label {
+            border-color: #CCCCCC;
         }
 
-        &:hover
-        {
-            background:#F5F5F5;
+        &:hover {
+            background: #F5F5F5;
         }
     }
 
 
-    &:last-of-type
-    {
-        border-bottom:none;
+    &:last-of-type {
+        border-bottom: none;
     }
 
-    &.date-picker
-    {
-        select
-        {
-            width:116px;
+    &.date-picker {
+        select {
+            width: 116px;
             box-sizing: border-box;
         }
     }
 
-    &.datetime-picker
-    {
-        select
-        {
-            width:68px;
+    &.datetime-picker {
+        select {
+            width: 68px;
             box-sizing: border-box;
         }
     }
 
-    &.boolean
-    {
-        .toggle
-        {
+    &.boolean {
+        .toggle {
             //  width and height set via JS, so that if plugin isnt loaded
             //  or otherwise unavailable, it falls back to a normal checkbox
 
-            text-align:center;
-            display:inline-block;
+            text-align: center;
+            display: inline-block;
         }
 
-        span.input
-        {
-            .tip
-            {
+        span.input {
+            .tip {
                 top: -9px;
                 left: 10px;
                 position: relative;
             }
 
-            small.info
-            {
-                margin-top:0;
+            small.info {
+                margin-top: 0;
             }
         }
     }
 
-    &.readonly
-    {
+    &.readonly {
         input[type=text],
         input[type=password],
         input[type=email],
         input[type=number],
         input[type=url],
-        textarea
-        {
-            padding-left:30px;
-            width:325px;
+        textarea {
+            padding-left: 30px;
+            width: 325px;
             box-sizing: border-box;
         }
 
-        .input
-        {
-            &:before
-            {
+        .input {
+            &:before {
                 font-family: FontAwesome;
-                content: "\f023";
+                content: '\f023';
                 display: block;
                 position: absolute;
                 font-size: 1.4em;
@@ -471,166 +419,145 @@ div.field {
             }
         }
 
-        .toggle
-        {
+        .toggle {
             .opacity(0.5);
 
-            *
-            {
-                cursor:not-allowed;
+            * {
+                cursor: not-allowed;
             }
         }
     }
 
     &.radio,
-    &.mm-image
-    {
-        label:after
-        {
-            clear: left;
-            display: block;
-            content: '';
+    &.mm-image {
+        label {
+            &:after {
+                clear: left;
+                display: block;
+                content: '';
+            }
         }
     }
 
-    &.multiimage
-    {
-        ul.filelist
-        {
-            border:1px solid #CECECE;
+    &.multiimage {
+        ul.filelist {
+            border: 1px solid #CECECE;
             .rounded(3px);
-            background:#FFF;
-            margin-bottom:5px;
-            line-height:100%;
+            background: #FFFFFF;
+            margin-bottom: 5px;
+            line-height: 100%;
 
-            li
-            {
-                &.item
-                {
-                    width:100px;
-                    height:100px;
-                    padding:3px;
-                    margin:5px;
-                    border:1px solid #CCC;
+            li {
+                &.item {
+                    width: 100px;
+                    height: 100px;
+                    padding: 3px;
+                    margin: 5px;
+                    border: 1px solid #CCCCCC;
                     .rounded(2px);
-                    display:inline-block;
+                    display: inline-block;
                     position: relative;
-                    background:#EFEFEF url(../img/form/upload-icon.png) center no-repeat;
-                    overflow:hidden;
-                    box-sizing:border-box;
+                    background: #EFEFEF url(../img/form/upload-icon.png) center no-repeat;
+                    overflow: hidden;
+                    box-sizing: border-box;
 
-                    img
-                    {
-                        width:92px;
-                        height:92px;
+                    img {
+                        width: 92px;
+                        height: 92px;
                         .rounded(3px);
                     }
 
                     a.remove,
-                    a.delete
-                    {
-                        display:block;
-                        position:absolute;
-                        width:20px;
-                        height:20px;
-                        right:2px;
-                        top:2px;
+                    a.delete {
+                        display: block;
+                        position: absolute;
+                        width: 20px;
+                        height: 20px;
+                        right: 2px;
+                        top: 2px;
                         background: rgba(219, 218, 220,0.8);
-                        z-index:1;
+                        z-index: 1;
                         .rounded(2px);
-                        cursor:pointer;
+                        cursor: pointer;
 
-                        &:hover
-                        {
-                            background:rgba(219, 218, 220,0.8) url(../img/form/stop-icon2.png) center no-repeat;
+                        &:hover {
+                            background: rgba(219, 218, 220,0.8) url(../img/form/stop-icon2.png) center no-repeat;
                         }
                     }
 
-                    div.progress
-                    {
-                        background:#888;
-                        position:absolute;
-                        bottom:0px;
-                        left:0px;
-                        right:0px;
-                        z-index:0;
-                        height:0%;
+                    div.progress {
+                        background: #888888;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        z-index: 0;
+                        height: 0;
                         .drop-shadow(0, 0, 5px, 0.5);
                         .transition(0.5s);
-
                         background-size: 30px 30px;
                         background-image: linear-gradient(
-                            45deg,
-                            rgba(0,0,0,0.1) 25%,
-                            transparent     25%,
-                            transparent     50%,
-                            rgba(0,0,0,0.1) 50%,
-                            rgba(0,0,0,0.1) 75%,
-                            transparent     75%,
-                            transparent
+                        45deg,
+                        rgba(0,0,0,0.1) 25%,
+                        transparent     25%,
+                        transparent     50%,
+                        rgba(0,0,0,0.1) 50%,
+                        rgba(0,0,0,0.1) 75%,
+                        transparent     75%,
+                        transparent
                         );
-                        -webkit-animation: barberpole 0.5s linear infinite;
-                        -moz-animation: barberpole 0.5s linear infinite;
                         animation: barberpole 0.5s linear infinite;
                     }
 
-                    .data-cancel
-                    {
+                    .data-cancel {
                         position: absolute;
-                        top: 0px;
-                        bottom: 0px;
-                        left: 0px;
-                        right: 0px;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
                         text-align: center;
                         line-height: 102px;
-                        background: #EEE;
+                        background: #EEEEEE;
                         font-weight: bold;
-                        color: #777;
+                        color: #777777;
                         z-index: 1;
                         .opacity(0.9);
-                        display:none;
+                        display: none;
                         text-transform: uppercase;
                     }
 
-                    .crunching
-                    {
+                    .crunching {
                         position: absolute;
-                        top: 0px;
-                        bottom: 0px;
-                        left: 0px;
-                        right: 0px;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
                         background: rgba(255, 255, 255, 0.9) url(../img/loader/60PX-TRANS.gif) center no-repeat;
-                        display:none;
+                        display: none;
                     }
 
-                    &.placeholder
-                    {
-                        border:1px dashed #ccc;
-                        background:#FEFEFE;
+                    &.placeholder {
+                        border: 1px dashed #CCCCCC;
+                        background: #FEFEFE;
                     }
 
-                    &.crunching
-                    {
-                        .crunching
-                        {
-                            display:block;
+                    &.crunching {
+                        .crunching {
+                            display: block;
                         }
                     }
 
-                    &.error
-                    {
-                        background:#FFEBE8;
-                        border-color:#CA0300;
+                    &.error {
+                        background: #FFEBE8;
+                        border-color: #CA0300;
 
-                        p
-                        {
-                            text-align:center;
-                            margin:5px;
-                            color:#CA0300;
-                            font-size:0.9em;
+                        p {
+                            text-align: center;
+                            margin: 5px;
+                            color: #CA0300;
+                            font-size: 0.9em;
 
-                            &.filename
-                            {
+                            &.filename {
                                 font-weight: bold;
                                 text-overflow: ellipsis;
                                 white-space: nowrap;
@@ -641,76 +568,62 @@ div.field {
                     }
                 }
 
-                &.empty
-                {
-                    color:#808080;
-                    padding:5px;
-                    margin:0;
-                    display:none;
+                &.empty {
+                    color: #808080;
+                    padding: 5px;
+                    margin: 0;
+                    display: none;
                 }
             }
 
-            &.has-tip
-            {
-                margin-right:25px;
+            &.has-tip {
+                margin-right: 25px;
             }
 
-            &.empty
-            {
-                li.empty
-                {
-                    display:block;
+            &.empty {
+                li.empty {
+                    display: block;
                 }
             }
 
-            &.ui-sortable
-            {
-                li.item
-                {
-                    cursor:move;
+            &.ui-sortable {
+                li.item {
+                    cursor: move;
                 }
             }
         }
 
-        .uploadify
-        {
-            margin-top:1em;
+        .uploadify {
+            margin-top: 1em;
 
-            .uploadify-button
-            {
-                background:#555;
+            .uploadify-button {
+                background: #555555;
 
-                .uploadify-button-text
-                {
-                    color:#FFF;
-                    font-size:1.2em;
+                .uploadify-button-text {
+                    color: #FFFFFF;
+                    font-size: 1.2em;
                 }
             }
         }
     }
 
-    &.error
-    {
-        span.input
-        {
+    &.error {
+        span.input {
             input[type=text],
             input[type=password],
             input[type=email],
             input[type=number],
             input[type=url],
-            textarea
-            {
-                border:1px solid #B52130;
-                padding-left:30px;
+            textarea {
+                border: 1px solid #B52130;
+                padding-left: 30px;
             }
-            select
-            {
-                border:1px solid #B52130;
+            select {
+                border: 1px solid #B52130;
             }
-            &:before
-            {
+            &:before {
                 font-family: FontAwesome;
-                content: "\f06a";
+                content: '\f06a';
                 display: block;
                 position: absolute;
                 font-size: 1.4em;
@@ -719,66 +632,52 @@ div.field {
                 color: #B52130;
             }
         }
-        span.error
-        {
-            display:block;
+        span.error {
+            display: block;
         }
-        .mm-image-preview
-        {
+        .mm-image-preview {
             border-color: #B52130;
         }
-
     }
-    &.submit
-    {
-        .label
-        {
-            border:none;
+    &.submit {
+        .label {
+            border: none;
         }
     }
 }
 
-//  Style basic form elements
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="url"],
-input[type="number"],
-textarea
-{
-    border: 1px solid #ccc;
+input[type='text'],
+input[type='password'],
+input[type='email'],
+input[type='url'],
+input[type='number'],
+textarea {
+    border: 1px solid #CCCCCC;
     padding: 6px 4px;
     outline: none;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
     border-radius: 2px;
     font: 13px Helvetica, Arial, sans-serif;
-    color: #777;
+    color: #777777;
     margin: 0;
     width: 210px;
     max-width: 100%;
     display: block;
     margin-bottom: 20px;
-    background: #fff;
+    background: #FFFFFF;
 
-    &:focus
-    {
-        border: 1px solid #aaa;
-        color: #444;
-        -moz-box-shadow: 0 0 3px rgba(0,0,0,.2);
-        -webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
-        box-shadow:  0 0 3px rgba(0,0,0,.2);
+    &:focus {
+        border: 1px solid #AAAAAA;
+        color: #444444;
+        box-shadow: 0 0 3px rgba(0,0,0,0.2);
     }
 
-    &.select2-input
-    {
-        width:100%;
+    &.select2-input {
+        width: 100%;
         margin: 0;
     }
 }
 
-select
-{
+select {
     padding: 0;
 }
 
@@ -786,21 +685,20 @@ select
 
 
 /* Tablet Portrait size to standard 960 (devices and browsers) */
-@media only screen and (min-width: 768px) and (max-width: 959px)
-{
+@media only screen and (min-width: 768px) and (max-width: 959px) {
     div.field {
         input[type=file],
         select {
-            width:251px;
+            width: 251px;
         }
         &.error {
             &.datetime-picker,
             &.checkbox,
             &.radio {
                 span.error {
-                    margin-bottom:20px;
-                    position:relative;
-                    top:15px;
+                    margin-bottom: 20px;
+                    position: relative;
+                    top: 15px;
                 }
             }
         }
@@ -850,14 +748,14 @@ select
         }
         span {
             &.label {
-                display:block;
+                display: block;
                 float: none;
-                width:100%;
-                text-align:left;
-                border:none;
-                margin:0;
-                padding:0;
-                padding-bottom:5px;
+                width: 100%;
+                text-align: left;
+                border: none;
+                margin: 0;
+                padding: 0;
+                padding-bottom: 5px;
             }
             &.input {
                 margin-left: 0;
@@ -875,7 +773,7 @@ select
                 &.input {
                     &.with-tip {
                         .tip {
-                            top:8px;
+                            top: 8px;
                         }
                     }
                 }
@@ -889,17 +787,17 @@ select
         }
         &.multiimage {
             ul.filelist {
-                clear:left;
+                clear: left;
             }
         }
         &.error {
             span {
                 &.input.with-tip {
-                    padding-right:0px;
+                    padding-right: 0;
                 }
                 &.error {
-                    width:100%;
-                    box-sizing:border-box;
+                    width: 100%;
+                    box-sizing: border-box;
                 }
             }
             &.datetime-picker,
@@ -918,14 +816,12 @@ select
 // --------------------------------------------------------------------------
 
 //  Prefixed inputs
-div.nails-prefixed
-{
-    box-sizing:border-box;
-    position:relative;
-    padding:0;
+div.nails-prefixed {
+    box-sizing: border-box;
+    position: relative;
+    padding: 0;
 
-    .nails-prefix
-    {
+    .nails-prefix {
         box-sizing: border-box;
         width: 30px;
         left: 1px;
@@ -935,20 +831,17 @@ div.nails-prefixed
         line-height: 30px;
         font-weight: bold;
         position: absolute;
-        text-align:center;
+        text-align: center;
     }
-    .nails-prefixed
-    {
-        width:100% !important;
-        box-sizing:border-box !important;
-        padding-left:35px;
+    .nails-prefixed {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        padding-left: 35px;
     }
 
-    &.error
-    {
-        .nails-prefixed
-        {
-            border-color:#B52130;
+    &.error {
+        .nails-prefixed {
+            border-color: #B52130;
         }
     }
 }
@@ -956,28 +849,20 @@ div.nails-prefixed
 // --------------------------------------------------------------------------
 
 //  jQuery UI overrides
-div.ui-datepicker-title
-{
-    select
-    {
-        display:inline-block;
+div.ui-datepicker-title {
+    select {
+        display: inline-block;
     }
 }
 
 
 // --------------------------------------------------------------------------
 
-@-webkit-keyframes barberpole
-{
-    from { background-position: 0 0; }
-    to   { background-position: 60px 30px; }
-}
-@-moz-keyframes barberpole
-{
-    from { background-position: 0 0; }
-    to   { background-position: 60px 30px; }
-}
 @keyframes barberpole {
-    from { background-position: 0 0; }
-    to   { background-position: 60px 30px; }
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 60px 30px;
+    }
 }
