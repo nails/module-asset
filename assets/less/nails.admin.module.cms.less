@@ -145,6 +145,31 @@
                         width: 215px;
                     }
                 }
+                td {
+                    &.title {
+                        .label {
+                            margin-right: 0.5em;
+                            display: inline;
+                            padding: .2em .6em .3em;
+                            font-size: 75%;
+                            font-weight: bold;
+                            line-height: 1;
+                            text-align: center;
+                            white-space: nowrap;
+                            vertical-align: baseline;
+                            border-radius: .25em;
+                            color: #FFFFFF;
+                            position: relative;
+                            top: -1px;
+                            &.label-draft {
+                                background: #4DB3D6;
+                            }
+                            &.label-unpublished-changes {
+                                background: #EB9E3E;
+                            }
+                        }
+                    }
+                }
             }
         }
         &.edit {
@@ -292,16 +317,10 @@
                 font-size: 2em;
                 transform: translate(-50%, -50%);
             }
-            .actions {
-                position: absolute;
-                left: 1.5em;
-                top: 1.5em;
-                right: 1.5em;
-            }
             iframe {
                 width: 100%;
                 height: 100%;
-                padding-top: 50px;
+                padding-top: 1.5em;
                 background: transparent;
             }
             .actions {

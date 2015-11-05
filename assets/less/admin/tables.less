@@ -199,43 +199,37 @@ table {
 
                 &.indentosaurus {
                     position: relative;
-
                     .indentor {
-                        display: inline-block;
-                        float: left;
-                        left: 0;
-                        margin-top: 2px;
-                        height: 15px;
-                        width: 15px;
-                        margin-right: 3px;
-                        .rounded(10px);
-                        background: #CCCCCC;
-                        border-right: 1px solid #FFFFFF;
+                        display: block;
+                        position: absolute;
+                        left: 12px;
+                        top: 16px;
+                        height: 7px;
+                        width: 7px;
+                        .rounded(7px);
+                        background: #FFFFFF;
+                        border: 1px solid #CCC;
+                        &:nth-child(2) {
+                            top: 24px;
+                        }
+                        &:nth-child(3) {
+                            top: 32px;
+                        }
+                        &:nth-child(4) {
+                            top: 40px;
+                        }
+                        &:nth-child(5),
+                        &:nth-child(6),
+                        &:nth-child(7),
+                        &:nth-child(8) {
+                            top: 40px;
+                            background: #CCC;
+                        }
                     }
-
-                    &.indent-1 .indentor-content {
-                        margin-left: 20*1px;
-                    }
-                    &.indent-2 .indentor-content {
-                        margin-left: 20*2px;
-                    }
-                    &.indent-3 .indentor-content {
-                        margin-left: 20*3px;
-                    }
-                    &.indent-4 .indentor-content {
-                        margin-left: 20*4px;
-                    }
-                    &.indent-5 .indentor-content {
-                        margin-left: 20*5px;
-                    }
-                    &.indent-6 .indentor-content {
-                        margin-left: 20*6px;
-                    }
-                    &.indent-7 .indentor-content {
-                        margin-left: 20*7px;
-                    }
-                    &.indent-8 .indentor-content {
-                        margin-left: 20*8px;
+                    &.indented {
+                        .indentor-content {
+                            padding-left: 20px;
+                        }
                     }
                 }
 

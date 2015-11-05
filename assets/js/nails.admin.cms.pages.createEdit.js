@@ -1,4 +1,4 @@
-/* globals console */
+/* globals console, _nails_api */
 var NAILS_Admin_CMS_Pages_CreateEdit;
 NAILS_Admin_CMS_Pages_CreateEdit = function(widgetEditor, templates)
 {
@@ -35,34 +35,49 @@ NAILS_Admin_CMS_Pages_CreateEdit = function(widgetEditor, templates)
     // --------------------------------------------------------------------------
 
     /**
-     * The active area
-     * @type {String}
-     */
-    base.activeArea = '';
-
-    // --------------------------------------------------------------------------
-
-    /**
      * Construct the CMS widget editor
      * @return {void}
      */
-    base.__construct = function()
-    {
+    base.__construct = function() {
+
         base.log('Constructing Pages Editor');
         base.bindEvents();
+        base.populateEditor();
 
-        //  Add the preview action to the widget editor
+        //  Add the preview, save and publish actions to the widget editor
         base.editor.addAction(
             'Preview',
-            'primary',
+            'default',
             function() {
                 base.showPreview();
             }
         );
 
-        //  Move the preview element to the foot pf the page and match the zindex of the widgeteditor
-        $('body').append($('#page-preview'));
-        $('#page-preview').css('zIndex', base.editor.container.css('zIndex'));
+        base.editor.addAction(
+            'Publish Changes',
+            'success',
+            function() {
+                base.submitForm('PUBLISH');
+            }
+        );
+
+        base.editor.addAction(
+            'Save Changes',
+            'primary',
+            function() {
+                base.submitForm('SAVE');
+            }
+        );
+
+        /**
+         * Prepare the preview window
+         * - Move the preview element to the foot of the page
+         * - Match the zindex of the widgeteditor
+         */
+        var preview = $('#page-preview');
+
+        $('body').append(preview);
+        preview.css('zIndex', base.editor.container.css('zIndex'));
 
         //  Organise the interface for the selected template
         $('.template.selected input').click();
@@ -74,52 +89,77 @@ NAILS_Admin_CMS_Pages_CreateEdit = function(widgetEditor, templates)
      * Bind to various events
      * @return {Object}
      */
-    base.bindEvents = function()
-    {
-        //  Bind to template changes
+    base.bindEvents = function() {
+
         $('.template input').on('click', function() {
             base.selectTemplate($(this).data('slug'));
         });
 
-        //  Bind to area buttons
         $('button.launch-editor').on('click', function() {
 
             var area = $(this).data('area');
             base.log('Launching editor for area "' + area + '"');
-            base.activeArea = area;
             base.editor.show(area);
+            return false;
         });
 
-        $(base.editor).on('widgeteditor-close', function()
-        {
-            var data = {}, area;
-
-            base.log('Editor Closing, getting area data');
-
-            $('#template-area-' + base.activeTemplate + ' .btn').each(function() {
-
-                area =$(this).data('area');
-                data[area] = base.editor.getAreaData(area);
-            });
-
-            $('#template-data').val(JSON.stringify(data));
-            base.activeArea = '';
-        });
-
-        //  Bind to preview button
         $('#action-preview').on('click', function() {
             base.showPreview();
+            return false;
+        });
+
+        $('#action-save').on('click', function() {
+            base.submitForm('SAVE');
+            return false;
+        });
+
+        $('#action-publish').on('click', function() {
+            base.submitForm('PUBLISH');
+            return false;
         });
 
         $('#page-preview .action-close').on('click', function() {
             base.hidePreview();
+            return false;
         });
 
         $('#page-preview .action-publish').on('click', function() {
             base.hidePreview();
-            $('#action-publish').click();
+            base.submitForm('PUBLISH');
+            return false;
         });
 
+        $('#page-preview .action-save').on('click', function() {
+            base.hidePreview();
+            base.submitForm('SAVE');
+            return false;
+        });
+
+        return base;
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Populate the editor widget data
+     * @return {Object}
+     */
+    base.populateEditor = function() {
+
+        var areaData, area, widgetData;
+
+        areaData = $('#template-data').val() || null;
+        areaData = JSON.parse(areaData);
+
+        if (areaData) {
+            base.log('Repopulating widget editor');
+            for (area in areaData) {
+                if (areaData.hasOwnProperty(area)) {
+                    widgetData = areaData[area];
+                    base.editor.setAreaData(area, widgetData);
+                }
+            }
+        }
         return base;
     };
 
@@ -171,15 +211,65 @@ NAILS_Admin_CMS_Pages_CreateEdit = function(widgetEditor, templates)
     base.showPreview = function() {
 
         base.log('Generating preview');
+        base.getEditorData();
 
         $('body').addClass('noscroll');
 
-        $('#page-preview')
+        var preview = $('#page-preview');
+
+        preview
             .addClass('loading')
             .show();
 
-        //  @todo do whatever it is we need to to do get a preview URL
-        $('#page-preview iframe').attr('src', 'http://hellopablo.co.uk');
+        //  Size the iframe
+        var previewPadding = parseFloat(preview.css('padding'));
+        var actionsHeight  = preview.find('> .actions').outerHeight();
+        var newHeight      = $(window).height() - (previewPadding*2) - actionsHeight;
+
+        preview.find('.iframe, .iframe > div').css('height', newHeight);
+
+        _nails_api.call({
+            'controller': 'cms/pages',
+            'method': 'preview',
+            'action': 'POST',
+            'data': $('#main-form').serialize(),
+            'success': function(data) {
+                $('#page-preview iframe').attr('src', data.url);
+            },
+            'error': function(data) {
+
+                var _data;
+
+                try {
+
+                    _data = JSON.parse(data.responseText);
+
+                } catch (e) {
+
+                    _data = {
+                        'status': 500,
+                        'error': 'An unknown error occurred.'
+                    };
+                }
+
+                base.warn('Failed to generate a preview.', _data);
+                $('<div>')
+                    .text('Failed to generate preview. ' + _data.error)
+                    .dialog({
+                        'title': 'An error occurred',
+                        'resizable': false,
+                        'draggable': false,
+                        'modal': true,
+                        'dialogClass': 'group-cms widgeteditor-alert',
+                        'buttons': {
+                            'OK': function() {
+                                $(this).dialog('close');
+                                base.hidePreview();
+                            }
+                        }
+                    });
+            }
+        });
 
         return base;
     };
@@ -204,15 +294,53 @@ NAILS_Admin_CMS_Pages_CreateEdit = function(widgetEditor, templates)
     // --------------------------------------------------------------------------
 
     /**
+     * Submit the form
+     * @param  {String} type The type of submission [SAVE|PUBLISH]
+     * @return {Object}
+     */
+    base.submitForm = function(type) {
+
+        type = type || 'SAVE';
+        base.log('Submitting form: ' + type);
+        base.getEditorData();
+        $('#input-action').val(type);
+        $('#main-form').submit();
+        return base;
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Save the contents of the editor for the template
+     * @return {Object}
+     */
+    base.getEditorData = function(template) {
+
+        var area, data = {};
+
+        template = template || base.activeTemplate;
+        $('#template-area-' + template + ' .btn').each(function() {
+
+            area = $(this).data('area');
+            data[area] = base.editor.getAreaData(area);
+        });
+
+        $('#template-data').val(JSON.stringify(data));
+
+        return base;
+    };
+
+    // --------------------------------------------------------------------------
+
+    /**
      * Write a log to the console
      * @param  {String} message The message to log
      * @param  {Mixed}  payload Any additional data to display in the console
      * @return {Void}
      */
-    base.log = function(message, payload)
-    {
-        if (typeof(console.log) === 'function')
-        {
+    base.log = function(message, payload) {
+
+        if (typeof(console.log) === 'function') {
             if (payload !== undefined) {
                 console.log('CMS Pages:', message, payload);
             } else {
@@ -229,10 +357,9 @@ NAILS_Admin_CMS_Pages_CreateEdit = function(widgetEditor, templates)
      * @param  {Mixed}  payload Any additional data to display in the console
      * @return {Void}
      */
-    base.warn = function(message, payload)
-    {
-        if (typeof(console.warn) === 'function')
-        {
+    base.warn = function(message, payload) {
+
+        if (typeof(console.warn) === 'function') {
             if (payload !== undefined) {
                 console.warn('CMS Pages:', message, payload);
             } else {

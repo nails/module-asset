@@ -143,7 +143,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
                 ),
                 'widget': $('<div>').html(
                     '<i class="icon fa {{icon}}"></i>' +
-                    '<span class="label">{{label}}</span>' +
+                    '<span>{{label}}</span>' +
                     '<a href="#" class="action action-remove fa fa-trash-o"></a>' +
                     '<a href="#" class="action action-refresh-editor fa fa-refresh"></a>' +
                     '<div class="description">{{description}}</div>' +
@@ -345,7 +345,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
         for (i = 0; i < base.widgets.length; i++) {
 
             //  Widget Group
-            label     = $('<span>').addClass('label').text(base.widgets[i].label);
+            label     = $('<span>').text(base.widgets[i].label);
             toggle    = $('<i>').addClass('icon fa fa-chevron-down');
             container = $('<div>').addClass('widget-group').data('group', i).append(label).append(toggle);
             base.sections.widgets.append(container);
@@ -354,7 +354,7 @@ NAILS_Admin_CMS_WidgetEditor = function()
             for (x = 0; x < base.widgets[i].widgets.length; x++) {
 
                 icon      = $('<i>').addClass('icon fa ' + base.widgets[i].widgets[x].icon);
-                label     = $('<span>').addClass('label').text(base.widgets[i].widgets[x].label);
+                label     = $('<span>').text(base.widgets[i].widgets[x].label);
                 container = $('<div>')
                             .addClass('widget widget-group-' + i)
                             .data('group', i)
@@ -822,6 +822,13 @@ NAILS_Admin_CMS_WidgetEditor = function()
 
         area = area || base.defaultArea;
         base.log('Getting editor data for area "' + area + '"');
+
+        //  If the editor is open then refresh the area
+        if (base.isOpen && area === base.activeArea) {
+            base.log('Editor is open with selected area, refreshing data');
+            base.widgetData[area] = base.getActiveData();
+        }
+
         return base.widgetData[area] || null;
     };
 
