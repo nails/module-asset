@@ -128,18 +128,15 @@ div.field {
             padding-left: 14px;
         }
     }
-
     label {
         display: block;
         width: 100%;
         padding: 0;
     }
-
     //  So tips are always the same colour - badly designed form helper
     .tip {
         color: #747A90;
     }
-
     span {
         &.label {
             display: block;
@@ -157,17 +154,29 @@ div.field {
                 font-weight: normal;
             }
         }
-
         &.input {
             border: 1px dashed transparent;  //  Don't ask me why this is required, but it is. - Pablo.
             display: block;
             margin-left: 149px;
             position: relative;
-
             &.is-disabled {
                 color: #CCCCCC;
             }
-
+            &.with-tip {
+                padding-right: 25px;
+                .tip {
+                    position: absolute;
+                    right: 0;
+                    top: 9px;
+                }
+            }
+            &:after {
+                float: none;
+                clear: both;
+                content: ' ';
+                position: relative;
+                display: block;
+            }
             input[type=text],
             input[type=password],
             input[type=email],
@@ -182,7 +191,6 @@ div.field {
                 width: 100%;
                 margin: 0;
             }
-
             small {
                 &.info2 {
                     display: block;
@@ -211,26 +219,13 @@ div.field {
                     }
                 }
             }
-
-            &:after {
-                float: none;
-                clear: both;
-                content: ' ';
-                position: relative;
+            .alert {
                 display: block;
-            }
-
-            &.with-tip {
-                padding-right: 25px;
-
-                .tip {
-                    position: absolute;
-                    right: 0;
-                    top: 9px;
-                }
+                margin: 0;
+                margin-top: 1em;
+                padding: 0.5em 0.8em;
             }
         }
-
         &.text {
             margin-left: 5px;
             position: relative;
@@ -239,7 +234,6 @@ div.field {
             float: left;
             width: 100%;
         }
-
         &.file-download {
             display: block;
             clear: left;
@@ -253,24 +247,6 @@ div.field {
                 .rounded(2px);
                 vertical-align: middle;
                 margin-left: 5px;
-            }
-        }
-
-        &.error {
-            display: none;
-            border: 1px solid #CCCCCC;
-            padding: 2px 7px;
-            position: relative;
-            top: 1px;
-            .rounded(2px);
-            background: #FFEBE8;
-            color: #B52130;
-            border-color: #B52130;
-            margin: 0;
-            margin-top: 3px;
-
-            a {
-                color: inherit;
             }
         }
     }
@@ -546,26 +522,6 @@ div.field {
                             display: block;
                         }
                     }
-
-                    &.error {
-                        background: #FFEBE8;
-                        border-color: #CA0300;
-
-                        p {
-                            text-align: center;
-                            margin: 5px;
-                            color: #CA0300;
-                            font-size: 0.9em;
-
-                            &.filename {
-                                font-weight: bold;
-                                text-overflow: ellipsis;
-                                white-space: nowrap;
-                                width: 90px;
-                                overflow: hidden;
-                            }
-                        }
-                    }
                 }
 
                 &.empty {
@@ -632,9 +588,6 @@ div.field {
                 color: #B52130;
             }
         }
-        span.error {
-            display: block;
-        }
         .mm-image-preview {
             border-color: #B52130;
         }
@@ -691,17 +644,6 @@ select {
         select {
             width: 251px;
         }
-        &.error {
-            &.datetime-picker,
-            &.checkbox,
-            &.radio {
-                span.error {
-                    margin-bottom: 20px;
-                    position: relative;
-                    top: 15px;
-                }
-            }
-        }
     }
 }
 
@@ -714,17 +656,6 @@ select {
             }
             &.input {
                 margin-left: 135px;
-            }
-        }
-        &.error {
-            &.datetime-picker,
-            &.checkbox,
-            &.radio {
-                span.error {
-                    margin-bottom: 20px;
-                    position: relative;
-                    top: 15px;
-                }
             }
         }
     }
@@ -794,19 +725,6 @@ select {
             span {
                 &.input.with-tip {
                     padding-right: 0;
-                }
-                &.error {
-                    width: 100%;
-                    box-sizing: border-box;
-                }
-            }
-            &.datetime-picker,
-            &.checkbox,
-            &.radio {
-                span.error {
-                    margin-bottom: 20px;
-                    position: relative;
-                    top: 15px;
                 }
             }
         }
