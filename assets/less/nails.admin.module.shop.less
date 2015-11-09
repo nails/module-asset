@@ -682,6 +682,24 @@
                     }
                 }
             }
+            .copy-code {
+                transition: all 0.25s;
+                margin-top: 0.5em;
+                .fa {
+                    margin-right: 0.25em;
+                }
+                .copied {
+                    display: none;
+                }
+                &.success {
+                    .copied {
+                        display: inline;
+                    }
+                    .waiting {
+                        display: none;
+                    }
+                }
+            }
         }
 
         &.edit {

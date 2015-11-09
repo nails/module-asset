@@ -9,6 +9,13 @@
         }
     }
     ul.skins {
+        margin: 1em;
+        margin-top: 0;
+        &:after {
+            display: block;
+            clear: both;
+            content: ' ';
+        }
         li.skin {
             .opacity(0.5);
             border: 1px solid #CCCCCC;
@@ -26,16 +33,18 @@
             .nifty-drop-shadow();
             cursor: pointer;
             .icon {
+                width: 230px;
+                height: 150px;
+                background: #EFEFEF;
                 img {
-                    width: 230px;
-                    height: 150px;
-                    border-bottom: 1px solid #CCCCCC;
-                    margin-bottom: 5px;
+                    max-height: 100%;
+                    max-width: 100%;
                 }
             }
             .name {
                 font-weight: bold;
                 text-align: center;
+                margin-top: 0.5em;
                 span {
                     display: none;
                 }

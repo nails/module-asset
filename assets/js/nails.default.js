@@ -213,37 +213,35 @@ NAILS_JS = function()
      */
     base.initConfirm = function()
     {
-        $(document).on('click', 'a.confirm' , function()
-        {
-            var link  = $(this);
-            var body  = link.data('body').replace(/\\n/g, "\n");
-            var title = link.data('title') || 'Are you sure?';
+        var link, body, title;
 
-            if (body.length)
-            {
+        $(document).on('click', 'a.confirm' , function() {
+
+            link  = $(this);
+            body  = link.data('body') || 'Please confirm you\'d like to continue with this action.';
+            body.replace(/\\n/g, "\n");
+            title = link.data('title') || 'Are you sure?';
+
+            if (body.length) {
+
                 $('<div>').html(body).dialog({
                     'title': title,
                     'resizable': false,
                     'draggable': false,
                     'modal': true,
                     'dialogClass': 'no-close',
-                    'buttons':
-                    {
-                        'OK': function()
-                        {
+                    'buttons': {
+                        'OK': function() {
                             window.location.href = link.attr('href');
                         },
-                        'Cancel': function()
-                        {
+                        'Cancel': function() {
                             $(this).dialog('close');
                         }
                     }
                 });
 
                 return false;
-            }
-            else
-            {
+            } else {
 
                 //  No message, just let the event bubble as normal.
                 return true;
@@ -257,12 +255,10 @@ NAILS_JS = function()
      * Initialise any tabs on the page
      * @return {Void}
      */
-    base.initTabs = function()
-    {
-        $(document).on('click', 'ul.tabs:not(.disabled) li.tab a', function()
-        {
-            if (!$(this).hasClass('disabled'))
-            {
+    base.initTabs = function() {
+
+        $(document).on('click', 'ul.tabs:not(.disabled) li.tab a', function() {
+            if (!$(this).hasClass('disabled')) {
                 base.switchToTab($(this));
             }
 
@@ -289,6 +285,16 @@ NAILS_JS = function()
                 $(this).addClass('error');
             }
         });
+
+        // --------------------------------------------------------------------------
+
+        //  For tabs which are attached to an "active tab input", automatically go to said tab if it's defined
+        $('ul.tabs').filter('[data-active-tab-input][data-active-tab-input!=""]').each(function() {
+            var activeTabInput = $($(this).data('active-tab-input'));
+            if (activeTabInput.length && activeTabInput.val()) {
+                $(this).find('.tab a[data-tab="' + activeTabInput.val() + '"]').click();
+            }
+        });
     };
 
     // --------------------------------------------------------------------------
@@ -303,6 +309,7 @@ NAILS_JS = function()
         //  Tab group
         var selectedTab = tab.data('tab');
         var tabGroup    = tab.parents('ul.tabs').data('tabgroup');
+        var activeTab   = tab.parents('ul.tabs').data('active-tab-input');
 
         //  Switch tab
         if (tabGroup) {
@@ -336,6 +343,12 @@ NAILS_JS = function()
             $('section.tabs > div.tab-page').removeClass('active');
             var newTab = tab.attr('data-tab');
             $('section.tabs > div.tab-page.' + newTab).addClass('active');
+        }
+
+        // --------------------------------------------------------------------------
+
+        if (activeTab) {
+            $(activeTab).val(selectedTab);
         }
 
         // --------------------------------------------------------------------------

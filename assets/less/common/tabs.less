@@ -72,12 +72,27 @@ section.tabs {
         display: none;
         background: #FFFFFF;
         background-clip: content-box;
-        > p, > .system-alert, > .alert, > .padded, > fieldset, > form {
-            padding: 1em;
-            margin: 0;
+
+        > p,
+        > .system-alert,
+        > .alert,
+        > .padded,
+        > fieldset,
+        > form {
+            margin: 1em;
             & + & {
-                padding-top: 0;
+                margin-top: 0;
             }
+        }
+        > ul.tabs {
+            margin-left: 1em;
+            margin-right: 1em;
+            margin-top: 1em;
+        }
+        > section.tabs {
+            margin-left: 1em;
+            margin-right: 1em;
+            margin-bottom: 1em;
         }
         table {
             margin: 0;
@@ -110,11 +125,6 @@ section.tabs {
                         }
                     }
                 }
-            }
-        }
-        fieldset {
-            &:last-of-type {
-                margin-bottom: 0;
             }
         }
         &.active {

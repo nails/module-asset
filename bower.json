@@ -43,6 +43,7 @@
     "moment": "~2.10.3",
     "knockout": "~3.3.0",
     "jquery-serialize-object": "~2.5.0",
-    "handsontable": "~0.20.0"
+    "handsontable": "~0.20.0",
+    "zeroclipboard": "~2.2.0"
   }
 }
