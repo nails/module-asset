@@ -5,8 +5,7 @@
 
 //  Catch undefined console
 /* jshint ignore:start */
-if (typeof(console) === "undefined")
-{
+if (typeof(console) === "undefined") {
     var console;
     console = {
         log: function() {},
@@ -21,8 +20,8 @@ if (typeof(console) === "undefined")
 // --------------------------------------------------------------------------
 
 var NAILS_JS;
-NAILS_JS = function()
-{
+NAILS_JS = function() {
+
     /**
      * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
      * @type {Object}
@@ -34,14 +33,15 @@ NAILS_JS = function()
     /**
      * Construct the class
      */
-    base.__construct = function()
-    {
+    base.__construct = function() {
+
         base.initSystemAlerts();
         base.initTipsy();
         base.initFancybox();
         base.initConfirm();
         base.initTabs();
         base.initForms();
+        base.initDatePickers();
     };
 
     // --------------------------------------------------------------------------
@@ -50,8 +50,8 @@ NAILS_JS = function()
      * Add a close button to any system-alerts which are on the page
      * @return {Void}
      */
-    base.initSystemAlerts = function()
-    {
+    base.initSystemAlerts = function() {
+
         //  Scroll to first error, if scrollTo is available
         if ($.fn.scrollTo) {
 
@@ -88,10 +88,10 @@ NAILS_JS = function()
      * Initialise any tipsy elements on the page
      * @return {Void}
      */
-    base.initTipsy = function()
-    {
-        if ($.fn.tipsy)
-        {
+    base.initTipsy = function() {
+
+        if ($.fn.tipsy) {
+
             /**
              * Once tipsy'd, add drunk class - so it's not called twice should this
              * method be called again. Tipsy... drunk... geddit?
@@ -103,9 +103,9 @@ NAILS_JS = function()
             $('*[rel=tipsy-left]:not(.drunk)').tipsy({ opacity : 0.85, gravity: 'e' }).addClass('drunk');
             $('*[rel=tipsy-top]:not(.drunk)').tipsy({ opacity : 0.85, gravity: 's' }).addClass('drunk');
             $('*[rel=tipsy-bottom]:not(.drunk)').tipsy({ opacity : 0.85, gravity: 'n' }).addClass('drunk');
-        }
-        else
-        {
+
+        } else {
+
             base.log('NAILS_JS: Tipsy not available.');
         }
     };
@@ -116,12 +116,12 @@ NAILS_JS = function()
      * Initialise any fancybox elements on the page
      * @return {Void}
      */
-    base.initFancybox = function()
-    {
-        if ($.fn.fancybox)
-        {
-            $(document).on('click', '.fancybox', function(e)
-            {
+    base.initFancybox = function() {
+
+        if ($.fn.fancybox) {
+
+            $(document).on('click', '.fancybox', function(e) {
+
                 e.preventDefault();
                 e.stopPropagation();
 
@@ -165,6 +165,7 @@ NAILS_JS = function()
                     }
 
                     href += 'isModal=true';
+
                 } else {
 
                     //  It's an inline fancybox
@@ -186,21 +187,21 @@ NAILS_JS = function()
                             'locked': false
                         }
                     },
-                    'beforeLoad': function()
-                    {
+                    'beforeLoad': function() {
+
                         $('body').addClass('noScroll');
                     },
-                    'afterClose': function()
-                    {
+                    'afterClose': function() {
+
                         $('body').removeClass('noScroll');
                     }
                 });
 
                 return false;
             });
-        }
-        else
-        {
+
+        } else {
+
             base.log('NAILS_JS: Fancybox not available.');
         }
     };
@@ -211,8 +212,8 @@ NAILS_JS = function()
      * Initialise any confirm links or buttons on the page
      * @return {Void}
      */
-    base.initConfirm = function()
-    {
+    base.initConfirm = function() {
+
         var link, body, title;
 
         $(document).on('click', 'a.confirm' , function() {
@@ -241,6 +242,7 @@ NAILS_JS = function()
                 });
 
                 return false;
+
             } else {
 
                 //  No message, just let the event bubble as normal.
@@ -261,7 +263,6 @@ NAILS_JS = function()
             if (!$(this).hasClass('disabled')) {
                 base.switchToTab($(this));
             }
-
             return false;
         });
 
@@ -270,18 +271,15 @@ NAILS_JS = function()
         //  Look for tabs which contain error'd fields
         $('li.tab a').each(function(){
 
-            if ($($(this).data('tab') + ' div.field.error').length)
-            {
+            if ($($(this).data('tab') + ' div.field.error').length) {
                 $(this).addClass('error');
             }
 
-            if ($($(this).data('tab') + ' .system-alert.error').length)
-            {
+            if ($($(this).data('tab') + ' .system-alert.error').length) {
                 $(this).addClass('error');
             }
 
-            if ($($(this).data('tab') + ' .error.show-in-tabs').length)
-            {
+            if ($($(this).data('tab') + ' .error.show-in-tabs').length) {
                 $(this).addClass('error');
             }
         });
@@ -363,61 +361,61 @@ NAILS_JS = function()
      * Initialise any forms on the page
      * @return {Void}
      */
-    base.initForms = function()
-    {
+    base.initForms = function() {
+
         base.addStripes();
         base.processPrefixedInputs();
+    };
 
-        // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+
+    base.initDatePickers = function() {
 
         //  Init any datetime pickers
-        if ($.fn.datepicker)
-        {
+        if ($.fn.datepicker) {
+
             //  Date pickers
-            $('div.field.date input.date').each(function()
-            {
+            $('input.date').each(function() {
+
                 //  Fetch some info which may be available in the data attributes
                 var dateFormat = $(this).data('datepicker-dateformat') || 'yy-mm-dd';
                 var yearRange  = $(this).data('datepicker-yearrange') || 'c-100:c+10';
 
                 //  Instanciate datepicker
-                $(this).datepicker(
-                {
+                $(this).datepicker({
                     'dateFormat': dateFormat,
                     'changeMonth': true,
                     'changeYear': true,
                     'yearRange': yearRange
                 });
             });
-        }
-        else
-        {
+
+        } else {
+
             base.error('NAILS_JS: datepicker not available.');
         }
 
-        if ($.fn.datetimepicker)
-        {
+        if ($.fn.datetimepicker) {
+
             //  Datetime pickers
-            $('div.field.datetime input.datetime').each(function()
-            {
+            $('input.datetime').each(function() {
+
                 //  Fetch some info which may be available in the data attributes
                 var dateFormat = $(this).data('datepicker-dateformat') || 'yy-mm-dd';
                 var timeFormat = $(this).data('datepicker-timeformat') || 'HH:mm:ss';
                 var yearRange  = $(this).data('datepicker-yearrange') || 'c-100:c+10';
 
-                $(this).datetimepicker(
-                {
+                $(this).datetimepicker({
                     'dateFormat': dateFormat,
                     'timeFormat': timeFormat,
                     'changeMonth': true,
                     'changeYear': true,
                     'yearRange': yearRange
                 });
-
             });
-        }
-        else
-        {
+
+        } else {
+
             base.log('NAILS_JS: datetimepicker not available.');
         }
     };
@@ -428,8 +426,8 @@ NAILS_JS = function()
      * Add odd/even stripes to forms on the page
      * @return {Void}
      */
-    base.addStripes = function()
-    {
+    base.addStripes = function() {
+
         $('fieldset,.fieldset').each(function() {
 
             $('div.field', this).removeClass('odd even');
@@ -445,10 +443,10 @@ NAILS_JS = function()
      * Process any prefixed inputs on the page
      * @return {Void}
      */
-    base.processPrefixedInputs = function()
-    {
-        $('input[data-prefix]:not(.nails-prefixed)').each(function()
-        {
+    base.processPrefixedInputs = function() {
+
+        $('input[data-prefix]:not(.nails-prefixed)').each(function()  {
+
             var container = $('<div>').addClass('nails-prefixed').css('width', $(this).css('width'));
             var prefix    = $('<div>').addClass('nails-prefix').html($(this).data('prefix'));
 
@@ -466,10 +464,9 @@ NAILS_JS = function()
      * @param  {String} output The message to write
      * @return {Void}
      */
-    base.log = function(output)
-    {
-        if (window.console && window.ENVIRONMENT !== 'PRODUCTION')
-        {
+    base.log = function(output) {
+
+        if (window.console && window.ENVIRONMENT !== 'PRODUCTION') {
             console.log(output);
         }
     };
@@ -481,10 +478,9 @@ NAILS_JS = function()
      * @param  {String} output The message to write
      * @return {Void}
      */
-    base.error = function(output)
-    {
-        if (window.console && window.ENVIRONMENT !== 'PRODUCTION')
-        {
+    base.error = function(output) {
+
+        if (window.console && window.ENVIRONMENT !== 'PRODUCTION') {
             console.error(output);
         }
     };
@@ -496,10 +492,9 @@ NAILS_JS = function()
      * @param  {String} output The message to write
      * @return {Void}
      */
-    base.warn = function(output)
-    {
-        if (window.console && window.ENVIRONMENT !== 'PRODUCTION')
-        {
+    base.warn = function(output) {
+
+        if (window.console && window.ENVIRONMENT !== 'PRODUCTION') {
             console.warn(output);
         }
     };
