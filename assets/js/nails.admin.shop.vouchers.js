@@ -28,7 +28,7 @@ NAILS_Admin_Shop_Vouchers = function()
                     $(event.target).removeClass('btn-info').addClass('success btn-success');
                     setTimeout(function() {
                         $(event.target).removeClass('success btn-success').addClass('btn-info');
-                    }, 1500)
+                    }, 1500);
                 });
             });
         });
