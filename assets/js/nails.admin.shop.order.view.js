@@ -15,7 +15,9 @@ NAILS_Admin_Shop_Order_View = function()
      */
     base.__construct = function()
     {
-        base.matchColHeights();
+        $(window).resize(function() {
+            base.matchColHeights();
+        }).trigger('resize');
         base.alertCollection();
         base.todo();
     };
@@ -29,15 +31,16 @@ NAILS_Admin_Shop_Order_View = function()
     base.matchColHeights = function()
     {
         var maxHeight = 0;
-        $('.col-3 fieldset').each(function()
-        {
-            if ($(this).outerHeight() > maxHeight)
-            {
-                maxHeight = $(this).outerHeight();
-            }
-        });
+        $('.col-3-container fieldset')
+            .removeAttr('style')
+            .each(function() {
 
-        $('.col-3 fieldset').css({ 'height' : maxHeight });
+                if ($(this).outerHeight() > maxHeight) {
+                    maxHeight = $(this).outerHeight();
+                }
+            });
+
+        $('.col-3-container fieldset').css({'height' : maxHeight});
     };
 
     // --------------------------------------------------------------------------

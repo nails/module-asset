@@ -533,43 +533,20 @@
                 }
             }
         }
-
         &.single {
             .col-3-container {
-                &:after {
-                    display: block;
-                    content: '';
-                    clear: both;
-                }
-
-                .col-3 {
-                    float: left;
-                    width: 33.333%;
-                }
-
                 td.label {
                     font-weight: bold;
                     vertical-align: top;
                 }
-
                 .order-status-container {
                     height: 50%;
                     box-sizing: border-box;
-                    padding-bottom: 0.5em;
-
-                    &:last-of-type {
-                        padding-bottom: 0;
-                    }
-
                     .order-status {
-                        border: 1px solid #CCCCCC;
                         background-color: #EFEFEF;
-                        .rounded(3px);
-                        padding: 1em;
                         text-align: center;
                         height: 100%;
                         box-sizing: border-box;
-
                         h1 {
                             padding: 0.5em;
                             margin: 0;
@@ -578,49 +555,37 @@
                             background: #888888;
                             color: #FFFFFF;
                         }
-
                         &.unpaid,
                         &.abandoned,
                         &.cancelled,
                         &.failed {
-                            border-color: #EBCCD1;
                             color: #A94442;
                             background: #F2DEDE;
-
                             h1 {
                                 background: #A94442;
                                 color: #FFFFFF;
                             }
                         }
-
                         &.paid,
                         &.fulfilled {
-                            border-color: #D6E9C6;
                             color: #3C763D;
                             background: #DFF0D8;
-
                             h1 {
                                 background: #3C763D;
                                 color: #FFFFFF;
                             }
                         }
-
                         &.pending {
-                            border-color: #BCE8F1;
                             color: #31708F;
                             background: #D9EDF7;
-
                             h1 {
                                 background: #31708F;
                                 color: #FFFFFF;
                             }
                         }
-
                         &.unfulfilled {
-                            border-color: #FAEBCC;
                             color: #8A6D3B;
                             background: #FCF8E3;
-
                             h1 {
                                 background: #FAEBCC;
                                 color: #8A6D3B;

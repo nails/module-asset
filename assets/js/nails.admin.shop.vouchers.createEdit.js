@@ -60,6 +60,61 @@ NAILS_Admin_Shop_Vouchers_CreateEdit = function() {
                 $('.datetime1').datetimepicker('option', "maxDate", $('.datetime2').datetimepicker('getDate'));
             }
         });
+
+        // --------------------------------------------------------------------------
+
+        //  Instanciate the ajax select2
+        $('#product-id').select2({
+            placeholder: "Search for a product",
+            minimumInputLength: 3,
+            ajax: {
+                url: window.SITE_URL + 'api/shop/products/search',
+                dataType: 'json',
+                quietMillis: 250,
+                data: function (term) {
+                    return {
+                        keywords: term
+                    };
+                },
+                results: function (data, page) {
+                    var out = {
+                        'results': []
+                    };
+
+                    for (var key in data.results) {
+
+                        out.results.push({
+                            'id': data.results[key].id,
+                            'text': data.results[key].label
+                        });
+                    }
+
+                    return out;
+                },
+                cache: true
+            },
+            initSelection: function(element, callback) {
+
+                var id = $(element).val();
+
+                if (id !== '') {
+
+                    $.ajax({
+                        url: window.SITE_URL + 'api/shop/products/id/' + id,
+                        dataType: 'json'
+                    }).done(function(data) {
+
+                        var out = {
+                            'id': data.product.id,
+                            'text': data.product.label
+                        };
+
+                        callback(out);
+
+                    });
+                }
+            }
+        })
     };
 
     // --------------------------------------------------------------------------
@@ -119,12 +174,23 @@ NAILS_Admin_Shop_Vouchers_CreateEdit = function() {
             case 'SHIPPING':
             case 'ALL':
 
+                $('#no-extended-data').show();
                 $('#application-product_types').hide();
+                $('#application-product').hide();
                 break;
 
             case 'PRODUCT_TYPES':
 
+                $('#no-extended-data').hide();
                 $('#application-product_types').show();
+                $('#application-product').hide();
+                break;
+
+            case 'PRODUCT':
+
+                $('#no-extended-data').hide();
+                $('#application-product_types').hide();
+                $('#application-product').show();
                 break;
         }
 
@@ -140,7 +206,7 @@ NAILS_Admin_Shop_Vouchers_CreateEdit = function() {
     base.hideNoExtendedData = function() {
 
         //  Test if any of the extended views are visible, if so, hide the message
-        if ($('#type-limited:visible, #type-gift_card:visible, #application-product_types:visible').length) {
+        if ($('.extended-data:visible').length) {
 
             $('#no-extended-data').hide();
 
