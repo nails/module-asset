@@ -723,9 +723,9 @@ NAILS_Admin_Blog_Create_Edit = function(mode, initialPublishState)
             if (isSetToPublish) {
 
                 if (publishDate.isAfter(now)) {
-                    this.setSubmitBtnTxt('Schedule Post', 'orange');
+                    this.setSubmitBtnTxt('Schedule Post', 'warning');
                 } else {
-                    this.setSubmitBtnTxt('Publish Now', 'green');
+                    this.setSubmitBtnTxt('Publish Now', 'success');
                 }
 
             } else {
@@ -740,9 +740,9 @@ NAILS_Admin_Blog_Create_Edit = function(mode, initialPublishState)
                 if (isSetToPublish) {
 
                     if (publishDate.isAfter(now)) {
-                        this.setSubmitBtnTxt('Unpublish & Schedule Post', 'orange');
+                        this.setSubmitBtnTxt('Unpublish & Schedule Post', 'warning');
                     } else {
-                        this.setSubmitBtnTxt('Update Post', 'green');
+                        this.setSubmitBtnTxt('Update Post', 'success');
                     }
 
                 } else {
@@ -755,9 +755,9 @@ NAILS_Admin_Blog_Create_Edit = function(mode, initialPublishState)
                 if (isSetToPublish) {
 
                     if (publishDate.isAfter(now)) {
-                        this.setSubmitBtnTxt('Schedule Post', 'orange');
+                        this.setSubmitBtnTxt('Schedule Post', 'warning');
                     } else {
-                        this.setSubmitBtnTxt('Publish Now', 'green');
+                        this.setSubmitBtnTxt('Publish Now', 'success');
                     }
 
                 } else {
@@ -770,9 +770,9 @@ NAILS_Admin_Blog_Create_Edit = function(mode, initialPublishState)
                 if (isSetToPublish) {
 
                     if (publishDate.isAfter(now)) {
-                        this.setSubmitBtnTxt('Schedule Post', 'orange');
+                        this.setSubmitBtnTxt('Schedule Post', 'warning');
                     } else {
-                        this.setSubmitBtnTxt('Publish Now', 'green');
+                        this.setSubmitBtnTxt('Publish Now', 'success');
                     }
 
                 } else {
@@ -785,11 +785,12 @@ NAILS_Admin_Blog_Create_Edit = function(mode, initialPublishState)
 
     // --------------------------------------------------------------------------
 
-    this.setSubmitBtnTxt = function(txt, colour)
+    this.setSubmitBtnTxt = function(txt, context)
     {
+        context = context || 'default';
         $('#btnSubmit')
             .text(txt)
-            .attr('class', 'awesome ' + colour);
+            .attr('class', 'btn btn-' + context);
     };
 
     // --------------------------------------------------------------------------

@@ -37,7 +37,6 @@ NAILS_CDN_Manager = function(handler, callback, passback, urlSchemes, isModal, r
         base.initSubmit();
         base.initAlerts();
         base.initUpload();
-        base.initDelete();
         base.initInsert();
         base.insertSearch();
 
@@ -133,7 +132,7 @@ NAILS_CDN_Manager = function(handler, callback, passback, urlSchemes, isModal, r
      */
     base.initAlerts = function()
     {
-        $('.system-alert .awesome').on('click', function()
+        $('#alert .btn').on('click', function()
         {
             base.hideAlert();
             return false;
@@ -147,13 +146,13 @@ NAILS_CDN_Manager = function(handler, callback, passback, urlSchemes, isModal, r
             //  Enter key
             if (e.keyCode === 13 && $('#alert:visible').length > 0)
             {
-                $('#alert .awesome.ok').first().click();
+                $('#alert .btn.ok').first().click();
             }
 
             //  Escape
             if (e.keyCode === 27 && $('#alert:visible').length > 0)
             {
-                $('#alert .awesome.cancel').first().click();
+                $('#alert .btn.cancel').first().click();
             }
         });
     };
@@ -166,50 +165,6 @@ NAILS_CDN_Manager = function(handler, callback, passback, urlSchemes, isModal, r
      */
     base.initUpload = function()
     {
-    };
-
-    // --------------------------------------------------------------------------
-
-    /**
-     * Bind the confirmation dialog to the delete buttons
-     * @return {void}
-     */
-    base.initDelete = function()
-    {
-        $('a.delete').on('click', function()
-        {
-            var link, message;
-
-            link = $(this);
-
-            message  = '<p>';
-            message += 'Any resources which are using this object will have the reference removed.';
-            message += '</p>';
-            message += '<p>';
-            message += 'Continue?';
-            message += '</p>';
-
-            $('<div>').html(message).dialog({
-                title: 'Are you sure?',
-                resizable: false,
-                draggable: false,
-                modal: true,
-                dialogClass: "no-close",
-                buttons:
-                {
-                    'Delete': function()
-                    {
-                        window.location.href = link.attr('href');
-                    },
-                    'Cancel': function()
-                    {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-
-            return false;
-        });
     };
 
     // --------------------------------------------------------------------------

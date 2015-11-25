@@ -76,17 +76,18 @@ NAILS_Admin_Shop_Vouchers_CreateEdit = function() {
                         keywords: term
                     };
                 },
-                results: function (data, page) {
+                results: function (data) {
                     var out = {
                         'results': []
                     };
 
                     for (var key in data.results) {
-
-                        out.results.push({
-                            'id': data.results[key].id,
-                            'text': data.results[key].label
-                        });
+                        if (data.results.hasOwnProperty(key)) {
+                            out.results.push({
+                                'id': data.results[key].id,
+                                'text': data.results[key].label
+                            });
+                        }
                     }
 
                     return out;
@@ -114,7 +115,7 @@ NAILS_Admin_Shop_Vouchers_CreateEdit = function() {
                     });
                 }
             }
-        })
+        });
     };
 
     // --------------------------------------------------------------------------

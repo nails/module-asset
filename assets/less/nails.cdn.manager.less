@@ -2,20 +2,29 @@
    Nails CDN Module: Manager Styles
 -------------------------------------------------------------- */
 
+// Bootstrap niceness
+// Core variables and mixins
+@import '../bower_components/bootstrap/less/variables.less';
+@import '../bower_components/bootstrap/less/mixins.less';
+
+// Reset and dependencies
+@import '../bower_components/bootstrap/less/normalize.less';
+@import '../bower_components/bootstrap/less/print.less';
+
+// Core CSS
+@import '../bower_components/bootstrap/less/buttons.less';
+@import '../bower_components/bootstrap/less/alerts.less';
+
+// --------------------------------------------------------------------------
+
 @import 'common/variables.less';
 @import 'common/elements.less';
-
-//  Reset & Normalize
-@import 'common/reset.less';
-@import 'common/normalize.less';
-@import 'common/buttons.less';
-@import 'common/system-alerts.less';
 
 // --------------------------------------------------------------------------
 
 //  Manager Variables
-@sidebar-width: 0px;
-@toolbar-height: 30px;
+@toolbar-height: 29px;
+@toolbar-info-height: 16px;
 @padding: 10px;
 @thumb-width: 150px;
 @thumb-height: 175px;
@@ -39,11 +48,8 @@ body {
     -webkit-text-size-adjust: 100%;
 }
 
-a,
-a:visited {
-    color: #333333;
-    text-decoration: underline;
-    outline: 0;
+.btn {
+    text-decoration: none;
 }
 
 ul {
@@ -134,14 +140,13 @@ textarea {
     #alert {
         background: rgba(255,255,255,0.6);
 
-        .system-alert {
+        .alert {
             width: 450px;
             margin: auto;
             margin-top: 100px;
-            .nifty-drop-shadow();
         }
 
-        .awesome {
+        .btn {
             margin-top: 10px;
         }
     }
@@ -177,151 +182,8 @@ textarea {
             }
 
             .files {
-                top: @toolbar-height+30+(2*@padding) + @toolbar-height/2;
+                top: @toolbar-height+@toolbar-info-height+30+(2*@padding);
                 transition: top 0.5s;
-            }
-        }
-
-        .tags {
-            z-index: 1;
-            margin: 0;
-            padding: @padding;
-            background: #FAFAFA;
-            border-right: 1px solid #CCCCCC;
-            position: fixed;
-            left: 11px;
-            top: 11px;
-            bottom: 11px;
-            width: @sidebar-width - (2*@padding);
-
-            .info {
-                margin-bottom: 10px;
-                color: #CCCCCC;
-                text-align: center;
-                padding: 20px;
-                border: 1px dashed transparent;
-                .rounded(3px);
-
-                p {
-                    margin: 0;
-                }
-            }
-            .remove-object-tag {
-                border-color: #CCCCCC;
-            }
-            .remove-object-tag.can-drop {
-                background: #CCCCCC;
-                color: #FFFFFF;
-            }
-            .remove-object-tag.saving {
-                text-indent: -999em;
-                background: url(../img/loader/10px-TRANS.gif) center no-repeat;
-            }
-
-            ul {
-                margin: 0;
-                padding: 0;
-            }
-
-            li.tag {
-                width: @sidebar-width - (2*@padding);
-
-                a.tag {
-                    display: block;
-                    margin: 0;
-                    padding: 5px;
-                    background: #EFEFEF;
-                    position: relative;
-                    margin-right: 10px;
-                    text-decoration: none;
-                    .nifty-drop-shadow();
-                    z-index: 1;
-
-                    .count {
-                        float: right;
-                        display: block;
-                        text-align: center;
-                        background: #EEEEEE;
-                        padding: 0 4px;
-                        font-size: 0.8em;
-                        border: 1px solid #CCCCCC;
-                        .rounded(5px);
-                        min-width: 10px;
-                    }
-                    .count.saving {
-                        text-indent: -999em;
-                        background: #EEEEEE url(../img/loader/10px-TRANS.gif) center no-repeat;
-                    }
-                }
-                a.tag:hover {
-                    background: #DDDDDD;
-                }
-                a.tag:after {
-                    content: ' ';
-                    height: 0;
-                    width: 0;
-                    position: absolute;
-                    right: -14px;
-                    top: 0;
-                    border-style: solid;
-                    border-width: 14px 0 14px 14px;
-                    border-color: transparent transparent transparent #EFEFEF;
-                }
-                a.tag:hover:after {
-                    border-color: transparent transparent transparent #DDDDDD;
-                }
-
-                a.delete-tag {
-                    float: left;
-                    display: block;
-                    width: 16px;
-                    height: 16px;
-                    position: relative;
-                    z-index: 2;
-                    margin-right: 10px;
-                    top: 5px;
-                    left: 3px;
-                    background: url(../img/buttons/sprite-remove-add.png) left bottom no-repeat;
-                }
-                a.delete-tag:hover {
-                    background-position-y: middle;
-                }
-                a.delete-tag:active {
-                    background-position-y: top;
-                }
-            }
-            .tag.can-drop {
-                a.tag {
-                    background: lightgreen !important;
-                }
-                a.tag:after {
-                    border-color: transparent transparent transparent lightgreen !important;
-                }
-            }
-            .tag.selected {
-                width: @sidebar-width - 5;
-                font-weight: bold;
-
-                a.tag {
-                    background: #CCCCCC;
-                }
-                a.tag:after {
-                    border-color: transparent transparent transparent #CCCCCC;
-                }
-            }
-
-            .new-tag {
-                margin-top: 20px;
-                position: relative;
-
-                input[type=text] {
-                    width: @sidebar-width - 73px;
-                }
-                input[type=submit] {
-                    position: absolute;
-                    right: -7px;
-                    top: 4px;
-                }
             }
         }
 
@@ -333,10 +195,12 @@ textarea {
             background: #FCFCFC;
             top: 11px;
             right: 11px;
-            left: @sidebar-width+12;
+            left: 12px;
             height: @toolbar-height;
             border-bottom: 1px dashed #CCCCCC;
-
+            .btn {
+                margin-right: 1em;
+            }
             .search {
                 position: absolute;
                 right: 10px;
@@ -348,33 +212,27 @@ textarea {
         .bucket-info {
             z-index: 2;
             margin: 0;
-            padding: 3px @padding;
+            padding: 4px 6px;
             position: fixed;
             background: #FCFCFC;
             top: @toolbar-height + 32;
             right: 11px;
-            left: @sidebar-width+12;
-            height: @toolbar-height/2;
-            line-height: @toolbar-height/2;
+            left: 12px;
+            height: @toolbar-info-height;
+            line-height: 15px;
             font-size: 0.8em;
             border-bottom: 1px solid #EEEEEE;
         }
 
         .bucket-info {
             .view-swap {
-                position: absolute;
-                right: 3px;
-                top: 3px;
-                width: auto;
-                font-size: 0.8em;
+                float:right;
                 a {
-                    display: block;
-                    float: right;
+                    display: inline-block;
                     width: 16px;
                     height: 16px;
                     text-indent: -999em;
                     margin-left: 5px;
-                    margin-right: 5px;
                     position: relative;
                     background-repeat: no-repeat;
                     background-position-y: 0;
@@ -426,7 +284,7 @@ textarea {
             top: @toolbar-height+23+(2*@padding);
             bottom: 0;
             right: 0;
-            left: @sidebar-width+1;
+            left: 1px;
             transition: top 0.5s;
 
             .no-files {
@@ -616,14 +474,6 @@ textarea {
                     width: 165px;
                     border-right: none;
                     text-align: center;
-
-                    .awesome {
-                        margin-bottom: 5px;
-                    }
-
-                    .awesome:last-of-type {
-                        margin-bottom: 0;
-                    }
                 }
             }
 
@@ -658,7 +508,7 @@ textarea {
             color: #666666;
             padding-top: 10px;
         }
-        .system-alert.error {
+        .alert.error {
             width: 50%;
             margin: auto;
             color: #CC0000;
@@ -702,7 +552,7 @@ textarea {
 
         .bucket-info,
         .progress {
-            left: @sidebar-width + 2px;
+            left: 2px;
             top: 51px;
             right: 1px;
         }
@@ -711,14 +561,6 @@ textarea {
             top: 73px;
         }
 
-        .tags {
-            left: 1px;
-            bottom: 1px;
-
-            .info {
-                margin-top: @toolbar-height + @padding;
-            }
-        }
     }
 }
 
@@ -736,7 +578,7 @@ textarea {
         }
     }
 
-    .system-alert {
+    .alert {
         margin: 0;
         margin-top: 1em;
     }
