@@ -7,7 +7,6 @@ NAILS_Admin_Blog_Settings = function()
         this._init_chooser();
         this._init_comments();
         this._init_social();
-        this._init_skins();
 
         // --------------------------------------------------------------------------
 
@@ -15,9 +14,7 @@ NAILS_Admin_Blog_Settings = function()
         this._comment_engine_change();
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._init_chooser = function()
     {
@@ -59,9 +56,7 @@ NAILS_Admin_Blog_Settings = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._init_comments = function()
     {
@@ -73,9 +68,7 @@ NAILS_Admin_Blog_Settings = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._comment_engine_change = function()
     {
@@ -99,9 +92,7 @@ NAILS_Admin_Blog_Settings = function()
         }
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._init_social = function()
     {
@@ -161,9 +152,7 @@ NAILS_Admin_Blog_Settings = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._social_service_change = function(service, enabled)
     {
@@ -220,9 +209,7 @@ NAILS_Admin_Blog_Settings = function()
         }
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._social_layout_change = function(layout)
     {
@@ -240,23 +227,7 @@ NAILS_Admin_Blog_Settings = function()
         _nails.addStripes();
     };
 
-
     // --------------------------------------------------------------------------
-
-
-    this._init_skins = function()
-    {
-        $('ul.skins li.skin').on('click', function()
-        {
-            $('ul.skins li.skin').removeClass('selected');
-            $(this).addClass('selected');
-            $(this).find('input[type=radio]').prop('checked', true);
-        });
-    };
-
-
-    // --------------------------------------------------------------------------
-
 
     return this.__construct();
 }();
