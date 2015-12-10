@@ -11,9 +11,7 @@ NAILS_Admin_Shop_Settings = function()
         this.initAdds();
         this.initSubmits();
         this.initWarehouseCollection();
-        this.initSkins();
         this.initPaymentGateways();
-        this.initShipping();
 
         // --------------------------------------------------------------------------
 
@@ -40,7 +38,6 @@ NAILS_Admin_Shop_Settings = function()
 
     // --------------------------------------------------------------------------
 
-
     this.initSortable = function()
     {
         var _this = this;
@@ -53,9 +50,7 @@ NAILS_Admin_Shop_Settings = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this.initDelete = function()
     {
@@ -101,9 +96,7 @@ NAILS_Admin_Shop_Settings = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this.initAdds = function()
     {
@@ -135,9 +128,7 @@ NAILS_Admin_Shop_Settings = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this.initWarehouseCollection = function()
     {
@@ -155,9 +146,7 @@ NAILS_Admin_Shop_Settings = function()
         });
     };
 
-
     // --------------------------------------------------------------------------
-
 
     this._set_order_ship = function()
     {
@@ -171,13 +160,6 @@ NAILS_Admin_Shop_Settings = function()
     };
 
     // --------------------------------------------------------------------------
-
-
-
-
-
-    // --------------------------------------------------------------------------
-
 
     this.initSubmits = function()
     {
@@ -301,51 +283,6 @@ NAILS_Admin_Shop_Settings = function()
     };
 
     // --------------------------------------------------------------------------
-
-    this.initSkins = function()
-    {
-        $('#tab-skin-foh ul.skins li.skin').on('click', function()
-        {
-            $('#tab-skin-foh ul.skins li.skin').removeClass('selected');
-            $(this).addClass('selected');
-            $(this).find('input[type=radio]').prop('checked', true);
-        });
-
-        $('#tab-skin-checkout ul.skins li.skin').on('click', function()
-        {
-            $('#tab-skin-checkout ul.skins li.skin').removeClass('selected');
-            $(this).addClass('selected');
-            $(this).find('input[type=radio]').prop('checked', true);
-        });
-    };
-
-
-    // --------------------------------------------------------------------------
-
-
-    this.initShipping = function()
-    {
-        $('#shipping-modules .enabled').each(function()
-        {
-            var _toggle     = $(this).find('.toggle');
-            var _checkbox   = $(this).find('input[type=checkbox]');
-
-            _toggle.css({
-                width:  '100px',
-                height: '30px'
-            });
-
-            _toggle.toggles({
-                checkbox : _checkbox,
-                on : _checkbox.is(':checked'),
-            });
-
-        });
-    };
-
-
-    // --------------------------------------------------------------------------
-
 
     this.initPaymentGateways = function()
     {
