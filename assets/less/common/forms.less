@@ -71,11 +71,7 @@ fieldset {
             margin-bottom: 0;
         }
     }
-    > p,
-    > .alert,
-    > .alert,
-    > .padded,
-    > ul {
+    > p, > .alert, > .alert, > .padded, > ul {
         margin: 1em;
         & + & {
             margin-top: 0;
@@ -272,40 +268,6 @@ div.field {
         top: 7px;
     }
 
-    .mm-file-container,
-    .mm-image-container {
-        float: left;
-        margin-left: 0 !important;
-
-        .mm-file-download,
-        .mm-file-remove {
-            display: block;
-            margin-top: 7px;
-        }
-    }
-
-    .mm-image-preview {
-        padding: 5px;
-        border: 1px solid #CCCCCC;
-        margin-right: 10px;
-        width: 98px;
-        height: 98px;
-        display: block;
-        float: left;
-        background: url(../img/backgrounds/faux-transparency.png);
-        .rounded(3px);
-        text-align: center;
-
-        img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-    }
-
-    .mm-image-remove {
-        margin-top: 10px;
-        display: none;
-    }
 
     &:after {
         position: relative;
@@ -408,8 +370,7 @@ div.field {
         }
     }
 
-    &.radio,
-    &.mm-image {
+    &.radio {
         label {
             &:after {
                 clear: left;
@@ -592,9 +553,6 @@ div.field {
                 color: #B52130;
             }
         }
-        .mm-image-preview {
-            border-color: #B52130;
-        }
     }
     &.submit {
         .label {
@@ -698,18 +656,6 @@ select {
                     padding-right: 0;
                     .tip {
                         top: -35px;
-                    }
-                }
-            }
-        }
-        &.mm-file,
-        &.mm-image {
-            span {
-                &.input {
-                    &.with-tip {
-                        .tip {
-                            top: 8px;
-                        }
                     }
                 }
             }
