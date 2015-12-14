@@ -1,12 +1,14 @@
-/* globals ko, console, _nails_api */
+/* globals ko, console, _nails_api, moment */
 /* exported invoiceEdit*/
 var invoiceEdit = function(units, taxes, items) {
+
+    var base, key;
 
     /**
      * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
      * @type {Object}
      */
-    var base = this;
+    base = this;
 
     // --------------------------------------------------------------------------
 
@@ -16,7 +18,7 @@ var invoiceEdit = function(units, taxes, items) {
      */
 
     base.units = ko.observableArray();
-    for (var key in units) {
+    for (key in units) {
         if (units.hasOwnProperty(key)) {
             base.units.push({
                 'slug': key,
@@ -31,7 +33,19 @@ var invoiceEdit = function(units, taxes, items) {
      * The taxes available
      * @type {observableArray}
      */
-    base.taxes = ko.observableArray(taxes);
+    base.taxes = ko.observableArray([{
+        'id': '',
+        'label': 'No Tax - 0%',
+    }]);
+    for (key in taxes) {
+        if (taxes.hasOwnProperty(key)) {
+            base.taxes.push({
+                'id': taxes[key].id,
+                'rate': taxes[key].rate,
+                'label': taxes[key].label + ' - ' + taxes[key].rate + '%'
+            });
+        }
+    }
 
     // --------------------------------------------------------------------------
 
@@ -39,7 +53,39 @@ var invoiceEdit = function(units, taxes, items) {
      * The items attached to this invoice
      * @type {observableArray}
      */
-    base.items = ko.observableArray(items);
+    base.items = ko.observableArray();
+    for (key in items) {
+        if (items.hasOwnProperty(key)) {
+            items[key].quantity  = ko.observable(items[key].quantity);
+            items[key].unit_cost = ko.observable(items[key].unit_cost);
+            items[key].tax_id    = ko.observable(items[key].tax_id);
+            base.items.push(items[key]);
+        }
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * The invoice's state
+     * @type {Observable}
+     */
+    base.state = ko.observable('');
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * When the invoice is dated
+     * @type {Observable}
+     */
+    base.dated = ko.observable('');
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * the invoices terms
+     * @type {Observable}
+     */
+    base.terms = ko.observable('');
 
     // --------------------------------------------------------------------------
 
@@ -47,12 +93,12 @@ var invoiceEdit = function(units, taxes, items) {
     {
         var item = {
             'id': null,
-            'quantity': null,
+            'quantity': ko.observable(1),
             'unit': null,
             'label': '',
             'body': '',
-            'price': null,
-            'tax': null
+            'unit_cost': ko.observable(null),
+            'tax_id': ko.observable(null)
         };
 
         base.items.push(item);
@@ -69,33 +115,144 @@ var invoiceEdit = function(units, taxes, items) {
 
     base.moveUp = function()
     {
-        base.warn('@todo: move item up the list');
+        var i = base.items.indexOf(this);
+        if (i >= 1) {
+            var array = base.items();
+            base.items.splice(i-1, 2, array[i], array[i-1]);
+        }
     };
 
     // --------------------------------------------------------------------------
 
     base.moveDown = function()
     {
-        base.warn('@todo: move item down the list');
+        var i = base.items().indexOf(this);
+        if (i < base.items().length - 1) {
+            var rawNumbers = base.items();
+            base.items.splice(i, 2, rawNumbers[i + 1], rawNumbers[i]);
+        }
     };
 
     // --------------------------------------------------------------------------
 
-    base.generateRef = function(thisClass, event)
-    {
-        $(event.currentTarget).addClass('loading');
-        var call = {
-            'controller': 'invoice/invoice',
-            'method': 'generateRef',
-            'success': function(data) {
-                $('#invoice-ref').val(data.ref);
-                $(event.currentTarget).removeClass('loading');
-            }
-        };
+    base.submitText = ko.computed(function() {
 
-        _nails_api.call(call);
+        if (base.state() === 'DRAFT') {
+
+            return 'Save Draft';
+
+        } else {
+
+            var dated = moment(base.dated(), 'YYYY-MM-DD');
+
+            if (dated.isAfter()) {
+
+                return 'Schedule to Send';
+
+            } else {
+
+                return 'Send Now';
+            }
+        }
+    });
+
+    // --------------------------------------------------------------------------
+
+    base.submitClass = ko.computed(function() {
+
+        if (base.state() === 'DRAFT') {
+
+            return 'btn btn-primary';
+
+        } else {
+
+            var dated = moment(base.dated(), 'YYYY-MM-DD');
+
+            if (dated.isAfter()) {
+
+                return 'btn btn-warning';
+
+            } else {
+
+                return 'btn btn-success';
+            }
+        }
+    });
+
+    // --------------------------------------------------------------------------
+
+    base.stateChanged = function() {
+        base.state($('#invoice-state').val());
     };
 
+    // --------------------------------------------------------------------------
+
+    base.dateChanged = function() {
+        base.dated($('#invoice-dated').val());
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.termsChanged = function() {
+        base.terms(parseInt($('#invoice-terms').val(), 10));
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.termsText = function() {
+        var str;
+        if (!base.terms()) {
+            str = 'receipt';
+        } else {
+            var dueDate = moment(base.dated(), 'YYYY-MM-DD');
+            dueDate.add(base.terms(), 'd');
+            str = dueDate.format('MMM Do, YYYY');
+        }
+        return 'Invoice will be due on <strong>' + str + '</strong>';
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.calculateSubTotal = ko.computed(function() {
+
+        var total = 0;
+
+        for (var i = base.items().length - 1; i >= 0; i--) {
+            total += base.items()[i].quantity() * base.items()[i].unit_cost();
+        }
+
+        return total;
+    });
+
+    // --------------------------------------------------------------------------
+
+    base.calculateTax = ko.computed(function() {
+
+        var total = 0;
+
+        for (var i = base.items().length - 1; i >= 0; i--) {
+            if (base.items()[i].tax_id()) {
+                for (var x = base.taxes().length - 1; x >= 0; x--) {
+                    if (base.taxes()[x].id === base.items()[i].tax_id()) {
+                        total += base.items()[i].quantity() * base.items()[i].unit_cost() * (base.taxes()[x].rate/100);
+                    }
+                }
+            }
+        }
+
+        return total;
+    });
+
+    // --------------------------------------------------------------------------
+
+    base.calculateGrandTotal = ko.computed(function() {
+
+        var total = 0;
+        total += base.calculateSubTotal();
+        total += base.calculateTax();
+
+        return total;
+    });
 
     // --------------------------------------------------------------------------
 

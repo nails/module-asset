@@ -42,9 +42,6 @@ NAILS_JS = function() {
         base.initTabs();
         base.initForms();
         base.initDatePickers();
-
-        //  @todo bundle this with auth
-        base.initUserSearch();
     };
 
     // --------------------------------------------------------------------------
@@ -457,64 +454,6 @@ NAILS_JS = function() {
             $(this).clone(true).addClass('nails-prefixed').appendTo(container);
 
             $(this).replaceWith(container);
-        });
-    };
-
-    // --------------------------------------------------------------------------
-
-    base.initUserSearch = function() {
-
-        $('input.user-search').select2({
-            placeholder: "Search for a user",
-            minimumInputLength: 3,
-            ajax: {
-                url: window.SITE_URL + 'api/auth/user/search',
-                dataType: 'json',
-                quietMillis: 250,
-                data: function (term) {
-                    return {
-                        keywords: term
-                    };
-                },
-                results: function (data) {
-                    var out = {
-                        'results': []
-                    };
-
-                    for (var key in data.data) {
-                        if (data.data.hasOwnProperty(key)) {
-                            out.data.push({
-                                'id': data.data[key].id,
-                                'text': data.data[key].label
-                            });
-                        }
-                    }
-
-                    return out;
-                },
-                cache: true
-            },
-            initSelection: function(element, callback) {
-
-                var id = $(element).val();
-
-                if (id !== '') {
-
-                    $.ajax({
-                        url: window.SITE_URL + 'api/auth/user/id/' + id,
-                        dataType: 'json'
-                    }).done(function(data) {
-
-                        var out = {
-                            'id': data.data.id,
-                            'text': data.data.label
-                        };
-
-                        callback(out);
-
-                    });
-                }
-            }
         });
     };
 
