@@ -18,47 +18,54 @@ NAILS_Forms = function()
     base.activeArea = null;
     base.initWidgetEditors = function()
     {
-        //  Set up an instance of the widget editor
-        base.widgetEditor = new NAILS_Admin_CMS_WidgetEditor();
+        if (typeof NAILS_Admin_CMS_WidgetEditor === 'function') {
 
-        //  Populate the editor with existing areas
-        $('.field.cms-widgets .open-editor').each(function() {
+            //  Set up an instance of the widget editor
+            base.widgetEditor = new NAILS_Admin_CMS_WidgetEditor();
 
-            //  Look for the associated input
-            var key   = $(this).data('key');
-            var input = $(this).siblings('input.widget-data');
+            //  Populate the editor with existing areas
+            $('.field.cms-widgets .open-editor').each(function() {
 
-            if (input.length) {
+                //  Look for the associated input
+                var key   = $(this).data('key');
+                var input = $(this).siblings('input.widget-data');
 
-                try {
+                if (input.length) {
 
-                    var widgetData = JSON.parse(input.val());
-                    base.widgetEditor.setAreaData(key, widgetData);
+                    try {
 
-                } catch (e) {}
-            }
-        });
+                        var widgetData = JSON.parse(input.val());
+                        base.widgetEditor.setAreaData(key, widgetData);
 
-        //  Bind to the thigns
-        $(document).on('click', '.field.cms-widgets .open-editor', function() {
-            base.activeArea = $(this);
-            base.log('Opening Editor for area: ' + base.activeArea.data('key'));
-            base.widgetEditor.show(base.activeArea.data('key'));
-            return false;
-        });
+                    } catch (e) {}
+                }
+            });
 
-        $(base.widgetEditor).on('widgeteditor-close', function()
-        {
-            base.log('Editor Closing, getting area data and saving to input');
-            var data  = base.widgetEditor.getAreaData(base.activeArea.data('key'));
-            var input = base.activeArea.siblings('input.widget-data');
+            //  Bind to the thigns
+            $(document).on('click', '.field.cms-widgets .open-editor', function() {
+                base.activeArea = $(this);
+                base.log('Opening Editor for area: ' + base.activeArea.data('key'));
+                base.widgetEditor.show(base.activeArea.data('key'));
+                return false;
+            });
 
-            if (input.length) {
-                input.val(JSON.stringify(data));
-            }
+            $(base.widgetEditor).on('widgeteditor-close', function()
+            {
+                base.log('Editor Closing, getting area data and saving to input');
+                var data  = base.widgetEditor.getAreaData(base.activeArea.data('key'));
+                var input = base.activeArea.siblings('input.widget-data');
 
-            base.activeArea = null;
-        });
+                if (input.length) {
+                    input.val(JSON.stringify(data));
+                }
+
+                base.activeArea = null;
+            });
+
+        } else {
+
+            $('.field.cms-widgets .open-editor').addClass('disabled').after('<p class="alert alert-warning">Module nailsapp/module-cms is not available</p>');
+        }
     };
 
     // --------------------------------------------------------------------------
