@@ -1,17 +1,14 @@
 /* --------------------------------------------------------------
    Tables
 -------------------------------------------------------------- */
-
 @table_th_padding_top: 5px;
 @table_th_padding_right: 10px;
 @table_th_padding_bottom: 5px;
 @table_th_padding_left: 10px;
-
 @table_td_padding_top: 8px;
 @table_td_padding_right: 10px;
 @table_td_padding_bottom: 8px;
 @table_td_padding_left: 10px;
-
 table {
     width: 100%;
     border: 1px solid #EFEFEF;
@@ -28,13 +25,11 @@ table {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-
                 img {
                     float: none !important;
                     padding: 0 0 1px 4px !important;
                     vertical-align: baseline;
                 }
-
                 a {
                     &:link,
                     &:vsited {
@@ -42,7 +37,6 @@ table {
                         color: inherit;
                     }
                 }
-
                 &.user,
                 &.date,
                 &.datetime,
@@ -50,11 +44,9 @@ table {
                 &.boolean {
                     text-align: center;
                 }
-
                 &.user {
                     width: 200px;
                 }
-
                 &.date,
                 &.datetime {
                     width: 150px;
@@ -62,7 +54,6 @@ table {
             }
         }
     }
-
     tbody {
         tr {
             td {
@@ -71,22 +62,18 @@ table {
                 border-right: 1px solid #EFEFEF;
                 vertical-align: middle;
                 padding: @table_td_padding_top @table_td_padding_right @table_td_padding_bottom @table_td_padding_left;
-
                 &:last-of-type {
                     border-right: 0;
                 }
-
                 &.action:empty:before,
                 &.actions:empty:before {
                     content: 'No Actions';
                     color: #CCCCCC;
                 }
-
                 small {
                     display: block;
                     line-height: 1.75em;
                 }
-
                 a {
                     &:not(.btn) {
                         &:link,
@@ -105,59 +92,48 @@ table {
                         }
                     }
                 }
-
                 ul {
                     list-style: circle;
                     margin-left: 12px;
-
                     li {
                         margin: 0;
                     }
                 }
-
                 input[type=text],
                 input[type=email],
                 input[type=password] {
                     margin-bottom: 0;
                 }
-
                 .no-data,
                 .blank {
                     color: #CCCCCC;
                 }
-
-                &.error {
-                    background: @error !important;
-                    color: @error_colour !important;
+                &.danger {
+                    background: @color-danger-background !important;
+                    color: @color-danger-text !important;
                 }
-
                 &.success {
-                    background: @success !important;
-                    color: @success_colour !important;
+                    background: @color-success-background !important;
+                    color: @color-success-text !important;
                 }
-
-                &.notice {
-                    background: @notice !important;
-                    color: @notice_colour !important;
+                &.info {
+                    background: @color-info-background !important;
+                    color: @color-info-text !important;
                 }
-
-                &.message {
-                    background: @message !important;
-                    color: @message_colour !important;
+                &.warning {
+                    background: @color-warning-background !important;
+                    color: @color-warning-text !important;
                 }
-
                 &.no-data {
                     height: 75px;
                     text-align: center;
                     color: #AAAAAA;
                     text-transform: uppercase;
                 }
-
                 &.user-cell {
                     position: relative;
                     min-width: 200px;
                     min-height: 35px;
-
                     img {
                         position: absolute;
                         left: @table_td_padding_left;
@@ -169,25 +145,20 @@ table {
                         .rounded(3px);
                         margin-top: 5px;
                     }
-
                     span {
                         &.user-data {
-                            margin-left: 35px+@table_td_padding_left+5px;
+                            margin-left: 35px + @table_td_padding_left + 5px;
                             display: block;
                         }
                     }
                 }
-
                 &.datetime {
                     min-width: 150px;
                 }
-
                 &.boolean {
                     text-align: center;
                     min-width: 70px;
                 }
-
-
                 &.user-cell,
                 &.datetime {
                     &.no-data {
@@ -196,7 +167,6 @@ table {
                         text-align: left;
                     }
                 }
-
                 &.indentosaurus {
                     position: relative;
                     .indentor {
@@ -208,7 +178,7 @@ table {
                         width: 7px;
                         .rounded(7px);
                         background: #FFFFFF;
-                        border: 1px solid #CCC;
+                        border: 1px solid #CCCCCC;
                         &:nth-child(2) {
                             top: 24px;
                         }
@@ -223,7 +193,7 @@ table {
                         &:nth-child(7),
                         &:nth-child(8) {
                             top: 40px;
-                            background: #CCC;
+                            background: #CCCCCC;
                         }
                     }
                     &.indented {
@@ -232,10 +202,8 @@ table {
                         }
                     }
                 }
-
                 &.actions {
                     text-align: center;
-
                     a.awesome {
                         &:last-of-type {
                             margin-right: 0;
@@ -243,63 +211,52 @@ table {
                     }
                 }
             }
-
-            &.error {
+            &.danger {
                 td {
-                    background: @error !important;
-                    color: @error_colour !important;
+                    background: @color-danger-background !important;
+                    color: @color-danger-text !important;
                 }
             }
-
             &.success {
                 td {
-                    background: @success !important;
-                    color: @success_colour !important;
+                    background: @color-success-background !important;
+                    color: @color-success-text !important;
                 }
             }
-
-            &.notice {
+            &.info {
                 td {
-                    background: @notice !important;
-                    color: @notice_colour !important;
+                    background: @color-info-background !important;
+                    color: @color-info-text !important;
                 }
             }
-
-            &.message {
+            &.warning {
                 td {
-                    background: @message !important;
-                    color: @message_colour !important;
+                    background: @color-warning-background !important;
+                    color: @color-warning-text !important;
                 }
             }
-
             &:hover {
                 td {
                     background: #F6F6F6;
-
-                    &.error {
-                        background: @error !important;
+                    &.danger {
+                        background: @color-danger-background !important;
                     }
-
                     &.success {
-                        background: @success !important;
+                        background: @color-success-background !important;
                     }
-
-                    &.notice {
-                        background: @notice !important;
+                    &.info {
+                        background: @color-info-background !important;
                     }
-
-                    &.message {
-                        background: @message !important;
+                    &.warning {
+                        background: @color-warning-background !important;
                     }
                 }
             }
-
             &:last-child {
                 td {
                     border-bottom: 0 !important;
                 }
             }
-
             &:nth-child(even) {
                 td {
                     background: #F9F9F9;

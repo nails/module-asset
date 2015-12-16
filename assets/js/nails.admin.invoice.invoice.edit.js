@@ -1,4 +1,4 @@
-/* globals ko, console, _nails_api, moment */
+/* globals ko, console, moment */
 /* exported invoiceEdit*/
 var invoiceEdit = function(units, taxes, items) {
 
