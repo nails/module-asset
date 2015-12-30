@@ -1,4 +1,4 @@
-/* globals NAILS_Admin_CMS_WidgetEditor, console */
+/* globals NAILS_Admin_CMS_WidgetEditor, console, Mustache */
 var NAILS_Forms;
 NAILS_Forms = function()
 {
@@ -10,6 +10,9 @@ NAILS_Forms = function()
     {
         //  @todo: move into the CMS module
         base.initWidgetEditors();
+
+        //  @todo: move into CDN module
+        base.initMultiFiles();
     };
 
     // --------------------------------------------------------------------------
@@ -66,6 +69,147 @@ NAILS_Forms = function()
 
             $('.field.cms-widgets .open-editor').addClass('disabled').after('<p class="alert alert-warning">Module nailsapp/module-cms is not available</p>');
         }
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.initMultiFiles = function() {
+
+        //  Add new rows to the picker
+        $(document).on('click', '.js-cdn-multi-action-add', function() {
+
+            base.log('MultiFile: Adding Row');
+
+            var _parent   = $(this).closest('.field');
+            var _existing = _parent.data('items') || [];
+
+            var newItem = {
+                'id': null,
+                'object_id': null,
+                'label': null
+            };
+
+            _existing.push(newItem);
+            _parent.data('items', _existing);
+
+            base.renderMultFiles(_parent, _existing);
+
+            return false;
+        });
+
+        //  Remove a row from the picker
+        $(document).on('click', '.js-cdn-multi-action-remove', function() {
+
+            base.log('MultiFile: Removing Row');
+
+            var _removeIndex = $(this).data('index');
+            var _parent      = $(this).closest('.field');
+            var _existing    = _parent.data('items') || [];
+            var _newItems    = [];
+
+            for (var i = 0; i < _existing.length; i++) {
+
+                if (i !== _removeIndex) {
+                    _newItems.push(_existing[i]);
+                }
+            }
+
+            base.renderMultFiles(_parent, _newItems);
+            _parent.data('items', _newItems);
+
+            return false;
+        });
+
+        //  Apply listeners to any existing multifile
+        $('.field.cdn-multi').each(function() {
+
+            var _defaults = $(this).data('defaults');
+            $(this).data('items', _defaults);
+
+            //  CDN Picker
+            $(this).find('.cdn-object-picker').on('picked', function() {
+                base.multiCdnPicked($(this));
+            });
+
+            //  Label
+            $(this).find('.js-label').on('keyup', function() {
+                base.multiLabelChanged($(this));
+            });
+        });
+    };
+
+    base.renderMultFiles = function(element, items) {
+
+        base.log('MultiFile: Rendering', items);
+
+        var _target = element.find('.js-row-target');
+        var _tpl    = element.children('.js-row-tpl').html();
+        var _render = '';
+
+        _target.empty();
+
+        for (var i = 0; i < items.length; i++) {
+
+            //  Prepare the object
+            items[i].index = i;
+
+            //  Render the HTML
+            _render = Mustache.render(_tpl, items[i]);
+
+            //  Apply listeners
+            _render = $(_render);
+            _render.find('.cdn-object-picker').on('picked', function() {
+                base.multiCdnPicked($(this));
+            });
+            _render.find('.js-label').on('keyup', function() {
+                base.multiLabelChanged($(this));
+            });
+
+            //  Add to the target
+            _target.append(_render);
+        }
+
+        //  Init the CDN Pickers
+        _CDN_OBJECTPICKER.initPickers();
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.multiCdnPicked = function(element) {
+
+        var _updateIndex = element.data('index');
+        var _parent      = element.closest('.field');
+        var _existing    = _parent.data('items') || [];
+
+        for (var i = 0; i < _existing.length; i++) {
+            if (i === _updateIndex) {
+                base.log('Updating object ID to ' + element.find('.cdn-object-picker__input').val());
+                base.log('At index: ' + _updateIndex);
+                _existing[i].object_id = parseInt(element.find('.cdn-object-picker__input').val(), 10) || null;
+                break;
+            }
+        }
+
+        _parent.data('items', _existing);
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.multiLabelChanged = function(element) {
+
+        var _updateIndex = element.data('index');
+        var _parent      = element.closest('.field');
+        var _existing    = _parent.data('items') || [];
+
+        for (var i = 0; i < _existing.length; i++) {
+            if (i === _updateIndex) {
+                base.log('Updating label');
+                _existing[i].label = element.val();
+                break;
+            }
+        }
+
+        _parent.data('items', _existing);
     };
 
     // --------------------------------------------------------------------------

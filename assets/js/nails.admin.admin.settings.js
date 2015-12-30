@@ -52,7 +52,6 @@ NAILS_Admin_Admin_Settings = function()
         var message;
         $('#settings-form').on('submit', function() {
 
-            console.log('boom', base.allowFormSubmit);
             if (!base.allowFormSubmit) {
 
                 message  = 'You are about to enable maintenance mode.<br /><br />If you have not whitelisted your ';
