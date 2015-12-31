@@ -350,14 +350,16 @@ div.field {
         }
 
         .input {
-            &:before {
-                font-family: FontAwesome;
-                content: '\f023';
-                display: block;
-                position: absolute;
-                font-size: 1.4em;
-                left: 9px;
-                top: 3px;
+            .alert {
+                &:before {
+                    font-family: FontAwesome;
+                    content: '\f023';
+                    display: block;
+                    position: absolute;
+                    font-size: 1.4em;
+                    left: 9px;
+                    top: 3px;
+                }
             }
         }
 
@@ -530,27 +532,30 @@ div.field {
 
     &.error {
         span.input {
-            input[type=text],
-            input[type=password],
-            input[type=email],
-            input[type=number],
-            input[type=url],
-            textarea {
+            input,
+            textarea,
+            select,
+            .select2-container {
                 border: 1px solid #B52130;
+            }
+            .select2-container {
+                input {
+                    border: none;
+                }
+            }
+            .alert {
                 padding-left: 30px;
-            }
-            select {
-                border: 1px solid #B52130;
-            }
-            &:before {
-                font-family: FontAwesome;
-                content: '\f06a';
-                display: block;
-                position: absolute;
-                font-size: 1.4em;
-                left: 5px;
-                top: 3px;
-                color: #B52130;
+                position: relative;
+                &:before {
+                    font-family: FontAwesome;
+                    content: '\f06a';
+                    display: block;
+                    position: absolute;
+                    font-size: 1.4em;
+                    left: 8px;
+                    top: 8px;
+                    color: #B52130;
+                }
             }
         }
     }
