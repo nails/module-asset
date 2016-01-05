@@ -177,6 +177,28 @@ textarea.ckeditor {
     }
 }
 
+@-webkit-keyframes search-spin {
+    0% {
+        -webkit-transform: translateY(-50%) rotate(0deg);
+        transform: translateY(-50%) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-50%) rotate(359deg);
+        transform: translateY(-50%) rotate(359deg);
+    }
+}
+
+@keyframes search-spin {
+    0% {
+        -webkit-transform: translateY(-50%) rotate(0deg);
+        transform: translateY(-50%) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translateY(-50%) rotate(359deg);
+        transform: translateY(-50%) rotate(359deg);
+    }
+}
+
 /* --------------------------------------------------------------
    Pagination
 -------------------------------------------------------------- */
@@ -267,24 +289,24 @@ hr {
     font-size: 1.2em;
 }
 
-@-webkit-keyframes search-spin {
-    0% {
-        -webkit-transform: translateY(-50%) rotate(0deg);
-        transform: translateY(-50%) rotate(0deg);
+/* --------------------------------------------------------------
+   Fancybox, blurred background
+-------------------------------------------------------------- */
+
+body {
+    > .header,
+    > .sidebar,
+    > .content,
+    > .background {
+        transition: 0.25s filter linear;
     }
-    100% {
-        -webkit-transform: translateY(-50%) rotate(359deg);
-        transform: translateY(-50%) rotate(359deg);
+    &.modal-open {
+        > .header,
+        > .sidebar,
+        > .content,
+        > .background {
+            filter: blur(2px);
+        }
     }
 }
 
-@keyframes search-spin {
-    0% {
-        -webkit-transform: translateY(-50%) rotate(0deg);
-        transform: translateY(-50%) rotate(0deg);
-    }
-    100% {
-        -webkit-transform: translateY(-50%) rotate(359deg);
-        transform: translateY(-50%) rotate(359deg);
-    }
-}

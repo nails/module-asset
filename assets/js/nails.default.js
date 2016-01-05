@@ -189,11 +189,11 @@ NAILS_JS = function() {
                     },
                     'beforeLoad': function() {
 
-                        $('body').addClass('noScroll');
+                        $('body').addClass('noScroll modal-open');
                     },
                     'afterClose': function() {
 
-                        $('body').removeClass('noScroll');
+                        $('body').removeClass('noScroll modal-open');
                     }
                 });
 
