@@ -13,6 +13,8 @@ NAILS_Forms = function()
 
         //  @todo: move into CDN module
         base.initMultiFiles();
+
+        base.initCharCounters();
     };
 
     // --------------------------------------------------------------------------
@@ -210,6 +212,36 @@ NAILS_Forms = function()
         }
 
         _parent.data('items', _existing);
+    };
+
+    // --------------------------------------------------------------------------
+
+    base.initCharCounters = function() {
+
+        $('.field .char-count:not(.counting)').each(function()
+        {
+            var counter   = $(this);
+            var maxLength = counter.data('max-length');
+            var field     = $(this).closest('.field');
+            var input     = $(this).closest('.input').find('.field-input');
+
+            if (input.length) {
+
+                input.on('keyup', function() {
+
+                    var length = $(this).val().length;
+
+                    if (length > maxLength) {
+                        field.addClass('max-length-exceeded');
+                    } else {
+                        field.removeClass('max-length-exceeded');
+                    }
+
+                    counter.html(length + ' of ' + maxLength + ' characters');
+                }).trigger('keyup');
+            }
+            counter.addClass('counting');
+        });
     };
 
     // --------------------------------------------------------------------------

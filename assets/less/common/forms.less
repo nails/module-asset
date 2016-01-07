@@ -261,14 +261,10 @@ div.field {
         left: 6px;
         float: left;
     }
-
-
     select {
         position: relative;
         top: 7px;
     }
-
-
     &:after {
         position: relative;
         display: block;
@@ -283,7 +279,6 @@ div.field {
             border-color: #CCCCCC;
         }
     }
-
     &.even {
         background: #FAFAFA;
 
@@ -295,26 +290,21 @@ div.field {
             background: #F5F5F5;
         }
     }
-
-
     &:last-of-type {
         border-bottom: none;
     }
-
     &.date-picker {
         select {
             width: 116px;
             box-sizing: border-box;
         }
     }
-
     &.datetime-picker {
         select {
             width: 68px;
             box-sizing: border-box;
         }
     }
-
     &.boolean {
         .toggle {
             //  width and height set via JS, so that if plugin isnt loaded
@@ -323,20 +313,17 @@ div.field {
             text-align: center;
             display: inline-block;
         }
-
         span.input {
             .tip {
                 top: -9px;
                 left: 10px;
                 position: relative;
             }
-
             small.info {
                 margin-top: 0;
             }
         }
     }
-
     &.readonly {
         input[type=text],
         input[type=password],
@@ -529,7 +516,28 @@ div.field {
             }
         }
     }
-
+    &.max-length-exceeded {
+        input,
+        textarea,
+        select,
+        .select2-container {
+            border: 1px solid #B52130;
+        }
+        small.char-count {
+            color: #B52130;
+            padding-left: 16px;
+            position: relative;
+            &:before {
+                font-family: FontAwesome;
+                content: '\f06a';
+                display: block;
+                position: absolute;
+                font-size: 1.4em;
+                top: -4px;
+                color: #B52130;
+            }
+        }
+    }
     &.error {
         span.input {
             input,
