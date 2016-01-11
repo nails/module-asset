@@ -43,6 +43,13 @@ NAILS_Admin = function()
         base.initSelect2();
         base.initNiceTime();
         base.initSystemAlerts();
+
+        // --------------------------------------------------------------------------
+
+        $(window).on('resize', function() {
+            base.initMatchHeights();
+        }).trigger('resize');
+
     };
 
     // --------------------------------------------------------------------------
@@ -889,6 +896,41 @@ NAILS_Admin = function()
 
         return s.join(dec);
     };
+
+    // --------------------------------------------------------------------------
+
+    base.initMatchHeights = function()
+    {
+        var heights, elements, group;
+
+        heights  = {};
+        elements = $('.match-height');
+
+        //  Calculate the max height
+        elements.each(function() {
+
+            //  Reset the height
+            $(this).height('');
+
+            group = $(this).data('height-group') || 'default';
+
+            if (heights[group] === undefined) {
+                heights[group] = 0;
+            }
+
+            if ($(this).height() > heights[group]) {
+                heights[group] = $(this).height();
+            }
+        });
+
+        //  Set the computed max height
+        elements.each(function() {
+
+            group = $(this).data('height-group') || 'default';
+
+            $(this).height(heights[group]);
+        });
+    }
 
     // --------------------------------------------------------------------------
 
