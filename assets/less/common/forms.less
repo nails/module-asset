@@ -331,22 +331,22 @@ div.field {
         input[type=number],
         input[type=url],
         textarea {
+            cursor: not-allowed;
             padding-left: 30px;
             width: 325px;
             box-sizing: border-box;
         }
 
         .input {
-            .alert {
-                &:before {
-                    font-family: FontAwesome;
-                    content: '\f023';
-                    display: block;
-                    position: absolute;
-                    font-size: 1.4em;
-                    left: 9px;
-                    top: 3px;
-                }
+            &:before {
+                font-family: FontAwesome;
+                content: '\f023';
+                display: block;
+                position: absolute;
+                font-size: 1.4em;
+                left: 9px;
+                top: 4px;
+                color: #AAA;
             }
         }
 
@@ -358,7 +358,6 @@ div.field {
             }
         }
     }
-
     &.radio {
         label {
             &:after {
@@ -368,7 +367,6 @@ div.field {
             }
         }
     }
-
     &.multiimage {
         ul.filelist {
             border: 1px solid #CECECE;
