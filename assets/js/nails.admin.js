@@ -54,6 +54,62 @@ NAILS_Admin = function()
 
     // --------------------------------------------------------------------------
 
+    base.localStorage = {
+        'enabled': (function() {
+            var uid = new Date().toString();
+            var storage;
+            var result;
+            try {
+
+                (storage = window.localStorage).setItem(uid, uid);
+                result = storage.getItem(uid) === uid;
+                storage.removeItem(uid);
+                return true;
+
+            } catch (exception) {
+                return false;
+            }
+
+        }()),
+        'set': function(key, value) {
+
+            if (this.enabled) {
+
+                value = JSON.stringify(value);
+                return window.localStorage.setItem(key, value);
+
+            } else {
+
+                return false;
+            }
+        },
+        'get': function(key) {
+
+            if (this.enabled) {
+
+                var value = window.localStorage.getItem(key);
+                return JSON.parse(value);
+
+            } else {
+
+                return false;
+            }
+        },
+        'remove': function(key) {
+
+            if (this.enabled) {
+
+            return window.localStorage.removeItem(key);
+
+            } else {
+
+                return false;
+            }
+        }
+    };
+
+    // --------------------------------------------------------------------------
+
     /**
      * Initialise the nav boxes
      * @return {Void}

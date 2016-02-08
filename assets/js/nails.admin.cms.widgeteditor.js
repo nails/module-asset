@@ -215,6 +215,13 @@ NAILS_Admin_CMS_WidgetEditor = function()
 
             groupIndex = $(this).data('group');
             $('.widget-group-' + groupIndex).toggleClass('hidden');
+
+            //  Save the state to localstorage
+            _nails_admin.localStorage
+            .set(
+                'widgeteditor-group-' + groupIndex + '-hidden',
+                $('.widget-group-' + groupIndex).hasClass('hidden')
+            );
         });
 
         //  Search
@@ -348,6 +355,13 @@ NAILS_Admin_CMS_WidgetEditor = function()
             label     = $('<span>').text(base.widgets[i].label);
             toggle    = $('<i>').addClass('icon fa fa-chevron-down');
             container = $('<div>').addClass('widget-group').data('group', i).append(label).append(toggle);
+
+            //  Hidden by default?
+            var hidden = _nails_admin.localStorage.get('widgeteditor-group-' + i + '-hidden');
+            if (hidden === true || hidden === null) {
+                container.addClass('closed');
+            }
+
             base.sections.widgets.append(container);
 
             //  Individual widgets
@@ -360,6 +374,10 @@ NAILS_Admin_CMS_WidgetEditor = function()
                             .data('group', i)
                             .data('slug', base.widgets[i].widgets[x].slug)
                             .data('keywords', base.widgets[i].widgets[x].keywords);
+
+                if (hidden === true || hidden === null) {
+                    container.addClass('hidden');
+                }
 
                 container
                     .append(icon)

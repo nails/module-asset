@@ -158,13 +158,9 @@
                 background: rgba(255,255,255,0.75);
                 overflow: auto;
                 > ul {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
                     z-index: 1;
-                    margin: 1em;
+                    margin: 0.5em;
+                    padding-bottom: 200px;
                     &:empty + .no-widgets {
                         display: block;
                     }
@@ -272,6 +268,9 @@
                 margin: 0;
                 margin-top: 1em;
                 border: 1px solid #EFEFEF;
+                &:empty {
+                    display: none;
+                }
                 > *:last-child {
                     margin-bottom: 0;
                 }
