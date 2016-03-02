@@ -28,7 +28,8 @@
         "nails" :
         {
             "moduleName": "asset",
-            "type": "module"
+            "type": "module",
+            "namespace": "Nails\\Asset\\"
         }
     }
 }
