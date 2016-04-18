@@ -113,12 +113,10 @@ div.field {
     clear: both;
     min-height: 30px;
     background: #FFFFFF;
-    &:not(.boolean) {
-        &.checkbox,
-        &.radio {
-            .input {
-                padding-left: 14px;
-            }
+    &.checkbox,
+    &.radio {
+        .input {
+            padding-left: 14px;
         }
     }
     &.checkbox,
@@ -126,6 +124,11 @@ div.field {
         margin-top: 0; // Fix for bootstraps .checkbox + .checkbox
         .input {
             padding-left: 14px;
+        }
+    }
+    &.boolean.toggled {
+        .input {
+            padding-left: 0;
         }
     }
     label {

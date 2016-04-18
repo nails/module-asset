@@ -271,15 +271,19 @@ NAILS_JS = function() {
         //  Look for tabs which contain error'd fields
         $('li.tab a').each(function(){
 
-            if ($($(this).data('tab') + ' div.field.error').length) {
+            if ($('.tab-page.' + $(this).data('tab') + ' div.field.error').length) {
                 $(this).addClass('error');
             }
 
-            if ($($(this).data('tab') + ' .system-alert.error').length) {
+            if ($('.tab-page.' + $(this).data('tab') + ' .system-alert.error').length) {
                 $(this).addClass('error');
             }
 
-            if ($($(this).data('tab') + ' .error.show-in-tabs').length) {
+            if ($('.tab-page.' + $(this).data('tab') + ' .alert.alert-danger').length) {
+                $(this).addClass('error');
+            }
+
+            if ($('.tab-page.' + $(this).data('tab') + ' .error.show-in-tabs').length) {
                 $(this).addClass('error');
             }
         });
