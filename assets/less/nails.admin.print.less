@@ -5,9 +5,9 @@
 @import 'common/variables.less';
 @import 'common/elements.less';
 
-//	Print styles should basically just hide everything but the main content
-//	then style the main content so it print's nicely (it should do a vaguely
-//	good job of that already.
+//  Print styles should basically just hide everything but the main content
+//  then style the main content so it print's nicely (it should do a vaguely
+//  good job of that already.
 
 div.header,
 div.sidebar {
@@ -20,116 +20,101 @@ div.content {
     font-family: helvetica,arial,sans-serif;
     font-size: 13px;
     line-height: 1.3em;
-
+    position: relative;
+    left: 0;
+    top: 0;
     * {
         float: none;
     }
-
-    .padder {
-        padding: 0;
-
-        .content_inner {
-            padding: 20px;
-
-            h1 {
-                margin-bottom: 1.75em;
-                font-style: italic;
-            }
-
-            hr {
-                border: none;
-                border-top: 1px solid #CCCCCC;
-            }
-
-            section.filter-box {
-                display: none;
-            }
-
-            fieldset {
-                border: 1px solid #CCCCCC;
-                padding: 10px;
-                .rounded(4px);
+    .content_inner {
+        padding: 20px;
+        h1 {
+            margin-bottom: 1.75em;
+            font-style: italic;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #CCCCCC;
+        }
+        section.filter-box {
+            display: none;
+        }
+        fieldset {
+            border: 1px solid #CCCCCC;
+            padding: 10px;
+            .rounded(4px);
+            margin-bottom: 20px;
+            legend {
+                display: block;
+                border-bottom: 1px dotted #CCCCCC;
+                padding: 20px 10px;
                 margin-bottom: 20px;
-
-                legend {
-                    display: block;
-                    border-bottom: 1px dotted #CCCCCC;
-                    padding: 20px 10px;
-                    margin-bottom: 20px;
-                    font-size: 1.5em;
-                }
+                font-size: 1.5em;
             }
-
-            div.field {
-                padding: 10px;
-                border-bottom: 1px solid #CCCCCC;
-
-                label {
-                    display: block;
-                }
-
-                .label {
-                    display: block;
-                    width: 125px;
-                    font-weight: bold;
-                    padding-bottom: 5px;
-                }
-
-                input[type=text],
-                input[type=password],
-                textarea,
-                select {
-                    padding: 7px;
-                    border: 1px solid #CCCCCC;
-                    display: block;
-                    width: 100%;
-                    margin-left: -7px;
-                }
-
-                input[type=file],
-                input[type=submit] {
-                    display: none;
-                }
-
-                .help {
-                    display: none;
-                }
+        }
+        div.field {
+            padding: 10px;
+            border-bottom: 1px solid #CCCCCC;
+            label {
+                display: block;
             }
-
-            .awesome {
+            .label {
+                display: block;
+                width: 125px;
+                font-weight: bold;
+                padding-bottom: 5px;
+            }
+            input[type=text],
+            input[type=password],
+            textarea,
+            select {
+                padding: 7px;
+                border: 1px solid #CCCCCC;
+                display: block;
+                width: 100%;
+                margin-left: -7px;
+            }
+            input[type=file],
+            input[type=submit] {
                 display: none;
             }
-
-            table {
-                width: 100%;
-
-                thead {
-                    tr {
-                        th {
-                            font-wight: bold;
-                            font-size: 1.2em;
-                            border-bottom: 1px solid #CCCCCC;
-                            padding: 10px;
-                        }
-                    }
-                }
-
-                tbody {
-                    tr {
-                        td {
-                            border-bottom: 1px solid #CCCCCC;
-                            border-right: 1px solid #FAFAFA;
-                            padding: 10px;
-                        }
-                        td.label {
-                            width: 150px;
-                            font-weight: bold;
-                            border-right: 1px solid #CCCCCC;
-                            text-align: right;
-                        }
+            .help {
+                display: none;
+            }
+        }
+        .awesome {
+            display: none;
+        }
+        table {
+            width: 100%;
+            thead {
+                tr {
+                    th {
+                        font-wight: bold;
+                        font-size: 1.2em;
+                        border-bottom: 1px solid #CCCCCC;
+                        padding: 10px;
                     }
                 }
             }
+            tbody {
+                tr {
+                    td {
+                        border-bottom: 1px solid #CCCCCC;
+                        border-right: 1px solid #FAFAFA;
+                        padding: 10px;
+                    }
+                    td.label {
+                        width: 150px;
+                        font-weight: bold;
+                        border-right: 1px solid #CCCCCC;
+                        text-align: right;
+                    }
+                }
+            }
+        }
+        > footer {
+            display: none;
         }
     }
 }
