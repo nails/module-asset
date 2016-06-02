@@ -1,4 +1,4 @@
-/* globals NAILS_Admin_CMS_WidgetEditor, console, Mustache */
+/* globals NAILS_Admin_CMS_WidgetEditor, console, Mustache, _CDN_OBJECTPICKER */
 var NAILS_Forms;
 NAILS_Forms = function()
 {
