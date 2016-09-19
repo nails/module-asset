@@ -33,7 +33,7 @@ NAILS_Forms = function()
 
                 //  Look for the associated input
                 var key   = $(this).data('key');
-                var input = $(this).siblings('input.widget-data');
+                var input = $(this).siblings('textarea.widget-data');
 
                 if (input.length) {
 
@@ -58,7 +58,7 @@ NAILS_Forms = function()
             {
                 base.log('Editor Closing, getting area data and saving to input');
                 var data  = base.widgetEditor.getAreaData(base.activeArea.data('key'));
-                var input = base.activeArea.siblings('input.widget-data');
+                var input = base.activeArea.siblings('textarea.widget-data');
 
                 if (input.length) {
                     input.val(JSON.stringify(data));
