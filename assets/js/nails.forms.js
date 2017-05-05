@@ -1,13 +1,11 @@
 /* globals NAILS_Admin_CMS_WidgetEditor, console, Mustache, _CDN_OBJECTPICKER */
 var NAILS_Forms;
-NAILS_Forms = function()
-{
+NAILS_Forms = function () {
     var base = this;
 
     // --------------------------------------------------------------------------
 
-    base.__construct = function()
-    {
+    base.__construct = function () {
         //  @todo: move into the CMS module
         base.initWidgetEditors();
 
@@ -19,43 +17,45 @@ NAILS_Forms = function()
 
     // --------------------------------------------------------------------------
 
-    base.widgetEditor = null;
-    base.activeArea = null;
-    base.initWidgetEditors = function()
-    {
+    base.widgetEditor      = null;
+    base.activeArea        = null;
+    base.initWidgetEditors = function () {
         if (typeof NAILS_Admin_CMS_WidgetEditor === 'function') {
 
             //  Set up an instance of the widget editor
             base.widgetEditor = new NAILS_Admin_CMS_WidgetEditor();
 
             //  Populate the editor with existing areas
-            $('.field.cms-widgets .open-editor').each(function() {
+            $('.field.cms-widgets .open-editor').each(function () {
 
                 //  Look for the associated input
                 var key   = $(this).data('key');
                 var input = $(this).siblings('textarea.widget-data');
 
                 if (input.length) {
-
                     try {
-
                         var widgetData = JSON.parse(input.val());
                         base.widgetEditor.setAreaData(key, widgetData);
-
-                    } catch (e) {}
+                    } catch (e) {
+                        base.warn('Failed to parse JSON data');
+                        base.warn(e.message);
+                    }
                 }
             });
 
-            //  Bind to the thigns
-            $(document).on('click', '.field.cms-widgets .open-editor', function() {
-                base.activeArea = $(this);
-                base.log('Opening Editor for area: ' + base.activeArea.data('key'));
-                base.widgetEditor.show(base.activeArea.data('key'));
+            //  Bind to the things
+            $(document).on('click', '.field.cms-widgets .open-editor', function () {
+                if (base.widgetEditor.ready) {
+                    base.activeArea = $(this);
+                    base.log('Opening Editor for area: ' + base.activeArea.data('key'));
+                    base.widgetEditor.show(base.activeArea.data('key'));
+                } else {
+                    base.warn('Widget editor not ready');
+                }
                 return false;
             });
 
-            $(base.widgetEditor).on('widgeteditor-close', function()
-            {
+            $(base.widgetEditor).on('widgeteditor-close', function () {
                 base.log('Editor Closing, getting area data and saving to input');
                 var data  = base.widgetEditor.getAreaData(base.activeArea.data('key'));
                 var input = base.activeArea.siblings('textarea.widget-data');
@@ -68,17 +68,18 @@ NAILS_Forms = function()
             });
 
         } else {
-
-            $('.field.cms-widgets .open-editor').addClass('disabled').after('<p class="alert alert-warning">Module nailsapp/module-cms is not available</p>');
+            $('.field.cms-widgets .open-editor')
+                .addClass('disabled')
+                .after('<p class="alert alert-warning">Module nailsapp/module-cms is not available</p>');
         }
     };
 
     // --------------------------------------------------------------------------
 
-    base.initMultiFiles = function() {
+    base.initMultiFiles = function () {
 
         //  Add new rows to the picker
-        $(document).on('click', '.js-cdn-multi-action-add', function() {
+        $(document).on('click', '.js-cdn-multi-action-add', function () {
 
             base.log('MultiFile: Adding Row');
 
@@ -100,7 +101,7 @@ NAILS_Forms = function()
         });
 
         //  Remove a row from the picker
-        $(document).on('click', '.js-cdn-multi-action-remove', function() {
+        $(document).on('click', '.js-cdn-multi-action-remove', function () {
 
             base.log('MultiFile: Removing Row');
 
@@ -110,7 +111,6 @@ NAILS_Forms = function()
             var _newItems    = [];
 
             for (var i = 0; i < _existing.length; i++) {
-
                 if (i !== _removeIndex) {
                     _newItems.push(_existing[i]);
                 }
@@ -123,24 +123,24 @@ NAILS_Forms = function()
         });
 
         //  Apply listeners to any existing multifile
-        $('.field.cdn-multi').each(function() {
+        $('.field.cdn-multi').each(function () {
 
             var _defaults = $(this).data('defaults');
             $(this).data('items', _defaults);
 
             //  CDN Picker
-            $(this).find('.cdn-object-picker').on('picked', function() {
+            $(this).find('.cdn-object-picker').on('picked', function () {
                 base.multiCdnPicked($(this));
             });
 
             //  Label
-            $(this).find('.js-label').on('keyup', function() {
+            $(this).find('.js-label').on('keyup', function () {
                 base.multiLabelChanged($(this));
             });
         });
     };
 
-    base.renderMultFiles = function(element, items) {
+    base.renderMultFiles = function (element, items) {
 
         base.log('MultiFile: Rendering', items);
 
@@ -160,10 +160,10 @@ NAILS_Forms = function()
 
             //  Apply listeners
             _render = $(_render);
-            _render.find('.cdn-object-picker').on('picked', function() {
+            _render.find('.cdn-object-picker').on('picked', function () {
                 base.multiCdnPicked($(this));
             });
-            _render.find('.js-label').on('keyup', function() {
+            _render.find('.js-label').on('keyup', function () {
                 base.multiLabelChanged($(this));
             });
 
@@ -177,7 +177,7 @@ NAILS_Forms = function()
 
     // --------------------------------------------------------------------------
 
-    base.multiCdnPicked = function(element) {
+    base.multiCdnPicked = function (element) {
 
         var _updateIndex = element.data('index');
         var _parent      = element.closest('.field');
@@ -197,7 +197,7 @@ NAILS_Forms = function()
 
     // --------------------------------------------------------------------------
 
-    base.multiLabelChanged = function(element) {
+    base.multiLabelChanged = function (element) {
 
         var _updateIndex = element.data('index');
         var _parent      = element.closest('.field');
@@ -216,10 +216,9 @@ NAILS_Forms = function()
 
     // --------------------------------------------------------------------------
 
-    base.initCharCounters = function() {
+    base.initCharCounters = function () {
 
-        $('.field .char-count:not(.counting)').each(function()
-        {
+        $('.field .char-count:not(.counting)').each(function () {
             var counter   = $(this);
             var maxLength = counter.data('max-length');
             var field     = $(this).closest('.field');
@@ -227,7 +226,7 @@ NAILS_Forms = function()
 
             if (input.length) {
 
-                input.on('keyup', function() {
+                input.on('keyup', function () {
 
                     var length = $(this).val().length;
 
@@ -249,19 +248,14 @@ NAILS_Forms = function()
     /**
      * Write a log to the console
      * @param  {String} message The message to log
-     * @param  {Mixed}  payload Any additional data to display in the console
-     * @return {Void}
+     * @param  {mixed}  payload Any additional data to display in the console
+     * @return {void}
      */
-    base.log = function(message, payload)
-    {
+    base.log = function (message, payload) {
         if (typeof(console.log) === 'function') {
-
             if (payload !== undefined) {
-
                 console.log('Nails Forms:', message, payload);
-
             } else {
-
                 console.log('Nails Forms:', message);
             }
         }
@@ -272,19 +266,14 @@ NAILS_Forms = function()
     /**
      * Write a warning to the console
      * @param  {String} message The message to warn
-     * @param  {Mixed}  payload Any additional data to display in the console
-     * @return {Void}
+     * @param  {mixed}  payload Any additional data to display in the console
+     * @return {void}
      */
-    base.warn = function(message, payload)
-    {
+    base.warn = function (message, payload) {
         if (typeof(console.warn) === 'function') {
-
             if (payload !== undefined) {
-
                 console.warn('Nails Forms:', message, payload);
-
             } else {
-
                 console.warn('Nails Forms:', message);
             }
         }
