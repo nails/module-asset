@@ -185,9 +185,9 @@ CKEDITOR.editorConfig = function(config)
      * @type {string}
      */
 
-    config.filebrowserImageBrowseUrl = window.SITE_URL + 'cdn/manager/browse/image';
-    config.filebrowserFlashBrowseUrl = window.SITE_URL + 'cdn/manager/browse/flash';
-    config.filebrowserBrowseUrl      = window.SITE_URL + 'cdn/manager/browse/file';
+    config.filebrowserImageBrowseUrl = window.SITE_URL + 'admin/cdn/manager?isModal=1';
+    config.filebrowserFlashBrowseUrl = window.SITE_URL + 'admin/cdn/manager?isModal=1';
+    config.filebrowserBrowseUrl      = window.SITE_URL + 'admin/cdn/manager?isModal=1';
 
     /**
      * Dialog colour; tie it in with the rest of admin
