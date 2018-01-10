@@ -24,35 +24,35 @@ CKEDITOR.config.contentsCss = window.NAILS.URL + 'css/nails.admin.ckeditor.css';
 /**
  * Define the CKEditor config object
  */
-CKEDITOR.editorConfig = function(config)
-{
+CKEDITOR.editorConfig = function(config) {
     /**
      * Additional plugins to enable
      * @type {String}
      */
-
-    config.extraPlugins = 'autogrow,codemirror,colorbutton,colordialog';
+    config.extraPlugins = 'autogrow,codemirror,colorbutton,colordialog,pastefromword';
 
     /**
      * Plugins to remove
      * @type {String}
      */
-
     config.removePlugins = 'resize,elementspath';
 
     /**
      * The toolbar groups arrangement, optimized for a single toolbar row.
      * @type {Array}
      */
-
     config.toolbarGroups = [
         {
-            name: 'document',
+            name:   'document',
             groups: ['mode']
         },
         {
-            name: 'basicstyles',
+            name:   'basicstyles',
             groups: ['basicstyles']
+        },
+        {
+            name:   'clipboard',
+            groups: ['clipboard', 'undo']
         },
         {
             name: 'links'
@@ -63,24 +63,21 @@ CKEDITOR.editorConfig = function(config)
      * Any specific, individual, buttons to remove
      * @type {String}
      */
-
     config.removeButtons = 'Anchor,Search Source';
 
     /**
      * Only allow certain formatting
      * @type {Object}
      */
-
     config.format_small = {
         element: 'small',
-        name: 'Small'
+        name:    'Small'
     };
 
     /**
      * Only allow formatting on specific tags
      * @type {String}
      */
-
     config.format_tags = 'p;small;h1;h2;h3;h4;h5';
 
     /**
@@ -88,10 +85,9 @@ CKEDITOR.editorConfig = function(config)
      * Same deal for data-* attributes
      * @type {Object}
      */
-
     config.extraAllowedContent = {
         '*': {
-            classes: '*',
+            classes:    '*',
             attributes: 'data-*'
         }
     };
@@ -100,7 +96,6 @@ CKEDITOR.editorConfig = function(config)
      * Limit height of autoGrow plugin
      * @type {Number}
      */
-
     config.autoGrow_maxHeight = 500;
 
     /**
@@ -108,27 +103,30 @@ CKEDITOR.editorConfig = function(config)
      * it's recommended to force everything to be plain text.
      * @type {Boolean}
      */
-
     config.forcePasteAsPlainText = true;
 
     /**
      * Dialog colour; tie it in with the rest of admin
      * @type {String}
      */
-
-    config.dialog_backgroundCoverColor   = 'rgb(0,0,0)';
+    config.dialog_backgroundCoverColor = 'rgb(0,0,0)';
     config.dialog_backgroundCoverOpacity = 0.75;
 
     /**
      * Don't show codemirror buttons
      * @type {Object}
      */
-
     config.codemirror = {
-        showSearchButton: false,
-        showCommentButton: false,
-        showFormatButton: false,
-        showUncommentButton: false,
+        showSearchButton:       false,
+        showCommentButton:      false,
+        showFormatButton:       false,
+        showUncommentButton:    false,
         showAutoCompleteButton: false
     };
+
+    /**
+     * Enable pasteformword prompt
+     * @type {boolean}
+     */
+    config.pasteFromWordPromptCleanup = true;
 };

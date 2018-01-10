@@ -24,38 +24,38 @@ CKEDITOR.stylesSet.add(
     'nailsStyles',
     [
         {
-            name: 'Preformatted',
+            name:    'Preformatted',
             element: 'pre'
         },
         {
-            name: 'Code Block',
-            element: 'pre',
-            attributes: { 'class': 'code-block' }
+            name:       'Code Block',
+            element:    'pre',
+            attributes: {'class': 'code-block'}
         },
         {
-            name: 'Big',
+            name:    'Big',
             element: 'big'
         },
         {
-            name: 'Small',
+            name:    'Small',
             element: 'small'
         },
         {
-            name: 'Computer Code',
+            name:    'Computer Code',
             element: 'code'
         },
         {
-            name: 'Variable',
+            name:    'Variable',
             element: 'var'
         },
         {
-            name: 'Deleted Text',
+            name:    'Deleted Text',
             element: 'del'
         },
         {
-            name: 'Marker',
+            name:    'Marker',
             element: 'mark'
-        },
+        }
     ]
 );
 
@@ -68,8 +68,7 @@ CKEDITOR.config.contentsCss = window.NAILS.URL + 'css/nails.admin.ckeditor.css';
 /**
  * Define the CKEditor config object
  */
-CKEDITOR.editorConfig = function(config)
-{
+CKEDITOR.editorConfig = function(config) {
     /**
      * The name of the styles object to show in the "Styles" dropdown
      * @type {String}
@@ -80,43 +79,49 @@ CKEDITOR.editorConfig = function(config)
      * Additional plugins to enable
      * @type {String}
      */
-
-    config.extraPlugins = 'justify,autogrow,mediaembed,codemirror,colorbutton,colordialog,font,image2';
+    config.extraPlugins = 'justify,autogrow,mediaembed,codemirror,colorbutton,colordialog,font,image2,pastefromword';
 
     /**
      * Plugins to remove
      * @type {String}
      */
-
     config.removePlugins = 'resize,elementspath';
 
     /**
      * The toolbar groups arrangement, optimized for a single toolbar row.
      * @type {Array}
      */
-
     config.toolbarGroups = [
         {
-            name: 'document',
-            groups: ['mode'] },
+            name:   'document',
+            groups: ['mode']
+        },
         {
-            name: 'styles',
-            groups: [''] },
+            name:   'styles',
+            groups: ['']
+        },
         {
-            name: 'basicstyles',
-            groups: ['basicstyles'] },
+            name:   'basicstyles',
+            groups: ['basicstyles']
+        },
         {
             name: 'colors'
         },
         {
-            name: 'paragraph',
-            groups: ['align', 'list', 'indent', 'blocks'] },
+            name:   'clipboard',
+            groups: ['clipboard', 'undo']
+        },
+        {
+            name:   'paragraph',
+            groups: ['align', 'list', 'indent', 'blocks']
+        },
         {
             name: 'links'
         },
         {
-            name: 'insert',
-            groups: ['mediaembed'] },
+            name:   'insert',
+            groups: ['mediaembed']
+        },
         {
             name: 'tools'
         },
@@ -129,24 +134,21 @@ CKEDITOR.editorConfig = function(config)
      * Any specific, individual, buttons to remove
      * @type {String}
      */
-
     config.removeButtons = 'Font';
 
     /**
      * Only allow certain formatting
      * @type {Object}
      */
-
     config.format_small = {
         element: 'small',
-        name: 'Small'
+        name:    'Small'
     };
 
     /**
      * Only allow formatting on specific tags
      * @type {String}
      */
-
     config.format_tags = 'p;small;h1;h2;h3;h4;h5';
 
     /**
@@ -154,10 +156,9 @@ CKEDITOR.editorConfig = function(config)
      * Same deal for data-* attributes
      * @type {Object}
      */
-
     config.extraAllowedContent = {
-        '*': {
-            classes: '*',
+        '*':   {
+            classes:    '*',
             attributes: 'data-*,id,clas'
         },
         'img': {
@@ -169,7 +170,6 @@ CKEDITOR.editorConfig = function(config)
      * Limit height of autoGrow plugin
      * @type {Number}
      */
-
     config.autoGrow_maxHeight = 500;
 
     /**
@@ -177,14 +177,12 @@ CKEDITOR.editorConfig = function(config)
      * it's recommended to force everything to be plain text.
      * @type {Boolean}
      */
-
     config.forcePasteAsPlainText = true;
 
     /**
      * Configure the CDN endpoints
      * @type {string}
      */
-
     config.filebrowserImageBrowseUrl = window.SITE_URL + 'admin/cdn/manager?isModal=1';
     config.filebrowserFlashBrowseUrl = window.SITE_URL + 'admin/cdn/manager?isModal=1';
     config.filebrowserBrowseUrl      = window.SITE_URL + 'admin/cdn/manager?isModal=1';
@@ -193,20 +191,24 @@ CKEDITOR.editorConfig = function(config)
      * Dialog colour; tie it in with the rest of admin
      * @type {String}
      */
-
-    config.dialog_backgroundCoverColor   = 'rgb(0,0,0)';
+    config.dialog_backgroundCoverColor = 'rgb(0,0,0)';
     config.dialog_backgroundCoverOpacity = 0.75;
 
     /**
      * Don't show codemirror buttons
      * @type {Object}
      */
-
     config.codemirror = {
-        showSearchButton: false,
-        showCommentButton: false,
-        showFormatButton: false,
-        showUncommentButton: false,
+        showSearchButton:       false,
+        showCommentButton:      false,
+        showFormatButton:       false,
+        showUncommentButton:    false,
         showAutoCompleteButton: false
     };
+
+    /**
+     * Enable pasteformword prompt
+     * @type {boolean}
+     */
+    config.pasteFromWordPromptCleanup = true;
 };
