@@ -442,10 +442,11 @@ NAILS_Admin = function()
         var timeout;
         //  Bind submit to select changes
         $('div.search select, div.search input[type=checkbox]').on('change', function() {
+            var $form = $(this).closest('form');
             clearTimeout(timeout);
             timeout = setTimeout(function() {
-                $(this).closest('form').submit();
-            }, 250);
+                $form.submit();
+            }, 500);
         });
 
         // --------------------------------------------------------------------------
