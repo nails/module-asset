@@ -1,7 +1,6 @@
 /* global _nails_api, Mustache */
 var NAILS_Admin_Logs_Site;
-NAILS_Admin_Logs_Site = function()
-{
+NAILS_Admin_Logs_Site = function() {
     /**
      * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
      * @type {Object}
@@ -14,8 +13,7 @@ NAILS_Admin_Logs_Site = function()
      * Construct the class
      * @return {Void}
      */
-    base.__construct = function()
-    {
+    base.__construct = function() {
         base.fetchLogs();
     };
 
@@ -25,20 +23,16 @@ NAILS_Admin_Logs_Site = function()
      * Fetches logs from the server
      * @return {Void}
      */
-    base.fetchLogs = function()
-    {
+    base.fetchLogs = function() {
         var call = {
             'controller': 'admin',
             'method': 'logs/site',
-            'success': function(data)
-            {
+            'success': function(data) {
                 base.fetchLogsOk(data);
             },
-            'error': function(data)
-            {
+            'error': function(data) {
                 var _data;
-                try
-                {
+                try {
                     _data = JSON.parse(data);
 
                 } catch (err) {
@@ -59,9 +53,8 @@ NAILS_Admin_Logs_Site = function()
      * @param  {Object} data Data returned by the server
      * @return {Void}
      */
-    base.fetchLogsOk = function(data)
-    {
-        var tpl,html;
+    base.fetchLogsOk = function(data) {
+        var tpl, html;
 
         $('#logEntries').empty();
         $('#pleaseNote').remove();
@@ -90,26 +83,24 @@ NAILS_Admin_Logs_Site = function()
      * @param  {Object} data Data from the server
      * @return {Void}
      */
-    base.fetchLogsFail = function(data)
-    {
+    base.fetchLogsFail = function(data) {
         $('<div>')
-        .html('<p>' + data.error + '</p>')
-        .dialog(
-        {
-            title: 'An error occurred',
-            resizable: false,
-            draggable: false,
-            modal: true,
-            dialogClass: "no-close",
-            buttons:
-            {
-                OK: function()
+            .html('<p>' + data.error + '</p>')
+            .dialog(
                 {
-                    $(this).dialog('close');
-                }
-            }
-        })
-        .show();
+                    title: 'An error occurred',
+                    resizable: false,
+                    draggable: false,
+                    modal: true,
+                    dialogClass: 'no-close',
+                    buttons:
+                        {
+                            OK: function() {
+                                $(this).dialog('close');
+                            }
+                        }
+                })
+            .show();
     };
 
     // --------------------------------------------------------------------------

@@ -43,15 +43,15 @@ CKEDITOR.editorConfig = function(config) {
      */
     config.toolbarGroups = [
         {
-            name:   'document',
+            name: 'document',
             groups: ['mode']
         },
         {
-            name:   'basicstyles',
+            name: 'basicstyles',
             groups: ['basicstyles']
         },
         {
-            name:   'clipboard',
+            name: 'clipboard',
             groups: ['clipboard', 'undo']
         },
         {
@@ -71,7 +71,7 @@ CKEDITOR.editorConfig = function(config) {
      */
     config.format_small = {
         element: 'small',
-        name:    'Small'
+        name: 'Small'
     };
 
     /**
@@ -87,7 +87,7 @@ CKEDITOR.editorConfig = function(config) {
      */
     config.extraAllowedContent = {
         '*': {
-            classes:    '*',
+            classes: '*',
             attributes: 'data-*'
         }
     };
@@ -117,10 +117,10 @@ CKEDITOR.editorConfig = function(config) {
      * @type {Object}
      */
     config.codemirror = {
-        showSearchButton:       false,
-        showCommentButton:      false,
-        showFormatButton:       false,
-        showUncommentButton:    false,
+        showSearchButton: false,
+        showCommentButton: false,
+        showFormatButton: false,
+        showUncommentButton: false,
         showAutoCompleteButton: false
     };
 

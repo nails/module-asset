@@ -5,14 +5,19 @@
 
 //  Catch undefined console
 /* jshint ignore:start */
-if (typeof(console) === "undefined") {
+if (typeof(console) === 'undefined') {
     var console;
     console = {
-        log: function() {},
-        debug: function() {},
-        info: function() {},
-        warn: function() {},
-        error: function() {}
+        log: function() {
+        },
+        debug: function() {
+        },
+        info: function() {
+        },
+        warn: function() {
+        },
+        error: function() {
+        }
     };
 }
 /* jshint ignore:end */
@@ -55,7 +60,7 @@ NAILS_JS = function() {
         //  Scroll to first error, if scrollTo is available
         if ($.fn.scrollTo) {
 
-            var inline,scroll, system;
+            var inline, scroll, system;
 
             inline = $('div.field.error:visible');
 
@@ -73,7 +78,9 @@ NAILS_JS = function() {
             if (scroll.length) {
 
                 //  Giving the browser a slight chance to work out sizes etc
-                setTimeout(function() { $.scrollTo(scroll, 'fast', { axis: 'y', offset : { top: -60 } }); }, 750);
+                setTimeout(function() {
+                    $.scrollTo(scroll, 'fast', {axis: 'y', offset: {top: -60}});
+                }, 750);
             }
 
         } else {
@@ -97,12 +104,12 @@ NAILS_JS = function() {
              * method be called again. Tipsy... drunk... geddit?
              */
 
-            $('*[rel=tipsy]:not(.drunk)').tipsy({ opacity : 0.85 }).addClass('drunk');
-            $('*[rel=tipsy-html]:not(.drunk)').tipsy({ opacity : 0.85, html: true }).addClass('drunk');
-            $('*[rel=tipsy-right]:not(.drunk)').tipsy({ opacity : 0.85, gravity: 'w' }).addClass('drunk');
-            $('*[rel=tipsy-left]:not(.drunk)').tipsy({ opacity : 0.85, gravity: 'e' }).addClass('drunk');
-            $('*[rel=tipsy-top]:not(.drunk)').tipsy({ opacity : 0.85, gravity: 's' }).addClass('drunk');
-            $('*[rel=tipsy-bottom]:not(.drunk)').tipsy({ opacity : 0.85, gravity: 'n' }).addClass('drunk');
+            $('*[rel=tipsy]:not(.drunk)').tipsy({opacity: 0.85}).addClass('drunk');
+            $('*[rel=tipsy-html]:not(.drunk)').tipsy({opacity: 0.85, html: true}).addClass('drunk');
+            $('*[rel=tipsy-right]:not(.drunk)').tipsy({opacity: 0.85, gravity: 'w'}).addClass('drunk');
+            $('*[rel=tipsy-left]:not(.drunk)').tipsy({opacity: 0.85, gravity: 'e'}).addClass('drunk');
+            $('*[rel=tipsy-top]:not(.drunk)').tipsy({opacity: 0.85, gravity: 's'}).addClass('drunk');
+            $('*[rel=tipsy-bottom]:not(.drunk)').tipsy({opacity: 0.85, gravity: 'n'}).addClass('drunk');
 
         } else {
 
@@ -141,7 +148,7 @@ NAILS_JS = function() {
                      */
 
                     var regex;
-                     /*jshint ignore: start */
+                    /*jshint ignore: start */
                     regex = new RegExp('^.+\.(jpg|png|gif)(\\?.*)?$');
                     /*jshint ignore: end */
 
@@ -174,7 +181,7 @@ NAILS_JS = function() {
 
                 //  Interpret width and height
                 var height = $(this).data('height');
-                var width  = $(this).data('width');
+                var width = $(this).data('width');
 
                 //  Open a new fancybox instance
                 $.fancybox.open({
@@ -216,11 +223,11 @@ NAILS_JS = function() {
 
         var link, body, title;
 
-        $(document).on('click', 'a.confirm' , function() {
+        $(document).on('click', 'a.confirm', function() {
 
-            link  = $(this);
-            body  = link.data('body') || 'Please confirm you\'d like to continue with this action.';
-            body.replace(/\\n/g, "\n");
+            link = $(this);
+            body = link.data('body') || 'Please confirm you\'d like to continue with this action.';
+            body.replace(/\\n/g, '\n');
             title = link.data('title') || 'Are you sure?';
 
             if (body.length) {
@@ -269,7 +276,7 @@ NAILS_JS = function() {
         // --------------------------------------------------------------------------
 
         //  Look for tabs which contain error'd fields
-        $('li.tab a').each(function(){
+        $('li.tab a').each(function() {
 
             if ($('.tab-page.' + $(this).data('tab') + ' div.field.error').length) {
                 $(this).addClass('error');
@@ -306,12 +313,11 @@ NAILS_JS = function() {
      * @param  {Object} tab The tab which was clicked
      * @return {Void}
      */
-    base.switchToTab = function(tab)
-    {
+    base.switchToTab = function(tab) {
         //  Tab group
         var selectedTab = tab.data('tab');
-        var tabGroup    = tab.parents('ul.tabs').data('tabgroup');
-        var activeTab   = tab.parents('ul.tabs').data('active-tab-input');
+        var tabGroup = tab.parents('ul.tabs').data('tabgroup');
+        var activeTab = tab.parents('ul.tabs').data('active-tab-input');
 
         //  Switch tab
         if (tabGroup) {
@@ -320,18 +326,18 @@ NAILS_JS = function() {
 
             //  Mark the appropriate tab as active
             $('ul.tabs[data-tabgroup="' + tabGroup + '"] > li.tab')
-            .removeClass('active');
+                .removeClass('active');
 
             $('ul.tabs[data-tabgroup="' + tabGroup + '"] > li.tab > a[data-tab="' + selectedTab + '"]')
-            .parent()
-            .addClass('active');
+                .parent()
+                .addClass('active');
 
             //  Show the appropriate panel
             $('section.tabs[data-tabgroup="' + tabGroup + '"] > div.tab-page')
-            .removeClass('active');
+                .removeClass('active');
 
             $('section.tabs[data-tabgroup="' + tabGroup + '"] > div.tab-page.' + selectedTab)
-            .addClass('active');
+                .addClass('active');
 
         } else {
 
@@ -383,7 +389,7 @@ NAILS_JS = function() {
 
                 //  Fetch some info which may be available in the data attributes
                 var dateFormat = $(this).data('datepicker-dateformat') || 'yy-mm-dd';
-                var yearRange  = $(this).data('datepicker-yearrange') || 'c-100:c+10';
+                var yearRange = $(this).data('datepicker-yearrange') || 'c-100:c+10';
 
                 //  Instanciate datepicker
                 $(this).datepicker({
@@ -407,7 +413,7 @@ NAILS_JS = function() {
                 //  Fetch some info which may be available in the data attributes
                 var dateFormat = $(this).data('datepicker-dateformat') || 'yy-mm-dd';
                 var timeFormat = $(this).data('datepicker-timeformat') || 'HH:mm:ss';
-                var yearRange  = $(this).data('datepicker-yearrange') || 'c-100:c+10';
+                var yearRange = $(this).data('datepicker-yearrange') || 'c-100:c+10';
 
                 $(this).datetimepicker({
                     'dateFormat': dateFormat,
@@ -449,10 +455,10 @@ NAILS_JS = function() {
      */
     base.processPrefixedInputs = function() {
 
-        $('input[data-prefix]:not(.nails-prefixed)').each(function()  {
+        $('input[data-prefix]:not(.nails-prefixed)').each(function() {
 
             var container = $('<div>').addClass('nails-prefixed').css('width', $(this).css('width'));
-            var prefix    = $('<div>').addClass('nails-prefix').html($(this).data('prefix'));
+            var prefix = $('<div>').addClass('nails-prefix').html($(this).data('prefix'));
 
             container.append(prefix);
             $(this).clone(true).addClass('nails-prefixed').appendTo(container);

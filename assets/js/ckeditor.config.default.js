@@ -24,36 +24,36 @@ CKEDITOR.stylesSet.add(
     'nailsStyles',
     [
         {
-            name:    'Preformatted',
+            name: 'Preformatted',
             element: 'pre'
         },
         {
-            name:       'Code Block',
-            element:    'pre',
+            name: 'Code Block',
+            element: 'pre',
             attributes: {'class': 'code-block'}
         },
         {
-            name:    'Big',
+            name: 'Big',
             element: 'big'
         },
         {
-            name:    'Small',
+            name: 'Small',
             element: 'small'
         },
         {
-            name:    'Computer Code',
+            name: 'Computer Code',
             element: 'code'
         },
         {
-            name:    'Variable',
+            name: 'Variable',
             element: 'var'
         },
         {
-            name:    'Deleted Text',
+            name: 'Deleted Text',
             element: 'del'
         },
         {
-            name:    'Marker',
+            name: 'Marker',
             element: 'mark'
         }
     ]
@@ -93,33 +93,33 @@ CKEDITOR.editorConfig = function(config) {
      */
     config.toolbarGroups = [
         {
-            name:   'document',
+            name: 'document',
             groups: ['mode']
         },
         {
-            name:   'styles',
+            name: 'styles',
             groups: ['']
         },
         {
-            name:   'basicstyles',
+            name: 'basicstyles',
             groups: ['basicstyles']
         },
         {
             name: 'colors'
         },
         {
-            name:   'clipboard',
+            name: 'clipboard',
             groups: ['clipboard', 'undo']
         },
         {
-            name:   'paragraph',
+            name: 'paragraph',
             groups: ['align', 'list', 'indent', 'blocks']
         },
         {
             name: 'links'
         },
         {
-            name:   'insert',
+            name: 'insert',
             groups: ['mediaembed']
         },
         {
@@ -142,7 +142,7 @@ CKEDITOR.editorConfig = function(config) {
      */
     config.format_small = {
         element: 'small',
-        name:    'Small'
+        name: 'Small'
     };
 
     /**
@@ -157,8 +157,8 @@ CKEDITOR.editorConfig = function(config) {
      * @type {Object}
      */
     config.extraAllowedContent = {
-        '*':   {
-            classes:    '*',
+        '*': {
+            classes: '*',
             attributes: 'data-*,id,clas'
         },
         'img': {
@@ -185,7 +185,7 @@ CKEDITOR.editorConfig = function(config) {
      */
     config.filebrowserImageBrowseUrl = window.SITE_URL + 'admin/cdn/manager?isModal=1';
     config.filebrowserFlashBrowseUrl = window.SITE_URL + 'admin/cdn/manager?isModal=1';
-    config.filebrowserBrowseUrl      = window.SITE_URL + 'admin/cdn/manager?isModal=1';
+    config.filebrowserBrowseUrl = window.SITE_URL + 'admin/cdn/manager?isModal=1';
 
     /**
      * Dialog colour; tie it in with the rest of admin
@@ -199,10 +199,10 @@ CKEDITOR.editorConfig = function(config) {
      * @type {Object}
      */
     config.codemirror = {
-        showSearchButton:       false,
-        showCommentButton:      false,
-        showFormatButton:       false,
-        showUncommentButton:    false,
+        showSearchButton: false,
+        showCommentButton: false,
+        showFormatButton: false,
+        showUncommentButton: false,
         showAutoCompleteButton: false
     };
 

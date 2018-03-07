@@ -21,7 +21,6 @@ textarea.ckeditor {
     height: 150px;
 }
 
-
 /* --------------------------------------------------------------
    Corrections/defaults for select2's
 -------------------------------------------------------------- */
@@ -39,7 +38,7 @@ textarea.ckeditor {
             margin: 0;
             &.select2-disabled {
                 background: inherit;
-                color: #BBBBBB;
+                color: #bbb;
                 .select2-result-label {
                     cursor: not-allowed;
                 }
@@ -48,16 +47,15 @@ textarea.ckeditor {
     }
 }
 
-
 /* --------------------------------------------------------------
    Search Box
 -------------------------------------------------------------- */
 .search {
     padding: 10px;
     position: relative;
-    border: 1px solid #EAEAEA;
+    border: 1px solid #eaeaea;
     margin-bottom: 1em;
-    background: #F5F5F5;
+    background: #f5f5f5;
 
     &.noOptions {
         .search-text {
@@ -66,7 +64,7 @@ textarea.ckeditor {
     }
 
     .mask {
-        background: rgba(255,255,255,0.7);
+        background: rgba(255, 255, 255, 0.7);
         position: absolute;
         left: 0;
         top: 0;
@@ -95,11 +93,11 @@ textarea.ckeditor {
     }
 
     .search-text {
-        background: #FFFFFF;
+        background: #fff;
         padding: 0 6px;
-        border: 1px solid #CCCCCC;
+        border: 1px solid #ccc;
         .rounded(4px);
-        .drop-shadow( 0px, 0px, 3px );
+        .drop-shadow(0px, 0px, 3px);
         margin-bottom: 1em;
 
         input[type=text] {
@@ -110,7 +108,7 @@ textarea.ckeditor {
             border: 0;
         }
         input[type=text]:focus {
-            .drop-shadow( 0px, 0px, 0px, 0 );
+            .drop-shadow(0px, 0px, 0px, 0);
         }
     }
 
@@ -119,8 +117,8 @@ textarea.ckeditor {
     }
 
     .filterGroup {
-        border: 1px solid #EAEAEA;
-        background: #FEFEFE;
+        border: 1px solid #eaeaea;
+        background: #fefefe;
         display: inline-block;
         padding: 0.25em;
         margin: 0.1em;
@@ -131,8 +129,8 @@ textarea.ckeditor {
         }
 
         .filterOption {
-            border: 1px solid #EAEAEA;
-            background: #EEEEEE;
+            border: 1px solid #eaeaea;
+            background: #eee;
             padding: 0.2em 0.35em;
             margin: 2px;
             display: inline-block;
@@ -141,8 +139,8 @@ textarea.ckeditor {
             .rounded(2px);
 
             &.checked {
-                background: #7C7C7C;
-                color: #FFFFFF;
+                background: #7c7c7c;
+                color: #fff;
             }
 
             &:last-of-type {
@@ -161,7 +159,7 @@ textarea.ckeditor {
         }
     }
 
-    select, {
+    select {
         display: inline-block;
         width: auto;
         margin: 0.25em 0.5em;
@@ -214,17 +212,17 @@ textarea.ckeditor {
             margin-left: 5px;
             a,
             span.current {
-                border: 1px solid #CFCFCF;
+                border: 1px solid #cfcfcf;
                 padding: 5px 8px;
-                .rounded( 3px );
+                .rounded(3px);
                 .nifty-drop-shadow();
                 text-decoration: none;
-                background: #EFEFEF;
+                background: #efefef;
                 font-weight: bold;
             }
             a {
                 &:hover {
-                    background: #F4F4F4;
+                    background: #f4f4f4;
                 }
                 &:active {
                     position: relative;
@@ -235,7 +233,6 @@ textarea.ckeditor {
     }
 }
 
-
 /* --------------------------------------------------------------
    Elements
 -------------------------------------------------------------- */
@@ -244,7 +241,7 @@ hr {
     border: none;
     width: 100%;
     margin: 20px auto 16px auto;
-    border-bottom: 1px solid #EFEFEF;
+    border-bottom: 1px solid #efefef;
 }
 
 .search-text {
@@ -255,12 +252,12 @@ hr {
 .inline_indicator {
     font-size: 9px;
     padding: 4px;
-    background-color: #EDEDED;
+    background-color: #ededed;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     margin-right: 3px;
-    color: #333333;
+    color: #333;
 }
 
 /* --------------------------------------------------------------
@@ -274,11 +271,10 @@ hr {
     vertical-align: baseline;
     white-space: nowrap;
     text-align: center;
-    background-color: rgba(0,0,0,0.25);
+    background-color: rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     margin-right: 0.5em;
 }
-
 
 /* --------------------------------------------------------------
    Tipsy's - make 'em fatter

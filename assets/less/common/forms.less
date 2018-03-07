@@ -1,28 +1,28 @@
 form {
     width: 100%;
 }
+
 fieldset {
     height: auto;
-    border: 1px solid #CCCCCC;
+    border: 1px solid #ccc;
     border-radius: 3px 3px 0 0;
     padding: 0;
     position: relative;
-    background: #FFFFFF;
-    padding-top: 30px;
+    background: #fff;
+    padding-top: 29px;
     box-sizing: border-box;
     margin: 0;
     margin-bottom: 1em;
     fieldset {
         margin: 1em;
-        padding-top: 3.35em;
     }
     .fieldset-toggle {
         position: absolute;
         right: 10px;
         top: -11px;
-        border: 1px solid #CCCCCC;
+        border: 1px solid #ccc;
         font-size: 0.8em;
-        background: #EFEFEF;
+        background: #efefef;
         text-decoration: none;
         padding: 3px 4px;
         display: block;
@@ -36,7 +36,7 @@ fieldset {
         }
     }
     .fieldset-toggle:hover {
-        background: #CCCCCC;
+        background: #ccc;
     }
     legend,
     .legend {
@@ -44,8 +44,8 @@ fieldset {
         top: -1px;
         left: -1px;
         right: -1px;
-        background: #EFEFEF;
-        border: 1px solid #CCCCCC;
+        background: #efefef;
+        border: 1px solid #ccc;
         padding: 3px 10px;
         background-clip: padding-box;
         width: auto;
@@ -109,10 +109,10 @@ fieldset {
 div.field {
     padding: 10px;
     margin: 0;
-    border-bottom: 1px solid #EFEFEF;
+    border-bottom: 1px solid #efefef;
     clear: both;
     min-height: 30px;
-    background: #FFFFFF;
+    background: #fff;
     &.checkbox,
     &.radio {
         .input {
@@ -138,7 +138,7 @@ div.field {
     }
     //  So tips are always the same colour - badly designed form helper
     .tip {
-        color: #747A90;
+        color: #747a90;
     }
     span {
         &.label {
@@ -158,12 +158,12 @@ div.field {
             }
         }
         &.input {
-            border: 1px dashed transparent;  //  Don't ask me why this is required, but it is. - Pablo.
+            border: 1px dashed transparent; //  Don't ask me why this is required, but it is. - Pablo.
             display: block;
             margin-left: 149px;
             position: relative;
             &.is-disabled {
-                color: #CCCCCC;
+                color: #ccc;
             }
             &.with-tip {
                 padding-right: 25px;
@@ -199,11 +199,11 @@ div.field {
                 &.info2 {
                     display: block;
                     margin-top: 1em;
-                    border-left: 2px solid #A9C5DB;
+                    border-left: 2px solid #a9c5db;
                     padding: 0.1em 0.5em;
-                    background: #E4EDF5;
+                    background: #e4edf5;
                     .rounded(3px);
-                    color: #50606F;
+                    color: #50606f;
 
                     strong {
                         color: inherit;
@@ -245,9 +245,9 @@ div.field {
             padding: 5px 20px;
 
             img {
-                border: 1px solid #CCCCCC;
+                border: 1px solid #ccc;
                 padding: 2px;
-                background: #FFFFFF;
+                background: #fff;
                 .rounded(2px);
                 vertical-align: middle;
                 margin-left: 5px;
@@ -277,21 +277,21 @@ div.field {
         clear: both;
     }
     &:hover {
-        background: #F5F5F5;
+        background: #f5f5f5;
 
         span.label {
-            border-color: #CCCCCC;
+            border-color: #ccc;
         }
     }
     &.even {
-        background: #FAFAFA;
+        background: #fafafa;
 
         span.label {
-            border-color: #CCCCCC;
+            border-color: #ccc;
         }
 
         &:hover {
-            background: #F5F5F5;
+            background: #f5f5f5;
         }
     }
     &:last-of-type {
@@ -351,7 +351,7 @@ div.field {
                 font-size: 1.4em;
                 left: 9px;
                 top: 4px;
-                color: #AAA;
+                color: #aaa;
             }
         }
 
@@ -374,9 +374,9 @@ div.field {
     }
     &.multiimage {
         ul.filelist {
-            border: 1px solid #CECECE;
+            border: 1px solid #cecece;
             .rounded(3px);
-            background: #FFFFFF;
+            background: #fff;
             margin-bottom: 5px;
             line-height: 100%;
 
@@ -386,11 +386,11 @@ div.field {
                     height: 100px;
                     padding: 3px;
                     margin: 5px;
-                    border: 1px solid #CCCCCC;
+                    border: 1px solid #ccc;
                     .rounded(2px);
                     display: inline-block;
                     position: relative;
-                    background: #EFEFEF url(../img/form/upload-icon.png) center no-repeat;
+                    background: #efefef url(../img/form/upload-icon.png) center no-repeat;
                     overflow: hidden;
                     box-sizing: border-box;
 
@@ -408,18 +408,18 @@ div.field {
                         height: 20px;
                         right: 2px;
                         top: 2px;
-                        background: rgba(219, 218, 220,0.8);
+                        background: rgba(219, 218, 220, 0.8);
                         z-index: 1;
                         .rounded(2px);
                         cursor: pointer;
 
                         &:hover {
-                            background: rgba(219, 218, 220,0.8) url(../img/form/stop-icon2.png) center no-repeat;
+                            background: rgba(219, 218, 220, 0.8) url(../img/form/stop-icon2.png) center no-repeat;
                         }
                     }
 
                     div.progress {
-                        background: #888888;
+                        background: #888;
                         position: absolute;
                         bottom: 0;
                         left: 0;
@@ -430,14 +430,14 @@ div.field {
                         .transition(0.5s);
                         background-size: 30px 30px;
                         background-image: linear-gradient(
-                        45deg,
-                        rgba(0,0,0,0.1) 25%,
-                        transparent     25%,
-                        transparent     50%,
-                        rgba(0,0,0,0.1) 50%,
-                        rgba(0,0,0,0.1) 75%,
-                        transparent     75%,
-                        transparent
+                                45deg,
+                                rgba(0, 0, 0, 0.1) 25%,
+                                transparent 25%,
+                                transparent 50%,
+                                rgba(0, 0, 0, 0.1) 50%,
+                                rgba(0, 0, 0, 0.1) 75%,
+                                transparent 75%,
+                                transparent
                         );
                         animation: barberpole 0.5s linear infinite;
                     }
@@ -450,9 +450,9 @@ div.field {
                         right: 0;
                         text-align: center;
                         line-height: 102px;
-                        background: #EEEEEE;
+                        background: #eee;
                         font-weight: bold;
-                        color: #777777;
+                        color: #777;
                         z-index: 1;
                         .opacity(0.9);
                         display: none;
@@ -470,8 +470,8 @@ div.field {
                     }
 
                     &.placeholder {
-                        border: 1px dashed #CCCCCC;
-                        background: #FEFEFE;
+                        border: 1px dashed #ccc;
+                        background: #fefefe;
                     }
 
                     &.crunching {
@@ -510,10 +510,10 @@ div.field {
             margin-top: 1em;
 
             .uploadify-button {
-                background: #555555;
+                background: #555;
 
                 .uploadify-button-text {
-                    color: #FFFFFF;
+                    color: #fff;
                     font-size: 1.2em;
                 }
             }
@@ -524,10 +524,10 @@ div.field {
         textarea,
         select,
         .select2-container {
-            border: 1px solid #B52130;
+            border: 1px solid #b52130;
         }
         small.char-count {
-            color: #B52130;
+            color: #b52130;
             padding-left: 16px;
             position: relative;
             &:before {
@@ -537,7 +537,7 @@ div.field {
                 position: absolute;
                 font-size: 1.4em;
                 top: -4px;
-                color: #B52130;
+                color: #b52130;
             }
         }
     }
@@ -547,7 +547,7 @@ div.field {
             textarea,
             select,
             .select2-container {
-                border: 1px solid #B52130;
+                border: 1px solid #b52130;
             }
             .select2-container {
                 input {
@@ -565,7 +565,7 @@ div.field {
                     font-size: 1.4em;
                     left: 8px;
                     top: 8px;
-                    color: #B52130;
+                    color: #b52130;
                 }
             }
         }
@@ -584,23 +584,23 @@ input[type='url'],
 input[type='number'],
 input[type='color'],
 textarea {
-    border: 1px solid #CCCCCC;
+    border: 1px solid #ccc;
     padding: 6px 4px;
     outline: none;
     border-radius: 2px;
     font: 13px Helvetica, Arial, sans-serif;
-    color: #777777;
+    color: #777;
     margin: 0;
     width: 210px;
     max-width: 100%;
     display: block;
     margin-bottom: 20px;
-    background: #FFFFFF;
+    background: #fff;
 
     &:focus {
-        border: 1px solid #AAAAAA;
-        color: #444444;
-        box-shadow: 0 0 3px rgba(0,0,0,0.2);
+        border: 1px solid #aaa;
+        color: #444;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     }
 
     &.select2-input {
@@ -614,7 +614,6 @@ select {
 }
 
 // --------------------------------------------------------------------------
-
 
 /* Tablet Portrait size to standard 960 (devices and browsers) */
 @media only screen and (min-width: 768px) and (max-width: 959px) {
@@ -712,7 +711,7 @@ div.nails-prefixed {
         left: 1px;
         top: 1px;
         bottom: 1px;
-        background: #E7E6E8;
+        background: #e7e6e8;
         line-height: 30px;
         font-weight: bold;
         position: absolute;
@@ -726,7 +725,7 @@ div.nails-prefixed {
 
     &.error {
         .nails-prefixed {
-            border-color: #B52130;
+            border-color: #b52130;
         }
     }
 }
@@ -739,7 +738,6 @@ div.ui-datepicker-title {
         display: inline-block;
     }
 }
-
 
 // --------------------------------------------------------------------------
 

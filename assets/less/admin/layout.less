@@ -17,7 +17,7 @@ body {
 
     & > .background {
         position: fixed;
-        background: #FAFAFA;
+        background: #fafafa;
         top: 0;
         bottom: 0;
         right: 0;
@@ -40,7 +40,7 @@ body {
         left: @sidebar_width_lg + 1;
         right: 0;
         background: rgba(239, 239, 239, 0.9);
-        border-bottom: 1px solid #CCCCCC;
+        border-bottom: 1px solid #ccc;
         .drop-shadow();
 
         .app-name {
@@ -55,20 +55,20 @@ body {
             a {
                 &:link,
                 &:visited {
-                    color: #CCCCCC;
+                    color: #ccc;
                     text-decoration: none;
                 }
 
                 &:hover {
-                    color: #FFFFFF;
+                    color: #fff;
                 }
             }
 
             #mobileMenuBurger {
-                border: 1px solid #CCCCCC;
+                border: 1px solid #ccc;
                 padding: 0.5em;
                 font-size: 0.55em;
-                background: #FFFFFF;
+                background: #fff;
                 position: relative;
                 top: -0.3em;
                 left: -0.3em;
@@ -88,8 +88,8 @@ body {
                 height: @shortcut_width;
                 margin: 5px;
                 margin-top: ((@header_height - @shortcut_height) / 2) - 1;
-                border: 1px solid #CCCCCC;
-                background: #FFFFFF;
+                border: 1px solid #ccc;
+                background: #fff;
                 overflow: hidden;
                 float: right;
                 .rounded(@shortcut_height / 2);
@@ -134,7 +134,7 @@ body {
                         img {
                             width: auto;
                             height: @shortcut_height + 1;
-                            width: @shortcut_width + 1 ;
+                            width: @shortcut_width + 1;
                             .rounded(50%);
                             position: absolute;
                             top: -1px;
@@ -160,7 +160,7 @@ body {
             overflow: auto;
             padding: 0;
             max-height: 0;
-            background: #F9F9F9;
+            background: #f9f9f9;
             transition: max-height 0.5s;
 
             > .menuItems {
@@ -169,7 +169,7 @@ body {
                 > li {
                     margin: 0;
                     padding: 0;
-                    border-bottom: 1px solid #CCCCCC;
+                    border-bottom: 1px solid #ccc;
 
                     .moduleName {
                         font-weight: bold;
@@ -188,7 +188,7 @@ body {
 
                                 &:hover {
                                     text-decoration: none;
-                                    background: #CCCCCC;
+                                    background: #ccc;
                                 }
                             }
                         }
@@ -231,7 +231,7 @@ body {
                 }
 
                 &.sort-placeholder {
-                    background: #FFFFFF;
+                    background: #fff;
                 }
 
                 &:last-of-type {
@@ -248,7 +248,7 @@ body {
                 display: block;
                 padding: 0 0.5em;
                 background: #404345;
-                color: #AAAAAA;
+                color: #aaa;
                 opacity: 0.15;
                 font-size: 0.8em;
 
@@ -275,7 +275,7 @@ body {
                 line-height: inherit;
                 margin-bottom: 0;
                 padding: 10px 12px 10px 12px;
-                color: #FFFFFF;
+                color: #fff;
                 font-weight: bold;
                 position: relative;
 
@@ -330,12 +330,12 @@ body {
                         position: absolute;
                         right: 6px;
                         top: 10px;
-                        color: #FFFFFF;
+                        color: #fff;
                         text-decoration: none;
                         font-weight: normal;
                         font-size: 9px;
                         padding: 0 4px;
-                        background: #333333;
+                        background: #333;
                         border-radius: 4px;
                         -moz-border-radius: 4px;
                         -webkit-border-radius: 4px;
@@ -355,12 +355,12 @@ body {
             ul {
                 padding: 0;
                 margin: 0;
-                background: #FFFFFF;
+                background: #fff;
 
                 li {
                     margin: 0;
                     list-style: none;
-                    border-bottom: 1px dotted #EFEFEF;
+                    border-bottom: 1px dotted #efefef;
                     position: relative;
 
                     a {
@@ -370,7 +370,7 @@ body {
 
                         &:link,
                         &:visited {
-                            color: #000000;
+                            color: #000;
                             text-decoration: none;
                         }
 
@@ -380,7 +380,7 @@ body {
                     }
 
                     &.current {
-                        background: #F4F4F4;
+                        background: #f4f4f4;
                     }
 
                     &:last-child {
@@ -389,7 +389,7 @@ body {
                     }
 
                     &:hover {
-                        background: #FAFAFA;
+                        background: #fafafa;
                     }
                 }
             }
@@ -397,29 +397,29 @@ body {
             .indicator {
                 float: right;
                 margin-left: 6px;
-                background: #CCCCCC;
+                background: #ccc;
                 padding: 0 4px;
                 border-radius: 4px;
                 -moz-border-radius: 4px;
                 -webkit-border-radius: 4px;
                 font-size: 0.9em;
-                color: #333333;
+                color: #333;
                 cursor: default;
                 &.info {
                     background: #5bc0de;
-                    color: #FFFFFF;
+                    color: #fff;
                 }
                 &.danger {
                     background: #d9534f;
-                    color: #FFFFFF;
+                    color: #fff;
                 }
                 &.success {
                     background: #5cb85c;
-                    color: #FFFFFF;
+                    color: #fff;
                 }
                 &.warning {
                     background: #f0ad4e;
-                    color: #FFFFFF;
+                    color: #fff;
                 }
             }
 
@@ -457,7 +457,7 @@ body {
                 width: 100%;
                 border: 0;
                 background: transparent;
-                color: #FFFFFF;
+                color: #fff;
 
                 &:focus {
                     outline: none;
@@ -480,7 +480,7 @@ body {
 
             .page-title {
                 margin-bottom: 1.5em;
-                border-bottom: 1px solid #EFEFEF;
+                border-bottom: 1px solid #efefef;
 
                 h1 {
                     font-family: inherit;
@@ -508,10 +508,10 @@ body {
                 font-weight: bold;
                 margin-top: 2em;
                 margin-bottom: 0.75em;
-                border: 1px solid #DADADA;
-                border-bottom: 2px solid #E3E3E3;
+                border: 1px solid #dadada;
+                border-bottom: 2px solid #e3e3e3;
                 padding: 0.5em;
-                background-color: rgba(355,355,355,0.5);
+                background-color: rgba(355, 355, 355, 0.5);
                 &:first-child {
                     margin-top: 0;
                 }
@@ -524,7 +524,7 @@ body {
                 font-weight: bold;
                 margin: 1em 0;
                 padding-bottom: 1em;
-                border-bottom: 1px solid #EEE;
+                border-bottom: 1px solid #eee;
             }
 
             hr {
@@ -532,11 +532,11 @@ body {
             }
 
             footer {
-                border-top: 1px dotted #CCCCCC;
+                border-top: 1px dotted #ccc;
                 margin-top: 1em;
                 padding: 0.5em 0;
                 display: block;
-                color: #666666;
+                color: #666;
                 position: absolute;
                 height: 50px;
                 left: 1.5em;
@@ -548,7 +548,7 @@ body {
                         color: inherit;
                         text-decoration: none;
                         border-bottom: 1px dotted;
-                        border-color: #AAAAAA;
+                        border-color: #aaa;
                     }
                 }
             }
@@ -570,7 +570,7 @@ body {
                 font-weight: bold;
                 margin: 0;
                 margin-bottom: 1em;
-                border-bottom: 1px solid #F5EBEB;
+                border-bottom: 1px solid #f5ebeb;
                 padding-bottom: 0.7em;
 
                 .header-buttons {
@@ -588,7 +588,6 @@ body {
 }
 
 // --------------------------------------------------------------------------
-
 
 /* Tablet Portrait size to standard 960 (devices and browsers) */
 @media only screen and (min-width: 768px) and (max-width: 959px) {

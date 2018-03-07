@@ -11,7 +11,7 @@
 @table_td_padding_left: 10px;
 table {
     width: 100%;
-    border: 1px solid #EFEFEF;
+    border: 1px solid #efefef;
     margin-bottom: 1em;
     thead {
         tr {
@@ -21,7 +21,7 @@ table {
                 text-align: left;
                 padding: @table_th_padding_top @table_th_padding_right @table_th_padding_bottom @table_th_padding_left;
                 text-transform: uppercase;
-                color: #FFFFFF;
+                color: #fff;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -57,9 +57,9 @@ table {
     tbody {
         tr {
             td {
-                background: #FFFFFF;
-                border-bottom: 1px solid #EFEFEF;
-                border-right: 1px solid #EFEFEF;
+                background: #fff;
+                border-bottom: 1px solid #efefef;
+                border-right: 1px solid #efefef;
                 vertical-align: middle;
                 padding: @table_td_padding_top @table_td_padding_right @table_td_padding_bottom @table_td_padding_left;
                 &:last-of-type {
@@ -68,7 +68,7 @@ table {
                 &.action:empty:before,
                 &.actions:empty:before {
                     content: 'No Actions';
-                    color: #CCCCCC;
+                    color: #ccc;
                 }
                 small {
                     display: block;
@@ -78,11 +78,11 @@ table {
                     &:not(.btn) {
                         &:link,
                         &:visited {
-                            color: #000000;
+                            color: #000;
                             text-decoration: none;
                         }
                         &:hover {
-                            color: #999999;
+                            color: #999;
                         }
                     }
                     &.btn {
@@ -109,7 +109,7 @@ table {
                 }
                 .no-data,
                 .blank {
-                    color: #CCCCCC;
+                    color: #ccc;
                 }
                 &.danger {
                     background: @color-danger-background !important;
@@ -130,7 +130,7 @@ table {
                 &.no-data {
                     height: 75px;
                     text-align: center;
-                    color: #AAAAAA;
+                    color: #aaa;
                     text-transform: uppercase;
                 }
                 &.user-cell {
@@ -141,8 +141,8 @@ table {
                         position: absolute;
                         left: @table_td_padding_left;
                         padding: 3px;
-                        border: 1px solid #EEEEEE;
-                        background: #FFFFFF url(../img/loader/10px-FFFFFF.gif) center no-repeat;
+                        border: 1px solid #eee;
+                        background: #fff url(../img/loader/10px-FFFFFF.gif) center no-repeat;
                         width: 35px;
                         height: 35px;
                         .rounded(3px);
@@ -180,8 +180,8 @@ table {
                         height: 7px;
                         width: 7px;
                         .rounded(7px);
-                        background: #FFFFFF;
-                        border: 1px solid #CCCCCC;
+                        background: #fff;
+                        border: 1px solid #ccc;
                         &:nth-child(2) {
                             top: 24px;
                         }
@@ -196,7 +196,7 @@ table {
                         &:nth-child(7),
                         &:nth-child(8) {
                             top: 40px;
-                            background: #CCCCCC;
+                            background: #ccc;
                         }
                     }
                     &.indented {
@@ -240,7 +240,7 @@ table {
             }
             &:hover {
                 td {
-                    background: #F6F6F6;
+                    background: #f6f6f6;
                     &.danger {
                         background: @color-danger-background !important;
                     }
@@ -262,13 +262,13 @@ table {
             }
             &:nth-child(even) {
                 td {
-                    background: #F9F9F9;
+                    background: #f9f9f9;
                 }
             }
         }
         & + tbody {
             td[colspan] {
-                border-top: 1px solid #EFEFEF;
+                border-top: 1px solid #efefef;
             }
         }
     }

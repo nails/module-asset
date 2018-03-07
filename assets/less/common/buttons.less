@@ -1,7 +1,7 @@
 /* !AWESOME BUTTONS */
 
-@hover-color-text: #FFFFFF;
-@hover-color-bg: #333333;
+@hover-color-text: #fff;
+@hover-color-bg: #333;
 
 //	Definition
 .awesome,
@@ -12,13 +12,13 @@ input[type='reset'].awesome,
 input[type='button'].awesome {
     font-size: 14px;
     text-transform: none;
-    background: #555555;
-    color: #FFFFFF !important;
+    background: #555;
+    color: #fff !important;
     padding: 8px 14px 6px 14px;
     .rounded(2px);
     font-weight: normal !important;
     line-height: 1em !important;
-    color: #FFFFFF !important;
+    color: #fff !important;
     .nifty-drop-shadow();
     text-align: center;
     position: relative;
@@ -26,7 +26,7 @@ input[type='button'].awesome {
     cursor: pointer;
     text-decoration: none;
     margin-right: 5px;
-    border: 0!important;
+    border: 0 !important;
     text-shadow: none;
 
     &:hover,
@@ -87,13 +87,13 @@ input[type='button'].awesome {
     &.green:hover,
     &.orange:hover,
     &.red:hover,
-    &.grey:hover, {
+    &.grey:hover {
         color: @hover-color-text !important;
         background: @hover-color-bg !important;
     }
     &.black:hover {
-        color: #FFFFFF !important;
-        background: #000000 !important;
+        color: #fff !important;
+        background: #000 !important;
     }
 
     // --------------------------------------------------------------------------
@@ -102,8 +102,8 @@ input[type='button'].awesome {
     &.disabled,
     &[disabled='disabled'] {
         cursor: not-allowed;
-        background: #888888 !important;
-        color: #EEEEEE !important;
-        text-shadow: 0 1px 0 #444444 ;
+        background: #888 !important;
+        color: #eee !important;
+        text-shadow: 0 1px 0 #444;
     }
 }
