@@ -45,7 +45,7 @@ NAILS_Forms = function() {
 
             //  Bind to the things
             $(document).on('click', '.field.cms-widgets .open-editor', function() {
-                if (base.widgetEditor.ready) {
+                if (base.widgetEditor.isReady()) {
                     base.activeArea = $(this);
                     base.log('Opening Editor for area: ' + base.activeArea.data('key'));
                     base.widgetEditor.show(base.activeArea.data('key'));
