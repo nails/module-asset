@@ -401,7 +401,6 @@ NAILS_JS = function() {
             });
 
         } else {
-
             base.error('NAILS_JS: datepicker not available.');
         }
 
@@ -424,8 +423,19 @@ NAILS_JS = function() {
                 });
             });
 
-        } else {
+            //  Time pickers
+            $('input.time').each(function() {
 
+                //  Fetch some info which may be available in the data attributes
+                var timeFormat = $(this).data('datepicker-timeformat') || 'HH:mm';
+
+                $(this).datetimepicker({
+                    'timeOnly': true,
+                    'timeFormat': timeFormat
+                });
+            });
+
+        } else {
             base.log('NAILS_JS: datetimepicker not available.');
         }
     };
