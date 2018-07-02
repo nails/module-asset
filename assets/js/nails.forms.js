@@ -20,55 +20,66 @@ NAILS_Forms = function() {
     base.widgetEditor = null;
     base.activeArea = null;
     base.initWidgetEditors = function() {
+        var $btns = $('.field.cms-widgets .open-editor');
         if (typeof NAILS_Admin_CMS_WidgetEditor === 'function') {
+
+            //  Disable all buttons until the widgeteditor is ready
+            $btns.prop('disabled', true);
 
             //  Set up an instance of the widget editor
             base.widgetEditor = new NAILS_Admin_CMS_WidgetEditor();
 
+            $(base.widgetEditor)
+                .on('widgeteditor-ready', function() {
+                    $btns.prop('disabled', false);
+                });
+
             //  Populate the editor with existing areas
-            $('.field.cms-widgets .open-editor').each(function() {
+            $btns
+                .each(function() {
+                    //  Look for the associated input
+                    var key = $(this).data('key');
+                    var input = $(this).siblings('textarea.widget-data');
 
-                //  Look for the associated input
-                var key = $(this).data('key');
-                var input = $(this).siblings('textarea.widget-data');
-
-                if (input.length) {
-                    try {
-                        var widgetData = JSON.parse(input.val());
-                        base.widgetEditor.setAreaData(key, widgetData);
-                    } catch (e) {
-                        base.warn('Failed to parse JSON data');
-                        base.warn(e.message);
+                    if (input.length) {
+                        try {
+                            var widgetData = JSON.parse(input.val());
+                            base.widgetEditor.setAreaData(key, widgetData);
+                        } catch (e) {
+                            base.warn('Failed to parse JSON data');
+                            base.warn(e.message);
+                        }
                     }
-                }
-            });
+                });
 
             //  Bind to the things
-            $(document).on('click', '.field.cms-widgets .open-editor', function() {
-                if (base.widgetEditor.isReady()) {
-                    base.activeArea = $(this);
-                    base.log('Opening Editor for area: ' + base.activeArea.data('key'));
-                    base.widgetEditor.show(base.activeArea.data('key'));
-                } else {
-                    base.warn('Widget editor not ready');
-                }
-                return false;
-            });
+            $(document)
+                .on('click', '.field.cms-widgets .open-editor', function() {
+                    if (base.widgetEditor.isReady()) {
+                        base.activeArea = $(this);
+                        base.log('Opening Editor for area: ' + base.activeArea.data('key'));
+                        base.widgetEditor.show(base.activeArea.data('key'));
+                    } else {
+                        base.warn('Widget editor not ready');
+                    }
+                    return false;
+                });
 
-            $(base.widgetEditor).on('widgeteditor-close', function() {
-                base.log('Editor Closing, getting area data and saving to input');
-                var data = base.widgetEditor.getAreaData(base.activeArea.data('key'));
-                var input = base.activeArea.siblings('textarea.widget-data');
+            $(base.widgetEditor)
+                .on('widgeteditor-close', function() {
+                    base.log('Editor Closing, getting area data and saving to input');
+                    var data = base.widgetEditor.getAreaData(base.activeArea.data('key'));
+                    var input = base.activeArea.siblings('textarea.widget-data');
 
-                if (input.length) {
-                    input.val(JSON.stringify(data));
-                }
+                    if (input.length) {
+                        input.val(JSON.stringify(data));
+                    }
 
-                base.activeArea = null;
-            });
+                    base.activeArea = null;
+                });
 
         } else {
-            $('.field.cms-widgets .open-editor')
+            $btns
                 .addClass('disabled')
                 .after('<p class="alert alert-warning">Module nailsapp/module-cms is not available</p>');
         }
@@ -79,48 +90,50 @@ NAILS_Forms = function() {
     base.initMultiFiles = function() {
 
         //  Add new rows to the picker
-        $(document).on('click', '.js-cdn-multi-action-add', function() {
+        $(document)
+            .on('click', '.js-cdn-multi-action-add', function() {
 
-            base.log('MultiFile: Adding Row');
+                base.log('MultiFile: Adding Row');
 
-            var _parent = $(this).closest('.field');
-            var _existing = _parent.data('items') || [];
+                var _parent = $(this).closest('.field');
+                var _existing = _parent.data('items') || [];
 
-            var newItem = {
-                'id': null,
-                'object_id': null,
-                'label': null
-            };
+                var newItem = {
+                    'id': null,
+                    'object_id': null,
+                    'label': null
+                };
 
-            _existing.push(newItem);
-            _parent.data('items', _existing);
+                _existing.push(newItem);
+                _parent.data('items', _existing);
 
-            base.renderMultFiles(_parent, _existing);
+                base.renderMultFiles(_parent, _existing);
 
-            return false;
-        });
+                return false;
+            });
 
         //  Remove a row from the picker
-        $(document).on('click', '.js-cdn-multi-action-remove', function() {
+        $(document)
+            .on('click', '.js-cdn-multi-action-remove', function() {
 
-            base.log('MultiFile: Removing Row');
+                base.log('MultiFile: Removing Row');
 
-            var _removeIndex = $(this).data('index');
-            var _parent = $(this).closest('.field');
-            var _existing = _parent.data('items') || [];
-            var _newItems = [];
+                var _removeIndex = $(this).data('index');
+                var _parent = $(this).closest('.field');
+                var _existing = _parent.data('items') || [];
+                var _newItems = [];
 
-            for (var i = 0; i < _existing.length; i++) {
-                if (i !== _removeIndex) {
-                    _newItems.push(_existing[i]);
+                for (var i = 0; i < _existing.length; i++) {
+                    if (i !== _removeIndex) {
+                        _newItems.push(_existing[i]);
+                    }
                 }
-            }
 
-            base.renderMultFiles(_parent, _newItems);
-            _parent.data('items', _newItems);
+                base.renderMultFiles(_parent, _newItems);
+                _parent.data('items', _newItems);
 
-            return false;
-        });
+                return false;
+            });
 
         //  Apply listeners to any existing multifile
         $('.field.cdn-multi').each(function() {
@@ -129,14 +142,16 @@ NAILS_Forms = function() {
             $(this).data('items', _defaults);
 
             //  CDN Picker
-            $(this).find('.cdn-object-picker').on('picked', function() {
-                base.multiCdnPicked($(this));
-            });
+            $(this).find('.cdn-object-picker')
+                .on('picked', function() {
+                    base.multiCdnPicked($(this));
+                });
 
             //  Label
-            $(this).find('.js-label').on('keyup', function() {
-                base.multiLabelChanged($(this));
-            });
+            $(this).find('.js-label')
+                .on('keyup', function() {
+                    base.multiLabelChanged($(this));
+                });
         });
     };
 
@@ -160,12 +175,14 @@ NAILS_Forms = function() {
 
             //  Apply listeners
             _render = $(_render);
-            _render.find('.cdn-object-picker').on('picked', function() {
-                base.multiCdnPicked($(this));
-            });
-            _render.find('.js-label').on('keyup', function() {
-                base.multiLabelChanged($(this));
-            });
+            _render.find('.cdn-object-picker')
+                .on('picked', function() {
+                    base.multiCdnPicked($(this));
+                });
+            _render.find('.js-label')
+                .on('keyup', function() {
+                    base.multiLabelChanged($(this));
+                });
 
             //  Add to the target
             _target.append(_render);
