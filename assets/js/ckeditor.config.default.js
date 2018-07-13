@@ -79,7 +79,7 @@ CKEDITOR.editorConfig = function(config) {
      * Additional plugins to enable
      * @type {String}
      */
-    config.extraPlugins = 'justify,autogrow,mediaembed,codemirror,colorbutton,colordialog,font,image2,pastefromword';
+    config.extraPlugins = 'justify,autogrow,mediaembed,codemirror,colorbutton,colordialog,font,image2,pastefromword,iframe';
 
     /**
      * Plugins to remove
