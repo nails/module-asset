@@ -191,7 +191,7 @@ NAILS_Admin = function() {
      * @return {Void}
      */
     base.saveNav = function() {
-        var _data, _call, _open;
+        var _data, _open;
 
         _data = {};
 
@@ -202,16 +202,14 @@ NAILS_Admin = function() {
             };
         });
 
-        _call = {
+        _nails_api.call({
             'controller': 'admin/nav',
             'method': 'save',
             'action': 'POST',
             'data': {
                 'preferences': _data
             }
-        };
-
-        _nails_api.call(_call);
+        });
     };
 
     // --------------------------------------------------------------------------
@@ -341,13 +339,11 @@ NAILS_Admin = function() {
         $('#admin-nav-reset-buttons a').on('click', function() {
             if ($(this).data('action') === 'reset') {
 
-                var _call = {
+                _nails_api.call({
                     'controller': 'admin/nav',
                     'method': 'reset',
                     'action': 'POST'
-                };
-
-                _nails_api.call(_call);
+                });
 
                 // --------------------------------------------------------------------------
 
@@ -519,46 +515,28 @@ NAILS_Admin = function() {
 
     // --------------------------------------------------------------------------
 
+    base.basicConfig = window.NAILS.URL + 'js/ckeditor.config.basic.min.js';
+    base.defaultConfig = window.NAILS.URL + 'js/ckeditor.config.default.min.js';
+
     /**
      * Instantiates CKEditor instances
      * @return {Void}
      */
-
-    base.basicConfig = window.NAILS.URL + 'js/ckeditor.config.basic.min.js';
-    base.defaultConfig = window.NAILS.URL + 'js/ckeditor.config.default.min.js';
-
     base.initWysiwyg = function() {
         if ($.fn.ckeditor) {
-
-            /**
-             * Check for the presence of the app config files, if found use them as
-             * the customConfig; if not found fall back to the Nails config files.
-             */
-
-            var appConfigBasic = window.SITE_URL + 'assets/js/nails.admin.ckeditor.config.basic.min.js';
-            var appConfigDefault = window.SITE_URL + 'assets/js/nails.admin.ckeditor.config.default.min.js';
-
-            $.ajax({
-                'url': appConfigBasic,
-                'type': 'HEAD',
-                'success': function() {
-                    base.basicConfig = appConfigBasic;
+            _nails_api.call({
+                'controller': 'admin/ckeditor',
+                'method': 'configs',
+                'action': 'GET',
+                'success': function(response) {
+                    base.basicConfig = response.data.basic;
+                    base.defaultConfig = response.data.default;
                     base.buildWysiwyg('basic');
-                },
-                error: function() {
-                    base.buildWysiwyg('basic');
-                }
-            });
-
-            //  Instantiate default editors
-            $.ajax({
-                'url': appConfigDefault,
-                'type': 'HEAD',
-                'success': function() {
-                    base.defaultConfig = appConfigDefault;
                     base.buildWysiwyg('default');
                 },
-                error: function() {
+                'error': function() {
+                    base.error('NAILS_ADMIN_JS: (CKEditor) Falling back to default configuration');
+                    base.buildWysiwyg('basic');
                     base.buildWysiwyg('default');
                 }
             });
