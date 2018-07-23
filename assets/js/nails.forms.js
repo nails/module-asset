@@ -72,7 +72,7 @@ NAILS_Forms = function() {
                     var input = base.activeArea.siblings('textarea.widget-data');
 
                     if (input.length) {
-                        input.val(JSON.stringify(data));
+                        input.val(JSON.stringify(data)).trigger('change');
                     }
 
                     base.activeArea = null;
