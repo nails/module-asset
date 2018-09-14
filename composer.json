@@ -1,5 +1,5 @@
 {
-    "name": "nailsapp/module-asset",
+    "name": "nails/module-asset",
     "keywords": ["Nails", "Shed Collective", "CodeIgniter", "Asset Module"],
     "homepage": "http://nailsapp.co.uk/modules/asset",
     "description": "This module provides pre-compiled assets which are used by Nails modules.",

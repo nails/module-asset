@@ -81,7 +81,7 @@ NAILS_Forms = function() {
         } else {
             $btns
                 .addClass('disabled')
-                .after('<p class="alert alert-warning">Module nailsapp/module-cms is not available</p>');
+                .after('<p class="alert alert-warning">Module nails/module-cms is not available</p>');
         }
     };
 
