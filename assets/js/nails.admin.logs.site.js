@@ -27,8 +27,8 @@ NAILS_Admin_Logs_Site = function() {
         var call = {
             'controller': 'admin',
             'method': 'logs/site',
-            'success': function(data) {
-                base.fetchLogsOk(data);
+            'success': function(response) {
+                base.fetchLogsOk(response.data);
             },
             'error': function(data) {
                 var _data;
@@ -50,22 +50,22 @@ NAILS_Admin_Logs_Site = function() {
 
     /**
      * Called when fetchLogs is successful
-     * @param  {Object} data Data returned by the server
+     * @param  {Object} logs Data returned by the server
      * @return {Void}
      */
-    base.fetchLogsOk = function(data) {
+    base.fetchLogsOk = function(logs) {
         var tpl, html;
 
         $('#logEntries').empty();
         $('#pleaseNote').remove();
 
-        if (data.logs.length > 0) {
+        if (logs.length > 0) {
 
             tpl = $('#templateLogRow').html();
 
-            for (var i = 0; i < data.logs.length; i++) {
+            for (var i = 0; i < logs.length; i++) {
 
-                html = Mustache.render(tpl, data.logs[i]);
+                html = Mustache.render(tpl, logs[i]);
                 $('#logEntries').append(html);
             }
 
