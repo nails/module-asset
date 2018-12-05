@@ -1,4 +1,4 @@
-/* globals NAILS_Admin_CMS_WidgetEditor, console, Mustache, _CDN_OBJECTPICKER */
+/* globals console, Mustache, _CDN_OBJECTPICKER */
 var NAILS_Forms;
 NAILS_Forms = function() {
     var base = this;
@@ -21,13 +21,14 @@ NAILS_Forms = function() {
     base.activeArea = null;
     base.initWidgetEditors = function() {
         var $btns = $('.field.cms-widgets .open-editor');
-        if (typeof NAILS_Admin_CMS_WidgetEditor === 'function') {
+        if (typeof window.WidgetEditor === 'object') {
 
             //  Disable all buttons until the widgeteditor is ready
             $btns.prop('disabled', true);
 
             //  Set up an instance of the widget editor
-            base.widgetEditor = new NAILS_Admin_CMS_WidgetEditor();
+            base.widgetEditor = new window.WidgetEditor.default();
+            base.widgetEditor.construct();
 
             $(base.widgetEditor)
                 .on('widgeteditor-ready', function() {
@@ -37,6 +38,7 @@ NAILS_Forms = function() {
             //  Populate the editor with existing areas
             $btns
                 .each(function() {
+
                     //  Look for the associated input
                     var key = $(this).data('key');
                     var input = $(this).siblings('textarea.widget-data');
