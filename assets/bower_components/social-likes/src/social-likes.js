@@ -27,6 +27,7 @@
 	var classPrefix = prefix + '__';
 	var openClass = prefix + '_opened';
 	var protocol = location.protocol === 'https:' ? 'https:' : 'http:';
+	var isHttps = protocol === 'https:';
 
 
 	/**
@@ -44,16 +45,12 @@
 			popupHeight: 500
 		},
 		twitter: {
-			counterUrl: 'https://cdn.api.twitter.com/1/urls/count.json?url={url}&callback=?',
-			convertNumber: function(data) {
-				return data.count;
-			},
 			popupUrl: 'https://twitter.com/intent/tweet?url={url}&text={title}',
 			popupWidth: 600,
 			popupHeight: 450,
 			click: function() {
 				// Add colon to improve readability
-				if (!/[\.:\-–—]\s*$/.test(this.options.title)) this.options.title += ':';
+				if (!/[\.\?:\-–—]\s*$/.test(this.options.title)) this.options.title += ':';
 				return true;
 			}
 		},
@@ -71,7 +68,7 @@
 			popupHeight: 360
 		},
 		vkontakte: {
-			counterUrl: protocol + '//vk.com/share.php?act=count&url={url}&index={index}',
+			counterUrl: 'https://vk.com/share.php?act=count&url={url}&index={index}',
 			counter: function(jsonUrl, deferred) {
 				var options = services.vkontakte;
 				if (!options._) {
@@ -94,8 +91,8 @@
 			popupHeight: 330
 		},
 		odnoklassniki: {
-			// HTTPS not supported yet: http://apiok.ru/wiki/pages/viewpage.action?pageId=42476656
-			counterUrl: protocol === 'http:' ? 'http://www.odnoklassniki.ru/dk?st.cmd=extLike&ref={url}&uid={index}': undefined,
+			// HTTPS not supported
+			counterUrl: isHttps ? undefined : 'http://connect.ok.ru/dk?st.cmd=extLike&ref={url}&uid={index}',
 			counter: function(jsonUrl, deferred) {
 				var options = services.odnoklassniki;
 				if (!options._) {
@@ -111,13 +108,13 @@
 				$.getScript(makeUrl(jsonUrl, {index: index}))
 					.fail(deferred.reject);
 			},
-			popupUrl: 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st._surl={url}',
+			popupUrl: 'http://connect.ok.ru/dk?st.cmd=WidgetSharePreview&service=odnoklassniki&st.shareUrl={url}',
 			popupWidth: 550,
 			popupHeight: 360
 		},
 		plusone: {
 			// HTTPS not supported yet: http://clubs.ya.ru/share/1499
-			counterUrl: protocol === 'http:' ? 'http://share.yandex.ru/gpp.xml?url={url}' : undefined,
+			counterUrl: isHttps ? undefined : 'http://share.yandex.ru/gpp.xml?url={url}',
 			counter: function(jsonUrl, deferred) {
 				var options = services.plusone;
 				if (options._) {
@@ -129,7 +126,10 @@
 				if (!window.services) window.services = {};
 				window.services.gplus = {
 					cb: function(number) {
-						options._.resolve(number);
+						if (typeof number === 'string') {
+							number = number.replace(/\D/g, '');
+						}
+						options._.resolve(parseInt(number, 10));
 					}
 				};
 
@@ -224,7 +224,8 @@
 		title: document.title,
 		counters: true,
 		zeroes: false,
-		wait: 500,
+		wait: 500,  // Show buttons only after counters are ready or after this amount of time
+		timeout: 10000,  // Show counters after this amount of time even if they aren’t ready
 		popupCheckInterval: 500,
 		singleTitle: 'Share'
 	};
@@ -261,6 +262,7 @@
 
 			if (this.options.counters) {
 				this.timer = setTimeout($.proxy(this.appear, this), this.options.wait);
+				this.timeout = setTimeout($.proxy(this.ready, this, true), this.options.timeout);
 			}
 			else {
 				this.appear();
@@ -299,7 +301,7 @@
 			widget.append(button);
 			wrapper.append(widget);
 
-			widget.click(function() {
+			widget.on('click', function() {
 				var activeClass = prefix + '__widget_active';
 				widget.toggleClass(activeClass);
 				if (widget.hasClass(activeClass)) {
@@ -332,7 +334,9 @@
 			}
 		},
 		updateCounter: function(e, service, number) {
-			if (number) {
+			number = number || 0;
+
+			if (number || this.options.zeroes) {
 				this.number += number;
 				if (this.single) {
 					this.getCounterElem().text(this.number);
@@ -342,12 +346,20 @@
 			this.countersLeft--;
 			if (this.countersLeft === 0) {
 				this.appear();
-				this.container.addClass(prefix + '_ready');
-				this.container.trigger('ready.' + prefix, this.number);
+				this.ready();
 			}
 		},
 		appear: function() {
 			this.container.addClass(prefix + '_visible');
+		},
+		ready: function(silent) {
+			if (this.timeout) {
+				clearTimeout(this.timeout);
+			}
+			this.container.addClass(prefix + '_ready');
+			if (!silent) {
+				this.container.trigger('ready.' + prefix, this.number);
+			}
 		},
 		getCounterElem: function() {
 			var counterElem = this.widget.find('.' + classPrefix + 'counter_single');
@@ -456,7 +468,7 @@
 				this.widget = widget = link;
 			}
 			else {
-				widget.click($.proxy(this.click, this));
+				widget.on('click', $.proxy(this.click, this));
 			}
 
 			widget.removeClass(this.service);

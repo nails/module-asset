@@ -1,6 +1,7 @@
 {
   "name": "social-likes",
-  "version": "3.0.9",
+  "version": "3.0.15",
+  "license": "MIT",
   "main": [
     "./src/social-likes.js",
     "./social-likes_classic.css",
@@ -21,13 +22,13 @@
     "jquery": ">=1.8"
   },
   "homepage": "https://github.com/sapegin/social-likes",
-  "_release": "3.0.9",
+  "_release": "3.0.15",
   "_resolution": {
     "type": "version",
-    "tag": "v3.0.9",
-    "commit": "c79a2fc26046420b8daae76afffb7c8bfbcfaedd"
+    "tag": "3.0.15",
+    "commit": "5e6c631f4ab925237edff3032d118e1500e326ac"
   },
-  "_source": "git://github.com/sapegin/social-likes.git",
+  "_source": "https://github.com/sapegin/social-likes.git",
   "_target": "~3.0.9",
   "_originalSource": "social-likes"
 }
