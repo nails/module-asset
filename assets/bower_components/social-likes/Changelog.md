@@ -1,3 +1,28 @@
+# 3.1.3 - 2017-11-21
+
+* **Fixed**: Disable non-working Google+ counter (#210 by @apotheosis91).
+* **Fixed**: `updateCounter`: append counter only once (#209 by @RunnX).
+
+# 3.1.2 - 2016-12-02
+
+* **Fixed**: popup position on dual-screen setups (#190 by @mshevtsov).
+
+# 3.1.1 - 2016-08-19
+
+* **Fixed**: Facebook counter API (#184 by @gldmtr, #186 by @xdimedrolx).
+* **Fixed**: ready state check after Twitter counter removal (#182 by @shvetsgroup).
+* Allow HTML in button captions (#109 by @thenexus00).
+
+# 3.1.0 - 2016-01-10
+
+* Fix Google+ counter.
+* Enable HTTPS for Odnoklassniki.
+* `ready.social-likes` now triggered after all counters (#166, by @scream4ik).
+* Open all popups with HTTPS.
+* Update popup sizes.
+
+3.0.15 was the last version available via Bower. Now Social Likes is available only via npm.
+
 # 3.0.15 - 2015-11-21
 
 * Disable discontinued Twitter button (#147).

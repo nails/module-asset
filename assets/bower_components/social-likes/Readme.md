@@ -1,8 +1,9 @@
-
 # Social Likes
 
-[![Bower version](https://badge.fury.io/bo/social-likes.svg)](http://badge.fury.io/bo/social-likes)
-[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+[![Powered by You](http://sapegin.github.io/powered-by-you/badge.svg)](http://sapegin.github.io/powered-by-you/)
+[![Build Status](https://travis-ci.org/sapegin/social-likes.svg)](https://travis-ci.org/sapegin/social-likes)
+
+**[Try the all new Social Likes Next](http://social-likes-next.js.org/): no jQuery, no counters, Retina, IE11+, improved skins.**
 
 Beautiful share buttons with counters for popular social networks: Facebook, Twitter, Google+, Pinterest, Vkontakte, etc. Uses jQuery.
 
@@ -21,7 +22,7 @@ Beautiful share buttons with counters for popular social networks: Facebook, Twi
 
 Use [interactive builder](http://sapegin.github.io/social-likes/) to generate the code.
 
-Or install via [Bower](http://bower.io/): `$ bower install social-likes`.
+Or install via npm: `npm install --save social-likes`.
 
 
 ## Advanced configuration
@@ -52,7 +53,7 @@ All buttons in a column.
 
 #### Single button
 
-One button with a counter (summ of all the networks). Opens popup with like buttons in vertical layout. Use `data-single-title` attribute to change button title.
+One button with a counter (sum of all the networks). Opens popup with like buttons in vertical layout. Use `data-single-title` attribute to change button title.
 
 ```html
 <div class="social-likes social-likes_single" data-single-title="Share me!">
@@ -317,6 +318,26 @@ You can add additional Twitter data using [Twitter Card](https://dev.twitter.com
 
 If you’re experiencing any problems with meta data try [Open Graph Debugger](https://developers.facebook.com/tools/debug/) and [Twitter Card Validator](https://dev.twitter.com/docs/cards/validation/validator).
 
+### How to fix Twitter counter
+
+Twitter counter API [was disabled by Twitter](https://github.com/sapegin/social-likes/releases/tag/3.0.15) but you can replace it with [OpenShareCount](http://opensharecount.com/). It’s free but you have to register your site there.
+
+1. [Create account](http://opensharecount.com/) at OpenShareCount.
+
+2. Add this script before you include `social-likes.js`:
+
+```html
+<script>
+var socialLikesButtons = {
+  twitter: {
+    counterUrl: 'https://opensharecount.com/count.json?url={url}&callback=?',
+    convertNumber: function(data) {
+      return data.count;
+    }
+  }
+};
+</script>
+```
 
 ### How to use Social Likes with Wordpress, etc.
 
@@ -368,9 +389,11 @@ So you need your page to look like this:
 
 ### Counters don’t work
 
+**Twitter counter was disabled in [3.0.15](https://github.com/sapegin/social-likes/releases/tag/3.0.15).**
+
 In most cases if you don’t see counters it’s because social networks APIs return zeros. You could check API requests results in Network tab in your browser’s developer tools:
 
-![](http://cl.ly/image/013x2M01021N/Image%202014-03-06%20at%205.33.14%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%20%D0%BF%D0%BE%D0%BB%D1%83%D0%B4%D0%BD%D1%8F.png)
+![](https://d3vv6lp55qjaqc.cloudfront.net/items/2F3F0u0Q0D1D3u142X0d/Image%202014-03-06%20at%205.33.14%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%20%D0%BF%D0%BE%D0%BB%D1%83%D0%B4%D0%BD%D1%8F.png)
 
 Double check that you use canonical URLs (without extra parameters such as `utm_source`). You can change URL via [`data-url` option](#options).
 
@@ -380,10 +403,9 @@ If your site have internationalized domain name (e.g. `президент.рф`)
 
 If you’re sure that it’s a bug please file an issue **and provide a link** to a page with non-working counter.
 
-
 ## Release History
 
-The changelog can be found in the [Changelog.md](Changelog.md) file.
+The changelog can be found on the [Releases page](https://github.com/sapegin/social-likes/releases).
 
 ## Contributing
 
