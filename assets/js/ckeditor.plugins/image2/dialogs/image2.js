@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or http://ckeditor.com/license
+ * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
 /**
@@ -41,12 +41,13 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 		// Editor instance configuration.
 		config = editor.config,
 
+		hasFileBrowser = !!( config.filebrowserImageBrowseUrl || config.filebrowserBrowseUrl ),
+
 		// Content restrictions defined by the widget which
 		// impact on dialog structure and presence of fields.
 		features = editor.widgets.registered.image.features,
 
 		// Functions inherited from image2 plugin.
-		checkHasNaturalRatio = helpers.checkHasNaturalRatio,
 		getNatural = helpers.getNatural,
 
 		// Global variables referring to the dialog's context.
@@ -76,7 +77,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 			isValid = !!( match && parseInt( match[ 1 ], 10 ) !== 0 );
 
 		if ( !isValid )
-			alert( commonLang[ 'invalid' + CKEDITOR.tools.capitalize( this.id ) ] );
+			alert( commonLang[ 'invalidLength' ].replace( '%1', commonLang[ this.id ] ).replace( '%2', 'px' ) ); // jshint ignore:line
 
 		return isValid;
 	}
@@ -107,7 +108,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 		// @param {Function} callback.
 		return function( src, callback, scope ) {
 			addListener( 'load', function() {
-				// Don't use image.$.(width|height) since it's buggy in IE9-10 (#11159)
+				// Don't use image.$.(width|height) since it's buggy in IE9-10 (https://dev.ckeditor.com/ticket/11159)
 				var dimensions = getNatural( image );
 
 				callback.call( scope, image, dimensions.width, dimensions.height );
@@ -146,16 +147,16 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 					return toggleLockRatio( false );
 
 				// Fill width field with the width of the new image.
-				widthField.setValue( width );
+				widthField.setValue( editor.config.image2_prefillDimensions === false ? 0 : width );
 
 				// Fill height field with the height of the new image.
-				heightField.setValue( height );
+				heightField.setValue( editor.config.image2_prefillDimensions === false ? 0 : height );
 
-				// Cache the new width.
-				preLoadedWidth = width;
+				// Cache the new width and update initial cache (#1348).
+				preLoadedWidth = domWidth = width;
 
-				// Cache the new height.
-				preLoadedHeight = height;
+				// Cache the new height and update initial cache (#1348).
+				preLoadedHeight = domHeight = height;
 
 				// Check for new lock value if image exist.
 				toggleLockRatio( helpers.checkHasNaturalRatio( image ) );
@@ -342,8 +343,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 		heightField[ method ]();
 	}
 
-	var hasFileBrowser = !!( config.filebrowserImageBrowseUrl || config.filebrowserBrowseUrl ),
-		srcBoxChildren = [
+	var srcBoxChildren = [
 			{
 				id: 'src',
 				type: 'text',
@@ -418,6 +418,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 							{
 								type: 'hbox',
 								widths: [ '100%' ],
+								className: 'cke_dialog_image_url',
 								children: srcBoxChildren
 							}
 						]
@@ -431,7 +432,8 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 						},
 						commit: function( widget ) {
 							widget.setData( 'alt', this.getValue() );
-						}
+						},
+						validate: editor.config.image2_altRequired === true ? CKEDITOR.dialog.validate.notEmpty( lang.altMissing ) : null
 					},
 					{
 						type: 'hbox',
@@ -497,9 +499,10 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 								type: 'radio',
 								items: [
 									[ commonLang.alignNone, 'none' ],
-									[ commonLang.alignLeft, 'left' ],
-									[ commonLang.alignCenter, 'center' ],
-									[ commonLang.alignRight, 'right' ] ],
+									[ commonLang.left, 'left' ],
+									[ commonLang.center, 'center' ],
+									[ commonLang.right, 'right' ]
+								],
 								label: commonLang.align,
 								setup: function( widget ) {
 									this.setValue( widget.data.align );
