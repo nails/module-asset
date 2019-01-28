@@ -15,7 +15,6 @@
  */
 CKEDITOR.plugins.addExternal('codemirror', window.NAILS.URL + 'js/ckeditor.plugins/codemirror/');
 CKEDITOR.plugins.addExternal('mediaembed', window.NAILS.URL + 'js/ckeditor.plugins/mediaembed/');
-CKEDITOR.plugins.addExternal('image2', window.NAILS.URL + 'js/ckeditor.plugins/image2/');
 
 /**
  * Set the contents of the "Styles" dropdown
@@ -79,7 +78,7 @@ CKEDITOR.editorConfig = function(config) {
      * Additional plugins to enable
      * @type {String}
      */
-    config.extraPlugins = 'justify,autogrow,mediaembed,codemirror,colorbutton,colordialog,font,image2,pastefromword,iframe';
+    config.extraPlugins = 'justify,autogrow,mediaembed,codemirror,colorbutton,colordialog,font,image,pastefromword,iframe';
 
     /**
      * Plugins to remove
