@@ -78,13 +78,13 @@ CKEDITOR.editorConfig = function(config) {
      * Additional plugins to enable
      * @type {String}
      */
-    config.extraPlugins = 'justify,autogrow,mediaembed,codemirror,colorbutton,colordialog,font,image,pastefromword,iframe';
+    config.extraPlugins = 'justify,autogrow,mediaembed,codemirror,colorbutton,colordialog,font,image2,pastefromword,iframe';
 
     /**
      * Plugins to remove
      * @type {String}
      */
-    config.removePlugins = 'resize,elementspath';
+    config.removePlugins = 'resize,elementspath,image';
 
     /**
      * The toolbar groups arrangement, optimized for a single toolbar row.
