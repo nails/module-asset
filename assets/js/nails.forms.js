@@ -1,4 +1,4 @@
-/* globals console, Mustache, _CDN_OBJECTPICKER */
+/* globals console, Mustache */
 var NAILS_Forms;
 NAILS_Forms = function() {
     var base = this;
@@ -99,12 +99,11 @@ NAILS_Forms = function() {
 
                 var _parent = $(this).closest('.field');
                 var _existing = _parent.data('items') || [];
-
                 var newItem = {
                     'id': null,
                     'object_id': null,
-                    'label': null
                 };
+                newItem[_parent.data('label-key')] = null;
 
                 _existing.push(newItem);
                 _parent.data('items', _existing);
@@ -141,7 +140,10 @@ NAILS_Forms = function() {
         $('.field.cdn-multi').each(function() {
 
             var _defaults = $(this).data('defaults');
-            $(this).data('items', _defaults);
+            var _labelKey = $(this).data('label-key');
+            $(this)
+                .data('items', _defaults)
+                .data('label-key', _labelKey);
 
             //  CDN Picker
             $(this).find('.cdn-object-picker')
@@ -191,7 +193,7 @@ NAILS_Forms = function() {
         }
 
         //  Init the CDN Pickers
-        _CDN_OBJECTPICKER.initPickers();
+        window.NAILS.CDN.ObjectPicker.initPickers();
     };
 
     // --------------------------------------------------------------------------
@@ -225,7 +227,7 @@ NAILS_Forms = function() {
         for (var i = 0; i < _existing.length; i++) {
             if (i === _updateIndex) {
                 base.log('Updating label');
-                _existing[i].label = element.val();
+                _existing[i][_parent.data('label-key')] = element.val();
                 break;
             }
         }
@@ -271,7 +273,7 @@ NAILS_Forms = function() {
      * @return {void}
      */
     base.log = function(message, payload) {
-        if (typeof(console.log) === 'function') {
+        if (typeof (console.log) === 'function') {
             if (payload !== undefined) {
                 console.log('Nails Forms:', message, payload);
             } else {
@@ -289,7 +291,7 @@ NAILS_Forms = function() {
      * @return {void}
      */
     base.warn = function(message, payload) {
-        if (typeof(console.warn) === 'function') {
+        if (typeof (console.warn) === 'function') {
             if (payload !== undefined) {
                 console.warn('Nails Forms:', message, payload);
             } else {
