@@ -172,13 +172,6 @@ CKEDITOR.editorConfig = function(config) {
     config.autoGrow_maxHeight = 500;
 
     /**
-     * Considering that the basic setup doesn't provide pasting cleanup features,
-     * it's recommended to force everything to be plain text.
-     * @type {Boolean}
-     */
-    config.forcePasteAsPlainText = true;
-
-    /**
      * Configure the CDN endpoints
      * @type {string}
      */
@@ -210,4 +203,10 @@ CKEDITOR.editorConfig = function(config) {
      * @type {boolean}
      */
     config.pasteFromWordPromptCleanup = true;
+
+    /**
+     * Only paste  text with links and basic formatting
+     * @type {String}
+     */
+    config.pasteFilter = 'p; a[!href]; strong; em';
 };
