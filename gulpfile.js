@@ -74,7 +74,7 @@ var onError = function(err) {
  * Watch for changes in LESS files and process on change
  */
 gulp.task('watch:css', function() {
-    gulp.watch('assets/less/**/*.less', ['css']);
+    gulp.watch('assets/less/**/*.less', gulp.series('css'));
 });
 
 // --------------------------------------------------------------------------
@@ -83,7 +83,7 @@ gulp.task('watch:css', function() {
  * Watch for changes in JS files and process on change
  */
 gulp.task('watch:js', function() {
-    gulp.watch(watchJs, ['js']);
+    gulp.watch(watchJs, gulp.series('js'));
 });
 
 // --------------------------------------------------------------------------
@@ -149,6 +149,6 @@ gulp.task('js', function() {
 
 // --------------------------------------------------------------------------
 
-gulp.task('build', ['css', 'js']);
-gulp.task('watch', ['watch:css', 'watch:js']);
-gulp.task('default', ['watch:css', 'watch:js']);
+gulp.task('build', gulp.series('css', 'js'));
+gulp.task('watch', gulp.series('watch:css', 'watch:js'));
+gulp.task('default', gulp.series('watch:css', 'watch:js'));
