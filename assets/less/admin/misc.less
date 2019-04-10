@@ -36,9 +36,11 @@ textarea.ckeditor {
     .select2-results {
         li {
             margin: 0;
+
             &.select2-disabled {
                 background: inherit;
                 color: #bbb;
+
                 .select2-result-label {
                     cursor: not-allowed;
                 }
@@ -107,6 +109,7 @@ textarea.ckeditor {
             padding: 6px 0;
             border: 0;
         }
+
         input[type=text]:focus {
             .drop-shadow(0px, 0px, 0px, 0);
         }
@@ -167,6 +170,7 @@ textarea.ckeditor {
 
     .actions {
         float: right;
+
         .awesome {
             &:last-child {
                 margin-right: 0;
@@ -204,12 +208,19 @@ textarea.ckeditor {
 .pagination {
     clear: both;
 
+    small,
+    ul {
+        margin: 15px 0;
+        float: left;
+    }
+
     ul {
         float: right;
-        margin: 15px 0;
+
         li.page {
             display: inline;
             margin-left: 5px;
+
             a,
             span.current {
                 border: 1px solid #cfcfcf;
@@ -220,14 +231,17 @@ textarea.ckeditor {
                 background: #efefef;
                 font-weight: bold;
             }
+
             span.current {
                 background: #ffffff;
                 border: 1px solid #000000;
             }
+
             a {
                 &:hover {
                     background: #f4f4f4;
                 }
+
                 &:active {
                     position: relative;
                     top: 1px;
@@ -304,6 +318,7 @@ body {
     > .background {
         transition: 0.25s filter linear;
     }
+
     &.modal-open {
         > .header,
         > .sidebar,
