@@ -8,55 +8,51 @@
 // --------------------------------------------------------------------------
 
 //  Configs
-var watchCss           = 'assets/less/*.less';
-var watchJs            = ['assets/js/*.js', '!assets/js/*.min.js', '!assets/js/*.min.js.map'];
-var autoPrefixBrowsers = ['last 2 versions', 'ie 8', 'ie 9'];
-var autoPrefixCascade  = false;
-var minifiedSuffix     = '.min';
-var sourcemapDest      = './';
-var sourcemapOptions   = {includeContent: false};
-var jsDest             = './assets/js/';
-var cssDest            = './assets/css/';
+let watchCss = 'assets/less/*.less';
+let watchJs = ['assets/js/*.js', '!assets/js/*.min.js', '!assets/js/*.min.js.map'];
+let autoPrefixBrowsers = ['last 2 versions', 'ie 8', 'ie 9'];
+let autoPrefixCascade = false;
+let minifiedSuffix = '.min';
+let sourcemapDest = './';
+let sourcemapOptions = {includeContent: false};
+let jsDest = './assets/js/';
+let cssDest = './assets/css/';
 
-//  Notification vars
-var cssSuccessTitle  = 'Successfully compiled CSS';
-var cssSuccessBody   = '.less files were successfully compiled into CSS';
-var cssSuccessSound  = false;
-var cssSuccessIcon   = false;
-var cssSuccessOnLast = true;
+//  Notifications
+let cssSuccessTitle = 'Successfully compiled CSS';
+let cssSuccessBody = '.less files were successfully compiled into CSS';
+let cssSuccessSound = false;
+let cssSuccessIcon = false;
+let cssSuccessOnLast = true;
 
-var jsSuccessTitle  = 'Successfully compiled JS';
-var jsSuccessBody   = '.js files were successfully minified and sourcemaps created';
-var jsSuccessSound  = false;
-var jsSuccessIcon   = false;
-var jsSuccessOnLast = true;
+let jsSuccessTitle = 'Successfully compiled JS';
+let jsSuccessBody = '.js files were successfully minified and sourcemaps created';
+let jsSuccessSound = false;
+let jsSuccessIcon = false;
+let jsSuccessOnLast = true;
 
 // --------------------------------------------------------------------------
 
 //  Common
-var gulp      = require('gulp');
-var watch     = require('gulp-watch');
-var watchLess = require('gulp-less-watcher');
-var plumber   = require('gulp-plumber');
-var notify    = require('gulp-notify');
-var path      = require('path');
-var gutil     = require('gulp-util');
+let gulp = require('gulp');
+let plumber = require('gulp-plumber');
+let notify = require('gulp-notify');
+let path = require('path');
 
 //  CSS
-var less         = require('gulp-less');
-var autoprefixer = require('gulp-autoprefixer');
-var minifyCss    = require('gulp-minify-css');
+let less = require('gulp-less');
+let autoprefixer = require('gulp-autoprefixer');
+let minifyCss = require('gulp-minify-css');
 
 //  JS
-var sourcemaps = require('gulp-sourcemaps');
-var uglify     = require('gulp-uglify');
-var rename     = require('gulp-rename');
-var jshint     = require('gulp-jshint');
-var stylish    = require('jshint-stylish');
+let sourcemaps = require('gulp-sourcemaps');
+let uglify = require('gulp-uglify');
+let rename = require('gulp-rename');
+let jshint = require('gulp-jshint');
 
 // --------------------------------------------------------------------------
 
-var onError = function(err) {
+let onError = function(err) {
     notify
         .onError({
             title: 'Check your Terminal',
@@ -66,7 +62,7 @@ var onError = function(err) {
             icon: false,
             onLast: true
         })(err);
-}
+};
 
 // --------------------------------------------------------------------------
 
