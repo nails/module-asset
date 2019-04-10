@@ -21,5 +21,8 @@
     "jshint-stylish": "^2.2.1",
     "less": "^3.9.0",
     "natives": "^1.1"
+  },
+  "scripts": {
+    "build": "./node_modules/.bin/gulp build"
   }
 }
