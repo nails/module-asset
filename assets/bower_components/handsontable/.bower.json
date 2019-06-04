@@ -53,6 +53,6 @@
     "commit": "87c8f6b1842d56c99c1fc702bbf1f236a4b223b4"
   },
   "_source": "https://github.com/handsontable/handsontable.git",
-  "_target": "~0.20.0",
+  "_target": "~0.20",
   "_originalSource": "handsontable"
 }

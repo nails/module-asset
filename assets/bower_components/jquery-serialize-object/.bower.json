@@ -28,8 +28,7 @@
     "tag": "2.5.0",
     "commit": "68ec73289dcffa533770f07616633696c552bf6a"
   },
-  "_source": "git://github.com/macek/jquery-serialize-object.git",
-  "_target": "~2.5.0",
-  "_originalSource": "jquery-serialize-object",
-  "_direct": true
+  "_source": "https://github.com/macek/jquery-serialize-object.git",
+  "_target": "~2.5",
+  "_originalSource": "jquery-serialize-object"
 }

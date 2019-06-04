@@ -1,7 +1,9 @@
 ko.utils = (function () {
+    var hasOwnProperty = Object.prototype.hasOwnProperty;
+
     function objectForEach(obj, action) {
         for (var prop in obj) {
-            if (obj.hasOwnProperty(prop)) {
+            if (hasOwnProperty.call(obj, prop)) {
                 action(prop, obj[prop]);
             }
         }
@@ -10,7 +12,7 @@ ko.utils = (function () {
     function extend(target, source) {
         if (source) {
             for(var prop in source) {
-                if(source.hasOwnProperty(prop)) {
+                if(hasOwnProperty.call(source, prop)) {
                     target[prop] = source[prop];
                 }
             }
@@ -24,6 +26,7 @@ ko.utils = (function () {
     }
 
     var canSetPrototype = ({ __proto__: [] } instanceof Array);
+    var canUseSymbols = !DEBUG && typeof Symbol === 'function';
 
     // Represent the known event types in a compact way, then at runtime transform it into a hash with event name as key (for fast lookup)
     var knownEvents = {}, knownEventTypesByEventName = {};
@@ -66,6 +69,8 @@ ko.utils = (function () {
     // see: https://github.com/knockout/knockout/issues/1597
     var cssClassNameRegex = /\S+/g;
 
+    var jQueryEventAttachName;
+
     function toggleDomNodeCssClass(node, classNames, shouldHaveClass) {
         var addOrRemoveFn;
         if (classNames) {
@@ -96,25 +101,30 @@ ko.utils = (function () {
     return {
         fieldsIncludedWithJsonPost: ['authenticity_token', /^__RequestVerificationToken(_.*)?$/],
 
-        arrayForEach: function (array, action) {
-            for (var i = 0, j = array.length; i < j; i++)
-                action(array[i], i);
+        arrayForEach: function (array, action, actionOwner) {
+            for (var i = 0, j = array.length; i < j; i++) {
+                action.call(actionOwner, array[i], i, array);
+            }
         },
 
-        arrayIndexOf: function (array, item) {
-            if (typeof Array.prototype.indexOf == "function")
+        arrayIndexOf: typeof Array.prototype.indexOf == "function"
+            ? function (array, item) {
                 return Array.prototype.indexOf.call(array, item);
-            for (var i = 0, j = array.length; i < j; i++)
-                if (array[i] === item)
-                    return i;
-            return -1;
-        },
+            }
+            : function (array, item) {
+                for (var i = 0, j = array.length; i < j; i++) {
+                    if (array[i] === item)
+                        return i;
+                }
+                return -1;
+            },
 
         arrayFirst: function (array, predicate, predicateOwner) {
-            for (var i = 0, j = array.length; i < j; i++)
-                if (predicate.call(predicateOwner, array[i], i))
+            for (var i = 0, j = array.length; i < j; i++) {
+                if (predicate.call(predicateOwner, array[i], i, array))
                     return array[i];
-            return null;
+            }
+            return undefined;
         },
 
         arrayRemoveItem: function (array, itemToRemove) {
@@ -128,29 +138,32 @@ ko.utils = (function () {
         },
 
         arrayGetDistinctValues: function (array) {
-            array = array || [];
             var result = [];
-            for (var i = 0, j = array.length; i < j; i++) {
-                if (ko.utils.arrayIndexOf(result, array[i]) < 0)
-                    result.push(array[i]);
+            if (array) {
+                ko.utils.arrayForEach(array, function(item) {
+                    if (ko.utils.arrayIndexOf(result, item) < 0)
+                        result.push(item);
+                });
             }
             return result;
         },
 
-        arrayMap: function (array, mapping) {
-            array = array || [];
+        arrayMap: function (array, mapping, mappingOwner) {
             var result = [];
-            for (var i = 0, j = array.length; i < j; i++)
-                result.push(mapping(array[i], i));
+            if (array) {
+                for (var i = 0, j = array.length; i < j; i++)
+                    result.push(mapping.call(mappingOwner, array[i], i));
+            }
             return result;
         },
 
-        arrayFilter: function (array, predicate) {
-            array = array || [];
+        arrayFilter: function (array, predicate, predicateOwner) {
             var result = [];
-            for (var i = 0, j = array.length; i < j; i++)
-                if (predicate(array[i], i))
-                    result.push(array[i]);
+            if (array) {
+                for (var i = 0, j = array.length; i < j; i++)
+                    if (predicate.call(predicateOwner, array[i], i))
+                        result.push(array[i]);
+            }
             return result;
         },
 
@@ -184,13 +197,13 @@ ko.utils = (function () {
 
         objectForEach: objectForEach,
 
-        objectMap: function(source, mapping) {
+        objectMap: function(source, mapping, mappingOwner) {
             if (!source)
                 return source;
             var target = {};
             for (var prop in source) {
-                if (source.hasOwnProperty(prop)) {
-                    target[prop] = mapping(source[prop], prop, source);
+                if (hasOwnProperty.call(source, prop)) {
+                    target[prop] = mapping.call(mappingOwner, source[prop], prop, source);
                 }
             }
             return target;
@@ -254,8 +267,11 @@ ko.utils = (function () {
             // Rules:
             //   [A] Any leading nodes that have been removed should be ignored
             //       These most likely correspond to memoization nodes that were already removed during binding
-            //       See https://github.com/SteveSanderson/knockout/pull/440
-            //   [B] We want to output a continuous series of nodes. So, ignore any nodes that have already been removed,
+            //       See https://github.com/knockout/knockout/pull/440
+            //   [B] Any trailing nodes that have been remove should be ignored
+            //       This prevents the code here from adding unrelated nodes to the array while processing rule [C]
+            //       See https://github.com/knockout/knockout/pull/1903
+            //   [C] We want to output a continuous series of nodes. So, ignore any nodes that have already been removed,
             //       and include any nodes that have been inserted among the previous collection
 
             if (continuousNodeArray.length) {
@@ -267,6 +283,10 @@ ko.utils = (function () {
                     continuousNodeArray.splice(0, 1);
 
                 // Rule [B]
+                while (continuousNodeArray.length > 1 && continuousNodeArray[continuousNodeArray.length - 1].parentNode !== parentNode)
+                    continuousNodeArray.length--;
+
+                // Rule [C]
                 if (continuousNodeArray.length > 1) {
                     var current = continuousNodeArray[0], last = continuousNodeArray[continuousNodeArray.length - 1];
                     // Replace with the actual new continuous node set
@@ -274,8 +294,6 @@ ko.utils = (function () {
                     while (current !== last) {
                         continuousNodeArray.push(current);
                         current = current.nextSibling;
-                        if (!current) // Won't happen, except if the developer has manually removed some DOM elements (then we're in an undefined scenario)
-                            return;
                     }
                     continuousNodeArray.push(last);
                 }
@@ -311,7 +329,7 @@ ko.utils = (function () {
             if (node.nodeType === 11)
                 return false; // Fixes issue #1162 - can't use node.contains for document fragments on IE8
             if (containedByNode.contains)
-                return containedByNode.contains(node.nodeType === 3 ? node.parentNode : node);
+                return containedByNode.contains(node.nodeType !== 1 ? node.parentNode : node);
             if (containedByNode.compareDocumentPosition)
                 return (containedByNode.compareDocumentPosition(node) & 16) == 16;
             while (node && node != containedByNode) {
@@ -335,14 +353,41 @@ ko.utils = (function () {
             return element && element.tagName && element.tagName.toLowerCase();
         },
 
+        catchFunctionErrors: function (delegate) {
+            return ko['onError'] ? function () {
+                try {
+                    return delegate.apply(this, arguments);
+                } catch (e) {
+                    ko['onError'] && ko['onError'](e);
+                    throw e;
+                }
+            } : delegate;
+        },
+
+        setTimeout: function (handler, timeout) {
+            return setTimeout(ko.utils.catchFunctionErrors(handler), timeout);
+        },
+
+        deferError: function (error) {
+            setTimeout(function () {
+                ko['onError'] && ko['onError'](error);
+                throw error;
+            }, 0);
+        },
+
         registerEventHandler: function (element, eventType, handler) {
-            var mustUseAttachEvent = ieVersion && eventsThatMustBeRegisteredUsingAttachEvent[eventType];
-            if (!mustUseAttachEvent && jQueryInstance) {
-                jQueryInstance(element)['bind'](eventType, handler);
+            var wrappedHandler = ko.utils.catchFunctionErrors(handler);
+
+            var mustUseAttachEvent = eventsThatMustBeRegisteredUsingAttachEvent[eventType];
+            if (!ko.options['useOnlyNativeEvents'] && !mustUseAttachEvent && jQueryInstance) {
+                if (!jQueryEventAttachName) {
+                    jQueryEventAttachName = (typeof jQueryInstance(element)['on'] == 'function') ? 'on' : 'bind';
+                }
+                jQueryInstance(element)[jQueryEventAttachName](eventType, wrappedHandler);
             } else if (!mustUseAttachEvent && typeof element.addEventListener == "function")
-                element.addEventListener(eventType, handler, false);
+                element.addEventListener(eventType, wrappedHandler, false);
             else if (typeof element.attachEvent != "undefined") {
-                var attachEventHandler = function (event) { handler.call(element, event); },
+                var attachEventHandler = function (event) { wrappedHandler.call(element, event); },
                     attachEventName = "on" + eventType;
                 element.attachEvent(attachEventName, attachEventHandler);
 
@@ -365,7 +410,7 @@ ko.utils = (function () {
             // In both cases, we'll use the click method instead.
             var useClickWorkaround = isClickOnCheckableElement(element, eventType);
 
-            if (jQueryInstance && !useClickWorkaround) {
+            if (!ko.options['useOnlyNativeEvents'] && jQueryInstance && !useClickWorkaround) {
                 jQueryInstance(element)['trigger'](eventType);
             } else if (typeof document.createEvent == "function") {
                 if (typeof element.dispatchEvent == "function") {
@@ -421,7 +466,8 @@ ko.utils = (function () {
             // - http://www.matts411.com/post/setting_the_name_attribute_in_ie_dom/
             if (ieVersion <= 7) {
                 try {
-                    element.mergeAttributes(document.createElement("<input name='" + element.name + "'/>"), false);
+                    var escapedName = element.name.replace(/[&<>'"]/g, function(r){ return "&#" + r.charCodeAt(0) + ";"; });
+                    element.mergeAttributes(document.createElement("<input name='" + escapedName + "'/>"), false);
                 }
                 catch(e) {} // For IE9 with doc mode "IE9 Standards" and browser mode "IE9 Compatibility View"
             }
@@ -463,6 +509,10 @@ ko.utils = (function () {
                 result.push(arrayLikeObject[i]);
             };
             return result;
+        },
+
+        createSymbolOrString: function(identifier) {
+            return canUseSymbols ? Symbol(identifier) : identifier;
         },
 
         isIe6 : isIe6,
@@ -553,9 +603,12 @@ ko.exportSymbol('utils.arrayIndexOf', ko.utils.arrayIndexOf);
 ko.exportSymbol('utils.arrayMap', ko.utils.arrayMap);
 ko.exportSymbol('utils.arrayPushAll', ko.utils.arrayPushAll);
 ko.exportSymbol('utils.arrayRemoveItem', ko.utils.arrayRemoveItem);
+ko.exportSymbol('utils.cloneNodes', ko.utils.cloneNodes);
+ko.exportSymbol('utils.createSymbolOrString', ko.utils.createSymbolOrString);
 ko.exportSymbol('utils.extend', ko.utils.extend);
 ko.exportSymbol('utils.fieldsIncludedWithJsonPost', ko.utils.fieldsIncludedWithJsonPost);
 ko.exportSymbol('utils.getFormFields', ko.utils.getFormFields);
+ko.exportSymbol('utils.objectMap', ko.utils.objectMap);
 ko.exportSymbol('utils.peekObservable', ko.utils.peekObservable);
 ko.exportSymbol('utils.postJson', ko.utils.postJson);
 ko.exportSymbol('utils.parseJson', ko.utils.parseJson);

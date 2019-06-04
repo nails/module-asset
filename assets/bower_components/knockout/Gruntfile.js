@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         fragments: './build/fragments/',
         banner: '/*!\n' +
                 ' * Knockout JavaScript library v<%= pkg.version %>\n' +
-                ' * (c) Steven Sanderson - <%= pkg.homepage %>\n' +
+                ' * (c) The Knockout.js team - <%= pkg.homepage %>\n' +
                 ' * License: <%= pkg.licenses[0].type %> (<%= pkg.licenses[0].url %>)\n' +
                 ' */\n\n',
 
@@ -34,6 +34,10 @@ module.exports = function(grunt) {
         test: {
             phantomjs: 'spec/runner.phantom.js',
             node: 'spec/runner.node.js'
+        },
+        testtypes: {
+            global: "spec/types/global",
+            module: "spec/types/module"
         }
     });
 
@@ -151,14 +155,27 @@ module.exports = function(grunt) {
         );
     });
 
-    grunt.registerTask('dist', function() {
-        // Update the version in bower.json
-        var bowerConfig = grunt.file.readJSON('bower.json'),
-            version = grunt.config('pkg.version');
-        bowerConfig.version = version;
-        grunt.file.write('bower.json', JSON.stringify(bowerConfig, true, 2));
+    grunt.registerMultiTask('testtypes', 'Run types tests', function () {
+        var done = this.async(),
+            target = this.target;
 
-        var buildConfig = grunt.config('build'),
+        grunt.util.spawn({ cmd: "tsc", args: ["-p", this.data] },
+            function (error, result, code) {
+                grunt.log.writeln(result.stdout);
+
+                if (error)
+                    grunt.log.error(result.stderr);
+                else
+                    grunt.log.ok("Knockout TypeScript " + target + " types validated!");
+
+                done(!error);
+            }
+        );
+    });
+
+    grunt.registerTask('dist', function() {
+        var version = grunt.config('pkg.version'),
+            buildConfig = grunt.config('build'),
             distConfig = grunt.config('dist');
         grunt.file.copy(buildConfig.debug, distConfig.debug);
         grunt.file.copy(buildConfig.min, distConfig.min);
@@ -175,5 +192,5 @@ module.exports = function(grunt) {
     });
 
     // Default task.
-    grunt.registerTask('default', ['clean', 'checktrailingspaces', 'build', 'test']);
+    grunt.registerTask('default', ['clean', 'checktrailingspaces', 'build', 'test', 'testtypes']);
 };

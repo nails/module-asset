@@ -22,6 +22,6 @@
     "commit": "24198dfa6819575166b99448e25537adfd8440f3"
   },
   "_source": "https://github.com/enyo/dropzone.git",
-  "_target": "~3.11.1",
+  "_target": "~3.11",
   "_originalSource": "dropzone"
 }

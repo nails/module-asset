@@ -22,20 +22,20 @@
         }
 
         defaultConfigRegistry[componentName] = config;
-    }
+    };
 
     ko.components.isRegistered = function(componentName) {
-        return componentName in defaultConfigRegistry;
-    }
+        return Object.prototype.hasOwnProperty.call(defaultConfigRegistry, componentName);
+    };
 
     ko.components.unregister = function(componentName) {
         delete defaultConfigRegistry[componentName];
         ko.components.clearCachedDefinition(componentName);
-    }
+    };
 
     ko.components.defaultLoader = {
         'getConfig': function(componentName, callback) {
-            var result = defaultConfigRegistry.hasOwnProperty(componentName)
+            var result = ko.components.isRegistered(componentName)
                 ? defaultConfigRegistry[componentName]
                 : null;
             callback(result);

@@ -13,7 +13,7 @@ ko.extenders = {
             'read': target,
             'write': function(value) {
                 clearTimeout(writeTimeoutInstance);
-                writeTimeoutInstance = setTimeout(function() {
+                writeTimeoutInstance = ko.utils.setTimeout(function() {
                     target(value);
                 }, timeout);
             }
@@ -30,10 +30,40 @@ ko.extenders = {
             method = options['method'];
         }
 
-        limitFunction = method == 'notifyWhenChangesStop' ?  debounce : throttle;
+        // rateLimit supersedes deferred updates
+        target._deferUpdates = false;
+
+        limitFunction = typeof method == 'function' ? method : method == 'notifyWhenChangesStop' ?  debounce : throttle;
         target.limit(function(callback) {
-            return limitFunction(callback, timeout);
+            return limitFunction(callback, timeout, options);
         });
+    },
+
+    'deferred': function(target, options) {
+        if (options !== true) {
+            throw new Error('The \'deferred\' extender only accepts the value \'true\', because it is not supported to turn deferral off once enabled.')
+        }
+
+        if (!target._deferUpdates) {
+            target._deferUpdates = true;
+            target.limit(function (callback) {
+                var handle,
+                    ignoreUpdates = false;
+                return function () {
+                    if (!ignoreUpdates) {
+                        ko.tasks.cancel(handle);
+                        handle = ko.tasks.schedule(callback);
+
+                        try {
+                            ignoreUpdates = true;
+                            target['notifySubscribers'](undefined, 'dirty');
+                        } finally {
+                            ignoreUpdates = false;
+                        }
+                    }
+                };
+            });
+        }
     },
 
     'notify': function(target, notifyWhen) {
@@ -53,7 +83,7 @@ function throttle(callback, timeout) {
     var timeoutInstance;
     return function () {
         if (!timeoutInstance) {
-            timeoutInstance = setTimeout(function() {
+            timeoutInstance = ko.utils.setTimeout(function () {
                 timeoutInstance = undefined;
                 callback();
             }, timeout);
@@ -65,7 +95,7 @@ function debounce(callback, timeout) {
     var timeoutInstance;
     return function () {
         clearTimeout(timeoutInstance);
-        timeoutInstance = setTimeout(callback, timeout);
+        timeoutInstance = ko.utils.setTimeout(callback, timeout);
     };
 }
 

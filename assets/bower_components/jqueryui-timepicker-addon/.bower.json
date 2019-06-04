@@ -29,6 +29,6 @@
     "commit": "9912fd4599ecadfb6741a3533b9daaa45fcd6303"
   },
   "_source": "https://github.com/trentrichardson/jQuery-Timepicker-Addon.git",
-  "_target": "~1.6.3",
+  "_target": "~1.6",
   "_originalSource": "jqueryui-timepicker-addon"
 }
