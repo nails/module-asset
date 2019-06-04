@@ -129,3 +129,20 @@ CKEDITOR.editorConfig = function(config) {
      */
     config.pasteFilter = 'p; a[!href]; strong; em';
 };
+
+/**
+ * Change the default values of the table dialog
+ */
+CKEDITOR.on('dialogDefinition', function(e) {
+
+    var dialogName = e.data.name;
+    var dialogDefinition = e.data.definition;
+
+    if (dialogName === 'table') {
+        var info = dialogDefinition.getContents('info');
+        info.get('txtWidth')['default'] = '100%';
+        info.get('txtBorder')['default'] = '0';
+        info.get('cellPadding')['default'] = '0';
+        info.get('cellSpacing')['default'] = '0';
+    }
+});
