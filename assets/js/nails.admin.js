@@ -1,7 +1,7 @@
 //  Catch undefined console
 /* globals console, _nails_api  */
 /* jshint ignore:start */
-if (typeof(console) === 'undefined') {
+if (typeof (console) === 'undefined') {
     var console;
     console = {
         log: function() {
@@ -160,8 +160,7 @@ NAILS_Admin = function() {
 
             if (_state === 'open') {
                 base.openBox(_toggle, false);
-            }
-            else {
+            } else {
                 base.closeBox(_toggle, false);
             }
 
@@ -540,8 +539,7 @@ NAILS_Admin = function() {
                     base.buildWysiwyg('default');
                 }
             });
-        }
-        else {
+        } else {
             base.error('NAILS_ADMIN_JS: CKEditor not available.');
         }
     };
@@ -829,7 +827,12 @@ NAILS_Admin = function() {
      * @return {Void}
      */
     base.initSystemAlerts = function() {
-
+        $('.alert__close')
+            .on('click', function() {
+                $(this)
+                    .closest('.alert')
+                    .remove()
+            })
     };
 
     // --------------------------------------------------------------------------
