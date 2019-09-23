@@ -831,8 +831,8 @@ NAILS_Admin = function() {
             .on('click', function() {
                 $(this)
                     .closest('.alert')
-                    .remove()
-            })
+                    .remove();
+            });
     };
 
     // --------------------------------------------------------------------------

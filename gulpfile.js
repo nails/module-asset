@@ -10,7 +10,6 @@
 //  Configs
 let watchCss = 'assets/less/*.less';
 let watchJs = ['assets/js/*.js', '!assets/js/*.min.js', '!assets/js/*.min.js.map'];
-let autoPrefixBrowsers = ['last 2 versions', 'ie 8', 'ie 9'];
 let autoPrefixCascade = false;
 let minifiedSuffix = '.min';
 let sourcemapDest = './';
@@ -42,7 +41,7 @@ let path = require('path');
 //  CSS
 let less = require('gulp-less');
 let autoprefixer = require('gulp-autoprefixer');
-let minifyCss = require('gulp-minify-css');
+let cleanCss = require('gulp-clean-css');
 
 //  JS
 let sourcemaps = require('gulp-sourcemaps');
@@ -96,10 +95,9 @@ gulp.task('css', function() {
         }))
         .pipe(less())
         .pipe(autoprefixer({
-            browsers: autoPrefixBrowsers,
             cascade: autoPrefixCascade
         }))
-        .pipe(minifyCss())
+        .pipe(cleanCss())
         .pipe(gulp.dest(cssDest))
         .pipe(notify({
             title: cssSuccessTitle,
