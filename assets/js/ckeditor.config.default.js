@@ -14,6 +14,7 @@
  * Load any external plugins (i.e, plugins not bundled with CKEditor)
  */
 CKEDITOR.plugins.addExternal('codemirror', window.NAILS.URL + 'js/ckeditor.plugins/codemirror/');
+CKEDITOR.plugins.addExternal('footnotes', window.NAILS.URL + 'js/ckeditor.plugins/footnotes/');
 CKEDITOR.plugins.addExternal('mediaembed', window.NAILS.URL + 'js/ckeditor.plugins/mediaembed/');
 
 /**
@@ -78,7 +79,7 @@ CKEDITOR.editorConfig = function(config) {
      * Additional plugins to enable
      * @type {String}
      */
-    config.extraPlugins = 'justify,autogrow,mediaembed,codemirror,colorbutton,colordialog,font,image2,pastefromword,iframe';
+    config.extraPlugins = 'justify,autogrow,mediaembed,codemirror,colorbutton,colordialog,font,image2,pastefromword,iframe,indentblock,footnotes';
 
     /**
      * Plugins to remove
