@@ -4,23 +4,25 @@ form {
 
 fieldset {
     height: auto;
-    border: 1px solid #ccc;
+    border: 1px solid #cccccc;
     border-radius: 3px 3px 0 0;
     padding: 0;
     position: relative;
-    background: #fff;
+    background: #ffffff;
     padding-top: 29px;
     box-sizing: border-box;
     margin: 0;
     margin-bottom: 1em;
+
     fieldset {
         margin: 1em;
     }
+
     .fieldset-toggle {
         position: absolute;
         right: 10px;
         top: -11px;
-        border: 1px solid #ccc;
+        border: 1px solid #cccccc;
         font-size: 0.8em;
         background: #efefef;
         text-decoration: none;
@@ -28,16 +30,20 @@ fieldset {
         display: block;
         .rounded(5px);
         line-height: 1em;
+
         .show {
             display: none;
         }
+
         .hide {
             display: block;
         }
     }
+
     .fieldset-toggle:hover {
-        background: #ccc;
+        background: #cccccc;
     }
+
     legend,
     .legend {
         position: absolute;
@@ -45,15 +51,17 @@ fieldset {
         left: -1px;
         right: -1px;
         background: #efefef;
-        border: 1px solid #ccc;
+        border: 1px solid #cccccc;
         padding: 3px 10px;
         background-clip: padding-box;
         width: auto;
         border-radius: 3px 3px 0 0;
         font-weight: bold;
+
         * {
             font-weight: inherit;
         }
+
         select {
             font-weight: normal;
         }
@@ -65,25 +73,31 @@ fieldset {
         }
 
     }
+
     table {
         border: 0;
         margin: 0;
+
         th.label,
         td.label {
             font-weight: bold;
             width: 125px;
             text-align: right;
         }
+
         &:last-child {
             margin-bottom: 0;
         }
     }
+
     > p, > .alert, > .alert, > .padded, > ul {
         margin: 1em;
+
         & + & {
             margin-top: 0;
         }
     }
+
     &.closed {
         height: 0;
         overflow: hidden;
@@ -98,6 +112,7 @@ fieldset {
             border: 0;
             .drop-shadow(0, 0, 0, 0);
         }
+
         .fieldset-toggle {
             top: 6px;
             .opacity(1);
@@ -106,6 +121,7 @@ fieldset {
                 display: block;
                 .opacity(1);
             }
+
             .hide {
                 display: none;
             }
@@ -119,13 +135,15 @@ div.field {
     border-bottom: 1px solid #efefef;
     clear: both;
     min-height: 30px;
-    background: #fff;
+    background: #ffffff;
+
     &.checkbox,
     &.radio {
         .input {
             padding-left: 14px;
         }
     }
+
     &.checkbox,
     &.radio {
         margin-top: 0; // Fix for bootstraps .checkbox + .checkbox
@@ -133,20 +151,24 @@ div.field {
             padding-left: 14px;
         }
     }
+
     &.boolean.toggled {
         .input {
             padding-left: 0;
         }
     }
+
     label {
         display: block;
         width: 100%;
         padding: 0;
     }
+
     //  So tips are always the same colour - badly designed form helper
     .tip {
         color: #747a90;
     }
+
     span {
         &.label {
             display: block;
@@ -164,22 +186,27 @@ div.field {
                 font-weight: normal;
             }
         }
+
         &.input {
             border: 1px dashed transparent; //  Don't ask me why this is required, but it is. - Pablo.
             display: block;
             margin-left: 149px;
             position: relative;
+
             &.is-disabled {
-                color: #ccc;
+                color: #cccccc;
             }
+
             &.with-tip {
                 padding-right: 25px;
+
                 .tip {
                     position: absolute;
                     right: 0;
                     top: 9px;
                 }
             }
+
             &:after {
                 float: none;
                 clear: both;
@@ -187,6 +214,7 @@ div.field {
                 position: relative;
                 display: block;
             }
+
             input[type=text],
             input[type=password],
             input[type=email],
@@ -203,6 +231,7 @@ div.field {
                 width: 100%;
                 margin: 0;
             }
+
             small {
                 &.info2 {
                     display: block;
@@ -231,6 +260,7 @@ div.field {
                     }
                 }
             }
+
             .alert {
                 display: block;
                 margin: 0;
@@ -238,6 +268,7 @@ div.field {
                 padding: 0.5em 0.8em;
             }
         }
+
         &.text {
             margin-left: 5px;
             position: relative;
@@ -246,6 +277,7 @@ div.field {
             float: left;
             width: 100%;
         }
+
         &.file-download {
             display: block;
             clear: left;
@@ -253,9 +285,9 @@ div.field {
             padding: 5px 20px;
 
             img {
-                border: 1px solid #ccc;
+                border: 1px solid #cccccc;
                 padding: 2px;
-                background: #fff;
+                background: #ffffff;
                 .rounded(2px);
                 vertical-align: middle;
                 margin-left: 5px;
@@ -266,6 +298,7 @@ div.field {
     input[type=file] {
         margin-top: 5px;
     }
+
     input[type=radio],
     input[type=checkbox] {
         position: relative;
@@ -273,10 +306,12 @@ div.field {
         left: 6px;
         float: left;
     }
+
     select {
         position: relative;
         top: 7px;
     }
+
     &:after {
         position: relative;
         display: block;
@@ -284,39 +319,45 @@ div.field {
         float: none;
         clear: both;
     }
+
     &:hover {
         background: #f5f5f5;
 
         span.label {
-            border-color: #ccc;
+            border-color: #cccccc;
         }
     }
+
     &.even {
         background: #fafafa;
 
         span.label {
-            border-color: #ccc;
+            border-color: #cccccc;
         }
 
         &:hover {
             background: #f5f5f5;
         }
     }
+
     &:last-of-type {
         border-bottom: none;
     }
+
     &.date-picker {
         select {
             width: 116px;
             box-sizing: border-box;
         }
     }
+
     &.datetime-picker {
         select {
             width: 68px;
             box-sizing: border-box;
         }
     }
+
     &.boolean {
         .toggle {
             //  width and height set via JS, so that if plugin isnt loaded
@@ -325,17 +366,20 @@ div.field {
             text-align: center;
             display: inline-block;
         }
+
         span.input {
             .tip {
                 top: -9px;
                 left: 10px;
                 position: relative;
             }
+
             small.info {
                 margin-top: 0;
             }
         }
     }
+
     &.readonly {
         input[type=text],
         input[type=password],
@@ -360,7 +404,7 @@ div.field {
                 font-size: 1.4em;
                 left: 9px;
                 top: 4px;
-                color: #aaa;
+                color: #aaaaaa;
             }
         }
 
@@ -372,6 +416,7 @@ div.field {
             }
         }
     }
+
     &.radio {
         label {
             &:after {
@@ -381,11 +426,12 @@ div.field {
             }
         }
     }
+
     &.multiimage {
         ul.filelist {
             border: 1px solid #cecece;
             .rounded(3px);
-            background: #fff;
+            background: #ffffff;
             margin-bottom: 5px;
             line-height: 100%;
 
@@ -395,7 +441,7 @@ div.field {
                     height: 100px;
                     padding: 3px;
                     margin: 5px;
-                    border: 1px solid #ccc;
+                    border: 1px solid #cccccc;
                     .rounded(2px);
                     display: inline-block;
                     position: relative;
@@ -428,7 +474,7 @@ div.field {
                     }
 
                     div.progress {
-                        background: #888;
+                        background: #888888;
                         position: absolute;
                         bottom: 0;
                         left: 0;
@@ -438,16 +484,14 @@ div.field {
                         .drop-shadow(0, 0, 5px, 0.5);
                         .transition(0.5s);
                         background-size: 30px 30px;
-                        background-image: linear-gradient(
-                                45deg,
-                                rgba(0, 0, 0, 0.1) 25%,
-                                transparent 25%,
-                                transparent 50%,
-                                rgba(0, 0, 0, 0.1) 50%,
-                                rgba(0, 0, 0, 0.1) 75%,
-                                transparent 75%,
-                                transparent
-                        );
+                        background-image: linear-gradient(45deg,
+                        rgba(0, 0, 0, 0.1) 25%,
+                        transparent 25%,
+                        transparent 50%,
+                        rgba(0, 0, 0, 0.1) 50%,
+                        rgba(0, 0, 0, 0.1) 75%,
+                        transparent 75%,
+                        transparent);
                         animation: barberpole 0.5s linear infinite;
                     }
 
@@ -459,9 +503,9 @@ div.field {
                         right: 0;
                         text-align: center;
                         line-height: 102px;
-                        background: #eee;
+                        background: #eeeeee;
                         font-weight: bold;
-                        color: #777;
+                        color: #777777;
                         z-index: 1;
                         .opacity(0.9);
                         display: none;
@@ -479,7 +523,7 @@ div.field {
                     }
 
                     &.placeholder {
-                        border: 1px dashed #ccc;
+                        border: 1px dashed #cccccc;
                         background: #fefefe;
                     }
 
@@ -519,15 +563,16 @@ div.field {
             margin-top: 1em;
 
             .uploadify-button {
-                background: #555;
+                background: #555555;
 
                 .uploadify-button-text {
-                    color: #fff;
+                    color: #ffffff;
                     font-size: 1.2em;
                 }
             }
         }
     }
+
     &.max-length-exceeded {
         input,
         textarea,
@@ -535,10 +580,12 @@ div.field {
         .select2-container {
             border: 1px solid #b52130;
         }
+
         small.char-count {
             color: #b52130;
             padding-left: 16px;
             position: relative;
+
             &:before {
                 font-family: FontAwesome;
                 content: '\f06a';
@@ -550,6 +597,7 @@ div.field {
             }
         }
     }
+
     &.error {
         span.input {
             input,
@@ -558,14 +606,17 @@ div.field {
             .select2-container {
                 border: 1px solid #b52130;
             }
+
             .select2-container {
                 input {
                     border: none;
                 }
             }
+
             .alert-danger {
                 padding-left: 30px;
                 position: relative;
+
                 &:before {
                     font-family: FontAwesome;
                     content: '\f06a';
@@ -579,6 +630,7 @@ div.field {
             }
         }
     }
+
     &.submit {
         .label {
             border: none;
@@ -593,22 +645,22 @@ input[type='url'],
 input[type='number'],
 input[type='color'],
 textarea {
-    border: 1px solid #ccc;
+    border: 1px solid #cccccc;
     padding: 6px 4px;
     outline: none;
     border-radius: 2px;
     font: 13px Helvetica, Arial, sans-serif;
-    color: #777;
+    color: #444444;
     margin: 0;
     width: 210px;
     max-width: 100%;
     display: block;
     margin-bottom: 20px;
-    background: #fff;
+    background: #ffffff;
 
     &:focus {
-        border: 1px solid #aaa;
-        color: #444;
+        border: 1px solid #aaaaaa;
+        color: #444444;
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     }
 
@@ -641,6 +693,7 @@ select {
             &.label {
                 width: 100px;
             }
+
             &.input {
                 margin-left: 135px;
             }
@@ -659,11 +712,13 @@ select {
                         display: block;
                     }
                 }
+
                 .label {
                     display: none;
                 }
             }
         }
+
         span {
             &.label {
                 display: block;
@@ -675,27 +730,34 @@ select {
                 padding: 0;
                 padding-bottom: 5px;
             }
+
             &.input {
                 margin-left: 0;
+
                 &.with-tip {
                     padding-right: 0;
+
                     .tip {
                         top: -35px;
                     }
                 }
             }
         }
+
         &.date-picker {
             padding-bottom: 20px;
+
             select {
                 width: 64px;
             }
         }
+
         &.multiimage {
             ul.filelist {
                 clear: left;
             }
         }
+
         &.error {
             span {
                 &.input.with-tip {
@@ -726,6 +788,7 @@ div.nails-prefixed {
         position: absolute;
         text-align: center;
     }
+
     .nails-prefixed {
         width: 100% !important;
         box-sizing: border-box !important;
