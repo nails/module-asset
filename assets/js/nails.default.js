@@ -5,18 +5,18 @@
 
 //  Catch undefined console
 /* jshint ignore:start */
-if (typeof(console) === 'undefined') {
+if (typeof (console) === 'undefined') {
     var console;
     console = {
-        log: function() {
+        log: function () {
         },
-        debug: function() {
+        debug: function () {
         },
-        info: function() {
+        info: function () {
         },
-        warn: function() {
+        warn: function () {
         },
-        error: function() {
+        error: function () {
         }
     };
 }
@@ -25,7 +25,7 @@ if (typeof(console) === 'undefined') {
 // --------------------------------------------------------------------------
 
 var NAILS_JS;
-NAILS_JS = function() {
+NAILS_JS = function () {
 
     /**
      * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
@@ -38,13 +38,13 @@ NAILS_JS = function() {
     /**
      * Construct the class
      */
-    base.__construct = function() {
+    base.__construct = function () {
 
+        //  @todo (Pablo - 2019-11-27) - Most of these are for admin only, rewrite as plugins
         base.initSystemAlerts();
         base.initTipsy();
         base.initFancybox();
         base.initConfirm();
-        base.initTabs();
         base.initForms();
         base.initDatePickers();
     };
@@ -55,7 +55,7 @@ NAILS_JS = function() {
      * Add a close button to any system-alerts which are on the page
      * @return {Void}
      */
-    base.initSystemAlerts = function() {
+    base.initSystemAlerts = function () {
 
         //  Scroll to first error, if scrollTo is available
         if ($.fn.scrollTo) {
@@ -78,7 +78,7 @@ NAILS_JS = function() {
             if (scroll.length) {
 
                 //  Giving the browser a slight chance to work out sizes etc
-                setTimeout(function() {
+                setTimeout(function () {
                     $.scrollTo(scroll, 'fast', {axis: 'y', offset: {top: -60}});
                 }, 750);
             }
@@ -95,7 +95,7 @@ NAILS_JS = function() {
      * Initialise any tipsy elements on the page
      * @return {Void}
      */
-    base.initTipsy = function() {
+    base.initTipsy = function () {
 
         if ($.fn.tipsy) {
 
@@ -123,11 +123,11 @@ NAILS_JS = function() {
      * Initialise any fancybox elements on the page
      * @return {Void}
      */
-    base.initFancybox = function() {
+    base.initFancybox = function () {
 
         if ($.fn.fancybox) {
 
-            $(document).on('click', '.fancybox', function(e) {
+            $(document).on('click', '.fancybox', function (e) {
 
                 e.preventDefault();
                 e.stopPropagation();
@@ -194,11 +194,11 @@ NAILS_JS = function() {
                             'locked': false
                         }
                     },
-                    'beforeLoad': function() {
+                    'beforeLoad': function () {
 
                         $('body').addClass('noScroll modal-open');
                     },
-                    'afterClose': function() {
+                    'afterClose': function () {
 
                         $('body').removeClass('noScroll modal-open');
                     }
@@ -219,11 +219,11 @@ NAILS_JS = function() {
      * Initialise any confirm links or buttons on the page
      * @return {Void}
      */
-    base.initConfirm = function() {
+    base.initConfirm = function () {
 
         var link, body, title;
 
-        $(document).on('click', 'a.confirm', function() {
+        $(document).on('click', 'a.confirm', function () {
 
             link = $(this);
             body = link.data('body') || 'Please confirm you\'d like to continue with this action.';
@@ -239,10 +239,10 @@ NAILS_JS = function() {
                     'modal': true,
                     'dialogClass': 'no-close',
                     'buttons': {
-                        'OK': function() {
+                        'OK': function () {
                             window.location.href = link.attr('href');
                         },
-                        'Cancel': function() {
+                        'Cancel': function () {
                             $(this).dialog('close');
                         }
                     }
@@ -261,117 +261,10 @@ NAILS_JS = function() {
     // --------------------------------------------------------------------------
 
     /**
-     * Initialise any tabs on the page
-     * @return {Void}
-     */
-    base.initTabs = function() {
-
-        $(document).on('click', 'ul.tabs:not(.disabled) li.tab a', function() {
-            if (!$(this).hasClass('disabled')) {
-                base.switchToTab($(this));
-            }
-            return false;
-        });
-
-        // --------------------------------------------------------------------------
-
-        //  Look for tabs which contain error'd fields
-        $('li.tab a').each(function() {
-
-            if ($('.tab-page.' + $(this).data('tab') + ' div.field.error').length) {
-                $(this).addClass('error');
-            }
-
-            if ($('.tab-page.' + $(this).data('tab') + ' .system-alert.error').length) {
-                $(this).addClass('error');
-            }
-
-            if ($('.tab-page.' + $(this).data('tab') + ' .alert.alert-danger').length) {
-                $(this).addClass('error');
-            }
-
-            if ($('.tab-page.' + $(this).data('tab') + ' .error.show-in-tabs').length) {
-                $(this).addClass('error');
-            }
-        });
-
-        // --------------------------------------------------------------------------
-
-        //  For tabs which are attached to an "active tab input", automatically go to said tab if it's defined
-        $('ul.tabs').filter('[data-active-tab-input][data-active-tab-input!=""]').each(function() {
-            var activeTabInput = $($(this).data('active-tab-input'));
-            if (activeTabInput.length && activeTabInput.val()) {
-                $(this).find('.tab a[data-tab="' + activeTabInput.val() + '"]').click();
-            }
-        });
-    };
-
-    // --------------------------------------------------------------------------
-
-    /**
-     * Switch to a specific tab
-     * @param  {Object} tab The tab which was clicked
-     * @return {Void}
-     */
-    base.switchToTab = function(tab) {
-        //  Tab group
-        var selectedTab = tab.data('tab');
-        var tabGroup = tab.parents('ul.tabs').data('tabgroup');
-        var activeTab = tab.parents('ul.tabs').data('active-tab-input');
-
-        //  Switch tab
-        if (tabGroup) {
-
-            //  Find all tab groups and set the appropriate tab as the active one
-
-            //  Mark the appropriate tab as active
-            $('ul.tabs[data-tabgroup="' + tabGroup + '"] > li.tab')
-                .removeClass('active');
-
-            $('ul.tabs[data-tabgroup="' + tabGroup + '"] > li.tab > a[data-tab="' + selectedTab + '"]')
-                .parent()
-                .addClass('active');
-
-            //  Show the appropriate panel
-            $('section.tabs[data-tabgroup="' + tabGroup + '"] > div.tab-page')
-                .removeClass('active');
-
-            $('section.tabs[data-tabgroup="' + tabGroup + '"] > div.tab-page.' + selectedTab)
-                .addClass('active');
-
-        } else {
-
-            //  No tab group, keep it global
-
-            //  Mark the selected tab as active
-            $('li.tab').removeClass('active');
-            tab.parent().addClass('active');
-
-            //  Show the appropriate panel
-            $('section.tabs > div.tab-page').removeClass('active');
-            var newTab = tab.attr('data-tab');
-            $('section.tabs > div.tab-page.' + newTab).addClass('active');
-        }
-
-        // --------------------------------------------------------------------------
-
-        if (activeTab) {
-            $(activeTab).val(selectedTab);
-        }
-
-        // --------------------------------------------------------------------------
-
-        //  Add stripes to any visible form elements
-        base.addStripes();
-    };
-
-    // --------------------------------------------------------------------------
-
-    /**
      * Initialise any forms on the page
      * @return {Void}
      */
-    base.initForms = function() {
+    base.initForms = function () {
 
         base.addStripes();
         base.processPrefixedInputs();
@@ -379,13 +272,13 @@ NAILS_JS = function() {
 
     // --------------------------------------------------------------------------
 
-    base.initDatePickers = function() {
+    base.initDatePickers = function () {
 
         //  Init any datetime pickers
         if ($.fn.datepicker) {
 
             //  Date pickers
-            $('input.date').each(function() {
+            $('input.date').each(function () {
 
                 //  Fetch some info which may be available in the data attributes
                 var dateFormat = $(this).data('datepicker-dateformat') || 'yy-mm-dd';
@@ -407,7 +300,7 @@ NAILS_JS = function() {
         if ($.fn.datetimepicker) {
 
             //  Datetime pickers
-            $('input.datetime').each(function() {
+            $('input.datetime').each(function () {
 
                 //  Fetch some info which may be available in the data attributes
                 var dateFormat = $(this).data('datepicker-dateformat') || 'yy-mm-dd';
@@ -424,7 +317,7 @@ NAILS_JS = function() {
             });
 
             //  Time pickers
-            $('input.time').each(function() {
+            $('input.time').each(function () {
 
                 //  Fetch some info which may be available in the data attributes
                 var timeFormat = $(this).data('datepicker-timeformat') || 'HH:mm';
@@ -446,9 +339,9 @@ NAILS_JS = function() {
      * Add odd/even stripes to forms on the page
      * @return {Void}
      */
-    base.addStripes = function() {
+    base.addStripes = function () {
 
-        $('fieldset,.fieldset').each(function() {
+        $('fieldset,.fieldset').each(function () {
 
             $('div.field', this).removeClass('odd even');
             $('div.field:visible:odd', this).addClass('odd');
@@ -463,9 +356,9 @@ NAILS_JS = function() {
      * Process any prefixed inputs on the page
      * @return {Void}
      */
-    base.processPrefixedInputs = function() {
+    base.processPrefixedInputs = function () {
 
-        $('input[data-prefix]:not(.nails-prefixed)').each(function() {
+        $('input[data-prefix]:not(.nails-prefixed)').each(function () {
 
             var container = $('<div>').addClass('nails-prefixed').css('width', $(this).css('width'));
             var prefix = $('<div>').addClass('nails-prefix').html($(this).data('prefix'));
@@ -484,7 +377,7 @@ NAILS_JS = function() {
      * @param  {String} output The message to write
      * @return {Void}
      */
-    base.log = function(output) {
+    base.log = function (output) {
 
         if (window.console && window.ENVIRONMENT !== 'PRODUCTION') {
             console.log(output);
@@ -498,7 +391,7 @@ NAILS_JS = function() {
      * @param  {String} output The message to write
      * @return {Void}
      */
-    base.error = function(output) {
+    base.error = function (output) {
 
         if (window.console && window.ENVIRONMENT !== 'PRODUCTION') {
             console.error(output);
@@ -512,7 +405,7 @@ NAILS_JS = function() {
      * @param  {String} output The message to write
      * @return {Void}
      */
-    base.warn = function(output) {
+    base.warn = function (output) {
 
         if (window.console && window.ENVIRONMENT !== 'PRODUCTION') {
             console.warn(output);
