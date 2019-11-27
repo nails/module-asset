@@ -193,7 +193,7 @@ NAILS_Forms = function() {
         }
 
         //  Init the CDN Pickers
-        window.NAILS.CDN.ObjectPicker.initPickers();
+        window.NAILS.ADMIN.instances['nails/module-cdn'].ObjectPicker.initPickers();
     };
 
     // --------------------------------------------------------------------------
