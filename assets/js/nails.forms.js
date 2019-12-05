@@ -6,85 +6,11 @@ NAILS_Forms = function() {
     // --------------------------------------------------------------------------
 
     base.__construct = function() {
-        //  @todo: move into the CMS module
-        base.initWidgetEditors();
 
         //  @todo: move into CDN module
         base.initMultiFiles();
 
         base.initCharCounters();
-    };
-
-    // --------------------------------------------------------------------------
-
-    base.widgetEditor = null;
-    base.activeArea = null;
-    base.initWidgetEditors = function() {
-        var $btns = $('.field.cms-widgets .open-editor');
-        if (typeof window.WidgetEditor === 'object') {
-
-            //  Disable all buttons until the widgeteditor is ready
-            $btns.prop('disabled', true);
-
-            //  Set up an instance of the widget editor
-            base.widgetEditor = new window.WidgetEditor.default();
-            base.widgetEditor.construct();
-
-            $(base.widgetEditor)
-                .on('widgeteditor-ready', function() {
-                    $btns.prop('disabled', false);
-                });
-
-            //  Populate the editor with existing areas
-            $btns
-                .each(function() {
-
-                    //  Look for the associated input
-                    var key = $(this).data('key');
-                    var input = $(this).siblings('textarea.widget-data');
-
-                    if (input.length) {
-                        try {
-                            var widgetData = JSON.parse(input.val());
-                            base.widgetEditor.setAreaData(key, widgetData);
-                        } catch (e) {
-                            base.warn('Failed to parse JSON data');
-                            base.warn(e.message);
-                        }
-                    }
-                });
-
-            //  Bind to the things
-            $(document)
-                .on('click', '.field.cms-widgets .open-editor', function() {
-                    if (base.widgetEditor.isReady()) {
-                        base.activeArea = $(this);
-                        base.log('Opening Editor for area: ' + base.activeArea.data('key'));
-                        base.widgetEditor.show(base.activeArea.data('key'));
-                    } else {
-                        base.warn('Widget editor not ready');
-                    }
-                    return false;
-                });
-
-            $(base.widgetEditor)
-                .on('widgeteditor-close', function() {
-                    base.log('Editor Closing, getting area data and saving to input');
-                    var data = base.widgetEditor.getAreaData(base.activeArea.data('key'));
-                    var input = base.activeArea.siblings('textarea.widget-data');
-
-                    if (input.length) {
-                        input.val(JSON.stringify(data)).trigger('change');
-                    }
-
-                    base.activeArea = null;
-                });
-
-        } else {
-            $btns
-                .addClass('disabled')
-                .after('<p class="alert alert-warning">Module nails/module-cms is not available</p>');
-        }
     };
 
     // --------------------------------------------------------------------------
