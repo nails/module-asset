@@ -4,15 +4,15 @@
 if (typeof (console) === 'undefined') {
     var console;
     console = {
-        log: function () {
+        log: function() {
         },
-        debug: function () {
+        debug: function() {
         },
-        info: function () {
+        info: function() {
         },
-        warn: function () {
+        warn: function() {
         },
-        error: function () {
+        error: function() {
         }
     };
 }
@@ -21,7 +21,7 @@ if (typeof (console) === 'undefined') {
 // --------------------------------------------------------------------------
 
 var NAILS_Admin;
-NAILS_Admin = function () {
+NAILS_Admin = function() {
     /**
      * Avoid scope issues in callbacks and anonymous functions by referring to `this` as `base`
      * @type {Object}
@@ -34,22 +34,19 @@ NAILS_Admin = function () {
      * Construct the class
      * @return {Void}
      */
-    base.__construct = function () {
+    base.__construct = function() {
         //  @todo (Pablo - 2019-11-27) - Rewrite all of these as admin plugins
         base.initBoxes();
         base.initNavSearch();
         base.initNavReset();
         base.initSearchBoxes();
         base.initMobileMenu();
-        base.initToggles();
-        base.initWysiwyg();
         base.initSelect2();
         base.initNiceTime();
-        base.initSystemAlerts();
 
         // --------------------------------------------------------------------------
 
-        $(window).on('resize', function () {
+        $(window).on('resize', function() {
             base.initMatchHeights();
         }).trigger('resize');
 
@@ -58,7 +55,7 @@ NAILS_Admin = function () {
     // --------------------------------------------------------------------------
 
     base.localStorage = {
-        'enabled': (function () {
+        'enabled': (function() {
             var uid = new Date().toString();
             var storage;
             var result;
@@ -74,7 +71,7 @@ NAILS_Admin = function () {
             }
 
         }()),
-        'set': function (key, value) {
+        'set': function(key, value) {
 
             if (this.enabled) {
 
@@ -86,7 +83,7 @@ NAILS_Admin = function () {
                 return false;
             }
         },
-        'get': function (key) {
+        'get': function(key) {
 
             if (this.enabled) {
 
@@ -98,7 +95,7 @@ NAILS_Admin = function () {
                 return false;
             }
         },
-        'remove': function (key) {
+        'remove': function(key) {
 
             if (this.enabled) {
 
@@ -117,9 +114,9 @@ NAILS_Admin = function () {
      * Initialise the nav boxes
      * @return {Void}
      */
-    base.initBoxes = function () {
+    base.initBoxes = function() {
         //  Bind click events
-        $('.box .toggle').on('click', function () {
+        $('.box .toggle').on('click', function() {
             if ($(this).parents('.box').hasClass('open')) {
 
                 base.closeBox(this, true);
@@ -144,7 +141,7 @@ NAILS_Admin = function () {
         //  Set initial state of each box
         var _state, _toggle, _height, _container;
 
-        $('ul.modules li.module').each(function () {
+        $('ul.modules li.module').each(function() {
 
             _state = $(this).data('initial-state');
 
@@ -175,10 +172,10 @@ NAILS_Admin = function () {
             placeholder: 'sort-placeholder',
             items: 'li.module.sortable',
             handle: '.handle',
-            start: function (e, ui) {
+            start: function(e, ui) {
                 ui.placeholder.height(ui.helper.outerHeight());
             },
-            stop: function () {
+            stop: function() {
                 base.saveNav();
             }
         });
@@ -190,12 +187,12 @@ NAILS_Admin = function () {
      * Save the nav layout
      * @return {Void}
      */
-    base.saveNav = function () {
+    base.saveNav = function() {
         var _data, _open;
 
         _data = {};
 
-        $('ul.modules li.module').each(function () {
+        $('ul.modules li.module').each(function() {
             _open = $('.box', this).hasClass('open');
             _data[$(this).data('grouping')] = {
                 'open': _open
@@ -220,7 +217,7 @@ NAILS_Admin = function () {
      * @param  {Boolean} animate Whether to animate the movement
      * @return {Void}
      */
-    base.openBox = function (toggle, animate) {
+    base.openBox = function(toggle, animate) {
         var _id, _height;
 
         _id = $(toggle).parents('.box').attr('id');
@@ -253,7 +250,7 @@ NAILS_Admin = function () {
      * @param  {Boolean} animate Whether to animate the movement
      * @return {Void}
      */
-    base.closeBox = function (toggle, animate) {
+    base.closeBox = function(toggle, animate) {
         var _id;
 
         _id = $(toggle).parents('.box').attr('id');
@@ -279,8 +276,8 @@ NAILS_Admin = function () {
      * Initialise the nav searchbox
      * @return {Void}
      */
-    base.initNavSearch = function () {
-        $('.nav-search input').on('keyup', function () {
+    base.initNavSearch = function() {
+        $('.nav-search input').on('keyup', function() {
             var _search = $(this).val();
 
             if (_search.length) {
@@ -290,7 +287,7 @@ NAILS_Admin = function () {
                 //  Loop through each menu item and hide items which don't apply to the search term
                 $('.box li')
                     .removeClass('hidden')
-                    .each(function () {
+                    .each(function() {
                         var regex = new RegExp(_search, 'gi');
                         var text = $.trim($(this).text());
                         if (regex.test(text)) {
@@ -300,7 +297,7 @@ NAILS_Admin = function () {
                         }
                     });
 
-                $('.box').each(function () {
+                $('.box').each(function() {
                     if (!$(this).find('li:not(.hidden)').length) {
                         $(this).addClass('hidden');
                     } else {
@@ -318,7 +315,7 @@ NAILS_Admin = function () {
                 $('.box li').removeClass('hidden');
                 $('.box .toggle')
                     .removeClass('hidden')
-                    .each(function () {
+                    .each(function() {
                         if (!$(this).closest('.box').hasClass('closed')) {
                             base.openBox(this, false);
                         } else {
@@ -335,8 +332,8 @@ NAILS_Admin = function () {
      * Reset the nav layout
      * @return {Void}
      */
-    base.initNavReset = function () {
-        $('#admin-nav-reset-buttons a').on('click', function () {
+    base.initNavReset = function() {
+        $('#admin-nav-reset-buttons a').on('click', function() {
             if ($(this).data('action') === 'reset') {
 
                 _nails_api.call({
@@ -358,10 +355,10 @@ NAILS_Admin = function () {
                             'dialogClass': 'no-close',
                             'buttons':
                                 {
-                                    'OK': function () {
+                                    'OK': function() {
                                         $(this).dialog('close');
                                     },
-                                    'Reload': function () {
+                                    'Reload': function() {
                                         window.location.reload();
                                     }
                                 }
@@ -370,7 +367,7 @@ NAILS_Admin = function () {
 
             } else if ($(this).data('action') === 'open') {
 
-                $('ul.modules li.module').each(function () {
+                $('ul.modules li.module').each(function() {
 
                     var _toggle = $(this).find('.toggle');
                     base.openBox(_toggle, false);
@@ -379,7 +376,7 @@ NAILS_Admin = function () {
 
             } else if ($(this).data('action') === 'close') {
 
-                $('ul.modules li.module').each(function () {
+                $('ul.modules li.module').each(function() {
 
                     var _toggle = $(this).find('.toggle');
                     base.closeBox(_toggle, false);
@@ -397,13 +394,13 @@ NAILS_Admin = function () {
      * Initialise the admin search & sort boxes
      * @return {Void}
      */
-    base.initSearchBoxes = function () {
+    base.initSearchBoxes = function() {
         var timeout;
         //  Bind submit to select changes
-        $('div.search select, div.search input[type=checkbox]').on('change', function () {
+        $('div.search select, div.search input[type=checkbox]').on('change', function() {
             var $form = $(this).closest('form');
             clearTimeout(timeout);
-            timeout = setTimeout(function () {
+            timeout = setTimeout(function() {
                 $form.submit();
             }, 500);
         });
@@ -411,7 +408,7 @@ NAILS_Admin = function () {
         // --------------------------------------------------------------------------
 
         //  Show mask when submitting form
-        $('div.search form').on('submit', function () {
+        $('div.search form').on('submit', function() {
 
             $(this).closest('div.search').find('div.mask').show();
         });
@@ -419,7 +416,7 @@ NAILS_Admin = function () {
         // --------------------------------------------------------------------------
 
         //  Filter Checkboxes
-        $('div.search .filterOption input[type=checkbox]').on('change', function () {
+        $('div.search .filterOption input[type=checkbox]').on('change', function() {
 
             if ($(this).is(':checked')) {
 
@@ -432,7 +429,7 @@ NAILS_Admin = function () {
         });
 
         //  Initial styles
-        $('div.search .filterOption input[type=checkbox]').each(function () {
+        $('div.search .filterOption input[type=checkbox]').each(function() {
 
             if ($(this).is(':checked')) {
 
@@ -451,8 +448,8 @@ NAILS_Admin = function () {
      * Initialise the mobile menu
      * @return {Void}
      */
-    base.initMobileMenu = function () {
-        $('#mobileMenuBurger').on('click', function () {
+    base.initMobileMenu = function() {
+        $('#mobileMenuBurger').on('click', function() {
 
             var maxHeight = $(window).height() - 150;
 
@@ -474,144 +471,10 @@ NAILS_Admin = function () {
     // --------------------------------------------------------------------------
 
     /**
-     * Initialise jQuery toggles
-     * @return {Void}
-     */
-    base.initToggles = function () {
-        if ($.fn.toggles) {
-
-            $('.field.boolean:not(.toggled)').each(function () {
-
-                var _checkbox = $(this).find('input[type=checkbox]');
-                var _readonly = $(this).hasClass('readonly');
-                var _on = $(this).data('text-on') ? $(this).data('text-on') : 'ON';
-                var _off = $(this).data('text-off') ? $(this).data('text-off') : 'OFF';
-
-                $(this).find('.toggle').css({
-                    'width': '100px',
-                    'height': '30px'
-                }).toggles({
-                    'checkbox': _checkbox,
-                    'click': !_readonly,
-                    'drag': !_readonly,
-                    'clicker': _checkbox,
-                    'on': _checkbox.is(':checked'),
-                    'text': {
-                        'on': _on,
-                        'off': _off
-                    }
-                });
-
-                $(this).addClass('toggled');
-
-                _checkbox.hide();
-            });
-
-        } else {
-
-            base.error('NAILS_ADMIN_JS: jQuery Toggles not available.');
-        }
-    };
-
-    // --------------------------------------------------------------------------
-
-    base.basicConfig = window.NAILS.URL + 'js/ckeditor.config.basic.min.js';
-    base.defaultConfig = window.NAILS.URL + 'js/ckeditor.config.default.min.js';
-
-    /**
-     * Instantiates CKEditor instances
-     * @return {Void}
-     */
-    base.initWysiwyg = function () {
-        if ($.fn.ckeditor) {
-            _nails_api.call({
-                'controller': 'admin/ckeditor',
-                'method': 'configs',
-                'action': 'GET',
-                'success': function (response) {
-                    base.basicConfig = response.data.basic;
-                    base.defaultConfig = response.data.default;
-                    base.buildWysiwyg('basic');
-                    base.buildWysiwyg('default');
-                },
-                'error': function () {
-                    base.error('NAILS_ADMIN_JS: (CKEditor) Falling back to default configuration');
-                    base.buildWysiwyg('basic');
-                    base.buildWysiwyg('default');
-                }
-            });
-        } else {
-            base.error('NAILS_ADMIN_JS: CKEditor not available.');
-        }
-    };
-
-    // --------------------------------------------------------------------------
-
-    /**
-     * Build WYSIWYG editors
-     * @param  {String} type       The type of editor to build [basic|default]
-     * @param  {Object} domElement Restrict operations to this dom element
-     * @return {Object}
-     */
-    base.buildWysiwyg = function (type, domElement) {
-
-        if (type === 'basic') {
-
-            $('.wysiwyg.wysiwyg-basic:not(.wysiwyged)', domElement)
-                .ckeditor({
-                    customConfig: base.basicConfig
-                })
-                .addClass('wysiwyged');
-
-        } else if (type === 'default') {
-
-            $('.wysiwyg:not(.wysiwyged)', domElement)
-                .ckeditor({
-                    customConfig: base.defaultConfig
-                })
-                .addClass('wysiwyged');
-        }
-
-        return base;
-    };
-
-    // --------------------------------------------------------------------------
-
-    /**
-     * Build WYSIWYG editors
-     * @param  {String} type       The type of editor to destroy [basic|default]
-     * @param  {Object} domElement Restrict operations to this dom element
-     * @return {Object}
-     */
-    base.destroyWysiwyg = function (type, domElement) {
-
-        if (type === 'basic') {
-
-            $('.wysiwyg.wysiwyg-basic.wysiwyged', domElement)
-                .ckeditor(function () {
-                    this.destroy();
-                })
-                .removeClass('wysiwyged');
-
-        } else if (type === 'default') {
-
-            $('.wysiwyg.wysiwyged', domElement)
-                .ckeditor(function () {
-                    this.destroy();
-                })
-                .removeClass('wysiwyged');
-        }
-
-        return base;
-    };
-
-    // --------------------------------------------------------------------------
-
-    /**
      * Initialsie select2 elements
      * @return {Void}
      */
-    base.initSelect2 = function () {
+    base.initSelect2 = function() {
         if ($.fn.select2) {
 
             $('select.select2:not(.select2-offscreen)').select2();
@@ -628,11 +491,11 @@ NAILS_Admin = function () {
      * Initialise nicetime elements
      * @return {Void}
      */
-    base.initNiceTime = function () {
+    base.initNiceTime = function() {
         var _elems = $('.nice-time:not(.nice-timed)'); // Fetch just new objects
 
         //  Fetch objects which can be nice-timed
-        _elems.each(function () {
+        _elems.each(function() {
 
             //  Setup variables
             var _src = $(this).text();
@@ -689,7 +552,7 @@ NAILS_Admin = function () {
         // --------------------------------------------------------------------------
 
         //  Nice time-ify everything
-        $('.nice-timed').each(function () {
+        $('.nice-timed').each(function() {
             //  Pick up date form object
             var _Y = $(this).attr('data-year');
             var _M = $(this).attr('data-month') - 1; //  Because the date object does months from 0
@@ -751,7 +614,7 @@ NAILS_Admin = function () {
      * @param  {Number} diff The difference between then and now
      * @return {String}
      */
-    base.initNiceTimeCalc = function (diff) {
+    base.initNiceTimeCalc = function(diff) {
         var _value = 0;
         var _term = '';
 
@@ -824,26 +687,11 @@ NAILS_Admin = function () {
     // --------------------------------------------------------------------------
 
     /**
-     * Initialise system-alerts
-     * @return {Void}
-     */
-    base.initSystemAlerts = function () {
-        $('.alert__close')
-            .on('click', function () {
-                $(this)
-                    .closest('.alert')
-                    .remove();
-            });
-    };
-
-    // --------------------------------------------------------------------------
-
-    /**
      * Write an error to the console
      * @param  {string} output The error to write
      * @return {Void}
      */
-    base.error = function (output) {
+    base.error = function(output) {
         if (window.console && window.ENVIRONMENT !== 'PRODUCTION') {
 
             console.error(output);
@@ -861,7 +709,7 @@ NAILS_Admin = function () {
      * @param  {String} thousands_sep The string to use for the thousands separator
      * @return {String}
      */
-    base.numberFormat = function (number, decimals, dec_point, thousands_sep) {
+    base.numberFormat = function(number, decimals, dec_point, thousands_sep) {
 
         number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
 
@@ -870,7 +718,7 @@ NAILS_Admin = function () {
         var sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep;
         var dec = (typeof dec_point === 'undefined') ? '.' : dec_point;
         var s = '';
-        var toFixedFix = function (n, prec) {
+        var toFixedFix = function(n, prec) {
             var k = Math.pow(10, prec);
             return '' + (Math.round(n * k) / k)
                 .toFixed(prec);
@@ -894,14 +742,14 @@ NAILS_Admin = function () {
 
     // --------------------------------------------------------------------------
 
-    base.initMatchHeights = function () {
+    base.initMatchHeights = function() {
         var heights, elements, group;
 
         heights = {};
         elements = $('.match-height');
 
         //  Calculate the max height
-        elements.each(function () {
+        elements.each(function() {
 
             //  Reset the height
             $(this).height('');
@@ -918,7 +766,7 @@ NAILS_Admin = function () {
         });
 
         //  Set the computed max height
-        elements.each(function () {
+        elements.each(function() {
 
             group = $(this).data('height-group') || 'default';
 
