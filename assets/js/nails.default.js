@@ -266,7 +266,6 @@ NAILS_JS = function () {
      */
     base.initForms = function () {
 
-        base.addStripes();
         base.processPrefixedInputs();
     };
 
@@ -331,23 +330,6 @@ NAILS_JS = function () {
         } else {
             base.log('NAILS_JS: datetimepicker not available.');
         }
-    };
-
-    // --------------------------------------------------------------------------
-
-    /**
-     * Add odd/even stripes to forms on the page
-     * @return {Void}
-     */
-    base.addStripes = function () {
-
-        $('fieldset,.fieldset').each(function () {
-
-            $('div.field', this).removeClass('odd even');
-            $('div.field:visible:odd', this).addClass('odd');
-            $('div.field:visible:even', this).addClass('even');
-
-        });
     };
 
     // --------------------------------------------------------------------------
