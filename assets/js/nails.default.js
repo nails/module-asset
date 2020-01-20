@@ -44,7 +44,6 @@ NAILS_JS = function () {
         base.initSystemAlerts();
         base.initTipsy();
         base.initFancybox();
-        base.initConfirm();
         base.initForms();
         base.initDatePickers();
     };
@@ -211,51 +210,6 @@ NAILS_JS = function () {
 
             base.log('NAILS_JS: Fancybox not available.');
         }
-    };
-
-    // --------------------------------------------------------------------------
-
-    /**
-     * Initialise any confirm links or buttons on the page
-     * @return {Void}
-     */
-    base.initConfirm = function () {
-
-        var link, body, title;
-
-        $(document).on('click', 'a.confirm', function () {
-
-            link = $(this);
-            body = link.data('body') || 'Please confirm you\'d like to continue with this action.';
-            body.replace(/\\n/g, '\n');
-            title = link.data('title') || 'Are you sure?';
-
-            if (body.length) {
-
-                $('<div>').html(body).dialog({
-                    'title': title,
-                    'resizable': false,
-                    'draggable': false,
-                    'modal': true,
-                    'dialogClass': 'no-close',
-                    'buttons': {
-                        'OK': function () {
-                            window.location.href = link.attr('href');
-                        },
-                        'Cancel': function () {
-                            $(this).dialog('close');
-                        }
-                    }
-                });
-
-                return false;
-
-            } else {
-
-                //  No message, just let the event bubble as normal.
-                return true;
-            }
-        });
     };
 
     // --------------------------------------------------------------------------
