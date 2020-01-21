@@ -41,7 +41,6 @@ NAILS_Admin = function() {
         base.initNavReset();
         base.initSearchBoxes();
         base.initMobileMenu();
-        base.initSelect2();
         base.initNiceTime();
 
         // --------------------------------------------------------------------------
@@ -466,23 +465,6 @@ NAILS_Admin = function() {
 
             return false;
         });
-    };
-
-    // --------------------------------------------------------------------------
-
-    /**
-     * Initialsie select2 elements
-     * @return {Void}
-     */
-    base.initSelect2 = function() {
-        if ($.fn.select2) {
-
-            $('select.select2:not(.select2-offscreen)').select2();
-
-        } else {
-
-            this.error('NAILS_JS: Select2 not available.');
-        }
     };
 
     // --------------------------------------------------------------------------
