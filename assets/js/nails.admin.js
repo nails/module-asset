@@ -1,5 +1,5 @@
 //  Catch undefined console
-/* globals console, _nails_api  */
+/* globals console  */
 /* jshint ignore:start */
 if (typeof (console) === 'undefined') {
     var console;
@@ -198,10 +198,9 @@ NAILS_Admin = function() {
             };
         });
 
-        _nails_api.call({
-            'controller': 'admin/nav',
-            'method': 'save',
-            'action': 'POST',
+        $.ajax({
+            'url': window.SITE_URL + 'api/admin/nav/save',
+            'method': 'POST',
             'data': {
                 'preferences': _data
             }
@@ -335,10 +334,9 @@ NAILS_Admin = function() {
         $('#admin-nav-reset-buttons a').on('click', function() {
             if ($(this).data('action') === 'reset') {
 
-                _nails_api.call({
-                    'controller': 'admin/nav',
-                    'method': 'reset',
-                    'action': 'POST'
+                $.ajax({
+                    'url': window.SITE_URL + 'api/admin/nav/reset',
+                    'method': 'POST'
                 });
 
                 // --------------------------------------------------------------------------

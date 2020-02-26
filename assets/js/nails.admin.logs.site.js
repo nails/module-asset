@@ -1,4 +1,4 @@
-/* global _nails_api, Mustache */
+/* global Mustache */
 var NAILS_Admin_Logs_Site;
 NAILS_Admin_Logs_Site = function() {
     /**
@@ -24,26 +24,26 @@ NAILS_Admin_Logs_Site = function() {
      * @return {Void}
      */
     base.fetchLogs = function() {
-        var call = {
-            'controller': 'admin',
-            'method': 'logs/site',
-            'success': function(response) {
+        $.ajax({
+            'url': window.SITE_URL + 'api/admin/logs/site',
+        })
+            .done(function(response) {
                 base.fetchLogsOk(response.data);
-            },
-            'error': function(data) {
-                var _data;
+            })
+            .fail(function(response) {
+
+                var data;
+
                 try {
-                    _data = JSON.parse(data);
-
-                } catch (err) {
-
-                    _data = {};
+                    data = JSON.parse(response.responseText);
+                } catch (e) {
+                    data = {
+                        'status': 500,
+                        'error': 'An unknown error occurred.'
+                    };
                 }
-
-                base.fetchLogsFail(_data);
-            }
-        };
-        _nails_api.call(call);
+                base.fetchLogsFail(data);
+            });
     };
 
     // --------------------------------------------------------------------------
