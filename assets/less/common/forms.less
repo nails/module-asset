@@ -230,6 +230,20 @@ div.field {
                 box-sizing: border-box;
                 width: 100%;
                 margin: 0;
+
+                & + input[type=text],
+                & + input[type=password],
+                & + input[type=email],
+                & + input[type=number],
+                & + input[type=url],
+                & + input[type=color],
+                & + input[type=file],
+                & + input[type=time],
+                & + textarea,
+                & + select,
+                & + .select2 {
+                    margin-top: 0.5rem;
+                }
             }
 
             small {
