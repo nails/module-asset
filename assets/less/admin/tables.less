@@ -14,7 +14,8 @@ table {
     border: 1px solid #efefef;
     margin-bottom: 1em;
 
-    thead {
+    thead,
+    tfoot {
         tr {
             th {
                 font-size: 11px;
@@ -22,7 +23,7 @@ table {
                 text-align: left;
                 padding: @table_th_padding_top @table_th_padding_right @table_th_padding_bottom @table_th_padding_left;
                 text-transform: uppercase;
-                color: #fff;
+                color: #ffffff;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -61,10 +62,11 @@ table {
         }
     }
 
-    tbody {
+    tbody,
+    tfoot {
         tr {
             td {
-                background: #fff;
+                background: #ffffff;
                 border-bottom: 1px solid #efefef;
                 border-right: 1px solid #efefef;
                 vertical-align: middle;
@@ -77,7 +79,7 @@ table {
                 &.action:empty:before,
                 &.actions:empty:before {
                     content: 'No Actions';
-                    color: #ccc;
+                    color: #cccccc;
                 }
 
                 small {
@@ -89,12 +91,12 @@ table {
                     &:not(.btn) {
                         &:link,
                         &:visited {
-                            color: #000;
+                            color: #000000;
                             text-decoration: none;
                         }
 
                         &:hover {
-                            color: #999;
+                            color: #999999;
                         }
                     }
 
@@ -127,7 +129,7 @@ table {
 
                 .no-data,
                 .blank {
-                    color: #ccc;
+                    color: #cccccc;
                 }
 
                 &.danger {
@@ -153,7 +155,7 @@ table {
                 &.no-data {
                     height: 75px;
                     text-align: center;
-                    color: #aaa;
+                    color: #aaaaaa;
                     text-transform: uppercase;
                 }
 
@@ -166,8 +168,8 @@ table {
                         position: absolute;
                         left: @table_td_padding_left;
                         padding: 3px;
-                        border: 1px solid #eee;
-                        background: #fff url(../img/loader/10px-FFFFFF.gif) center no-repeat;
+                        border: 1px solid #eeeeee;
+                        background: #ffffff url(../img/loader/10px-FFFFFF.gif) center no-repeat;
                         width: 35px;
                         height: 35px;
                         .rounded(3px);
@@ -211,8 +213,8 @@ table {
                         height: 7px;
                         width: 7px;
                         .rounded(7px);
-                        background: #fff;
-                        border: 1px solid #ccc;
+                        background: #ffffff;
+                        border: 1px solid #cccccc;
 
                         &:nth-child(2) {
                             top: 24px;
@@ -231,7 +233,7 @@ table {
                         &:nth-child(7),
                         &:nth-child(8) {
                             top: 40px;
-                            background: #ccc;
+                            background: #cccccc;
                         }
                     }
 
