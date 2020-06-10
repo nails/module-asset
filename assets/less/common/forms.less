@@ -296,6 +296,13 @@ div.field {
             width: 100%;
         }
 
+        //  Fixes bug with revealer plugin where the textarea would lose its display: none value on reveal
+        &.textarea {
+            textarea.wysiwyged {
+                display: none !important;
+            }
+        }
+
         &.file-download {
             display: block;
             clear: left;
