@@ -122,9 +122,19 @@ table {
                 input[type=number],
                 input[type=email],
                 input[type=password],
+                input[type=url],
                 textarea {
                     margin-bottom: 0;
                     width: 100%;
+
+                    & + input[type=text],
+                    & + input[type=number],
+                    & + input[type=email],
+                    & + input[type=password],
+                    & + input[type=url],
+                    & + textarea {
+                        margin-top: 0.5rem;
+                    }
                 }
 
                 .no-data,
