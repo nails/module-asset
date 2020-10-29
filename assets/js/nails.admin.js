@@ -276,7 +276,7 @@ NAILS_Admin = function() {
      */
     base.initNavSearch = function() {
         $('.nav-search input').on('keyup', function() {
-            var _search = $(this).val();
+            var _search = base.normaliseSearchString($(this).val());
 
             if (_search.length) {
 
@@ -287,7 +287,7 @@ NAILS_Admin = function() {
                     .removeClass('hidden')
                     .each(function() {
                         var regex = new RegExp(_search, 'gi');
-                        var text = $.trim($(this).text());
+                        var text = base.normaliseSearchString($.trim($(this).text() + $(this).find('> a').data('search-terms')));
                         if (regex.test(text)) {
                             $(this).removeClass('hidden');
                         } else {
@@ -323,6 +323,19 @@ NAILS_Admin = function() {
             }
         });
     };
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Normalises a search stirng for better results
+     * @param searchString
+     */
+    base.normaliseSearchString = function(searchString) {
+
+        searchString = searchString.replace(/[^a-zA-Z0-9]/g, '');
+        console.log(searchString);
+        return searchString;
+    }
 
     // --------------------------------------------------------------------------
 
