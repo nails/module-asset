@@ -333,7 +333,6 @@ NAILS_Admin = function() {
     base.normaliseSearchString = function(searchString) {
 
         searchString = searchString.replace(/[^a-zA-Z0-9]/g, '');
-        console.log(searchString);
         return searchString;
     }
 
