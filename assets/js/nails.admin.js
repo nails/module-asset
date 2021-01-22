@@ -334,7 +334,7 @@ NAILS_Admin = function() {
 
         searchString = searchString.replace(/[^a-zA-Z0-9]/g, '');
         return searchString;
-    }
+    };
 
     // --------------------------------------------------------------------------
 

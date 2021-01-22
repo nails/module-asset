@@ -35,7 +35,6 @@ let jsSuccessOnLast = true;
 //  Common
 let gulp = require('gulp');
 let plumber = require('gulp-plumber');
-let notify = require('gulp-notify');
 let path = require('path');
 
 //  CSS
@@ -49,19 +48,6 @@ let uglify = require('gulp-uglify');
 let rename = require('gulp-rename');
 let jshint = require('gulp-jshint');
 
-// --------------------------------------------------------------------------
-
-let onError = function(err) {
-    notify
-        .onError({
-            title: 'Check your Terminal',
-            message: '<%= error.message %>',
-            sound: 'Funk',
-            contentImage: path.join(__dirname, 'assets/img/nails/icon/icon-red@2x.png'),
-            icon: false,
-            onLast: true
-        })(err);
-};
 
 // --------------------------------------------------------------------------
 
@@ -90,23 +76,13 @@ gulp.task('css', function() {
 
     //  CSS
     return gulp.src(watchCss)
-        .pipe(plumber({
-            errorHandler: onError
-        }))
+        .pipe(plumber())
         .pipe(less())
         .pipe(autoprefixer({
             cascade: autoPrefixCascade
         }))
         .pipe(cleanCss())
-        .pipe(gulp.dest(cssDest))
-        .pipe(notify({
-            title: cssSuccessTitle,
-            message: cssSuccessBody,
-            sound: cssSuccessSound,
-            contentImage: path.join(__dirname, 'assets/img/nails/icon/icon@2x.png'),
-            icon: cssSuccessIcon,
-            onLast: cssSuccessOnLast
-        }));
+        .pipe(gulp.dest(cssDest));
 });
 
 // --------------------------------------------------------------------------
@@ -118,9 +94,7 @@ gulp.task('js', function() {
 
     //  JS
     return gulp.src(watchJs)
-        .pipe(plumber({
-            errorHandler: onError
-        }))
+        .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('jshint-stylish'))
@@ -129,15 +103,7 @@ gulp.task('js', function() {
             suffix: minifiedSuffix
         }))
         .pipe(sourcemaps.write(sourcemapDest, sourcemapOptions))
-        .pipe(gulp.dest(jsDest))
-        .pipe(notify({
-            title: jsSuccessTitle,
-            message: jsSuccessBody,
-            sound: jsSuccessSound,
-            contentImage: path.join(__dirname, 'assets/img/nails/icon/icon@2x.png'),
-            icon: jsSuccessIcon,
-            onLast: jsSuccessOnLast
-        }));
+        .pipe(gulp.dest(jsDest));
 });
 
 
