@@ -7,7 +7,6 @@ module.exports = {
         'ckeditor.config.default': './assets/js/ckeditor.config.default.js',
         'nails.admin': './assets/js/nails.admin.js',
         'nails.admin.ckeditor': './assets/js/nails.admin.ckeditor.js',
-        'nails.admin.export': './assets/js/nails.admin.export.js',
         'nails.admin.logs.site': './assets/js/nails.admin.logs.site.js',
         'nails.forms': './assets/js/nails.forms.js',
     },

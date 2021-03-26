@@ -746,4 +746,6 @@ let _nails_admin = function() {
     // --------------------------------------------------------------------------
 
     return base.__construct();
-}();
+};
+
+window._nails_admin = new _nails_admin();

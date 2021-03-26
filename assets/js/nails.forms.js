@@ -228,4 +228,6 @@ let _nails_forms =function() {
     // --------------------------------------------------------------------------
 
     return base.__construct();
-}();
+};
+
+window._nails_forms = new _nails_forms();
