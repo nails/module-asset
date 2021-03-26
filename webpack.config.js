@@ -9,7 +9,6 @@ module.exports = {
         'nails.admin.ckeditor': './assets/js/nails.admin.ckeditor.js',
         'nails.admin.export': './assets/js/nails.admin.export.js',
         'nails.admin.logs.site': './assets/js/nails.admin.logs.site.js',
-        'nails.api': './assets/js/nails.api.js',
         'nails.forms': './assets/js/nails.forms.js',
     },
     output: {

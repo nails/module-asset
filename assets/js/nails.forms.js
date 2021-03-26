@@ -1,6 +1,5 @@
 /* globals console, Mustache */
-var NAILS_Forms;
-NAILS_Forms = function() {
+let _nails_forms =function() {
     var base = this;
 
     // --------------------------------------------------------------------------
@@ -229,4 +228,4 @@ NAILS_Forms = function() {
     // --------------------------------------------------------------------------
 
     return base.__construct();
-};
+}();
