@@ -19,7 +19,7 @@ CKEDITOR.plugins.addExternal('codemirror', window.NAILS.URL + 'js/ckeditor.plugi
  * Define the CSS to use in the content area
  * @type {String}
  */
-CKEDITOR.config.contentsCss = window.NAILS.URL + 'css/nails.admin.ckeditor.css';
+CKEDITOR.config.contentsCss = window.NAILS.URL + 'css/nails.admin.ckeditor.min.css';
 
 /**
  * Define the CKEditor config object
