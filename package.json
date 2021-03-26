@@ -1,34 +1,26 @@
 {
-  "name": "nails-module-asset",
-  "description": "This module provides pre-compiled assets which are used by Nails modules.",
-  "author": "Nails Dev Team <hello@nailsapp.co.uk>",
-  "analyze": true,
-  "license": "MIT",
-  "repository": "https://github.com/nails/module-asset",
-  "devDependencies": {
-    "bower": "^1.8",
-    "gulp": "^4.0",
-    "gulp-autoprefixer": "^7.0",
-    "gulp-clean-css": "^4.2",
-    "gulp-jshint": "^2.0",
-    "gulp-less": "^4.0",
-    "gulp-plumber": "^1.2",
-    "gulp-rename": "^2.0",
-    "gulp-sourcemaps": "^3.0",
-    "gulp-uglify": "^3.0",
-    "jshint": "^2.10",
-    "jshint-stylish": "^2.2",
-    "less": "^3.9",
-    "natives": "^1.1"
-  },
-  "scripts": {
-    "build": "./node_modules/.bin/gulp build",
-    "watch": "./node_modules/.bin/gulp watch"
-  },
-  "browserslist": [
-    "last 2 versions",
-    "> 1%",
-    "maintained node versions",
-    "not dead"
-  ]
+    "name": "nails-module-asset",
+    "description": "This is the \"Asset\" module for Nails.",
+    "author": "hello@nailsapp.co.uk",
+    "analyze": true,
+    "license": "MIT",
+    "repository": "https://github.com/nails/module-asset",
+    "devDependencies": {
+        "autoprefixer": "^9.8",
+        "css-loader": "^5.1",
+        "mini-css-extract-plugin": "^1.3",
+        "sass": "^1.32",
+        "postcss-loader": "^3.0",
+        "sass-loader": "^11.0",
+        "webpack": "^5.27",
+        "webpack-cli": "^4.5"
+    },
+    "dependencies": {
+        "bootstrap-sass": "^3.4",
+        "ckeditor4": "~4.16"
+    },
+    "scripts": {
+        "build": "webpack",
+        "watch": "webpack --watch"
+    }
 }
