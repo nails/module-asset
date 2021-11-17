@@ -17,7 +17,7 @@
     },
     "dependencies": {
         "bootstrap-sass": "^3.4",
-        "ckeditor4": "~4.16"
+        "ckeditor4": "~4.17"
     },
     "scripts": {
         "build": "webpack",
