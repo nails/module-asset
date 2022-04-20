@@ -22,6 +22,12 @@ CKEDITOR.plugins.addExternal('codemirror', window.NAILS.URL + 'js/ckeditor.plugi
 CKEDITOR.config.contentsCss = window.NAILS.URL + 'css/nails.admin.ckeditor.min.css';
 
 /**
+ * enable native spell checking
+ * @type {Bool}
+ */
+CKEDITOR.config.disableNativeSpellChecker = false;
+
+/**
  * Define the CKEditor config object
  */
 CKEDITOR.editorConfig = function(config) {
