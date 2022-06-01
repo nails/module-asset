@@ -378,10 +378,10 @@ chrome-trace-event@^1.0.2:
   dependencies:
     tslib "^1.9.0"
 
-ckeditor4@~4.18:
-  version "4.18.0"
-  resolved "https://registry.yarnpkg.com/ckeditor4/-/ckeditor4-4.18.0.tgz#d54861a9d5a01029f16a54b820a4af10d3bbc156"
-  integrity sha512-O4tnQCH0APKrBsz78L+m48s9Cs90aq0Nsatmh9CUj2YBTh8UZYdYcelBLVA84SlwA1nsx07aC76Zn08vgHqmLQ==
+ckeditor4@~4.19:
+  version "4.19.0"
+  resolved "https://registry.yarnpkg.com/ckeditor4/-/ckeditor4-4.19.0.tgz#eba0af7e3e044e1f14d914ff53a128cd8d09e8a0"
+  integrity sha512-hh+SslqHmqr9xmcUVMgdmWjO4tdxW+Lzd6jfxDzzjf6zwIFIoNSflgCqUvg2wcry4w0dHgdEoxVMdoJK9E7kUw==
 
 clone-deep@^4.0.1:
   version "4.0.1"
