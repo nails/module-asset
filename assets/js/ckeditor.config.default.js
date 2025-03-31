@@ -183,9 +183,9 @@ CKEDITOR.editorConfig = function(config) {
      * Configure the CDN endpoints
      * @type {string}
      */
-    config.filebrowserImageBrowseUrl = window.SITE_URL + 'admin/cdn/manager?isModal=1';
-    config.filebrowserFlashBrowseUrl = window.SITE_URL + 'admin/cdn/manager?isModal=1';
-    config.filebrowserBrowseUrl = window.SITE_URL + 'admin/cdn/manager?isModal=1';
+    config.filebrowserImageBrowseUrl = window.SITE_URL + 'admin/cdn/manager/choose?isModal=1';
+    config.filebrowserFlashBrowseUrl = window.SITE_URL + 'admin/cdn/manager/choose?isModal=1';
+    config.filebrowserBrowseUrl = window.SITE_URL + 'admin/cdn/manager/choose?isModal=1';
 
     /**
      * Dialog colour; tie it in with the rest of admin
