@@ -180,14 +180,6 @@ CKEDITOR.editorConfig = function(config) {
     config.autoGrow_maxHeight = 500;
 
     /**
-     * Configure the CDN endpoints
-     * @type {string}
-     */
-    config.filebrowserImageBrowseUrl = window.SITE_URL + 'admin/cdn/mediaManager?isModal=1';
-    config.filebrowserFlashBrowseUrl = window.SITE_URL + 'admin/cdn/mediaManager?isModal=1';
-    config.filebrowserBrowseUrl = window.SITE_URL + 'admin/cdn/mediaManager?isModal=1';
-
-    /**
      * Dialog colour; tie it in with the rest of admin
      * @type {String}
      */
@@ -218,6 +210,38 @@ CKEDITOR.editorConfig = function(config) {
      */
     config.pasteFilter = 'p; a[!href]; strong; em';
 };
+
+/**
+ * Resolve the CDN media manager URL dynamically per-user and apply it to each editor instance.
+ * CKEditor reads filebrowser*BrowseUrl at dialog-open time, so setting it in instanceReady
+ * is early enough — the fetch resolves long before any user interaction.
+ */
+(function() {
+    'use strict';
+
+    var urlPromise = window.fetch(window.SITE_URL + 'api/cdn/manager/url?isModal=1')
+        .then(function(r) {
+            return r.json();
+        })
+        .then(function(json) {
+            return json.data;
+        })
+        .catch(function() {
+            return null;
+        });
+
+    CKEDITOR.on('instanceReady', function(e) {
+        var editor = e.editor;
+        urlPromise.then(function(url) {
+            if (!url) {
+                return;
+            }
+            editor.config.filebrowserBrowseUrl = url;
+            editor.config.filebrowserImageBrowseUrl = url;
+            editor.config.filebrowserFlashBrowseUrl = url;
+        });
+    });
+}());
 
 /**
  * Change the default values of the table dialog
